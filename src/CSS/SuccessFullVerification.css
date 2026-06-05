@@ -1,0 +1,41 @@
+.fg-success-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.fg-success-wrapper {
+  width: 95%;
+  max-width: 480px;
+  text-align: center;
+}
+
+.fg-success-icon-box {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.fg-success-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.fg-success-title.ant-typography {
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  color: #000000 !important;
+  margin: 0 0 12px 0 !important;
+}
+
+.fg-success-subtitle.ant-typography {
+  font-size: 15px !important;
+  color: #6b7280 !important;
+}

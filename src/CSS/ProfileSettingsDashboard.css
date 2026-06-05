@@ -1,0 +1,255 @@
+.fg-dashboard-stack-container {
+  width: 100%;
+  padding: 24px 0;
+  background-color: #fcfcfc;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.fg-dashboard-inner-wrapper {
+  width: 95%;
+  max-width: 950px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+/* Master Card Layout Panel */
+.fg-dashboard-card-panel {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 28px 32px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fg-dashboard-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #0c1a30;
+}
+
+.fg-dashboard-header-icon {
+  font-size: 20px;
+  stroke-width: 2.3;
+}
+
+.fg-dashboard-header-title {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Notification Toggles Stack */
+.fg-notify-rows-stack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.fg-notify-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #f3f4f6;
+  box-sizing: border-box;
+}
+
+.fg-notify-item-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.fg-notify-item-row:first-child {
+  padding-top: 0;
+}
+
+.fg-notify-meta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fg-notify-item-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.fg-notify-item-desc {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Toggle Switch Control Custom Styling */
+.fg-notify-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.fg-notify-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.fg-notify-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cbd5e1;
+  transition: .25s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 34px;
+}
+
+.fg-notify-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #ffffff;
+  transition: .25s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+}
+
+input:checked + .fg-notify-toggle-slider {
+  background-color: #044335;
+}
+
+input:checked + .fg-notify-toggle-slider:before {
+  transform: translateX(24px);
+}
+
+/* Security Clickable Settings Bar */
+.fg-dashboard-action-row-item {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: background-color 0.15s ease;
+}
+
+.fg-dashboard-action-row-item:hover {
+  background-color: #f9fafb;
+}
+
+.fg-dashboard-item-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.fg-dashboard-arrow-icon {
+  color: #9ca3af;
+  font-size: 18px;
+}
+
+/* Language Selection Styling */
+.fg-dashboard-select-field-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.fg-dashboard-native-dropdown {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #111827;
+  background-color: #ffffff;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  box-sizing: border-box;
+}
+
+.fg-dashboard-dropdown-arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4b5563;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+/* Logout Option Row Box Styles */
+.fg-dashboard-logout-action-trigger {
+  width: 100%;
+  height: 48px;
+  background-color: #ffffff;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: #dc2626;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease;
+}
+
+.fg-dashboard-logout-action-trigger:hover {
+  background-color: #fef2f2;
+}
+
+.fg-dashboard-logout-icon {
+  font-size: 18px;
+  stroke-width: 2.3;
+}
+
+/* ── RESPONSIVE DASHBOARD MEDIA QUERY ── */
+@media screen and (max-width: 768px) {
+  .fg-dashboard-card-panel {
+    border: none;
+    box-shadow: none;
+    padding: 16px 10px;
+    background-color: transparent;
+    gap: 16px;
+  }
+
+  .fg-dashboard-inner-wrapper {
+    width: 95%;
+    gap: 12px;
+  }
+
+  .fg-dashboard-header-title {
+    font-size: 17px;
+  }
+
+  .fg-dashboard-logout-action-trigger {
+    border-radius: 0px !important;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+  }
+}

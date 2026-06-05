@@ -1,0 +1,226 @@
+.hero-image-container{
+  background-image:url('/src/assets/2e662f2d8e464031e026c75489347d46ee2583ab.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+ 
+}
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    100deg, 
+    rgba(28, 54, 48, 0.92) 0%, 
+    rgba(29, 91, 77, 0.85) 2%, 
+    transparent 100%
+    
+  );
+  z-index: 1;
+}
+.hero-text{
+    width: 70%;
+    height: 90%;
+    background: radial-gradient();
+    left: 4%;
+     top: 17%;
+     color:var(--primary-text-color);
+    position: absolute;
+}
+
+.hero-button{
+    font-size: 16px;
+    border-radius: 20rem;
+    width: 35%;
+    padding: 10px 13px;
+    text-align: center;
+    background-color: #1b5343;
+    border: 2px #007A55 solid;
+    margin-bottom: 15px;
+}
+.hero-first-text{
+    font-size: 60px;
+    margin-bottom: 15px;
+    font-weight:700;
+}
+.hero-buttons{
+    color: aliceblue;
+     background-color: var(--lighter-green);
+     border: none;
+     font-size: 20px;
+}
+.button-container{
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+}
+.hero-button-two{
+  background-color: transparent;
+  color: aliceblue;
+  font-size: 20px;
+  border: var(--lighter-green) 1px solid;
+}
+.input-text-two{
+    display: flex;
+    margin-top: 60px;
+    gap: 20px;
+    align-items: center;
+}
+.text-two{
+    font-size: 40px;
+     color: aliceblue; 
+}
+.span-hero-text{
+  color:var(--primary-yellow);
+}
+
+.hero-text-three{
+    font-size: 12px;
+}
+.session-text{
+    font-size: 25px;
+}
+
+/* MEDIA QUEERRY */
+@media (max-width: 768px) {
+
+  .hero-image-container {
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .overlay {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 60px 24px 40px 24px;
+    box-sizing: border-box;
+    background: (
+      200deg,
+      rgba(28, 54, 48, 0.95) 0%,
+      rgba(29, 91, 77, 0.92) 100%
+      transparent 100%
+    );
+  }
+
+  .hero-text {
+    position: static;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-button {
+    display: none;
+  }
+
+  .hero-first-text {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #ffffff;
+    margin-top: 5rem;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .session-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #e0e0e0;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .session-text br {
+    display: none;
+  }
+
+  .button-container {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-top: 0;
+    margin-bottom: 4rem;
+  }
+
+  .hero-buttons {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: var(--lighter-green);
+    color: #ffffff;
+    border: none;
+    text-align: center;
+  }
+
+  .hero-button-two {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    text-align: center;
+  }
+
+  .input-text-two {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 0;
+    padding: 24px 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .input-text-two > div {
+    flex: 1;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+   
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .text-two {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--lighter-green);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .span-hero-text {
+    color: var(--primary-yellow);
+  }
+
+  .hero-text-three {
+    font-size: 11px;
+    line-height: 1.3;
+    color: #edf1f7;
+    margin: 0;
+    text-align: center;
+  }
+}

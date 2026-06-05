@@ -1,0 +1,281 @@
+.fg-single-job-card {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  gap: 24px;
+  width: 100%;
+}
+
+.fg-single-job-left {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.fg-single-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.fg-single-job-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.fg-card-escrow-badge {
+  background-color: #f0fdf4;
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #bbf7d0;
+}
+
+.fg-card-urgent-badge {
+  background-color: #fef2f2;
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #fecaca;
+}
+
+.fg-single-job-specs {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+  margin: 6px 0 16px 0;
+}
+
+.fg-single-route-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.fg-card-route-node {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fg-card-route-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.fg-single-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.fg-card-spec-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fg-card-spec-label {
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.fg-card-spec-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.fg-single-farmer-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fg-card-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #044335;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.fg-card-farmer-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.fg-card-farmer-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.fg-card-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.fg-card-rating-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.fg-card-verified-text {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.fg-single-job-right {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.fg-card-payout-box {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fg-card-payout-label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.fg-card-payout-amount {
+  font-size: 24px;
+  font-weight: 800;
+  color: #044335;
+}
+
+.fg-card-actions-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fg-card-btn {
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease;
+}
+
+.btn-details {
+  background-color: #044335;
+  color: #ffffff;
+  border-radius: 6px;
+}
+
+.btn-details:hover {
+  background-color: #033228;
+}
+
+.btn-save {
+  background-color: #ffffff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.btn-save:hover {
+  background-color: #f9fafb;
+}
+
+@media (max-width: 1024px) {
+  .fg-single-job-card {
+    flex-direction: column;
+  }
+
+  .fg-single-job-right {
+    width: 100%;
+    border-top: 1px dashed #e5e7eb;
+    padding-top: 20px;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .fg-card-payout-box {
+    flex: 1;
+    text-align: left;
+    padding: 12px;
+  }
+
+  .fg-card-actions-stack {
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .fg-single-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .fg-single-job-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .fg-single-job-title {
+    font-size: 18px;
+  }
+
+  .fg-single-job-right {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fg-card-payout-box {
+    text-align: center;
+  }
+
+  .fg-card-btn {
+    border-radius: 0px !important;
+    padding: 12px;
+  }
+}

@@ -1,0 +1,367 @@
+.fg-login-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fcfcfc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.fg-login-split-content {
+  width: 100%;
+  display: flex;
+}
+
+.fg-login-sidebar {
+  width: 32%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.fg-sidebar-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.fg-sidebar-overlay {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(4, 43, 34, 0.88) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 54px 44px;
+}
+
+.fg-action-row {
+  width: 100%;
+}
+
+.fg-back-circle-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.fg-back-circle-btn:hover {
+  opacity: 1;
+}
+
+.fg-sidebar-center-content {
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.fg-main-hero-heading {
+  color: #ffffff;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.fg-main-hero-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.fg-footer-copyright {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  margin-top: 14px;
+  display: block;
+}
+
+.fg-login-form-panel {
+  width: 68%;
+  margin-left: 32%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+  box-sizing: border-box;
+  background-color: #fcfcfc;
+}
+
+.fg-login-form-core-box {
+  width: 100%;
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.fg-brand-identity-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.fg-brand-logo-container {
+  width: 56px;
+  height: 56px;
+  background-color: #044335;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.fg-brand-logo-img {
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+}
+
+.fg-brand-welcome-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #042920;
+  margin: 0 0 6px 0;
+}
+
+.fg-brand-welcome-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Form Container Card matching exact design border specification */
+.fg-login-form-card {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.04);
+  padding: 32px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fg-signup-role-badge-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+}
+
+.fg-signup-role-badge-text {
+  font-size: 14px;
+  color: #374151;
+  margin: 0;
+}
+
+.fg-signup-role-highlight {
+  color: #044335;
+  font-weight: 600;
+}
+
+.fg-signup-role-change-trigger {
+  background: transparent;
+  border: none;
+  color: #044335;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.fg-signup-role-change-trigger:hover {
+  text-decoration: underline;
+}
+
+.fg-credentials-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fg-input-group-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fg-input-label-tag {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+  text-align: left;
+}
+
+.fg-required-star {
+  color: #dc2626;
+  margin-left: 2px;
+}
+
+.fg-native-text-input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #111827;
+  outline: none;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.fg-native-text-input:focus {
+  border-color: #044335;
+}
+
+.fg-native-text-input::placeholder {
+  color: #9ca3af;
+}
+
+.fg-native-input-password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.fg-password-padding {
+  padding-right: 44px;
+}
+
+.fg-native-input-eye-trigger {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.fg-form-actions-submission-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.fg-primary-submit-action-btn {
+  width: 100%;
+  height: 46px;
+  background: #044335;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.fg-primary-submit-action-btn:hover {
+  background: #032e25;
+}
+
+.fg-form-bottom-toggle-text {
+  font-size: 14px;
+  color: #4b5563;
+  margin: 0;
+}
+
+.fg-toggle-link-span {
+  color: #044335;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fg-toggle-link-span:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 1024px) {
+  .fg-login-sidebar {
+    width: 35%;
+  }
+  .fg-login-form-panel {
+    width: 65%;
+    margin-left: 35%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .fg-login-split-content {
+    flex-direction: column;
+  }
+
+  .fg-login-sidebar {
+    display: none;
+  }
+
+  .fg-login-form-panel {
+    width: 100%;
+    margin-left: 0;
+    padding: 40px 0px;
+  }
+
+  .fg-login-form-core-box {
+    max-width: 100%;
+    width: 95%;
+    padding: 0 10px;
+  }
+
+  .fg-login-form-card {
+    border: none;
+    box-shadow: none;
+    padding: 10px;
+    background-color: transparent;
+  }
+
+  .fg-primary-submit-action-btn {
+    border-radius: 0px !important;
+  }
+
+  .fg-native-text-input {
+    border-radius: 6px;
+  }
+}

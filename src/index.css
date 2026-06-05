@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-green: #1a6828;
+  --Bold-thick-green: #085041;
+  --Light-green: #1a6828;
+  --lighter-green: #067a3f;
+  --lemon-green: #218e35;
+  --green: #27b442;
+  --green2: #31d652;
+  --green3: #54df70;
+  --green4: #78e88f;
+  --green5: #54df70;
+
+  /* YELLOW COLOR */
+  --primary-yellow: #c69b0d;
+  --light-yellow: #feedb3;
+/* YELLOW COLOR */
+--primary-yellow:#C69B0D;
+--light-yellow:#FEEDB3;
+
+/* TEXT COLOR */
+--primary-text-color:White;
+}

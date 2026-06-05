@@ -1,0 +1,136 @@
+.fg-recent-activity-container {
+  width: 95%;
+  margin: 24px auto 0 auto;
+  box-sizing: border-box;
+}
+
+.fg-recent-activity-heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px 0;
+}
+
+.fg-recent-activity-card {
+  background-color: #ffffff;
+  border: 1px solid #b7b8ba;
+  border-radius: 16px;
+  padding: 8px 24px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.015);
+  box-sizing: border-box;
+}
+
+.fg-activity-item-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.fg-activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fg-activity-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fg-activity-icon-car {
+  background-color: #dcfce7;
+}
+
+.fg-activity-icon-user {
+  background-color: #eff6ff;
+}
+
+.fg-activity-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fg-activity-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.fg-activity-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+  line-height: 1.2;
+}
+
+.fg-activity-time {
+  font-size: 13px;
+  font-weight: 400;
+  color: #9ca3af;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.fg-activity-divider {
+  border: none;
+  border-top: 1px solid #8a8b8e;
+  margin: 0;
+  width: 100%;
+}
+
+
+@media screen and (max-width: 900px) {
+  .fg-recent-activity-container {
+    margin: 16px auto 0 auto;
+  }
+
+  .fg-recent-activity-heading {
+    font-size: 18px;
+    margin: 0 0 12px 0;
+  }
+
+  .fg-recent-activity-card {
+    border-radius: 12px;
+    padding: 4px 16px;
+  }
+
+  .fg-activity-item {
+    gap: 12px;
+    padding: 16px 0;
+  }
+
+  .fg-activity-icon-box {
+    width: 36px;
+    height: 36px;
+  }
+
+  .fg-activity-details {
+    gap: 2px;
+  }
+
+  .fg-activity-title {
+    font-size: 14px;
+  }
+
+  .fg-activity-subtitle {
+    font-size: 13px;
+  }
+
+  .fg-activity-time {
+    font-size: 11px;
+  }
+
+  .fg-activity-divider {
+    border-top: 1px solid #d2d5d9;
+  }
+}

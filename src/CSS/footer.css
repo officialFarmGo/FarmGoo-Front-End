@@ -1,0 +1,115 @@
+.farmgoo-footer {
+  width: 100%;
+  background-color: #1e1e1e;
+  padding: 60px 8% 30px 8%;
+  box-sizing: border-box;
+  color: #ffffff;
+}
+
+.footer-top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 140px;
+}
+
+.brand-info-col {
+  max-width: 320px;
+  min-width: 240px;
+}
+
+.footer-logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--green4); 
+}
+
+.footer-description {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #b3b3b3; 
+  margin: 8px 0 0 0;
+}
+
+.footer-column h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.3px;
+}
+
+.footer-column a {
+  text-decoration: none;
+  color: #b3b3b3;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-column a:hover {
+  color: var(--green2); 
+}
+
+.footer-divider {
+  border: none;
+  height: 1px;
+  background-color: #333333;
+  margin: 40px auto 24px auto;
+  width: 100%;
+  max-width: 1250px;
+}
+
+.footer-bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.copyright-text {
+  font-size: 13px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+.footer-social-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-social-links a {
+  text-decoration: none;
+  font-size: 13px;
+  color: #8c8c8c;
+  transition: color 0.2s ease;
+}
+
+.footer-social-links a:hover {
+  color: var(--green3); 
+}
+
+@media (max-width: 768px) {
+  .footer-top-section {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .footer-bottom-section {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+}

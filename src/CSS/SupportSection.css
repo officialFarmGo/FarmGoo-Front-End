@@ -1,0 +1,143 @@
+.fg-support-container {
+  width: 100%;
+  background-color: #fcfcfc;
+  padding: 40px 0;
+  padding-left: 260px; /* Keeps the sidebar space */
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.fg-support-inner {
+  max-width: 1000px; /* Matches the width of your tracking card */
+  margin: 0 auto 0 0; /* Aligns it left relative to its container space */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+.fg-support-main-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0c1a30;
+  margin: 0;
+  text-align: left;
+}
+
+.fg-support-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 280px);
+  gap: 20px;
+  width: 100%;
+}
+
+.fg-support-action-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fg-support-action-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.fg-support-icon-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.email-bg {
+  background-color: #e6f7ed;
+}
+
+.phone-bg {
+  background-color: #fffbeb;
+}
+
+.fg-support-native-icon {
+  font-size: 22px;
+}
+
+.email-icon-clr {
+  color: #00b67a;
+}
+
+.phone-icon-clr {
+  color: #f59e0b;
+}
+
+.fg-support-card-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0c1a30;
+  margin: 0 0 6px 0;
+}
+
+.fg-support-card-detail {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 20px 0;
+}
+
+.fg-support-action-trigger-btn {
+  height: 38px;
+  padding: 0 24px;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.15s ease;
+}
+
+.fg-support-action-trigger-btn:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+  color: #111827;
+}
+
+@media screen and (max-width: 768px) {
+  .fg-support-container {
+    padding-left: 0;
+  }
+
+  .fg-support-inner {
+    width: 95%;
+    padding: 0 10px;
+  }
+
+  .fg-support-main-title {
+    font-size: 24px;
+  }
+
+  .fg-support-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .fg-support-action-card {
+    padding: 28px 20px;
+  }
+
+  .fg-support-action-trigger-btn {
+    width: 100%;
+    border-radius: 0px !important;
+  }
+}

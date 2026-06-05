@@ -1,0 +1,242 @@
+.profile-container {
+  min-height: 100vh;
+  background-color: #F8F9FA;
+  padding: 3rem 1rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.profile-wrapper {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+/* Header & Progress Bar */
+.profile-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  background-color: #03543F;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.profile-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0 0 0.5rem 0;
+}
+
+.profile-subtitle {
+  font-size: 0.875rem;
+  color: #64748B;
+  margin: 0;
+}
+
+.progress-container {
+  margin-bottom: 1.5rem;
+}
+
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #64748B;
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar-bg {
+  height: 0.375rem;
+  width: 100%;
+  background-color: #E2E8F0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #03543F;
+  width: 100%;
+  border-radius: 9999px;
+}
+
+/* Cards / Section Containers */
+.form-section {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid #E2E8F0;
+  margin-bottom: 1.5rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.icon-box {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-box.green { background-color: #E6F6F4; color: #03543F; }
+.icon-box.amber { background-color: #FFFBEB; color: #D97706; }
+.icon-box.blue { background-color: #EFF6FF; color: #2563EB; }
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1E293B;
+  margin: 0;
+}
+
+.section-subtitle {
+  font-size: 0.75rem;
+  color: #64748B;
+  margin: 0;
+}
+
+/* Grid & Form Controls */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.375rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  color: #1E293B;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #03543F;
+}
+
+/* Produce Grid */
+.produce-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.produce-btn {
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+  color: #475569;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.produce-btn:hover {
+  background-color: #F8F9FA;
+}
+
+.produce-btn.selected {
+  border-color: #03543F;
+  background-color: #E6F6F4;
+  color: #03543F;
+}
+
+/* Custom Select Dropdown Wrapper */
+.select-wrapper {
+  position: relative;
+}
+
+.form-select {
+  width: 100%;
+  appearance: none;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  background-color: #ffffff;
+  color: #64748B;
+  cursor: pointer;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #03543F;
+}
+
+.select-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #64748B;
+}
+
+/* Action Buttons */
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #03543F;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.submit-btn:hover {
+  background-color: #024030;
+}
+
+.footer-text {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #64748B;
+  margin-top: 1rem;
+}

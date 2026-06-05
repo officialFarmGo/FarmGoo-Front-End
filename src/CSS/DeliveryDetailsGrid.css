@@ -1,0 +1,198 @@
+.fg-delivery-grid-container {
+  width: 95%;
+  margin: 24px auto 0 auto;
+  box-sizing: border-box;
+}
+
+.fg-delivery-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fg-delivery-info-card {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 16px;
+  padding: 24px;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.fg-delivery-info-card.bg-split {
+  justify-content: space-between;
+}
+
+.fg-delivery-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 20px 0;
+}
+
+.fg-profile-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.fg-avatar-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #044335;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.fg-profile-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fg-profile-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.fg-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fg-rating-number {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.fg-profile-phone {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.fg-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fg-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fg-detail-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.fg-pin-card-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.fg-pin-instructions {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #111827;
+  font-weight: 500;
+  margin: 0 0 20px 0;
+}
+
+.fg-pin-display-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.fg-pin-box {
+  flex: 1;
+  height: 56px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  background-color: #ffffff;
+}
+
+.fg-pin-divider {
+  border: none;
+  border-top: 1px solid #cbd5e1;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.fg-pin-card-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+}
+
+.fg-manual-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.fg-confirm-delivery-btn {
+  background-color: #044335;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.fg-confirm-delivery-btn:hover {
+  background-color: #033228;
+}
+
+
+
+@media (max-width: 1024px) {
+  .fg-delivery-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .fg-delivery-cards-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .fg-delivery-info-card {
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .fg-confirm-delivery-btn {
+    border-radius: 0px;
+  }
+}

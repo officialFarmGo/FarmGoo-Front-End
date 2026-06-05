@@ -1,0 +1,221 @@
+
+
+
+
+
+.navbar-container {
+  width: 100%;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  border-bottom: 1px solid #f3f4f6;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar-content {
+  width: 93%;
+  height: 90px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.brand-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-green);
+}
+
+.text-container {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.text-container a {
+  text-decoration: none;
+  color: #374151;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.text-container a:hover {
+  color: var(--lighter-green);
+}
+
+.login-getStarted {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.login-link {
+  text-decoration: none;
+  color: #374151;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.login-link:hover {
+  color: var(--lighter-green);
+}
+
+.btn-get-started {
+  background-color: var(--Bold-thick-green);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-get-started:hover {
+  background-color: var(--primary-green);
+}
+
+.mobile-auth-buttons {
+  display: none;
+}
+
+.hamburger-toggle {
+  display: none; 
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: 1001;
+}
+
+.hamburger-toggle .bar {
+  width: 100%;
+  height: 2px;
+  background-color: #374151;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 992px) {
+  /* Keep the main navbar container layout fluid */
+  .navbar-content {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+
+  /* Force logo section to stay pinned to the far left side */
+  .logo-section {
+    margin-right: auto;
+    order: 1;
+  }
+
+  /* Keep the login-getStarted container visible on mobile views */
+  .login-getStarted {
+    display: flex;
+    order: 2;
+    gap: 0;
+  }
+
+  /* Hide only the login text component link on mobile views */
+  .login-getStarted .login-link {
+    display: none;
+  }
+
+  /* Scale button down beautifully for smaller layouts */
+  .login-getStarted .btn-get-started {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  /* Pin hamburger control element to the far right side */
+  .hamburger-toggle {
+    display: flex;
+    order: 3;
+  }
+
+  .text-container {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    border-top: 1px solid #f3f4f6;
+    padding: 24px;
+    box-sizing: border-box;
+    
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .text-container.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .text-container a {
+    width: 100%;
+    padding: 8px 0;
+    border-bottom: 1px solid #f9fafb;
+  }
+
+  .mobile-auth-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  /* Hide the repetitive mobile get-started view button inside the list since it's already active on top */
+  .mobile-auth-buttons .btn-get-started {
+    display: none;
+  }
+
+  .mobile-auth-buttons .login-link {
+    padding: 8px 0;
+  }
+
+  .hamburger-toggle.open .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger-toggle.open .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-toggle.open .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}

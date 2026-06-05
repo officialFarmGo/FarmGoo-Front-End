@@ -1,0 +1,121 @@
+.fg-profile-settings-container {
+  width: 100%;
+  padding: 24px 0;
+  padding-left: 260px;
+  background-color: #fcfcfc;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fg-profile-page-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0c1a30;
+  margin: 0;
+  text-align: left;
+}
+
+.fg-profile-settings-card {
+  width: 95%;
+  max-width: 1000px;
+  margin: 0 auto 0 0;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fg-profile-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #0c1a30;
+}
+
+.fg-profile-header-icon {
+  font-size: 20px;
+  stroke-width: 2.5;
+}
+
+.fg-profile-header-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.fg-profile-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.fg-profile-menu-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease;
+}
+
+.fg-profile-menu-item:hover {
+  background-color: #f9fafb;
+}
+
+.fg-profile-menu-item span {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0c1a30;
+}
+
+.fg-profile-item-arrow {
+  font-size: 18px;
+  color: #6b7280;
+  flex-shrink: 0;
+  stroke-width: 2.5;
+}
+
+@media screen and (max-width: 768px) {
+  .fg-profile-settings-container {
+    padding-left: 0;
+    padding: 16px 10px;
+  }
+
+  .fg-profile-page-title {
+    font-size: 24px;
+    padding-left: 10px;
+  }
+
+  .fg-profile-settings-card {
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    padding: 16px 10px;
+    background-color: transparent;
+  }
+
+  .fg-profile-header-title {
+    font-size: 18px;
+  }
+
+  .fg-profile-menu-item {
+    padding: 14px 16px;
+  }
+
+  .fg-profile-menu-item span {
+    font-size: 14px;
+  }
+}

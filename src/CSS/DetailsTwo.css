@@ -1,0 +1,148 @@
+.detail-two {
+  width: 100%;
+  height: 100vh;
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 80px;
+  box-sizing: border-box;
+}
+
+.detail-two-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.problem-badge {
+  background-color: var(--lighter-green);
+  color: var(--primary-text-color);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.detail-two-left .detail-text  {
+  font-size: 65px;
+  font-weight: 600;
+  color: #1a1a1a;
+ 
+}
+
+.detail-two-left p .highlight {
+  color: var(--lemon-green);
+  font-style: italic;
+}
+
+.detail-two-left p {
+  font-size: 21px;
+  color: rgb(101, 100, 100);
+}
+
+.join-btn {
+  background-color: var(--lighter-green);
+  color: var(--primary-text-color);
+  border: none;
+  border-radius: 30px;
+  padding: 16px 32px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.detail-two-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.problem-card {
+  background-color: #fffef0;
+  border-left: 5px solid var(--primary-yellow);
+  padding: 24px 28px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.problem-card:last-child {
+  background-color: #f0fdf5;
+  border-left: 5px solid var(--lighter-green);
+}
+
+.problem-card h3 {
+  font-size: 23px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 10px 0;
+}
+
+.problem-card p {
+  font-size: 19px;
+  color: #555555;
+  line-height: 1.65;
+  margin: 0;
+}
+
+
+
+@media (max-width: 768px) {
+
+  .detail-two {
+    flex-direction: column;
+    height: auto;
+    padding: 40px 20px;
+    gap: 40px;
+  }
+
+  .detail-two-left {
+    width: 100%;
+    gap: 16px;
+  }
+
+  .detail-two-left .detail-text {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .detail-two-left br {
+    display: none;
+  }
+
+  .detail-two-left p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .join-btn {
+    width: 100%;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+
+  .detail-two-right {
+    width: 100%;
+    gap: 12px;
+  }
+
+  .problem-card {
+    padding: 18px 16px;
+  }
+
+  .problem-card h3 {
+    font-size: 17px;
+  }
+
+  .problem-card p {
+    font-size: 14px;
+  }
+}

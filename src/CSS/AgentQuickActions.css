@@ -1,0 +1,91 @@
+.fg-quick-actions-container {
+  width: 95%;
+  margin: 24px auto 0 auto;
+  box-sizing: border-box;
+}
+
+.fg-quick-actions-heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px 0;
+}
+
+.fg-quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fg-action-card {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.fg-action-card:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.fg-action-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fg-bg-dark-green {
+  background-color: #044335;
+}
+
+.fg-bg-blue {
+  background-color: #1d6bf3;
+}
+
+.fg-bg-bright-green {
+  background-color: #00c951;
+}
+
+.fg-action-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+
+@media (max-width: 1024px) {
+  .fg-quick-actions-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .fg-quick-actions-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .fg-action-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .fg-quick-actions-heading {
+    font-size: 18px;
+    margin: 0 0 12px 0;
+  }
+}

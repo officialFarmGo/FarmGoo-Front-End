@@ -1,0 +1,80 @@
+.fg-welcome-container {
+  width: 95%;
+  margin: 24px auto 0 auto;
+  background-color: #044335;
+  border-radius: 16px;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.fg-welcome-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fg-welcome-heading {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.fg-welcome-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.fg-welcome-btn {
+  border: none;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: opacity 0.2s ease;
+}
+
+.fg-welcome-btn:hover {
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background-color: #ffffff;
+  color: #044335;
+  border-radius: 8px;
+}
+
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+}
+
+@media (max-width: 640px) {
+  .fg-welcome-container {
+    padding: 20px;
+    border-radius: 12px;
+    margin: 16px auto 0 auto;
+  }
+
+  .fg-welcome-heading {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .fg-welcome-actions {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .fg-welcome-btn {
+    width: 100%;
+    text-align: center;
+    border-radius: 0px !important;
+    padding: 14px;
+  }
+}

@@ -1,0 +1,134 @@
+.fg-transport-header-container {
+  width: 95%;
+  margin: 24px auto 0 auto;
+  box-sizing: border-box;
+}
+
+.fg-transport-main-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.5px;
+}
+
+.fg-transport-subtitle {
+  font-size: 15px;
+  color: #4b5563;
+  margin: 0 0 24px 0;
+  font-weight: 500;
+}
+
+.fg-filter-control-bar {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fg-search-box-wrapper {
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.fg-filter-input {
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #111827;
+}
+
+.fg-filter-input::placeholder {
+  color: #9ca3af;
+}
+
+.fg-dropdown-control {
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 180px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.fg-meta-count-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.fg-jobs-count-text {
+  font-size: 15px;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.fg-count-highlight {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.fg-more-filters-btn {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.fg-more-filters-btn:hover {
+  background-color: #f9fafb;
+}
+
+@media (max-width: 768px) {
+  .fg-filter-control-bar {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .fg-dropdown-control {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .fg-transport-main-title {
+    font-size: 22px;
+  }
+
+  .fg-transport-subtitle {
+    font-size: 14px;
+  }
+
+  .fg-more-filters-btn {
+    border-radius: 0px !important;
+  }
+}

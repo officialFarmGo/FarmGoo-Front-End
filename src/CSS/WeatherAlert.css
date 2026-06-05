@@ -1,0 +1,64 @@
+.weather-alert-container {
+  width: 95%;
+  margin-left: auto;
+  padding: 16px 40px;
+  box-sizing: border-box;
+}
+
+.weather-alert-card {
+  background-color: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-left: 4px solid #f59e0b;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.weather-icon-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2px;
+}
+
+.weather-alert-icon {
+  font-size: 24px;
+  color: #d97706;
+}
+
+.weather-text-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.weather-text-section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.weather-text-section p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #475569;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .weather-alert-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 16px 0;
+  }
+
+  .weather-alert-card {
+    padding: 16px;
+    gap: 12px;
+  }
+}

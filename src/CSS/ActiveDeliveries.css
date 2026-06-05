@@ -1,0 +1,185 @@
+.active-deliveries-container {
+  width: 95%;
+  margin-left: auto;
+  padding: 16px 40px;
+  box-sizing: border-box;
+}
+
+.deliveries-card-wrapper {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.deliveries-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.deliveries-header-row h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.view-all-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #044e36;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.delivery-info-box {
+  border: 1px solid #f3f4f6;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.delivery-top-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.status-badge {
+  background-color: #dbeafe;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.item-weight {
+  font-size: 15px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.delivery-id {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 4px 0 20px 0;
+}
+
+.route-section {
+  display: flex;
+  gap: 160px;
+  margin-bottom: 24px;
+}
+
+.route-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.location-icon {
+  font-size: 16px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.point-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.point-label {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.point-location {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-top: 2px;
+}
+
+.delivery-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 16px;
+  margin-top: 12px;
+}
+
+.driver-info {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.driver-info strong {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.track-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #044e36;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+
+
+@media (max-width: 768px) {
+  .active-deliveries-container {
+    width: 95%;
+    margin: 0 auto;
+    padding: 16px 0;
+  }
+
+  .deliveries-card-wrapper {
+    padding: 16px;
+  }
+
+  .delivery-top-details {
+    position: relative;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .item-badge-group {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .item-weight {
+    position: absolute;
+    right: 0;
+    top: 2px;
+  }
+
+  .route-section {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

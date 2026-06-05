@@ -1,0 +1,319 @@
+.wallet-section {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  padding: 40px 24px;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.wallet-container {
+  width: 100%;
+  max-width: 850px;
+  display: flex;
+  flex-direction: column;
+}
+
+.wallet-page-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 24px 0;
+}
+
+.balance-card {
+  background-color: var(--lighter-green, #067A3F); 
+  border-radius: 16px;
+  padding: 32px;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.balance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.balance-label-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wallet-icon-svg {
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.balance-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.toggle-visibility-btn {
+  background-color: #ffffff;
+  border: none;
+  color: #334155;
+  width: 34px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eye-icon-svg {
+  width: 18px;
+  height: 18px;
+}
+
+.balance-amount-display {
+  font-size: 42px;
+  font-weight: 700;
+  margin: 20px 0 28px 0;
+  letter-spacing: -0.5px;
+}
+
+.balance-action-row {
+  display: flex;
+  gap: 16px;
+}
+
+.action-card-btn {
+  flex: 1;
+  background-color: #ffffff;
+  border: none;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.withdraw-btn {
+  color: var(--Bold-thick-green, #085041);
+}
+
+.add-money-btn {
+  color: var(--lighter-green, #067A3F);
+}
+
+.wallet-dashboard-panel {
+  background-color: #ffffff;
+  border: 1px solid #edf2f7;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.panel-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.panel-section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.panel-header-action-btn {
+  background: transparent;
+  border: none;
+  color: var(--Bold-thick-green, #085041);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.linked-account-row-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+}
+
+.bank-meta-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.bank-card-icon-box {
+  width: 42px;
+  height: 42px;
+  background-color: #eff6ff;
+  color: #3b82f6;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bank-name-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.bank-title-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.bank-number-obscured {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.badge-primary {
+  background-color: #e6f4ea;
+  color: #1aa659;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.transaction-list-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.transaction-list-row-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid #f8fafc;
+  border-radius: 12px;
+  background-color: #f8fafc;
+}
+
+.trn-meta-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.trn-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trn-arrow-symbol {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.trn-badge.trn-credit {
+  background-color: #e6f4ea;
+  color: #16a34a;
+}
+
+.trn-badge.trn-debit {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.trn-text-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.trn-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.trn-date {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.trn-amount {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.trn-credit-amount {
+  color: #16a34a;
+}
+
+.trn-debit-amount {
+  color: #dc2626;
+}
+
+@media (max-width: 480px) {
+  .wallet-section {
+    padding: 24px 16px;
+  }
+
+  .balance-card {
+    padding: 24px 16px;
+  }
+
+  .balance-amount-display {
+    font-size: 36px;
+    margin: 16px 0 24px 0;
+  }
+
+  .balance-action-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .action-card-btn {
+    padding: 12px 8px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  .panel-header-row {
+    flex-direction: row;
+    align-items: baseline;
+  }
+  
+  .panel-header-row .panel-section-title {
+    max-width: 120px;
+    line-height: 1.2;
+  }
+
+  .transaction-list-row-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .trn-meta-group {
+    align-items: center;
+  }
+
+  .transaction-list-row-item .trn-amount {
+    align-self: flex-end;
+    margin-top: -24px;
+    font-size: 14px;
+  }
+}

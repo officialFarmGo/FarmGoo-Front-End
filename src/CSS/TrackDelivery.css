@@ -1,0 +1,255 @@
+.fg-track-delivery-container {
+  width: 95%;
+  margin: 24px auto 0 auto;
+  box-sizing: border-box;
+}
+
+.fg-track-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 24px;
+  box-sizing: border-box;
+}
+
+.fg-track-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fg-track-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.fg-track-order-id {
+  font-size: 16px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.fg-track-back-btn {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.fg-track-back-btn:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.fg-track-status-card {
+  background-color: #f0f7ff;
+  border: 1px solid #cbd5e1;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fg-track-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.fg-track-status-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.fg-track-icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #1d6bf3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fg-track-status-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fg-status-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.fg-status-eta {
+  font-size: 15px;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.fg-track-percentage-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.fg-track-percent-num {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1d6bf3;
+  line-height: 1;
+}
+
+.fg-track-percent-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #4b5563;
+  margin-top: 4px;
+}
+
+.fg-progress-bar-container {
+  width: 100%;
+  height: 12px;
+  background-color: #bfdbfe;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.fg-progress-bar-fill {
+  height: 100%;
+  background-color: #1d6bf3;
+  border-radius: 9999px;
+}
+
+@media (max-width: 640px) {
+  .fg-track-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .fg-track-back-btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    border-radius: 0px;
+  }
+
+  .fg-track-heading {
+    font-size: 24px;
+  }
+
+  .fg-track-status-card {
+    padding: 16px;
+    border-radius: 12px;
+    gap: 16px;
+  }
+
+  .fg-track-card-top {
+    align-items: flex-start;
+  }
+
+  .fg-track-status-info {
+    gap: 12px;
+  }
+
+  .fg-track-icon-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .fg-status-title {
+    font-size: 15px;
+  }
+
+  .fg-status-eta {
+    font-size: 13px;
+  }
+
+  .fg-track-percent-num {
+    font-size: 24px;
+  }
+}
+
+
+
+@media (max-width: 640px) {
+  .fg-track-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .fg-track-back-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 0px;
+    white-space: normal;
+    text-align: center;
+    max-width: 110px;
+  }
+
+  .fg-track-heading {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .fg-track-order-id {
+    font-size: 14px;
+  }
+
+  .fg-track-status-card {
+    padding: 14px;
+    border-radius: 12px;
+    gap: 12px;
+  }
+
+  .fg-track-status-info {
+    gap: 8px;
+  }
+
+  .fg-track-icon-circle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .fg-status-title {
+    font-size: 14px;
+  }
+
+  .fg-status-eta {
+    font-size: 12px;
+  }
+
+  .fg-track-percent-num {
+    font-size: 22px;
+  }
+
+  .fg-track-percent-label {
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  .fg-progress-bar-container {
+    height: 8px;
+  }
+}

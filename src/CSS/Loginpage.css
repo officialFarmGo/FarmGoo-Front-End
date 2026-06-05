@@ -1,0 +1,393 @@
+.fg-login-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  
+  box-sizing: border-box;
+}
+
+.fg-login-split-content {
+  width: 100%;
+  display: flex;
+}
+
+.fg-login-sidebar {
+  width: 32%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.fg-sidebar-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.fg-sidebar-overlay {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(4, 43, 34, 0.88) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 54px 44px;
+}
+
+.fg-back-circle-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.fg-back-circle-btn:hover {
+  opacity: 1;
+}
+
+.fg-sidebar-core-text {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 14rem;
+}
+
+.fg-main-hero-heading {
+  color: #ffffff;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+  text-align: center;
+}
+
+.fg-main-hero-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.fg-footer-copyright {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  margin: 0;
+}
+
+.fg-login-form-panel {
+  width: 68%;
+  margin-left: 32%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.fg-login-form-core-box {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.fg-brand-identity-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.fg-brand-logo-container {
+  width: 56px;
+  height: 56px;
+  background-color: #044335;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.fg-brand-logo-img {
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+}
+
+.fg-brand-welcome-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #042920;
+  margin: 0 0 6px 0;
+}
+
+.fg-brand-welcome-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.fg-role-selection-grid {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.fg-role-option-card {
+  flex: 1;
+  height: 104px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.fg-role-option-card:hover {
+  border-color: #00b67a;
+  background: #f0fdf8;
+}
+
+.fg-role-option-card.is-active {
+  border: 1.5px solid #00b67a;
+  background: #f0fdf8;
+}
+
+.fg-role-circle-icon {
+  width: 28px;
+  height: 28px;
+  background: #e7f8f1;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #00b67a;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.fg-role-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.fg-role-card-desc {
+  margin: 2px 0 0 0;
+  font-size: 11px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.fg-credentials-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fg-input-group-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fg-input-label-tag {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  text-align: left;
+}
+
+.fg-native-text-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #111827;
+  outline: none;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.fg-native-text-input:focus {
+  border-color: #044335;
+  box-shadow: 0 0 0 3px rgba(4, 67, 53, 0.1);
+}
+
+.fg-native-text-input::placeholder {
+  color: #9ca3af;
+}
+
+.fg-form-options-alignment-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.fg-checkbox-interactive-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.fg-checkbox-element {
+  accent-color: #044335;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.fg-forgot-trigger-btn {
+  border: none;
+  background: transparent;
+  color: #044335;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.fg-forgot-trigger-btn:hover {
+  text-decoration: underline;
+}
+
+.fg-form-actions-submission-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.fg-primary-submit-action-btn {
+  width: 100%;
+  height: 48px;
+  background: #044335;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.fg-primary-submit-action-btn:hover {
+  background: #032e25;
+}
+
+.fg-alternative-routing-text {
+  font-size: 14px;
+  color: #4b5563;
+  margin: 0;
+}
+
+.fg-inline-routing-trigger {
+  background: transparent;
+  border: none;
+  color: #044335;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 4px;
+}
+
+.fg-inline-routing-trigger:hover {
+  text-decoration: underline;
+}
+
+
+
+
+@media screen and (max-width: 1024px) {
+  .fg-login-sidebar {
+    width: 35%;
+  }
+  .fg-login-form-panel {
+    width: 65%;
+    margin-left: 35%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .fg-login-split-content {
+    flex-direction: column;
+  }
+
+  .fg-login-sidebar {
+    display: none;
+  }
+
+  .fg-login-form-panel {
+    width: 100%;
+    margin-left: 0;
+    padding: 40px 0px;
+    background-color: #ffffff;
+  }
+
+  .fg-login-form-core-box {
+    max-width: 100%;
+    width: 95%;
+    padding: 0 10px;
+  }
+
+  .fg-primary-submit-action-btn,
+  .fg-inline-routing-trigger,
+  .fg-create-account-btn {
+    border-radius: 0px !important;
+  }
+
+  .fg-native-text-input {
+    border-radius: 6px;
+  }
+}

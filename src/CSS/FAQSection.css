@@ -1,0 +1,125 @@
+.fg-faq-container {
+  width: 100%;
+  padding: 24px 0;
+  padding-left: 260px;
+  background-color: #fcfcfc;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.fg-faq-card {
+  width: 95%;
+  max-width: 1000px;
+  margin: 0 auto 0 0;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fg-faq-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0c1a30;
+  margin: 0;
+}
+
+.fg-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.fg-faq-item {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.fg-faq-item-open {
+  border-color: #e5e7eb;
+}
+
+.fg-faq-question-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.fg-faq-question-row h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0c1a30;
+  margin: 0;
+}
+
+.fg-faq-arrow {
+  font-size: 18px;
+  color: #6b7280;
+  flex-shrink: 0;
+  stroke-width: 2.5;
+}
+
+.fg-faq-answer-block {
+  padding: 0 24px 18px 24px;
+  box-sizing: border-box;
+}
+
+.fg-faq-answer-block p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #000000;
+  font-weight: 700;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .fg-faq-container {
+    padding-left: 0;
+  }
+
+  .fg-faq-card {
+    width: 95%;
+    margin: 0 auto;
+    border: none;
+    box-shadow: none;
+    padding: 16px 10px;
+    background-color: transparent;
+  }
+
+  .fg-faq-title {
+    font-size: 18px;
+  }
+
+  .fg-faq-question-row {
+    padding: 14px 16px;
+  }
+
+  .fg-faq-question-row h3 {
+    font-size: 14px;
+  }
+
+  .fg-faq-answer-block {
+    padding: 0 16px 14px 16px;
+  }
+
+  .fg-faq-answer-block p {
+    font-size: 13px;
+  }
+}

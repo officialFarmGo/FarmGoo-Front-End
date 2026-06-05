@@ -1,0 +1,177 @@
+.fg-issue-container {
+  width: 100%;
+  padding: 24px 0;
+  padding-left: 260px;
+  background-color: #fcfcfc;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.fg-issue-card {
+  width: 95%;
+  max-width: 1000px;
+  margin: 0 auto 0 0;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fg-issue-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0c1a30;
+  margin: 0;
+}
+
+.fg-issue-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.fg-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.fg-input-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.fg-dropdown-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.fg-dropdown-trigger {
+  width: 100%;
+  height: 46px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.fg-dropdown-trigger span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.fg-dropdown-arrow {
+  font-size: 18px;
+  color: #4b5563;
+}
+
+.fg-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-width: 340px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 8px 0;
+  margin: 4px 0 0 0;
+  list-style: none;
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+.fg-dropdown-item {
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+}
+
+.fg-dropdown-item:hover {
+  background-color: #f9fafb;
+}
+
+.fg-textarea {
+  width: 100%;
+  height: 140px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.fg-textarea::placeholder {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.fg-textarea:focus,
+.fg-dropdown-trigger:focus {
+  outline: none;
+  border-color: #064e3b;
+}
+
+.fg-submit-btn {
+  width: fit-content;
+  background-color: #064e3b;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.fg-submit-btn:hover {
+  background-color: #043e2f;
+}
+
+@media screen and (max-width: 768px) {
+  .fg-issue-container {
+    padding-left: 0;
+  }
+
+  .fg-issue-card {
+    width: 95%;
+    margin: 0 auto;
+    border: none;
+    box-shadow: none;
+    padding: 16px 10px;
+    background-color: transparent;
+  }
+
+  .fg-issue-title {
+    font-size: 18px;
+  }
+
+  .fg-dropdown-menu {
+    max-width: 100%;
+  }
+
+  .fg-submit-btn {
+    width: 100%;
+  }
+}
