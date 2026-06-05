@@ -8,10 +8,10 @@ const BuiltForEveryOne = () => {
        
       <div className="audience-header">
          <p className='badge green-badge'>Who it is Built for</p>
-        <h1>
+        <h3>
           Built for everyone <br />
           in the <span className="highlight-text">supply chain.</span>
-        </h1>
+        </h3>
       </div>
 
       <div className="audience-grid">

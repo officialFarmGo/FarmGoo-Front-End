@@ -2,7 +2,6 @@
   width: 100%;
   min-height: 100vh;
   background-color: #ffffff;
-  
   box-sizing: border-box;
 }
 
@@ -12,7 +11,7 @@
 }
 
 .fg-login-sidebar {
-  width: 32%;
+  width: 30%;
   height: 100vh;
   position: fixed;
   left: 0;
@@ -27,6 +26,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 .fg-sidebar-overlay {
@@ -36,83 +36,86 @@
   z-index: 2;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.15) 0%,
-    rgba(4, 43, 34, 0.88) 100%
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(4, 43, 34, 0.92) 100__
   );
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 54px 44px;
+  padding: 40px 35px;
+}
+
+.fg-action-row {
+  width: 100%;
 }
 
 .fg-back-circle-btn {
   background: transparent;
   border: none;
-  font-size: 24px;
+  font-size: 20px;
   color: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
   padding: 0;
-  opacity: 0.9;
-  transition: opacity 0.2s ease;
-}
-
-.fg-back-circle-btn:hover {
-  opacity: 1;
 }
 
 .fg-sidebar-core-text {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  text-align: center;
+  gap: 16px;
+  text-align: left;
   margin-top: auto;
-  margin-bottom: 14rem;
+  margin-bottom: 40px;
 }
 
 .fg-main-hero-heading {
   color: #ffffff;
-  font-size: 38px;
+  font-size: 32px;
   font-weight: 700;
   line-height: 1.25;
   margin: 0;
-  text-align: center;
+  text-align: left;
 }
 
 .fg-main-hero-subtitle {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 15px;
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  line-height: 1.5;
   margin: 0;
+  text-align: left;
+}
+
+.fg-sidebar-footer-row {
+  width: 100%;
 }
 
 .fg-footer-copyright {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
   margin: 0;
 }
 
 .fg-login-form-panel {
-  width: 68%;
-  margin-left: 32%;
+  width: 70%;
+  margin-left: 30%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 40px;
+  padding: 40px;
   box-sizing: border-box;
   background-color: #ffffff;
 }
 
 .fg-login-form-core-box {
   width: 100%;
-  max-width: 480px;
+  max-width: 520px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 28px;
 }
 
 .fg-brand-identity-header {
@@ -123,14 +126,14 @@
 }
 
 .fg-brand-logo-container {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   background-color: #044335;
-  border-radius: 14px;
+  border-radius: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .fg-brand-logo-img {
@@ -155,31 +158,24 @@
 .fg-role-selection-grid {
   width: 100%;
   display: flex;
-  gap: 12px;
+  gap: 16px;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
 }
 
 .fg-role-option-card {
   flex: 1;
-  height: 104px;
+  height: 96px;
   background: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #d7d8d8;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   cursor: pointer;
-  transition: all 0.2s ease;
-  padding: 8px;
+  padding: 16px;
   box-sizing: border-box;
-}
-
-.fg-role-option-card:hover {
-  border-color: #00b67a;
-  background: #f0fdf8;
 }
 
 .fg-role-option-card.is-active {
@@ -188,20 +184,15 @@
 }
 
 .fg-role-circle-icon {
-  width: 28px;
-  height: 28px;
-  background: #e7f8f1;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 18px;
   color: #00b67a;
-  font-size: 14px;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
 }
 
 .fg-role-card-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: #111827;
   margin: 0;
@@ -211,7 +202,6 @@
   margin: 2px 0 0 0;
   font-size: 11px;
   color: #6b7280;
-  text-align: center;
 }
 
 .fg-credentials-form {
@@ -219,6 +209,10 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  border: 1px solid #f3f4f6;
+  border-radius: 16px;
+  padding: 32px;
+  box-sizing: border-box;
 }
 
 .fg-input-group-field {
@@ -231,7 +225,7 @@
 .fg-input-label-tag {
   font-size: 14px;
   font-weight: 500;
-  color: #374151;
+  color: #111827;
   text-align: left;
 }
 
@@ -239,19 +233,17 @@
   width: 100%;
   height: 48px;
   padding: 0 16px;
-  border: 1px solid #d1d5db;
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
   font-size: 14px;
   color: #111827;
   outline: none;
   box-sizing: border-box;
   background-color: #ffffff;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .fg-native-text-input:focus {
   border-color: #044335;
-  box-shadow: 0 0 0 3px rgba(4, 67, 53, 0.1);
 }
 
 .fg-native-text-input::placeholder {
@@ -263,7 +255,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2px;
 }
 
 .fg-checkbox-interactive-label {
@@ -292,17 +283,13 @@
   padding: 0;
 }
 
-.fg-forgot-trigger-btn:hover {
-  text-decoration: underline;
-}
-
 .fg-form-actions-submission-block {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .fg-primary-submit-action-btn {
@@ -318,11 +305,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background 0.2s ease;
-}
-
-.fg-primary-submit-action-btn:hover {
-  background: #032e25;
 }
 
 .fg-alternative-routing-text {
@@ -342,13 +324,6 @@
   margin-left: 4px;
 }
 
-.fg-inline-routing-trigger:hover {
-  text-decoration: underline;
-}
-
-
-
-
 @media screen and (max-width: 1024px) {
   .fg-login-sidebar {
     width: 35%;
@@ -363,31 +338,15 @@
   .fg-login-split-content {
     flex-direction: column;
   }
-
   .fg-login-sidebar {
     display: none;
   }
-
   .fg-login-form-panel {
     width: 100%;
     margin-left: 0;
-    padding: 40px 0px;
-    background-color: #ffffff;
+    padding: 24px 16px;
   }
-
-  .fg-login-form-core-box {
-    max-width: 100%;
-    width: 95%;
-    padding: 0 10px;
-  }
-
-  .fg-primary-submit-action-btn,
-  .fg-inline-routing-trigger,
-  .fg-create-account-btn {
-    border-radius: 0px !important;
-  }
-
-  .fg-native-text-input {
-    border-radius: 6px;
+  .fg-credentials-form {
+    padding: 20px 16px;
   }
 }

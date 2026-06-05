@@ -16,7 +16,7 @@ const SignPage = () => {
         {/* ── LEFT FIXED BRAND SIDEBAR ── */}
         <aside className="fg-login-sidebar">
           <img
-            src="/src/assets/firstimg001.png"
+            src="/src/assets/Container (2).png"
             alt="Farm background"
             className="fg-sidebar-bg"
           />
