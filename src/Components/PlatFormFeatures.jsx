@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiLock, FiDollarSign, FiCloudLightning, FiPhoneCall, FiUsers } from 'react-icons/fi';
-import '../CSS/PlatformFeatures.css';
+import '../CSS/PlatFormFeatures.css';
 
 const PlatFormFeatures = () => {
   return (
