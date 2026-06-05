@@ -1,0 +1,201 @@
+/* Container Base setup */
+.personal-profile-container {
+  width: 100%;
+  height: 100%;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Tab Bar Navigation Layout */
+.settings-tabs {
+  display: flex;
+  background-color: #e2e8f0;
+  padding: 4px;
+  border-radius: 100px;
+  width: fit-content;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab-btn.active {
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Master Form Block Box Component */
+.form-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 32px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.form-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #000000;
+  margin: 0 0 32px 0;
+}
+
+/* Vertical fields arrangement stack */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  width: 100%;
+}
+
+/* Left/Right inline splitting for names */
+.text-inputs-split {
+  gap: 16px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Limits width of smaller singular inputs like City */
+.size-half {
+  max-width: 50%;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+}
+
+/* Custom styled modern input element field */
+.input-group input {
+  background-color: #f1f3f6; /* Subtle muted background hue matching image */
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 15px;
+  color: #334155;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Inline action wrapper layout for phone field button layout */
+.phone-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.phone-input-wrapper input {
+  flex: 1;
+}
+
+/* Secondary white inline interaction button */
+.inline-change-btn {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+.inline-change-btn:hover {
+  background-color: #f8fafc;
+}
+
+/* Action button strip row */
+.form-action-row {
+  margin-top: 12px;
+}
+
+/* Signature dark-green submit option */
+.save-changes-btn {
+  background-color: #004d3d;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.save-changes-btn:hover {
+  background-color: #00382c;
+}
+
+/* --- MOBILE RESPONSIVE MEDIA QUERIES --- */
+
+@media (max-width: 768px) {
+  .form-card {
+    padding: 24px;
+  }
+
+  .text-inputs-split {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .size-half {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-tabs {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 8px 8px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .phone-input-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .inline-change-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .save-changes-btn {
+    width: 100%;
+  }
+}
