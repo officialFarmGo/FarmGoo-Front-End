@@ -1,0 +1,215 @@
+/* Outer container layout structural bounds */
+.transactions-container {
+  width: 100%;
+  box-sizing: border-box;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .transactions-container {
+    padding: 0;
+  }
+}
+
+/* Master Integrated Card Component Box */
+.transactions-card-wrapper {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .transactions-card-wrapper {
+    padding: 2rem;
+  }
+}
+
+/* Header strip matching styling boundaries */
+.tx-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .tx-header-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.tx-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .tx-section-title {
+    font-size: 1.45rem;
+  }
+}
+
+.tx-download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: #1e293b;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.tx-download-btn:hover {
+  background-color: #f8f9fa;
+}
+
+/* Item List Container Row stack styling blocks */
+.tx-list-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* Custom Table Row Item Components Frame layout profiles */
+.tx-row-item {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease;
+}
+
+.tx-row-item:hover {
+  background-color: #f8fafc;
+}
+
+.tx-left-block {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Core System Asset Icon Badging */
+.tx-icon-wrapper {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tx-icon-credit {
+  background-color: #e6f7ed;
+  color: #16a34a;
+}
+
+.tx-icon-debit {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.tx-icon-escrow {
+  background-color: #fff7ed;
+  color: #ea580c;
+}
+
+/* Text Element alignments rules strings */
+.tx-details-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.tx-item-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 768px) {
+  .tx-item-title {
+    font-size: 0.95rem;
+  }
+}
+
+.tx-meta-line {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  flex-wrap: wrap;
+}
+
+.tx-dot-divider {
+  color: #cbd5e1;
+}
+
+.tx-status-text.tx-status-completed {
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.tx-status-text.tx-status-pending {
+  color: #ea580c;
+  font-weight: 500;
+}
+
+/* Financial Ledger Balance labels */
+.tx-amount-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-align: right;
+}
+
+@media (min-width: 768px) {
+  .tx-amount-value {
+    font-size: 1.05rem;
+  }
+}
+
+.tx-amount-credit,
+.tx-amount-escrow {
+  color: #16a34a;
+}
+
+.tx-amount-debit {
+  color: #ef4444;
+}

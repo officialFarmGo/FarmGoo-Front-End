@@ -1,0 +1,9 @@
+.profile-container {
+  gap: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgb(216, 216, 216);
+}

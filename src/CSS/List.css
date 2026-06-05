@@ -1,0 +1,159 @@
+/* Container layout setup */
+.list-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Header layout design */
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 16px;
+}
+
+.header-text h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 6px 0;
+}
+
+.header-text p {
+    font-size: 15px;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Dark Green Action Button styling */
+.withdraw-btn {
+    background-color: #004d3d;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.withdraw-btn:hover {
+    background-color: #00382c;
+}
+
+/* Flexbox Layout for the cards row */
+.cards-wrapper {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+/* Card Base Structure */
+.card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 185px;
+    box-sizing: border-box;
+    flex: 1; /* Distributes horizontal space evenly */
+    min-width: 0; /* Prevents text overflow breaks */
+}
+
+/* Highlighted Green Card */
+.highlight-card {
+    background-color: #00b050;
+    border: none;
+    color: #ffffff;
+}
+
+/* Card layout internals */
+.card-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;s
+}
+
+.card-icon-wrapper {
+    display: inline-flex;
+    opacity: 0.9;
+}
+
+.card-icon {
+    display: inline-flex;
+}
+
+/* Match colors from design symbols */
+.check-icon { color: #00b050; }
+.clock-icon { color: #f97316; }
+.calendar-icon { color: #0f766e; }
+
+.card-title {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.card-amount {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 16px 0;
+    letter-spacing: -0.5px;
+}
+
+.card-footer {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Helper text configurations */
+.text-dark { color: #000000; }
+.text-muted { color: #64748b; }
+
+/* --- MOBILE & RESPONSIVE BREAKPOINTS --- */
+
+/* Tablets / Medium Screens */
+@media (max-width: 1024px) {
+    .cards-wrapper {
+        flex-wrap: wrap; /* Allows cards to split into 2 rows */
+    }
+    
+    .card {
+        flex: 1 1 calc(50% - 16px); /* Exact 2x2 grid view layout split */
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 650px) {
+    .list-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .withdraw-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .card {
+        flex: 1 1 100%; /* Stacks cards vertically into clean list rows */
+    }
+    
+    .card-amount {
+        font-size: 28px;
+    }
+}

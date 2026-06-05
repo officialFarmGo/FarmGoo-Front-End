@@ -1,0 +1,180 @@
+.export-report-container {
+    width: 100%;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Base block wrapper box */
+.earnings-list-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 32px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Layout section header */
+.list-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.list-header-row h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0;
+}
+
+/* Light background bordered export action button */
+.export-btn {
+    background-color: #ffffff;
+    color: #1e293b;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.export-btn:hover {
+    background-color: #f8fafc;
+}
+
+/* List element item stack box */
+.items-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Single list item block box row */
+.earning-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+/* Left layout details column box */
+.item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.title-row h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0;
+}
+
+/* Light green indicator pill */
+.status-badge {
+    background-color: #e6f9f0;
+    color: #00b050;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+/* Mid gray display line text description styling */
+.route-details {
+    font-size: 14px;
+    color: #475569;
+    margin: 0;
+    font-weight: 400;
+}
+
+.route-details span {
+    color: #94a3b8;
+    padding: 0 4px;
+}
+
+/* Bottom subtle info block details styling */
+.meta-details {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.meta-details span {
+    padding: 0 4px;
+}
+
+/* Right layout side bold currency token text */
+.item-amount {
+    font-size: 22px;
+    font-weight: 700;
+    color: #00b050; /* Bright Green color matches layout precisely */
+}
+
+/* --- MOBILE RESPONSIVE MEDIA QUERIES --- */
+
+/* Tablets / Medium Viewports */
+@media (max-width: 768px) {
+    .earnings-list-card {
+        padding: 20px;
+    }
+    
+    .earning-item {
+        padding: 16px;
+    }
+    
+    .item-amount {
+        font-size: 18px;
+    }
+}
+
+/* Small Smartphone Viewports */
+@media (max-width: 540px) {
+    .list-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .export-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Wrap item values into vertical columns for narrow view widths */
+    .earning-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        position: relative;
+    }
+
+    .item-amount {
+        align-self: flex-end;
+        font-size: 20px;
+        margin-top: 4px;
+        border-top: 1px dashed #e2e8f0;
+        width: 100%;
+        text-align: right;
+        padding-top: 12px;
+    }
+}
