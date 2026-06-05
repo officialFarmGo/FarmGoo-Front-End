@@ -2,7 +2,7 @@ import React from 'react';
 import { FiLock, FiDollarSign, FiCloudLightning, FiPhoneCall, FiUsers } from 'react-icons/fi';
 import '../CSS/PlatformFeatures.css';
 
-const PlatformFeatures = () => {
+const PlatFormFeatures = () => {
   return (
     <section className="features-full-wrapper">
       <div className="features-inner-container">
@@ -65,4 +65,4 @@ const PlatformFeatures = () => {
   );
 };
 
-export default PlatformFeatures;
+export default PlatFormFeatures;

@@ -7,7 +7,7 @@ import AboutUs from '../AboutUs'
 import OurValues from '../OurValues'
 import BuiltForEveryOne from '../BuiltForEveryOne'
 import ContactUs from '../ContactUs'
-import PlatformFeatures from '../PlatformFeatures'
+import PlatFormFeatures from '../PlatFormFeatures'
 import PaymentsTrust from '../PaymentTrust'
 import Testimonials from '../Testimonials'
 import CTASection from '../CTASection'
@@ -45,7 +45,7 @@ const LandingPageComponents = () => {
       <OurValues />
       <BuiltForEveryOne />
       <div ref={contactRef}><ContactUs /></div>
-      <div ref={featuresRef}><PlatformFeatures /></div>
+      <div ref={featuresRef}><PlatFormFeatures /></div>
       <PaymentsTrust />
       <Testimonials />
       <CTASection />
