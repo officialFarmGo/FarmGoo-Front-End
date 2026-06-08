@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation, Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import brandLogo from "../assets/Container (1).png"; 
+import brandLogo from "../assets/Container (3).png"; 
 import "../CSS/DashboardLayout.css";
 import {
   BellOutlined,

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../CSS/ExportReport.css";
+import "../CSS/ExportReport.css";
 
 const ExportReport = () => {
   const earningsData = [

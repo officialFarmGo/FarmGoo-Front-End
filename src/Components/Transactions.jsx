@@ -1,6 +1,6 @@
 import React from "react";
 import { CheckCircle2, ArrowDownCircle, Clock, Download } from "lucide-react";
-import "../../CSS/Transactions.css";
+import '../CSS/Transactions.css'
 
 const Transactions = () => {
   const transactionData = [

@@ -1,25 +1,25 @@
+import React from "react";
 import {
   AppstoreOutlined,
+  CarryOutOutlined,
   EnvironmentOutlined,
   WalletOutlined,
-  BellOutlined,
-  QuestionCircleOutlined,
-  SettingOutlined,
-  LogoutOutlined,
-  HomeOutlined,
-  CarOutlined,
+  DollarOutlined,
   UserOutlined,
-  MenuOutlined,
-  CloseOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
+import DashboardLayout from "../Components/DashboardLayout";
 
-
-// Desktop sidebar navigation items
-export const desktopMenuItems = [
+export const driverDesktopMenuItems = [
   {
     path: "",
     label: "Dashboard",
     icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
+  },
+  {
+    path: "jobss",
+    label: "Available Jobs",
+    icon: <CarryOutOutlined style={{ fontSize: "20px" }} />,
   },
   {
     path: "activedelivery",
@@ -27,37 +27,36 @@ export const desktopMenuItems = [
     icon: <EnvironmentOutlined style={{ fontSize: "20px" }} />,
   },
   {
-    path: "wallet ",
+    path: "wallet",
     label: "Wallet",
     icon: <WalletOutlined style={{ fontSize: "20px" }} />,
   },
   {
-    path: "notification ",
-    label: "Notification",
-    icon: <BellOutlined style={{ fontSize: "20px" }} />,
+    path: "earnings",
+    label: "Earnings",
+    icon: <DollarOutlined style={{ fontSize: "20px" }} />,
   },
   {
-    path: "help&support", 
-    label: "Help & Support",
-    icon: <QuestionCircleOutlined style={{ fontSize: "20px" }} />,
-  },
-  {
-    path: "settings",
-    label: "Settings",
-    icon: <SettingOutlined style={{ fontSize: "20px" }} />,
+    path: " ",
+    label: "Profile",
+    icon: <UserOutlined style={{ fontSize: "20px" }} />,
   },
 ];
 
-// Mobile bottom tab navigation items
-export const mobileMenuItems = [
+export const driverMobileMenuItems = [
   {
-    path: " ",
+    path: "",
     label: "Home",
     icon: <HomeOutlined style={{ fontSize: "22px" }} />,
   },
   {
+    path: "jobss",
+    label: " Jobs",
+    icon: <CarryOutOutlined style={{ fontSize: "22px" }} />,
+  },
+  {
     path: "activedelivery",
-    label: "Deliveries",
+    label: " Deliveries",
     icon: <EnvironmentOutlined style={{ fontSize: "22px" }} />,
   },
   {
@@ -67,11 +66,6 @@ export const mobileMenuItems = [
   },
   {
     path: "",
-    label: "Transport",
-    icon: <CarOutlined style={{ fontSize: "22px" }} />,
-  },
-  {
-    path: "settings",
     label: "Profile",
     icon: <UserOutlined style={{ fontSize: "22px" }} />,
   },

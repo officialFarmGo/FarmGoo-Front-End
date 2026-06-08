@@ -77,7 +77,7 @@ const LandingPageComponents = () => {
         <PaymentsTrust />
       </div>
 
-      <div style={{ padding: '80px 0', backgroundColor: '#f9f9f9', width: '100%' }}>
+      <div style={{ padding: '30px 0', backgroundColor: '#f9f9f9', width: '100%' }}>
         <Testimonials />
       </div>
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../CSS/Overviwe.css";
+import "../CSS/Overviwe.css";
 
 const Overviwe = () => {
   // Array of data representing each day's bar percentage fill and display label

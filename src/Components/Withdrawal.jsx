@@ -1,5 +1,5 @@
 import React from "react";
-import "../../CSS/Withdrawal.css";
+import "../CSS/Withdrawal.css";
 
 const Withdrawal = () => {
   // Array holding the history item data mapping your design
