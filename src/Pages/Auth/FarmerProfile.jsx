@@ -6,7 +6,7 @@ import {
   FaMapMarkerAlt,
   FaUser,
 } from "react-icons/fa";
-import "../CSS/FarmerProfile.css";
+import "../../CSS/FarmerProfile.css";
 
 const FarmerProfile = () => {
   const [selectedProduce, setSelectedProduce] = useState([]);

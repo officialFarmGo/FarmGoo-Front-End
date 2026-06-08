@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
+import AgentDashBoard from './Components/UI/AgentDashBoard';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import LandingPageComponents from './Components/UI/LandingPageComponents';
 import LoginPage from './Pages/Auth/LoginPage';
 import SignupPage from './Pages/Auth/SignPage';
@@ -20,7 +20,14 @@ import { AuthProvider } from './Context/AuthContext';
 import DriverDashboardView from './Components/UI/DriverDashboardView';
 import Info from './Pages/Auth/Info';
 import Notification from './Components/Notification';
-
+import FarmerProfile from './Pages/Auth/FarmerProfile';
+import FarmerHelpAndSupport from './Components/UI/FarmerHelpAndSupport';
+import DriverWellet from './Components/UI/DriverWellet';
+import ActiveDrivesDrivers from './Components/UI/ActiveDrivesDrivers';
+import DriverNotification from './Components/UI/DriverNotification';
+import DriverActiveDelivery from './Components/DriverActiveDelivery';
+import Transport from './Components/UI/Transport';
+import EarningsDrivers from './Components/UI/EarningsDrivers';
 function App() {
   return (
     <AuthProvider>
@@ -32,7 +39,7 @@ function App() {
           <Route path="/otp" element={<VerificationOtp />} />
           <Route path="/chooseDash" element={<Info />} />
           <Route path="/success" element={<SuccessFullVerification />} />
-
+          <Route path='/proflesettings' element={<FarmerProfile />} />
           <Route path="/dashboard" element={<DashboardRedirect />} />
 
           <Route path="/farmer/dashboard" element={<FarmersDahboard />}>
@@ -41,18 +48,26 @@ function App() {
             <Route path="notification" element={<Notification />} />
             <Route path="settings" element={<ProfileSettingsDashboard />} />
             <Route path="activedelivery" element={<ActiveDeliveryPageComponets />} />
+            <Route path='help&support' element={<FarmerHelpAndSupport />} />
           </Route>
 
           <Route path="/agent/dashboard" element={<AgentDashboard />}>
             <Route path="" element={<DashboardPagesComponent />} />
+           
           </Route>
 
           <Route path="/drivers/dashboard" element={<DriverDashboard />}>
             <Route path="" element={<DriverDashboardView />} />
+            <Route path="activedelivery" element={<DriverActiveDelivery/>} />
+             <Route path="wallet" element={< DriverWellet/>} />
+            <Route path="jobss" element={<Transport />} />
+            <Route path="earnings" element={<EarningsDrivers />} />
           </Route>
         </Routes>
       </Router>
     </AuthProvider>
+
+  
   );
 }
 

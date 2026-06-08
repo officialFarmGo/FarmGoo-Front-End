@@ -3,10 +3,10 @@ import '../CSS/AboutUs.css';
 
 const AboutUs = () => {
   return (
-    <div className="container">
+    <main className="about-main-wrapper">
       <header className="hero-section">
         <span className="badge green-badge">ABOUT US</span>
-        <p className='about-ushero'>Transforming Nigeria's farm-to-market<br />supply chain</p>
+        <h1 className="about-ushero">Transforming Nigeria's farm-to-market<br />supply chain</h1>
         <p className="hero-subtext">
           We're building the infrastructure that connects Nigerian farmers directly to trusted truck 
           drivers, eliminating waste, reducing post-harvest losses, and creating prosperity across the 
@@ -26,20 +26,20 @@ const AboutUs = () => {
         <div className="stats-card">
           <div className="stats-grid">
             <div className="stat-item">
-              <div className="stat-number">40%</div>
-              <div className="stat-label">Post-harvest loss before FarmGoo</div>
+              <h3 className="stat-number">40%</h3>
+              <p className="stat-label">Post-harvest loss before FarmGoo</p>
             </div>
             <div className="stat-item">
-              <div className="stat-number">1,400+</div>
-              <div className="stat-label">Deliveries completed</div>
+              <h3 className="stat-number">1,400+</h3>
+              <p className="stat-label">Deliveries completed</p>
             </div>
             <div className="stat-item">
-              <div className="stat-number">250+</div>
-              <div className="stat-label">Registered farmers</div>
+              <h3 className="stat-number">250+</h3>
+              <p className="stat-label">Registered farmers</p>
             </div>
             <div className="stat-item">
-              <div className="stat-number">120+</div>
-              <div className="stat-label">Verified drivers</div>
+              <h3 className="stat-number">120+</h3>
+              <p className="stat-label">Verified drivers</p>
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@ const AboutUs = () => {
       <section className="mv-grid">
         <div className="info-card">
           <div className="icon-circle green-bg">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-green)" strokeWidth="2.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d8a5f" strokeWidth="2.5">
               <circle cx="12" cy="12" r="10" />
               <polyline points="12 6 12 12 16 14" />
             </svg>
@@ -59,7 +59,7 @@ const AboutUs = () => {
 
         <div className="info-card">
           <div className="icon-circle orange-bg">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-yellow)" strokeWidth="2.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#eab308" strokeWidth="2.5">
               <polygon points="12 2 2 7 12 12 22 7 12 2" />
               <polyline points="2 17 12 22 22 17" />
               <polyline points="2 12 12 17 22 12" />
@@ -69,7 +69,7 @@ const AboutUs = () => {
           <p>A Nigeria where every farmer has instant access to reliable transport, every harvest reaches the market fresh, and agricultural productivity drives nationwide economic growth and food security.</p>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

@@ -1,0 +1,204 @@
+/* Container Base setup */
+.drivers-profile-container {
+  width: 100%;
+  height: 100%;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Header Text styling */
+.profile-header-text {
+  margin-bottom: 24px;
+}
+
+.profile-header-text h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 6px 0;
+}
+
+.profile-header-text p {
+  font-size: 15px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Master Profile Block Card */
+.profile-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 32px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+/* Avatar Circle Components with Camera button placement */
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.avatar-circle {
+  width: 110px;
+  height: 110px;
+  background-color: #004d3d; /* Exact match profile deep green */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-circle span {
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.camera-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+/* Driver metadata description blocks layout */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.name-row h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+}
+
+.verified-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Horizontal contact information row line */
+.contact-info-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Underneath stats display row metrics */
+.stats-row {
+  display: flex;
+  gap: 40px;
+  margin-top: 8px;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.bold-dark {
+  color: #000000;
+  font-size: 18px;
+}
+
+.rating-value {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #004d3d;
+  font-size: 18px;
+}
+
+/* --- MOBILE RESPONSIVE MEDIA QUERIES --- */
+
+@media (max-width: 768px) {
+  .profile-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .name-row {
+    justify-content: center;
+  }
+
+  .contact-info-strip {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .stats-row {
+    justify-content: center;
+    width: 100%;
+    gap: 24px;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-info-strip {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stats-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .stat-box {
+    align-items: center;
+  }
+}

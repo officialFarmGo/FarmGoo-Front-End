@@ -20,16 +20,15 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--primary-text-color);
-  border-left: 3px solid var(--primary-text-color);
+  
   padding-left: 10px;
 }
 
 .how-it-works-left h1 {
-  font-size: 42px;
-  font-weight: 800;
-  color: var(--primary-text-color);
-  line-height: 1.15;
-  margin: 0;
+   font-size: 35px;
+   font-weight: 800;
+  color: var(--primary-text-color); 
+ 
 }
 
 .how-it-works-left h1 .yellow-line {
@@ -55,7 +54,7 @@
 .step-card {
   background-color: #f5f5f0;
   border-radius: 12px;
-  padding: 24px 28px;
+  padding: 20px 28px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;

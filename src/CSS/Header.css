@@ -1,13 +1,9 @@
 
-
-
-
-
 .navbar-container {
   width: 100%;
   background-color: #ffffff;
   box-sizing: border-box;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 2px solid #eae9e6;
   position: sticky;
   top: 0;
   left: 0;
@@ -15,8 +11,8 @@
 }
 
 .navbar-content {
-  width: 93%;
-  height: 90px;
+  width: 90%;
+  height: 60px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -37,8 +33,8 @@
 }
 
 .brand-name {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 500;
   color: var(--primary-green);
 }
 
@@ -81,8 +77,8 @@
   background-color: var(--Bold-thick-green);
   color: #ffffff;
   font-size: 16px;
-  font-weight: 600;
-  padding: 14px 28px;
+  font-weight: 500;
+  padding: 10px 25px;
   border: none;
   border-radius: 50px;
   cursor: pointer;

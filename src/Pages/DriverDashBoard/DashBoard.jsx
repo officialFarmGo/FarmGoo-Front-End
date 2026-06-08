@@ -1,15 +1,15 @@
 import React from 'react'
 import DashboardLayout from '../../Components/DashboardLayout'
-import { desktopMenuItems, mobileMenuItems } from "../../Data/Data";
+import { driverDesktopMenuItems,driverMobileMenuItems } from "../../Data/DriverDashboard";
 
 const DashBoard = () => {
   return (
     <div>
        <DashboardLayout 
-      desktopMenuItems={desktopMenuItems} 
-      mobileMenuItems={mobileMenuItems} 
-      profile="J"
-      profileName=" Jola Ogeremu"
+      desktopMenuItems={driverDesktopMenuItems} 
+      mobileMenuItems={driverMobileMenuItems} 
+      profile="C"
+      profileName=" Clinton Sommy"
       rows="Driver"
     />
     </div>

@@ -1,19 +1,24 @@
 import React from "react";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import "../CSS/ActiveDeliveriesList.css";
+import { useNavigate } from "react-router-dom";
 
 const ActiveDeliveriesList = () => {
+
+  const nav = useNavigate();
   return (
     <div className="fg-active-deliveries-container">
       <div className="fg-active-card-wrapper">
         
         <div className="fg-active-header">
           <div className="fg-active-title-block">
-            <h2 className="fg-active-heading">Active Deliveries</h2>
+            <h2 className="fg-active-heading" >Active Deliveries</h2>
             <span className="fg-active-subheading">Track your ongoing deliveries</span>
           </div>
-          <button className="fg-view-all-btn">
-            View All <ArrowRightOutlined style={{ fontSize: "12px", marginLeft: "4px" }} />
+          <button className="fg-view-all-btn" 
+          onClick={() => nav('activedelivery')}
+          >
+            View All <ArrowRightOutlined style={{ fontSize: "12px", marginLeft: "4px" }}  />
           </button>
         </div>
 

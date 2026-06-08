@@ -37,7 +37,7 @@ export const desktopMenuItems = [
     icon: <BellOutlined style={{ fontSize: "20px" }} />,
   },
   {
-    path: " ",
+    path: "help&support", 
     label: "Help & Support",
     icon: <QuestionCircleOutlined style={{ fontSize: "20px" }} />,
   },

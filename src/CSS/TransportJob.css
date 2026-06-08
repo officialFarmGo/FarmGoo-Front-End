@@ -1,0 +1,141 @@
+.transport-job-container {
+    width: 100%;
+    font-family: system-ui, -apple-system, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-sizing: border-box;
+}
+
+/* Header Text Styles */
+.tj-header-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tj-main-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0;
+}
+
+.tj-sub-text {
+    font-size: 0.925rem;
+    color: #64748B;
+    margin: 0;
+}
+
+/* Filtering Section Layout */
+.tj-filter-card {
+    background-color: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+@media (min-width: 768px) {
+    .tj-filter-card {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+/* Search Bar Component */
+.tj-search-wrapper {
+    position: relative;
+    flex: 1;
+    max-width: 100%;
+}
+
+@media (min-width: 768px) {
+    .tj-search-wrapper {
+        max-width: 450px;
+    }
+}
+
+.tj-search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94A3B8;
+    pointer-events: none;
+}
+
+.tj-search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.7rem;
+    background-color: #F1F5F9;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    color: #1E293B;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.tj-search-input::placeholder {
+    color: #94A3B8;
+}
+
+.tj-search-input:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: #03543F;
+}
+
+/* Dropdown Filters Container */
+.tj-dropdown-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+@media (min-width: 480px) {
+    .tj-dropdown-group {
+        flex-direction: row;
+    }
+}
+
+/* Custom Select Dropdowns */
+.tj-select-wrapper {
+    position: relative;
+    min-width: 160px;
+}
+
+.tj-filter-select {
+    width: 100%;
+    appearance: none;
+    background-color: #F1F5F9;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #0F172A;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.tj-filter-select:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: #03543F;
+}
+
+.tj-select-arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94A3B8;
+    pointer-events: none;
+}

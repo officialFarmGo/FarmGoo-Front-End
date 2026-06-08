@@ -1,0 +1,240 @@
+/* ─── BASE CONTAINER ─────────────────────────────── */
+.main-wellet-container {
+  width: 100%;
+  box-sizing: border-box;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .main-wellet-container {
+    padding: 0;
+  }
+}
+
+/* ─── TITLE ──────────────────────────────────────── */
+.mw-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.mw-main-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.mw-sub-title {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .mw-main-title {
+    font-size: 1.75rem;
+  }
+  .mw-sub-title {
+    font-size: 0.925rem;
+  }
+}
+
+/* ─── CARDS ROW ──────────────────────────────────── */
+.mw-cards-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .mw-cards-row {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+}
+
+/* ─── BALANCE CARD (green) ───────────────────────── */
+.mw-balance-card {
+  background-color: #007a48;
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex: 1.2;
+  box-sizing: border-box;
+}
+
+.mw-card-top-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mw-balance-label-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.mw-toggle-visibility-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.mw-toggle-visibility-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.mw-balance-amount {
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0.25rem 0;
+}
+
+.mw-withdraw-action-btn {
+  width: 100%;
+  background-color: #ffffff;
+  color: #03543f;
+  border: none;
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease;
+}
+
+.mw-withdraw-action-btn:hover {
+  background-color: #f0fdf4;
+}
+
+/* ─── STAT CAPSULE CARDS (white) ─────────────────── */
+.mw-stat-capsule-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.mw-capsule-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.mw-capsule-header.yellow-text {
+  color: #d97706;
+}
+
+.mw-capsule-header.green-text {
+  color: #16a34a;
+}
+
+.mw-capsule-value {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.mw-capsule-footer-text {
+  font-size: 0.775rem;
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+/* ─── DESKTOP SCALING ────────────────────────────── */
+@media (min-width: 768px) {
+  .mw-balance-card {
+    padding: 1.5rem;
+  }
+
+  .mw-toggle-visibility-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .mw-balance-amount {
+    font-size: 2.25rem;
+  }
+
+  .mw-withdraw-action-btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .mw-stat-capsule-card {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .mw-capsule-header {
+    font-size: 0.875rem;
+  }
+
+  .mw-capsule-value {
+    font-size: 2rem;
+  }
+
+  .mw-capsule-footer-text {
+    font-size: 0.8rem;
+  }
+}
+
+/* ─── MOBILE ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  .mw-balance-amount {
+    font-size: 1.6rem;
+  }
+
+  .mw-capsule-value {
+    font-size: 1.4rem;
+  }
+
+  .mw-balance-card,
+  .mw-stat-capsule-card {
+    border-radius: 12px;
+  }
+}

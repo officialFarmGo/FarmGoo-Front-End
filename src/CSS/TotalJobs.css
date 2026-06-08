@@ -1,0 +1,342 @@
+.total-jobs-container {
+  width: 100%;
+  box-sizing: border-box;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Top Meta Bar Styling */
+.tj-meta-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.tj-count-text {
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+.tj-count-number {
+  font-size: 1.1rem;
+  color: #03543f;
+  font-weight: 700;
+}
+
+.tj-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1e293b;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.tj-filter-btn:hover {
+  background-color: #f8f9fa;
+}
+
+/* Cards Wrapper Grid */
+.tj-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Individual Job Card Frame */
+.tj-job-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease;
+}
+
+@media (min-width: 992px) {
+  .tj-job-card {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* Left Section Columns Details */
+.tj-card-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.tj-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tj-job-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+/* Badges System */
+.tj-badge-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tj-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.tj-badge.escrow {
+  background-color: #e6f6f4;
+  color: #059669;
+}
+
+.tj-checkmark {
+  font-weight: bold;
+}
+
+.tj-badge.urgent {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.tj-meta-specs {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0.35rem 0 0 0;
+  font-weight: 400;
+}
+
+/* Route Display Indicators */
+.tj-route-display {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #334155;
+}
+
+.tj-route-point {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.tj-pin-icon.src {
+  color: #059669;
+}
+.tj-pin-icon.dest {
+  color: #ef4444;
+}
+.tj-route-arrow {
+  color: #94a3b8;
+}
+
+/* Grid of Core Metrics */
+.tj-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 576px) {
+  .tj-metrics-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.tj-metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.tj-metric-label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: capitalize;
+}
+
+.tj-metric-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #475569;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.tj-metric-value.font-dark {
+  color: #0f172a;
+}
+
+.tj-inline-icon {
+  color: #64748b;
+}
+
+.tj-card-divider {
+  border: 0;
+  border-top: 1px solid #f1f5f9;
+  margin: 0;
+  width: 100%;
+}
+
+/* Footer Section / Farmer Meta Details */
+.tj-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tj-avatar-circle {
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: #03543f;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+}
+
+.tj-author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.tj-farm-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.tj-rating-tag {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tj-rating-tag strong {
+  color: #1e293b;
+}
+
+/* Right Layout Columns (Pricing & Trigger CTA) */
+.tj-card-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+@media (min-width: 992px) {
+  .tj-card-right {
+    min-width: 200px;
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+.tj-payout-box {
+  background-color: #f8f9fa;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tj-payout-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-bottom: 0.25rem;
+}
+
+@media (min-width: 992px) {
+  .tj-payout-label {
+    text-align: center;
+  }
+}
+
+.tj-payout-amount {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #03543f;
+}
+
+@media (min-width: 992px) {
+  .tj-payout-amount {
+    text-align: center;
+  }
+}
+
+/* Action Control CTA layouts */
+.tj-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.tj-btn-primary,
+.tj-btn-secondary {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease;
+}
+
+.tj-btn-primary {
+  background-color: #03543f;
+  color: #ffffff;
+  border: none;
+}
+
+.tj-btn-primary:hover {
+  background-color: #023d2e;
+}
+
+.tj-btn-secondary {
+  background-color: #ffffff;
+  color: #1e293b;
+  border: 1px solid #e2e8f0;
+}
+
+.tj-btn-secondary:hover {
+  background-color: #f8f9fa;
+}

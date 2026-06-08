@@ -9,7 +9,7 @@ const HowItWorks = () => {
         <span className="how-it-works-badge">How It Works</span>
 
         <h1>
-          Post a load. Get a driver.
+          Post a load. Get a driver.<br/>
           <span className="yellow-line">Deliver with confidence.</span>
         </h1>
 

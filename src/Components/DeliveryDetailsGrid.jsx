@@ -11,7 +11,6 @@ const DeliveryDetailsGrid = () => {
     <div className="fg-delivery-grid-container">
       <div className="fg-delivery-cards-grid">
 
-        {/* Card 1: Driver Details */}
         <div className="fg-delivery-info-card">
           <h3 className="fg-delivery-card-title">Driver Details</h3>
           <div className="fg-profile-row">
@@ -36,7 +35,6 @@ const DeliveryDetailsGrid = () => {
           </div>
         </div>
 
-        {/* Card 2: Customer's Details */}
         <div className="fg-delivery-info-card">
           <h3 className="fg-delivery-card-title">Customer's Details</h3>
           <div className="fg-profile-row">
@@ -47,8 +45,7 @@ const DeliveryDetailsGrid = () => {
             </div>
           </div>
         </div>
-
-        {/* Card 3: Your Delivery PIN */}
+        
         <div className="fg-delivery-info-card bg-split">
           <div className="fg-pin-card-top">
             <h3 className="fg-delivery-card-title">Your delivery PIN</h3>

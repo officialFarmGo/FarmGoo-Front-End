@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
 const phrases = [
-  "Fresh from the farm. Straight to the Market.",
-  'From farm, gbam!Straight to market',
-  'Ọhụrụ si n’ugbo.Kpọmkwem gaa ahịa.',
-  'Tuntun láti oko.Tààrà sí ọjà.',
-  'Sabo daga gona.Kai tsaye zuwa kasuwa.'
+ <>Fresh from the farm.<br />Straight to the Market.</>,
+  <>From farm, gbam!<br />Straight to market</>,
+  <>Ọhụrụ si n’ugbo.<br />Kpọmkwem gaa ahịa.</>,
+  <>Tuntun láti oko.<br />Tààrà sí ọjà.</>,
+  <>Sabo daga gona.<br />Kai tsaye zuwa kasuwa.</>
 ]
 
 const TextLogic = () => {
