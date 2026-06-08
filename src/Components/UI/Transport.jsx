@@ -1,13 +1,15 @@
 import React from "react";
-import "../CSS/Transport.css";
-import TransportJob from "../Components/TransportJob";
-import TotalJobs from "../Components/Totaljobs";
+
+
+import TransportJob from "../../Components/TransportJob";
+import Totaljobs from "../../Components/TotalJobs";
+
 
 const Transport = () => {
   return (
     <div className="transport-container">
       <TransportJob />
-      <TotalJobs />
+      <Totaljobs/>
     </div>
   );
 };

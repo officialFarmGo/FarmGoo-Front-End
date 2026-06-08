@@ -1,8 +1,8 @@
-import "../../CSS/EarningsDrivers.css";
-import List from "./List";
-import Overviwe from "./Overviwe";
-import ExportReport from "./ExportReport";
-import Withdrawal from "./Withdrawal";
+
+import List from "../../Components/List";
+import Overviwe from "../../Components/Overviwe";
+import ExportReport from "../../Components/ExportReport";
+import Withdrawal from "../../Components/Withdrawal";
 
 const EarningsDrivers = () => {
   return (

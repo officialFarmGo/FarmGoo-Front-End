@@ -1,5 +1,5 @@
 import React from "react";
-import "../../CSS/MainNotification.css";
+import "../CSS/MainNotification.css";
 
 const MainNotification = () => {
   const notificationsData = [
