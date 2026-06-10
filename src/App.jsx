@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import AgentDashBoard from './Components/UI/AgentDashBoard';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter , Routes, Route } from 'react-router-dom';
 import LandingPageComponents from './Components/UI/LandingPageComponents';
 import LoginPage from './Pages/Auth/LoginPage';
 import SignupPage from './Pages/Auth/SignPage';
@@ -16,8 +16,7 @@ import Wallet from './Components/Wallet';
 import NotificationPreferences from './Components/NotificationPreferences';
 import ProfileSettingsDashboard from './Components/ProfileSettingsDashboard';
 import ActiveDeliveryPageComponets from './Components/UI/ActiveDeliveryPageComponets';
-import DashboardRedirect from './Data/DashboardRedirect';
-import { AuthProvider } from './Context/AuthContext';
+import DashboardRedirect from './Data/DashboardRedirect'; 
 import DriverDashboardView from './Components/UI/DriverDashboardView';
 import Info from './Pages/Auth/Info';
 import Notification from './Components/Notification';
@@ -31,10 +30,11 @@ import Transport from './Components/UI/Transport';
 import EarningsDrivers from './Components/UI/EarningsDrivers';
 import Profile from './Components/UI/Profile';
 import AgentProfileSettings from './Components/AgentProfilesetting';
+
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <BrowserRouter>
+    
         <Routes>
           <Route path="/" element={<LandingPageComponents />} />
           <Route path="/login" element={<LoginPage />} />
@@ -73,8 +73,8 @@ function App() {
             <Route path='profile' element={<Profile/>}/>
           </Route>
         </Routes>
-      </Router>
-    </AuthProvider>
+    
+    </BrowserRouter>
    
   
   );
