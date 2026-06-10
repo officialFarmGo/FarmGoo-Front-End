@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import "../../CSS/PersonlaProfile.css";
-
+import "../CSS/PersonlaProfile.css";
 const PersonlaProfile = () => {
   const [activeTab, setActiveTab] = useState("personal");
 

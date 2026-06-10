@@ -1,7 +1,7 @@
 import React from "react";
-import "../../CSS/Profile.css";
-import DriversProfile from "../Profile/DriversProfile";
-import PersonlaProfile from "../Profile/PersonlaProfile";
+
+import DriversProfile from "../DriversProfile";
+import PersonlaProfile from "../PersonlaProfile";
 
 const Profile = () => {
   return (

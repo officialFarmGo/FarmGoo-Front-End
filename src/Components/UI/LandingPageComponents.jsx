@@ -31,13 +31,13 @@ const LandingPageComponents = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#ffffff', minHeight: '100vh', width: '100%' }}>
+    <div style={{ backgroundColor: '#ffffff', minHeight: '100vh', width: '100%',}}>
       <Header 
         onScrollToSection={scrollToSection}
         refs={{ homeRef, aboutRef, howItWorksRef, featuresRef, contactRef }}
       />
       
-      <div ref={homeRef}>
+      <div ref={homeRef} style={{ }}>
         <HeroSection />
       </div>
 
@@ -45,7 +45,7 @@ const LandingPageComponents = () => {
         <Detail />
       </div>
 
-      <div style={{ padding: '100px 0', backgroundColor: '#f9f9f9', width: '100%' }}>
+      <div style={{ padding: '100px 0',  width: '100%' }}>
         <DetailTwo />
       </div>
 
@@ -53,7 +53,7 @@ const LandingPageComponents = () => {
         <HowItWorks />
       </div>
 
-      <div ref={aboutRef} style={{ padding: '100px 0', backgroundColor: '#f9f9f9', width: '100%' }}>
+      <div ref={aboutRef} style={{ padding: '100px 0',  width: '100%' }}>
         <AboutUs />
       </div>
 
@@ -61,7 +61,7 @@ const LandingPageComponents = () => {
         <OurValues />
       </div>
 
-      <div style={{ padding: '30px 0', backgroundColor: '#f9f9f9', width: '100%' }}>
+      <div style={{ padding: '30px 0',  width: '100%' }}>
         <BuiltForEveryOne />
       </div>
 
@@ -69,7 +69,7 @@ const LandingPageComponents = () => {
         <ContactUs />
       </div>
 
-      <div ref={featuresRef} style={{ padding: '100px 0', backgroundColor: '#f9f9f9', width: '100%' }}>
+      <div ref={featuresRef} style={{ padding: '100px 0',  width: '100%' }}>
         <PlatFormFeatures />
       </div>
 
@@ -77,7 +77,7 @@ const LandingPageComponents = () => {
         <PaymentsTrust />
       </div>
 
-      <div style={{ padding: '30px 0', backgroundColor: '#f9f9f9', width: '100%' }}>
+      <div style={{ padding: '30px 0',  width: '100%' }}>
         <Testimonials />
       </div>
 
