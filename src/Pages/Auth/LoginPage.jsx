@@ -2,16 +2,88 @@ import React, { useState } from "react";
 import "../../CSS/Loginpage.css";
 import { LuMoveLeft } from "react-icons/lu";
 import { FaSeedling, FaTruck, FaUsers } from "react-icons/fa";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [activeRole, setActiveRole] = useState("driver");
+  const [showPassword, setShowPassword] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    identifier: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case "identifier": {
+        if (!value.trim()) return "Email or phone number is required.";
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^(\+234|0)[789][01]\d{8}$/;
+        if (
+          !emailRegex.test(value.trim()) &&
+          !phoneRegex.test(value.replace(/\s/g, ""))
+        )
+          return "Enter a valid email or Nigerian phone number.";
+        return "";
+      }
+      case "password": {
+        if (!value.trim()) return "Password is required.";
+        if (value.trim().length < 8)
+          return "Password must be at least 8 characters.";
+        return "";
+      }
+      default:
+        return "";
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (submitted) {
+      setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
+  };
+
+  const validateAll = () => {
+    const newErrors = {};
+    Object.entries(formData).forEach(([name, value]) => {
+      const err = validateField(name, value);
+      if (err) newErrors[name] = err;
+    });
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+
+    const freshErrors = validateAll();
+    setErrors(freshErrors);
+
+    if (Object.keys(freshErrors).length > 0) {
+      const firstErrorField = document.querySelector(".fg-input-error");
+      if (firstErrorField)
+        firstErrorField.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    console.log("Logging in:", { ...formData, role: activeRole });
+  };
 
   return (
     <div className="fg-login-wrapper">
       <div className="fg-login-split-content">
-        
         <aside className="fg-login-sidebar">
           <img
             src="/src/assets/Container (2).png"
@@ -34,20 +106,22 @@ const LoginPage = () => {
                 Welcome back to the harvest network.
               </h1>
               <p className="fg-main-hero-subtitle">
-                Access your dashboard to manage deliveries,<br/> track shipments, and
-                connect with farmers <br/>and drivers across Nigeria.
+                Access your dashboard to manage deliveries,
+                <br /> track shipments, and connect with farmers <br />
+                and drivers across Nigeria.
               </p>
             </div>
 
             <div className="fg-sidebar-footer-row">
-              <span className="fg-footer-copyright">Powered by FarmGoo © 2026</span>
+              <span className="fg-footer-copyright">
+                Powered by FarmGoo © 2026
+              </span>
             </div>
           </div>
         </aside>
 
         <main className="fg-login-form-panel">
           <div className="fg-login-form-core-box">
-            
             <div className="fg-brand-identity-header">
               <div className="fg-brand-logo-container">
                 <img
@@ -98,24 +172,57 @@ const LoginPage = () => {
 
             <form
               className="fg-credentials-form"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
+              noValidate
             >
               <div className="fg-input-group-field">
                 <label className="fg-input-label-tag">Email or phone</label>
                 <input
                   type="text"
-                  className="fg-native-text-input"
+                  name="identifier"
+                  value={formData.identifier}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                   placeholder="Enter your email or phone number"
+                  className={`fg-native-text-input ${errors.identifier ? "fg-input-error" : ""}`}
                 />
+                {errors.identifier && (
+                  <span className="fg-field-error-msg">
+                    {errors.identifier}
+                  </span>
+                )}
               </div>
 
               <div className="fg-input-group-field">
                 <label className="fg-input-label-tag">Password</label>
-                <input
-                  type="password"
-                  className="fg-native-text-input"
-                  placeholder="Enter your password"
-                />
+                <div className="fg-native-input-password-wrapper">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="Enter your password"
+                    className={`fg-native-text-input fg-password-padding ${errors.password ? "fg-input-error" : ""}`}
+                  />
+                  <button
+                    type="button"
+                    className="fg-native-input-eye-trigger"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                  >
+                    {showPassword ? (
+                      <AiOutlineEyeInvisible />
+                    ) : (
+                      <AiOutlineEye />
+                    )}
+                  </button>
+                </div>
+                {errors.password && (
+                  <span className="fg-field-error-msg">{errors.password}</span>
+                )}
               </div>
 
               <div className="fg-form-options-alignment-row">
@@ -148,10 +255,8 @@ const LoginPage = () => {
                 </p>
               </div>
             </form>
-
           </div>
         </main>
-
       </div>
     </div>
   );
