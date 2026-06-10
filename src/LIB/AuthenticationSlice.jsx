@@ -6,6 +6,7 @@ const initialState = {
   isAuthenticated: false,
   isLoading: false,
   authError: null,
+  selectedRole:null,
 };
 
 const authSlice = createSlice({
@@ -39,6 +40,10 @@ const authSlice = createSlice({
     },
     clearAuthErrors: (state) => {
       state.authError = null;
+    },
+
+    selectRole: (state, action) => {
+      state.selectedRole = action.payload;
     }
   },
 });
@@ -48,7 +53,8 @@ export const {
   authActionSuccess, 
   authActionFailure, 
   executeLogout,
-  clearAuthErrors 
+  clearAuthErrors ,
+  selectRole,
 } = authSlice.actions;
 
 export default authSlice.reducer;
