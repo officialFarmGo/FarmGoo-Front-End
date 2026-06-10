@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+
 import AgentDashBoard from './Components/UI/AgentDashBoard';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPageComponents from './Components/UI/LandingPageComponents';
@@ -74,7 +75,7 @@ function App() {
         </Routes>
       </Router>
     </AuthProvider>
-
+   
   
   );
 }
