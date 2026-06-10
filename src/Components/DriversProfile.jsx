@@ -1,5 +1,5 @@
 import React from "react";
-import "../../CSS/DriversProfile.css";
+import "../CSS/DriversProfile.css";
 
 const DriversProfile = () => {
   return (

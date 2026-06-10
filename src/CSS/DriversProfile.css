@@ -2,15 +2,11 @@
 .drivers-profile-container {
   width: 100%;
   height: 100%;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
   box-sizing: border-box;
 }
 
 /* Header Text styling */
-.profile-header-text {
-  margin-bottom: 24px;
-}
 
 .profile-header-text h2 {
   font-size: 28px;

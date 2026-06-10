@@ -28,6 +28,8 @@ import DriverNotification from './Components/UI/DriverNotification';
 import DriverActiveDelivery from './Components/DriverActiveDelivery';
 import Transport from './Components/UI/Transport';
 import EarningsDrivers from './Components/UI/EarningsDrivers';
+import Profile from './Components/UI/Profile';
+import AgentProfileSettings from './Components/AgentProfilesetting';
 function App() {
   return (
     <AuthProvider>
@@ -52,7 +54,12 @@ function App() {
           </Route>
 
           <Route path="/agent/dashboard" element={<AgentDashboard />}>
-            <Route path="" element={<DashboardPagesComponent />} />
+            <Route path="" element={<AgentDashBoard />} />
+            <Route path="wallet" element={<Wallet />} />
+            <Route path="notification" element={<Notification />} />
+            <Route path="settings" element={<AgentProfileSettings />} />
+            <Route path="activedelivery" element={<ActiveDeliveryPageComponets />} />
+            <Route path='help&support' element={<FarmerHelpAndSupport />} />
            
           </Route>
 
@@ -62,6 +69,7 @@ function App() {
              <Route path="wallet" element={< DriverWellet/>} />
             <Route path="jobss" element={<Transport />} />
             <Route path="earnings" element={<EarningsDrivers />} />
+            <Route path='profile' element={<Profile/>}/>
           </Route>
         </Routes>
       </Router>
