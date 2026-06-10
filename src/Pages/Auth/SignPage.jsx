@@ -8,7 +8,7 @@ const SignPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [selectedRole] = useState("Agent");
   const navigate = useNavigate();
-
+console.log("Selected Role:", selectedRole);
   return (
     <div className="fg-login-wrapper">
       <div className="fg-login-split-content">
