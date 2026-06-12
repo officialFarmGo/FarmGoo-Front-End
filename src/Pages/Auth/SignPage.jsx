@@ -155,7 +155,9 @@ const SignPage = () => {
                 Access your dashboard to manage deliveries, track shipments, and connect with farmers and drivers across Nigeria.
               </p>
             </div>
-            <span className="fg-footer-copyright">Powered by FarmGoo © 2026</span>
+            <span className="fg-footer-copyright">
+              Powered by FarmGoo © 2026
+            </span>
           </div>
         </aside>
 
@@ -183,7 +185,9 @@ const SignPage = () => {
                 {errors.form && <div className="fg-field-error-msg" style={{ marginBottom: "12px", textAlign: "center" }}>{errors.form}</div>}
 
                 <div className="fg-input-group-field">
-                  <label className="fg-input-label-tag">First Name <span className="fg-required-star">*</span></label>
+                  <label className="fg-input-label-tag">
+                    First Name <span className="fg-required-star">*</span>
+                  </label>
                   <input
                     type="text"
                     name="firstName"
@@ -196,8 +200,11 @@ const SignPage = () => {
                   {errors.firstName && <span className="fg-field-error-msg">{errors.firstName}</span>}
                 </div>
 
+                {/* Last Name */}
                 <div className="fg-input-group-field">
-                  <label className="fg-input-label-tag">Last Name <span className="fg-required-star">*</span></label>
+                  <label className="fg-input-label-tag">
+                    Last Name <span className="fg-required-star">*</span>
+                  </label>
                   <input
                     type="text"
                     name="lastName"
@@ -210,8 +217,11 @@ const SignPage = () => {
                   {errors.lastName && <span className="fg-field-error-msg">{errors.lastName}</span>}
                 </div>
 
+                {/* Phone */}
                 <div className="fg-input-group-field">
-                  <label className="fg-input-label-tag">Phone number <span className="fg-required-star">*</span></label>
+                  <label className="fg-input-label-tag">
+                    Phone number <span className="fg-required-star">*</span>
+                  </label>
                   <input
                     type="text"
                     name="phoneNumber"
@@ -225,6 +235,7 @@ const SignPage = () => {
                   {errors.phoneNumber && <span className="fg-field-error-msg">{errors.phoneNumber}</span>}
                 </div>
 
+                {/* Email */}
                 <div className="fg-input-group-field">
                   <label className="fg-input-label-tag">Email (optional)</label>
                   <input
@@ -240,8 +251,11 @@ const SignPage = () => {
                   {errors.email && <span className="fg-field-error-msg">{errors.email}</span>}
                 </div>
 
+                {/* Town */}
                 <div className="fg-input-group-field">
-                  <label className="fg-input-label-tag">Town / Village <span className="fg-required-star">*</span></label>
+                  <label className="fg-input-label-tag">
+                    Town / Village <span className="fg-required-star">*</span>
+                  </label>
                   <input
                     type="text"
                     name="townOrVillage"
@@ -255,6 +269,7 @@ const SignPage = () => {
                   {errors.townOrVillage && <span className="fg-field-error-msg">{errors.townOrVillage}</span>}
                 </div>
 
+                {/* Password */}
                 <div className="fg-input-group-field">
                   <label className="fg-input-label-tag">Password <span className="fg-required-star">*</span></label>
                   <div className="fg-native-input-password-wrapper">
@@ -275,7 +290,11 @@ const SignPage = () => {
                       aria-label={showPassword ? "Hide password" : "Show password"}
                       disabled={loading}
                     >
-                      {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                      {showPassword ? (
+                        <AiOutlineEyeInvisible />
+                      ) : (
+                        <AiOutlineEye />
+                      )}
                     </button>
                   </div>
 
