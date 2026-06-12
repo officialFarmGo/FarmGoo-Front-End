@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import {
   FaBox,
   FaChartLine,
@@ -6,10 +7,30 @@ import {
   FaMapMarkerAlt,
   FaUser,
 } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import "../../CSS/FarmerProfile.css";
+import { useNavigate } from "react-router-dom";
 
 const FarmerProfile = () => {
+  const nav = useNavigate();
+  const auth = useSelector((state) => state.auth || {});
+
+  const {
+    firstName = "",
+    lastName = "",
+    phoneNumber = "",
+    email = "",
+    token = "",
+  } = auth;
+
   const [selectedProduce, setSelectedProduce] = useState([]);
+
+  const [formData, setFormData] = useState({
+    state: "",
+    specificLocationOrLandmark: "",
+    preferredMarketDestination: "",
+    farmSize: "",
+  });
 
   const produceOptions = [
     "Tomatoes",
@@ -27,97 +48,135 @@ const FarmerProfile = () => {
   ];
 
   const toggleProduce = (item) => {
-    if (selectedProduce.includes(item)) {
-      setSelectedProduce(selectedProduce.filter((p) => p !== item));
-    } else {
-      setSelectedProduce([...selectedProduce, item]);
+    setSelectedProduce((prev) =>
+      prev.includes(item)
+        ? prev.filter((produce) => produce !== item)
+        : [...prev, item],
+    );
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const BACKEND_URL = import.meta.env.VITE_BaseUrl;
+  const farmerID = JSON.parse(localStorage.getItem("farmerID"));
+  console.log("Backend URL:", BACKEND_URL);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      state: formData.state,
+      specificLocationOrLandmark: formData.specificLocationOrLandmark,
+      whatDoYouFarm: selectedProduce.join(", "),
+      preferredMarketDestination: formData.preferredMarketDestination,
+      farmSize: formData.farmSize,
+    };
+
+    console.log("Payload:", payload);
+
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/farmKyc/create/${farmerID}`,
+        payload,
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.error(error.response?.data || error.message);
     }
   };
 
   return (
     <div className="profile-container">
       <div className="profile-wrapper">
-        {/* Header Section */}
+        {/* Header */}
         <div className="profile-header">
           <div className="logo-placeholder">
-            <span style={{ fontFamily: "serif" }}>
-              {" "}
-              <img
-                className="sign-page-logo-img"
-                src="/src/assets/logo.png"
-                alt="Logo"
-              />
-            </span>
+            <img
+              className="sign-page-logo-img"
+              src="/src/assets/logo.png"
+              alt="Logo"
+            />
           </div>
+
           <h2 className="profile-title">Complete Your Farmer Profile</h2>
+
           <p className="profile-subtitle">
             Tell us about your farm so we can match you with the right drivers
           </p>
         </div>
 
-        {/* Progress Bar */}
-        <div className="progress-container">
-          <div className="progress-text">
-            <span>Step 2 of 2: Profile Setup</span>
-            <span>Almost there!</span>
-          </div>
-          <div className="progress-bar-bg">
-            <div className="progress-bar-fill"></div>
-          </div>
-        </div>
-
-        {/* Form Container */}
-        <form onSubmit={(e) => e.preventDefault()}>
-          {/* SECTION 1: Farmer Details */}
+        {/* Form */}
+        <form onSubmit={handleSubmit}>
+          {/* Farmer Details */}
           <div className="form-section">
             <div className="section-header">
               <div className="icon-box green">
                 <FaUser size={20} />
               </div>
+
               <div>
                 <h3 className="section-title">Farmer Details</h3>
-                <p className="section-subtitle">contact information</p>
+                <p className="section-subtitle">Contact Information</p>
               </div>
             </div>
 
             <div className="grid-2">
               <div className="input-group">
                 <label className="input-label">First Name</label>
-                <input type="text" placeholder="Jola" className="form-input" />
+                <input
+                  type="text"
+                  value={firstName}
+                  disabled
+                  className="form-input"
+                />
               </div>
+
               <div className="input-group">
                 <label className="input-label">Last Name</label>
                 <input
                   type="text"
-                  placeholder="Ogeremu"
+                  value={lastName}
+                  disabled
                   className="form-input"
                 />
               </div>
+
               <div className="input-group">
                 <label className="input-label">Phone Number</label>
                 <input
                   type="text"
-                  placeholder="0801 234 5678"
+                  value={phoneNumber}
+                  disabled
                   className="form-input"
                 />
               </div>
+
               <div className="input-group">
                 <label className="input-label">Email</label>
                 <input
                   type="email"
-                  placeholder="liaoreg@gmail.com"
+                  value={email}
+                  disabled
                   className="form-input"
                 />
               </div>
             </div>
           </div>
 
-          {/* SECTION 2: Farm Location */}
+          {/* Farm Location */}
           <div className="form-section">
             <div className="section-header">
               <div className="icon-box green">
                 <FaMapMarkerAlt size={20} />
               </div>
+
               <div>
                 <h3 className="section-title">Farm Location</h3>
                 <p className="section-subtitle">Where is your farm located?</p>
@@ -127,10 +186,19 @@ const FarmerProfile = () => {
             <div className="grid-2" style={{ marginBottom: "1rem" }}>
               <div className="input-group">
                 <label className="input-label">State</label>
-                <input type="text" className="form-input" />
+
+                <input
+                  type="text"
+                  name="state"
+                  value={formData.state}
+                  onChange={handleChange}
+                  className="form-input"
+                />
               </div>
+
               <div className="input-group">
                 <label className="input-label">LGA / Town</label>
+
                 <input
                   type="text"
                   placeholder="e.g. Ikorodu, Ikeja"
@@ -138,26 +206,33 @@ const FarmerProfile = () => {
                 />
               </div>
             </div>
+
             <div className="input-group">
               <label className="input-label">
                 Specific Location / Landmark
               </label>
+
               <input
                 type="text"
-                placeholder="e.g. Near Ogun River Bridge, Abeokuta Road"
+                name="specificLocationOrLandmark"
+                value={formData.specificLocationOrLandmark}
+                onChange={handleChange}
+                placeholder="e.g. Near Ogun River Bridge"
                 className="form-input"
               />
             </div>
           </div>
 
-          {/* SECTION 3: What Do You Farm? */}
+          {/* Produce Selection */}
           <div className="form-section">
             <div className="section-header">
               <div className="icon-box amber">
                 <FaBox size={20} />
               </div>
+
               <div>
                 <h3 className="section-title">What Do You Farm?</h3>
+
                 <p className="section-subtitle">
                   Select all produce types you grow
                 </p>
@@ -167,10 +242,11 @@ const FarmerProfile = () => {
             <div className="produce-grid">
               {produceOptions.map((item) => {
                 const isSelected = selectedProduce.includes(item);
+
                 return (
                   <button
-                    type="button"
                     key={item}
+                    type="button"
                     onClick={() => toggleProduce(item)}
                     className={`produce-btn ${isSelected ? "selected" : ""}`}
                   >
@@ -181,54 +257,75 @@ const FarmerProfile = () => {
             </div>
           </div>
 
-          {/* SECTION 4: Preferred Market Destination */}
+          {/* Preferred Market */}
           <div className="form-section">
             <div className="section-header">
               <div className="icon-box blue">
                 <FaChartLine size={20} />
               </div>
+
               <div>
                 <h3 className="section-title">Preferred Market Destination</h3>
+
                 <p className="section-subtitle">
                   Where do you usually sell your produce?
                 </p>
               </div>
             </div>
+
             <div className="input-group">
               <input
                 type="text"
-                placeholder="e.g. Mile 12 Market, Bodija Market"
+                name="preferredMarketDestination"
+                value={formData.preferredMarketDestination}
+                onChange={handleChange}
+                placeholder="e.g. Mile 12 Market"
                 className="form-input"
               />
             </div>
           </div>
 
-          {/* SECTION 5: Farm Size */}
+          {/* Farm Size */}
           <div
             className="form-section"
-            style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.5rem",
+            }}
           >
             <label className="section-title" style={{ fontSize: "0.875rem" }}>
               Farm Size
             </label>
+
             <div className="select-wrapper">
-              <select className="form-select">
+              <select
+                name="farmSize"
+                value={formData.farmSize}
+                onChange={handleChange}
+                className="form-select"
+              >
                 <option value="">Select farm size</option>
-                <option value="small">Small (Less than 1 hectare)</option>
-                <option value="medium">Medium (1 - 5 hectares)</option>
-                <option value="large">Large (More than 5 hectares)</option>
+
+                <option value="Small">Small (Less than 1 hectare)</option>
+
+                <option value="Medium">Medium (1 - 5 hectares)</option>
+
+                <option value="Large">Large (More than 5 hectares)</option>
               </select>
+
               <div className="select-icon">
                 <FaChevronDown size={16} />
               </div>
             </div>
           </div>
 
-          {/* Form Actions */}
+          {/* Submit */}
           <div>
             <button type="submit" className="submit-btn">
               Complete Profile
             </button>
+
             <p className="footer-text">
               You can update this information anytime from your profile settings
             </p>

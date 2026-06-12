@@ -1,16 +1,24 @@
 import React from "react";
 import "../CSS/DashboardHeader.css";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { LuPlus, LuBox, LuClock3, LuTrendingUp } from "react-icons/lu";
 
 const DashboardHeader = () => {
+  const nav =useNavigate()
+const authState = useSelector((state) => state.auth);
+  const user = authState?.profile || authState?.user || authState;
+
+  const userName = user?.fullName || user?.name || "Jola Ogeremu";
+
   return (
     <div className="dashboard-header">
       <div className="dashboard-top-row">
         <div className="dashboard-welcome">
-          <h1>Welcome back Jola Ogeremu</h1>
+          <h1>Welcome back {userName}</h1>
           <p>Here's what's happening with your farm today</p>
         </div>
-        <button className="request-btn">
+        <button className="request-btn" onClick={()=>nav}>
           <LuPlus /> Request Transport
         </button>
       </div>
@@ -37,7 +45,6 @@ const DashboardHeader = () => {
         <div className="stat-card">
           <div className="stat-card-top">
             <span>Completed This Month</span>
-            {/* <LuCheckCircle2 style={{ color: "#10b981", fontSize: "18px" }} /> */}
           </div>
           <span className="stat-value">15</span>
           <span className="stat-sub">+3 from last month</span>

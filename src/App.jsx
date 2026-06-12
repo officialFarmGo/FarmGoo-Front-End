@@ -30,6 +30,8 @@ import Transport from './Components/UI/Transport';
 import EarningsDrivers from './Components/UI/EarningsDrivers';
 import Profile from './Components/UI/Profile';
 import AgentProfileSettings from './Components/AgentProfilesetting';
+import ForgetPassword from './Pages/Auth/ForgetPassword';
+import RequestTransport from './Components/RequestTransport'
 
 function App() {
   return (
@@ -42,8 +44,11 @@ function App() {
           <Route path="/otp" element={<VerificationOtp />} />
           <Route path="/chooseDash" element={<Info />} />
           <Route path="/success" element={<SuccessFullVerification />} />
-          <Route path='/proflesettings' element={<FarmerProfile />} />
           <Route path="/dashboard" element={<DashboardRedirect />} />
+          <Route path="/forgot-password" element={<ForgetPassword />} />
+         <Route path='/farmer-kyc' element={<FarmerProfile />} />
+         <Route path='request' element={<RequestTransport/>}/>
+
 
           <Route path="/farmer/dashboard" element={<FarmersDahboard />}>
             <Route path="" element={<DashboardPagesComponent />} />
