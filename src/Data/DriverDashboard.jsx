@@ -37,7 +37,7 @@ export const driverDesktopMenuItems = [
     icon: <DollarOutlined style={{ fontSize: "20px" }} />,
   },
   {
-    path: " ",
+    path: "profile",
     label: "Profile",
     icon: <UserOutlined style={{ fontSize: "20px" }} />,
   },

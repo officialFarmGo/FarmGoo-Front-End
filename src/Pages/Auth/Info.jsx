@@ -1,16 +1,20 @@
 import React from "react";
 import "../../CSS/info.css";
 import { FaSeedling, FaTruck, FaUserFriends } from "react-icons/fa";
-import {useNavigate} from "react-router-dom";
-import {useAuth} from "../../Context/AuthContext";
-const Info = () => {
-  const { selectRole } = useAuth();
-  const navigate = useNavigate();
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext";
+import { useDispatch } from "react-redux";
+import { selectRole } from "../../LIB/AuthenticationSlice";
 
-     const handleRoleSelection = (role) => {
-      selectRole(role);
-      navigate("/signup");
-    };
+const Info = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleRoleSelection = (role) => {
+    dispatch(selectRole(role));
+    navigate("/signup");
+    
+  };
   return (
     <div className="info-container">
       <div className="info-content">
@@ -18,8 +22,9 @@ const Info = () => {
         <p>Free to join. Choose what describes you best.</p>
 
         <div className="role-container">
-          <div className="role-card"
-          onClick={() => handleRoleSelection("farmer")}
+          <div
+            className="role-card"
+            onClick={() => handleRoleSelection("farmer")}
           >
             <div className="role-icon">
               <FaSeedling />
@@ -28,8 +33,9 @@ const Info = () => {
             <span>Send my produce to market</span>
           </div>
 
-          <div className="role-card"
-          onClick={() => handleRoleSelection("driver")}
+          <div
+            className="role-card"
+            onClick={() => handleRoleSelection("driver")}
           >
             <div className="role-icon">
               <FaTruck />
@@ -38,8 +44,9 @@ const Info = () => {
             <span>Find loads to haul</span>
           </div>
 
-          <div className="role-card"
-          onClick={() => handleRoleSelection("agent")}
+          <div
+            className="role-card"
+            onClick={() => handleRoleSelection("agent")}
           >
             <div className="role-icon">
               <FaUserFriends />

@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
+
 import AgentDashBoard from './Components/UI/AgentDashBoard';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter , Routes, Route } from 'react-router-dom';
 import LandingPageComponents from './Components/UI/LandingPageComponents';
 import LoginPage from './Pages/Auth/LoginPage';
 import SignupPage from './Pages/Auth/SignPage';
@@ -15,8 +16,7 @@ import Wallet from './Components/Wallet';
 import NotificationPreferences from './Components/NotificationPreferences';
 import ProfileSettingsDashboard from './Components/ProfileSettingsDashboard';
 import ActiveDeliveryPageComponets from './Components/UI/ActiveDeliveryPageComponets';
-import DashboardRedirect from './Data/DashboardRedirect';
-import { AuthProvider } from './Context/AuthContext';
+import DashboardRedirect from './Data/DashboardRedirect'; 
 import DriverDashboardView from './Components/UI/DriverDashboardView';
 import Info from './Pages/Auth/Info';
 import Notification from './Components/Notification';
@@ -28,10 +28,15 @@ import DriverNotification from './Components/UI/DriverNotification';
 import DriverActiveDelivery from './Components/DriverActiveDelivery';
 import Transport from './Components/UI/Transport';
 import EarningsDrivers from './Components/UI/EarningsDrivers';
+import Profile from './Components/UI/Profile';
+import AgentProfileSettings from './Components/AgentProfilesetting';
+import ForgetPassword from './Pages/Auth/ForgetPassword';
+import RequestTransport from './Components/RequestTransport'
+
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <BrowserRouter>
+    
         <Routes>
           <Route path="/" element={<LandingPageComponents />} />
           <Route path="/login" element={<LoginPage />} />
@@ -39,8 +44,11 @@ function App() {
           <Route path="/otp" element={<VerificationOtp />} />
           <Route path="/chooseDash" element={<Info />} />
           <Route path="/success" element={<SuccessFullVerification />} />
-          <Route path='/proflesettings' element={<FarmerProfile />} />
           <Route path="/dashboard" element={<DashboardRedirect />} />
+          <Route path="/forgot-password" element={<ForgetPassword />} />
+         <Route path='/farmer-kyc' element={<FarmerProfile />} />
+         <Route path='request' element={<RequestTransport/>}/>
+
 
           <Route path="/farmer/dashboard" element={<FarmersDahboard />}>
             <Route path="" element={<DashboardPagesComponent />} />
@@ -52,7 +60,12 @@ function App() {
           </Route>
 
           <Route path="/agent/dashboard" element={<AgentDashboard />}>
-            <Route path="" element={<DashboardPagesComponent />} />
+            <Route path="" element={<AgentDashBoard />} />
+            <Route path="wallet" element={<Wallet />} />
+            <Route path="notification" element={<Notification />} />
+            <Route path="settings" element={<AgentProfileSettings />} />
+            <Route path="activedelivery" element={<ActiveDeliveryPageComponets />} />
+            <Route path='help&support' element={<FarmerHelpAndSupport />} />
            
           </Route>
 
@@ -62,11 +75,12 @@ function App() {
              <Route path="wallet" element={< DriverWellet/>} />
             <Route path="jobss" element={<Transport />} />
             <Route path="earnings" element={<EarningsDrivers />} />
+            <Route path='profile' element={<Profile/>}/>
           </Route>
         </Routes>
-      </Router>
-    </AuthProvider>
-
+    
+    </BrowserRouter>
+   
   
   );
 }
