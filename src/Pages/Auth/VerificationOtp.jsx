@@ -3,57 +3,81 @@ import { Flex, Input, Typography, Button } from "antd";
 import { FiArrowLeft } from "react-icons/fi";
 import firstimg001 from "../../assets/firstimg001.png";
 import "../../CSS/VerificationOtp.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const { Text } = Typography;
 
 const VerificationOtp = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [otpValue, setOtpValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Handle OTP entry change
+  const userEmail = location.state?.email || "your registered email address";
+  const selectRole = location.state?.role || "farmer";
+
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+  const Endpoint = selectRole === "farmer" ? "/farm/verify" : selectRole === "driver" ? "/driver/verifyEmail" : "/agent/verify";
+
+  const verifyOtpRequest = async (code) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${BaseUrl}${Endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: location.state?.email, otp: code }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        setErrorMessage("");
+        navigate("/success", { state: location.state });
+      } else {
+        setErrorMessage(data.message || "Invalid verification code. Please try again.");
+      }
+    } catch (err) {
+      setErrorMessage("Network error, please check your internet connection.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const onChange = (text) => {
     const digitsOnly = String(text || "").replace(/\D/g, "");
     setOtpValue(digitsOnly);
 
-    // If it's empty, update or clear errors gracefully
     if (digitsOnly.length === 0) {
       setErrorMessage("");
       return;
     }
 
-    // Clear error message if they start filling it out but haven't hit 6 digits yet
     if (digitsOnly.length < 6) {
       setErrorMessage("");
     }
 
-    // Auto-routes instantly when all 6 digits are typed
     if (digitsOnly.length === 6) {
       setErrorMessage("");
-      navigate("/success");
+      verifyOtpRequest(digitsOnly);
     }
   };
 
-  // Submit handler when clicking "Verify and Continue"
   const handleSubmit = (e) => {
     e?.preventDefault();
 
-    // 1. Error if completely empty
     if (otpValue.length === 0) {
       setErrorMessage("Please enter the verification code.");
       return;
     }
 
-    // 2. Error if numbers are entered but incomplete (less than 6)
     if (otpValue.length < 6) {
       setErrorMessage("Please enter a complete 6-digit code.");
       return;
     }
 
-    // Route to success if check passes
     setErrorMessage("");
-    navigate("/success");
+    verifyOtpRequest(otpValue);
   };
 
   return (
@@ -70,6 +94,7 @@ const VerificationOtp = () => {
             icon={<FiArrowLeft size={24} style={{ color: "#ffffff" }} />}
             className="fg-otp-back-btn"
             onClick={() => navigate(-1)}
+            disabled={loading}
           />
         </div>
 
@@ -96,7 +121,7 @@ const VerificationOtp = () => {
               We sent a 6-digit code to
               <br />
               <strong className="fg-otp-phone-highlight">
-                +234 801 234 5678
+                {userEmail}
               </strong>
             </p>
           </div>
@@ -115,10 +140,10 @@ const VerificationOtp = () => {
                 pattern="[0-9]*"
                 formatter={(str) => String(str).replace(/\D/g, "")}
                 variant="outlined"
+                disabled={loading}
                 className={`fg-otp-input-field-group ${errorMessage ? "fg-otp-input-error" : ""}`}
               />
 
-              {/* Conditional Error message component */}
               {errorMessage && (
                 <span
                   className="fg-otp-error-msg"
@@ -133,8 +158,10 @@ const VerificationOtp = () => {
                 <span
                   className="fg-otp-action-link"
                   onClick={() => {
-                    setOtpValue("");
-                    setErrorMessage("");
+                    if (!loading) {
+                      setOtpValue("");
+                      setErrorMessage("");
+                    }
                   }}
                 >
                   Resend code
@@ -144,6 +171,7 @@ const VerificationOtp = () => {
               <Button
                 type="primary"
                 size="large"
+                loading={loading}
                 className="fg-otp-cta-submit-btn"
                 onClick={handleSubmit}
               >
@@ -151,10 +179,12 @@ const VerificationOtp = () => {
               </Button>
 
               <Text className="fg-otp-meta-link-text">
-                Wrong number?{" "}
+                Wrong email address?{" "}
                 <span
                   className="fg-otp-action-link"
-                  onClick={() => navigate(-1)}
+                  onClick={() => {
+                    if (!loading) navigate(-1);
+                  }}
                 >
                   Go back
                 </span>

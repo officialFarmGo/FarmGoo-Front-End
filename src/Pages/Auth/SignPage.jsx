@@ -9,6 +9,7 @@ const SignPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const selectRole = useSelector((state) => state.auth.selectedRole);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
@@ -45,7 +46,7 @@ const SignPage = () => {
         if (!value.trim()) return "Last name is required.";
         if (value.trim().length < 2) return "Last name must be at least 2 characters.";
         return "";
-      case "phone": {
+      case "phoneNumber": {
         const phoneRegex = /^(\+234|0)[789][01]\d{8}$/;
         if (!value.trim()) return "Phone number is required.";
         if (!phoneRegex.test(value.replace(/\s/g, ""))) return "Enter a valid Nigerian phone number (e.g. 08012345678).";
@@ -57,7 +58,7 @@ const SignPage = () => {
           if (!emailRegex.test(value)) return "Enter a valid email address.";
         }
         return "";
-      case "townorVillage":
+      case "townOrVillage":
         if (!value.trim()) return "Town or village is required.";
         if (value.trim().length < 3) return "Please enter a valid town or village name.";
         return "";
@@ -106,6 +107,8 @@ const SignPage = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
       const response = await fetch(`${BaseUrl}${Endpoint}`, {
         method: "POST",
@@ -116,12 +119,20 @@ const SignPage = () => {
       const data = await response.json();
       
       if (response.ok) {
-        navigate("/login");
+        navigate("/otp", { 
+          state: { 
+            email: formData.email, 
+            phoneNumber: formData.phoneNumber,
+            role: selectRole
+          } 
+        });
       } else {
         setErrors((prev) => ({ ...prev, form: data.message || "Signup failed" }));
       }
     } catch (err) {
       setErrors((prev) => ({ ...prev, form: "Network error, please try again." }));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -134,7 +145,7 @@ const SignPage = () => {
           <img src="/src/assets/Container (2).png" alt="Farm background" className="fg-sidebar-bg" />
           <div className="fg-sidebar-overlay">
             <div className="fg-action-row">
-              <button className="fg-back-circle-btn" onClick={() => navigate(-1)} aria-label="Go back">
+              <button className="fg-back-circle-btn" onClick={() => navigate(-1)} aria-label="Go back" disabled={loading}>
                 <LuMoveLeft />
               </button>
             </div>
@@ -165,7 +176,7 @@ const SignPage = () => {
                 <p className="fg-signup-role-badge-text">
                   Signing up as <span className="fg-signup-role-highlight">{selectRole ? selectRole.charAt(0).toUpperCase() + selectRole.slice(1) : "N/A"}</span>
                 </p>
-                <button type="button" className="fg-signup-role-change-trigger" onClick={() => navigate("/chooseDash")}>
+                <button type="button" className="fg-signup-role-change-trigger" onClick={() => navigate("/chooseDash")} disabled={loading}>
                   Change
                 </button>
               </div>
@@ -183,6 +194,7 @@ const SignPage = () => {
                     value={formData.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                     className={`fg-native-text-input ${errors.firstName ? "fg-input-error" : ""}`}
                   />
                   {errors.firstName && <span className="fg-field-error-msg">{errors.firstName}</span>}
@@ -199,6 +211,7 @@ const SignPage = () => {
                     value={formData.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                     className={`fg-native-text-input ${errors.lastName ? "fg-input-error" : ""}`}
                   />
                   {errors.lastName && <span className="fg-field-error-msg">{errors.lastName}</span>}
@@ -215,6 +228,7 @@ const SignPage = () => {
                     value={formData.phoneNumber}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                     placeholder="0801 234 5678"
                     className={`fg-native-text-input ${errors.phoneNumber ? "fg-input-error" : ""}`}
                   />
@@ -230,6 +244,7 @@ const SignPage = () => {
                     value={formData.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                     placeholder="liaoreg@gmail.com"
                     className={`fg-native-text-input ${errors.email ? "fg-input-error" : ""}`}
                   />
@@ -247,6 +262,7 @@ const SignPage = () => {
                     value={formData.townOrVillage}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={loading}
                     placeholder="e.g. Ikorodu, Lagos"
                     className={`fg-native-text-input ${errors.townOrVillage ? "fg-input-error" : ""}`}
                   />
@@ -263,6 +279,7 @@ const SignPage = () => {
                       value={formData.password}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      disabled={loading}
                       placeholder="Create a strong password"
                       className={`fg-native-text-input fg-password-padding ${errors.password ? "fg-input-error" : ""}`}
                     />
@@ -271,6 +288,7 @@ const SignPage = () => {
                       className="fg-native-input-eye-trigger"
                       onClick={() => setShowPassword(!showPassword)}
                       aria-label={showPassword ? "Hide password" : "Show password"}
+                      disabled={loading}
                     >
                       {showPassword ? (
                         <AiOutlineEyeInvisible />
@@ -294,12 +312,21 @@ const SignPage = () => {
                 </div>
 
                 <div className="fg-form-actions-submission-block">
-                  <button type="submit" className="fg-primary-submit-action-btn">
-                    Create Account
+                  <button 
+                    type="submit" 
+                    className="fg-primary-submit-action-btn" 
+                    disabled={loading}
+                    style={{ cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1 }}
+                  >
+                    {loading ? "Creating Account..." : "Create Account"}
                   </button>
                   <p className="fg-form-bottom-toggle-text">
                     Already have an account?{" "}
-                    <span className="fg-toggle-link-span" onClick={() => navigate("/login")}>
+                    <span 
+                      className="fg-toggle-link-span" 
+                      onClick={() => !loading && navigate("/login")}
+                      style={{ cursor: loading ? "not-allowed" : "pointer" }}
+                    >
                       Sign in
                     </span>
                   </p>
