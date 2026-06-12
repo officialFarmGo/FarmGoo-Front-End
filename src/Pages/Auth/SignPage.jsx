@@ -12,7 +12,7 @@ const SignPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const BaseUrl = import.meta.env.VITE_BaseUrl;
+ 
   const Endpoint = selectRole === "farmer" ? "/farm/signUp" : selectRole === "driver" ? "/driver/signUpDriver" : "/agent/signUp";
 
   const [formData, setFormData] = useState({
