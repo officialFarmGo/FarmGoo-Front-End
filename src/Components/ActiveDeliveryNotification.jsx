@@ -1,8 +1,10 @@
-import React from 'react'
-import { LuMapPin, LuClock, LuTruck } from 'react-icons/lu'
-import "../CSS/ActiveDeliveryNotification.css"
+import React from "react";
+import { LuMapPin, LuClock, LuTruck } from "react-icons/lu";
+import "../CSS/ActiveDeliveryNotification.css";
+import { Link, useNavigate } from "react-router-dom";
 
 const ActiveDeliveryNotification = () => {
+  const nav = useNavigate();
   return (
     <div className="tracking-card">
       <div className="card-header">
@@ -57,12 +59,15 @@ const ActiveDeliveryNotification = () => {
             <p>+234 801 234 5678</p>
           </div>
         </div>
-        <button className="track-btn">
-          Track Delivery
-        </button>
+        <Link
+          to={"/agent/dashboard/deliverytrack"}
+          state={{ textdecoration: "none" }}
+        >
+          <button className="track-btn">Track Delivery</button>
+        </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ActiveDeliveryNotification
+export default ActiveDeliveryNotification;

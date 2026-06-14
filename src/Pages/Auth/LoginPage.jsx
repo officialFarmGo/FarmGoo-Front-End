@@ -13,6 +13,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
+  console.log(BaseUrl)
 
   const [formData, setFormData] = useState({
     identifier: "",
