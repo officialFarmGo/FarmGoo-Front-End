@@ -123,7 +123,9 @@ const SignPage = () => {
           state: { 
             email: formData.email, 
             phoneNumber: formData.phoneNumber,
-            role: selectRole
+            role: selectRole,
+            firstName: formData.firstName,
+            lastName: formData.lastName
           } 
         });
       } else {

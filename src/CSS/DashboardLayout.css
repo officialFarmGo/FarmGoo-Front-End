@@ -117,12 +117,12 @@
   color: #044335;
 }
 
-.fg-nav-item.active {
+.active {
   background-color: #044335;
   color: #ffffff;
 }
 
-.fg-nav-item.active .fg-nav-icon {
+ .active .fg-nav-icon {
   color: #ffffff;
 }
 

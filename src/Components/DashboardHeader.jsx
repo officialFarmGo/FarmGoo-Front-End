@@ -22,7 +22,7 @@ const DashboardHeader = ({ data }) => {
         </div>
         <button
           className="request-btn"
-          onClick={() => nav("/request-transport")}
+          onClick={() => nav("/request")}
         >
           <LuPlus /> Request Transport
         </button>

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import "../CSS/RequestTransport.css"
+import { useNavigate } from 'react-router-dom'
 
 const RequestTransport = () => {
   const [showModal, setShowModal] = useState(false)
-
+  const nav=useNavigate(); 
   const handleSubmit = (e) => {
     e.preventDefault()
     setShowModal(true)
@@ -196,7 +197,7 @@ const RequestTransport = () => {
             </div>
             <h2>Transport Request Submitted!</h2>
             <p>Your request has been sent to drivers in your area. You'll be notified when a driver accepts.</p>
-            <button className="modal-btn primary">View Active Requests</button>
+            <button className="modal-btn primary" >View Active Requests</button>
             <button className="modal-btn secondary" onClick={() => setShowModal(false)}>Go Back</button>
             <div className="modal-dots">
               <span className="dot active"></span>
