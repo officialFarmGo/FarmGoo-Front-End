@@ -1,0 +1,104 @@
+.market-tips-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.market-card {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.market-card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 18px;
+}
+
+.tip-card {
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.tip-card h4 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.tip-card p {
+  font-size: 0.8rem;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.green-bg {
+  background: #e9f5ee;
+}
+
+.blue-bg {
+  background: #eef3fa;
+}
+
+.delivery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.view-all {
+  color: #065f46;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.delivery-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.delivery-card h4 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.delivery-card p {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.delivery-info {
+  text-align: right;
+}
+
+.delivery-info h4 {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.delivery-info span {
+  color: #22c55e;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .market-tips-container {
+    flex-direction: column;
+  }
+}

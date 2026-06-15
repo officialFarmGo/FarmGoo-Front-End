@@ -1,7 +1,15 @@
-.active-deliveries-container {
-  width: 95%;
+.activedeliveries-body {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
 
- margin-top: 2rem;
+.active-deliveries-container {
+  width: 100%;
+  margin-top: 2rem;
   box-sizing: border-box;
 }
 
@@ -37,12 +45,59 @@
   text-decoration: none;
 }
 
+/* Empty State Styling Elements */
+.deliveries-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  text-align: center;
+}
+
+.empty-icon-circle {
+  width: 64px;
+  height: 64px;
+  background-color: #f0fdf4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.empty-package-icon {
+  font-size: 28px;
+  color: #15803d;
+}
+
+.deliveries-empty-state h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 6px 0;
+}
+
+.deliveries-empty-state p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+/* Active Box Setup */
 .delivery-info-box {
   border: 1px solid #f3f4f6;
   border-radius: 12px;
   padding: 20px;
   box-sizing: border-box;
   background-color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.delivery-info-box:last-child {
+  margin-bottom: 0;
 }
 
 .delivery-top-details {
@@ -147,8 +202,6 @@
   font-weight: 600;
   text-decoration: none;
 }
-
-
 
 @media (max-width: 768px) {
   .active-deliveries-container {
