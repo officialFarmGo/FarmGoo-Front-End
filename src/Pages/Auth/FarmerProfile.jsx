@@ -9,19 +9,18 @@ import {
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import "../../CSS/FarmerProfile.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 const FarmerProfile = () => {
   const nav = useNavigate();
+  const location = useLocation();
   const auth = useSelector((state) => state.auth || {});
+  const user = auth.user || {};
+  const profileData = location.state || user;
+  const {farmid } =  useParams();
 
-  const {
-    firstName = "",
-    lastName = "",
-    phoneNumber = "",
-    email = "",
-    token = "",
-  } = auth;
+  const { token = "" } = auth;
 
   const [selectedProduce, setSelectedProduce] = useState([]);
 
@@ -65,7 +64,7 @@ const FarmerProfile = () => {
   };
 
   const BACKEND_URL = import.meta.env.VITE_BaseUrl;
-  const farmerID = JSON.parse(localStorage.getItem("farmerID"));
+  // const farmerID = JSON.parse(localStorage.getItem("farmerID"));
   console.log("Backend URL:", BACKEND_URL);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,12 +77,13 @@ const FarmerProfile = () => {
       farmSize: formData.farmSize,
     };
 
-    console.log("Payload:", payload);
+    console.log("Payload:", profileData.firstName);
 
     try {
       const response = await axios.post(
-        `${BACKEND_URL}/farmKyc/create/${farmerID}`,
+        `${BACKEND_URL}/farmKyc/create/${farmid}`,
         payload,
+        nav('/farmer/dashboard')
       );
 
       console.log(response.data);
@@ -132,7 +132,7 @@ const FarmerProfile = () => {
                 <label className="input-label">First Name</label>
                 <input
                   type="text"
-                  value={firstName}
+                  value={profileData.firstName || ""}
                   disabled
                   className="form-input"
                 />
@@ -142,7 +142,7 @@ const FarmerProfile = () => {
                 <label className="input-label">Last Name</label>
                 <input
                   type="text"
-                  value={lastName}
+                  value={profileData.lastName || ""}
                   disabled
                   className="form-input"
                 />
@@ -152,7 +152,7 @@ const FarmerProfile = () => {
                 <label className="input-label">Phone Number</label>
                 <input
                   type="text"
-                  value={phoneNumber}
+                  value={profileData.phoneNumber || ""}
                   disabled
                   className="form-input"
                 />
@@ -162,7 +162,7 @@ const FarmerProfile = () => {
                 <label className="input-label">Email</label>
                 <input
                   type="email"
-                  value={email}
+                  value={profileData.email || ""}
                   disabled
                   className="form-input"
                 />

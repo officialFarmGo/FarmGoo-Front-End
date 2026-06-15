@@ -4,6 +4,8 @@ import { LuMoveLeft } from "react-icons/lu";
 import { FaSeedling, FaTruck, FaUsers } from "react-icons/fa";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActionSuccess } from "../../LIB/AuthenticationSlice";
 
 const LoginPage = () => {
   const [activeRole, setActiveRole] = useState("driver");
@@ -11,6 +13,7 @@ const LoginPage = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
@@ -107,10 +110,16 @@ const LoginPage = () => {
       });
 
       const data = await response.json();
+      console.log("LOGIN RESPONSE:", data);
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        
+
+        dispatch(authActionSuccess({
+          user: data.user || data.driver || data.farmer || data.agent || null,
+          token: data.token,
+        }));
+
         if (activeRole === "farmer") {
           navigate("/farmer/dashboard");
         } else if (activeRole === "driver") {
@@ -266,15 +275,9 @@ const LoginPage = () => {
                     className="fg-native-input-eye-trigger"
                     onClick={() => setShowPassword(!showPassword)}
                     disabled={loading}
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
-                    }
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                   >
-                    {showPassword ? (
-                      <AiOutlineEyeInvisible />
-                    ) : (
-                      <AiOutlineEye />
-                    )}
+                    {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                   </button>
                 </div>
                 {errors.password && (

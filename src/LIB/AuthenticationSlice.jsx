@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 const initialState = {
   user: null,         
   token: null,         
@@ -7,12 +6,16 @@ const initialState = {
   isLoading: false,
   authError: null,
   selectedRole:null,
+  activeMenuItem: null,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    activeMenuItem: (state, action) => {
+      state.activeMenuItem = action.payload;
+    },
     authActionStart: (state) => {
       state.isLoading = true;
       state.authError = null;
@@ -55,6 +58,7 @@ export const {
   executeLogout,
   clearAuthErrors ,
   selectRole,
+  activeMenuItem
 } = authSlice.actions;
 
 export default authSlice.reducer;
