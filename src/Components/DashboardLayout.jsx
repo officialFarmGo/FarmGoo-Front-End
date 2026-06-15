@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation, Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import brandLogo from "../assets/Container (3).png"; 
+import brandLogo from "../assets/Container (3).png";
 import "../CSS/DashboardLayout.css";
 import {
   BellOutlined,
@@ -9,44 +9,54 @@ import {
   MenuOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { activeMenuItem } from "../LIB/AuthenticationSlice";
 
 const DashboardLayout = (props) => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-   const navigate = useNavigate();
+  const [ActiveMenu, setActiveMenu] = useState(0);
+  const navigate = useNavigate();
 
+  const activeMenuIndex = useSelector((state) => state.auth.activeMenuItem);
 
   // Helper to grab current route title for mobile header
   const getCurrentRouteTitle = () => {
-    const currentItem = props.mobileMenuItems.find(item => item.path === location.pathname) || 
-                        props.desktopMenuItems.find(item => item.path === location.pathname);
+    const currentItem =
+      props.mobileMenuItems.find((item) => item.path === location.pathname) ||
+      props.desktopMenuItems.find((item) => item.path === location.pathname);
     return currentItem ? currentItem.label : "Dashboard";
   };
 
+  const dispatch = useDispatch();
+
   return (
     <div className="fg-dashboard-container">
-      
       {/* MOBILE TOP NAVIGATION BAR (Matches Screenshot 2026-06-04 014553.png) */}
       <header className="fg-mobile-top-navbar">
-        <button 
-          className="fg-mobile-menu-trigger" 
+        <button
+          className="fg-mobile-menu-trigger"
           onClick={() => setIsMobileMenuOpen(true)}
         >
           <MenuOutlined style={{ fontSize: "22px", color: "#ffffff" }} />
         </button>
-        
+
         <span className="fg-mobile-header-title">{getCurrentRouteTitle()}</span>
-        
+
         <div className="fg-mobile-notification-box">
-          <BellOutlined style={{ fontSize: "22px", color: "#ffffff" }}
-          onClick={() => navigate("notification")}
+          <BellOutlined
+            style={{ fontSize: "22px", color: "#ffffff" }}
+            onClick={() => navigate("notification")}
           />
           <span className="fg-mobile-notif-badge"></span>
         </div>
       </header>
 
       {/* SIDEBAR (Desktop Side Navigation & Mobile Slide-Out Drawer) */}
-      <aside className={`fg-dashboard-sidebar ${isMobileMenuOpen ? "mobile-open" : ""}`}>
+      <aside
+        className={`fg-dashboard-sidebar ${isMobileMenuOpen ? "mobile-open" : ""}`}
+      >
         <div className="fg-sidebar-top-group">
           <div className="fg-sidebar-brand-section">
             <img src={brandLogo} alt="FarmGoo" className="fg-sidebar-logo" />
@@ -55,8 +65,8 @@ const DashboardLayout = (props) => {
               <p className="fg-brand-portal">Farm Logistics</p>
             </div>
             {/* Close icon button visible only when sliding out on mobile (Matches Sidebar (1).png) */}
-            <button 
-              className="fg-sidebar-close-trigger" 
+            <button
+              className="fg-sidebar-close-trigger"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <CloseOutlined style={{ fontSize: "20px", color: "#111827" }} />
@@ -64,20 +74,21 @@ const DashboardLayout = (props) => {
           </div>
 
           <nav className="fg-sidebar-nav">
-            {props.desktopMenuItems.map((item) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`fg-nav-item ${isActive ? "active" : ""}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <span className="fg-nav-icon">{item.icon}</span>
-                  <span className="fg-nav-label">{item.label}</span>
-                </Link>
-              );
-            })}
+            {props.desktopMenuItems.map((item, index) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`fg-nav-item ${activeMenuIndex === index ? "active" : ""}`}
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setActiveMenu(index);
+                  dispatch(activeMenuItem(index));
+                }}
+              >
+                <span className="fg-nav-icon">{item.icon}</span>
+                <span className="fg-nav-label">{item.label}</span>
+              </Link>
+            ))}
           </nav>
         </div>
 
@@ -89,10 +100,8 @@ const DashboardLayout = (props) => {
               <p className="fg-profile-role">{props.rows}</p>
             </div>
           </div>
-          
-          <button className="fg-logout-btn"
-          onClick={() => navigate("/")}
-          >
+
+          <button className="fg-logout-btn" onClick={() => navigate("/")}>
             <LogoutOutlined style={{ fontSize: "18px" }} />
             <span>Logout</span>
           </button>
@@ -101,8 +110,8 @@ const DashboardLayout = (props) => {
 
       {/* MOBILE MENU OUTSIDE OVERLAY BACKGROUND */}
       {isMobileMenuOpen && (
-        <div 
-          className="fg-sidebar-overlay" 
+        <div
+          className="fg-sidebar-overlay"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
@@ -124,15 +133,12 @@ const DashboardLayout = (props) => {
               to={item.path}
               className={`fg-mobile-tab-item ${isActive ? "active" : ""}`}
             >
-              <div className="fg-mobile-icon-wrapper">
-                {item.icon}
-              </div>
+              <div className="fg-mobile-icon-wrapper">{item.icon}</div>
               <span className="fg-mobile-tab-label">{item.label}</span>
             </Link>
           );
         })}
       </nav>
-
     </div>
   );
 };
