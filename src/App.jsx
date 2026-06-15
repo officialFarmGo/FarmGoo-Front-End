@@ -31,8 +31,10 @@ import EarningsDrivers from './Components/UI/EarningsDrivers';
 import Profile from './Components/UI/Profile';
 import AgentProfileSettings from './Components/AgentProfilesetting';
 import ForgetPassword from './Pages/Auth/ForgetPassword';
-import RequestTransport from './Components/RequestTransport'
-
+import RequestTransport from './Components/RequestTransport';
+import DriverKycVerification from './Components/DriverKycVerification';
+import VerificationPending from './Components/VerificationPending';
+import ApprovedDoc from './Components/ApprovedDoc';
 function App() {
   return (
     <BrowserRouter>
@@ -48,6 +50,9 @@ function App() {
           <Route path="/forgot-password" element={<ForgetPassword />} />
          <Route path='/farmer-kyc' element={<FarmerProfile />} />
          <Route path='request' element={<RequestTransport/>}/>
+         <Route path='/kyc/:driverid' element={<DriverKycVerification />}/>
+         <Route path='driverpending' element={<VerificationPending/>}/>
+          <Route path='/approved' element={<ApprovedDoc/>}/>  
 
 
           <Route path="/farmer/dashboard" element={<FarmersDahboard />}>

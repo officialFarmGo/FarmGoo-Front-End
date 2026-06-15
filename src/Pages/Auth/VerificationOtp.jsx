@@ -33,7 +33,11 @@ const VerificationOtp = () => {
       
       if (response.ok) {
         setErrorMessage("");
-        navigate("/success", { state: location.state });
+        navigate("/success",{ state: {
+          ...location.state,
+          driverId: data.data?._id || data.user?._id || data._id || null,
+        },
+      });
       } else {
         setErrorMessage(data.message || "Invalid verification code. Please try again.");
       }

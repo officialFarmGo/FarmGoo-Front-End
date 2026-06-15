@@ -1,14 +1,27 @@
 import React from "react";
 import "../CSS/DriverWelcomeBanner.css";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const DriverWelcomeBanner = () => {
+  const user = useSelector((state) => state.auth.user);
+   const nav =useNavigate();
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good Morning";
+    if (hour < 17) return "Good Afternoon";
+    return "Good Evening";
+  };
+
+  const firstName = user?.firstName || "Driver";
+
   return (
     <div className="fg-welcome-container">
       <div className="fg-welcome-content">
-        <h1 className="fg-welcome-heading">Good Morning, Adebayo! 👋</h1>
+        <h1 className="fg-welcome-heading">{getGreeting()}, {firstName}! 👋</h1>
         <div className="fg-welcome-actions">
-          <button className="fg-welcome-btn btn-primary">View Available Jobs</button>
-          <button className="fg-welcome-btn btn-secondary">Withdraw Earnings</button>
+          <button className="fg-welcome-btn btn-primary" onClick={() =>nav('jobss')}>View Available Jobs</button>
+          <button className="fg-welcome-btn btn-secondary" onClick={() =>nav('earnings')}>Withdraw Earnings</button>
         </div>
       </div>
     </div>
