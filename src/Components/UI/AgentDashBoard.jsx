@@ -1,20 +1,53 @@
-import React from 'react'
-import AgentDashBoardHeader from '../AgentDashBoardHeader'
-import AgentQuickActions from '../AgentQuickActions'
-import AgentRecentActivity from '../AgentRecentActivity'
-
-
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import AgentDashBoardHeader from "../AgentDashBoardHeader";
+import AgentQuickActions from "../AgentQuickActions";
+import AgentRecentActivity from "../AgentRecentActivity";
 
 const AgentDashBoard = () => {
+  // 1. Initialize state to hold your backend data safely
+  const [dashboardData, setDashboardData] = useState({
+    summary: {},
+    recentActivities: [],
+    // You can add default values here depending on your exact API response shape
+  });
+
+  const BASE_URL = import.meta.env.VITE_BaseUrl;
+  const token = localStorage.getItem("token");
+
+  // 2. Fetch the data when the page loads
+  const getDashboardData = async () => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/agentDashboard/getAlldeliveries`, // Replace with your exact dashboard endpoint if different
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (response.data && response.data.data) {
+        setDashboardData(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching agent dashboard metrics:", error);
+    }
+  };
+
+  useEffect(() => {
+    getDashboardData();
+  }, []);
+
   return (
     <div>
-
-    <AgentDashBoardHeader />
-    <AgentQuickActions />
-    <AgentRecentActivity />
+      {/* 3. Pass the newly defined dashboardData down as a prop */}
+      <AgentDashBoardHeader dashboardData={dashboardData} />
+      <AgentQuickActions />
+      <AgentRecentActivity dashboardData={dashboardData} />
     </div>
-  )
-}
+  );
+};
 
-export default AgentDashBoard
+export default AgentDashBoard;

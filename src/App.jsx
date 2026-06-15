@@ -38,6 +38,7 @@ import AddFarm from "./Components/AddFarm";
 import TransportRequest from "./Components/TransportRequest";
 import NewFarm from "./Components/NewFarm";
 import DeliveryTrack from "./Components/DeliveryTrack";
+// import WithDrawFunds from "./Components/WithDrawFunds";
 
 function App() {
   return (
@@ -68,7 +69,8 @@ function App() {
 
         <Route path="/agent/dashboard" element={<AgentDashboard />}>
           <Route path="" element={<AgentDashBoard />} />
-          <Route path="wallet" element={<Wallet />} />
+          {/* <Route path="wallet" element={<Wallet />} /> */}
+          <Route path="withDrawFunds" element={<WithDrawFunds />} />
           <Route path="notification" element={<Notification />} />
           <Route path="settings" element={<AgentProfileSettings />} />
           <Route

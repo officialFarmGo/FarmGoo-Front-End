@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   UserOutlined,
   MailOutlined,
@@ -11,12 +12,43 @@ import "../CSS/AgentProfilesetting.css";
 
 const AgentProfileSettings = () => {
   const [formData, setFormData] = useState({
-    fullName: "Obi Amaka",
-    email: "amaka@gmail.com",
-    phoneNumber: "+234 801 234 5678",
-    location: "Apapa, Lagos",
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    location: "",
     farmSize: "",
   });
+
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const BASE_URL = import.meta.env.VITE_BaseUrl;
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/agent/getProfile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.data && response.data.data) {
+          const profile = response.data.data;
+          setFormData({
+            fullName: profile.fullName || "",
+            email: profile.email || "",
+            phoneNumber: profile.phoneNumber || "",
+            location: profile.location || "",
+            farmSize: profile.farmSize || "",
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
+    };
+    fetchProfileData();
+  }, [BASE_URL, token]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,12 +56,96 @@ const AgentProfileSettings = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Saved Profile Info Data:", formData);
+  const validateForm = () => {
+    let tempErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^(?:\+234|0)[789][01]\d{8}$/;
+
+    if (!formData.fullName.trim())
+      tempErrors.fullName = "Full name is required";
+
+    if (!formData.email.trim()) {
+      tempErrors.email = "Email address is required";
+    } else if (!emailRegex.test(formData.email)) {
+      tempErrors.email = "Enter a valid email address";
+    }
+
+    if (!formData.phoneNumber.trim()) {
+      tempErrors.phoneNumber = "Phone number is required";
+    } else if (!phoneRegex.test(formData.phoneNumber.replace(/\s+/g, ""))) {
+      tempErrors.phoneNumber = "Enter a valid Nigerian phone number";
+    }
+
+    if (!formData.location.trim()) tempErrors.location = "Location is required";
+    if (!formData.farmSize) tempErrors.farmSize = "Please select a farm size";
+
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setLoading(true);
+    try {
+      const response = await axios.put(
+        `${BASE_URL}/agent/updateProfile`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response.data) {
+        alert("Profile updated successfully!");
+      }
+    } catch (error) {
+      console.error("Error updating profile data:", error);
+      if (error.response?.data?.message) {
+        setErrors({ serverError: error.response.data.message });
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formFieldsConfig = [
+    {
+      name: "fullName",
+      label: "Full Name",
+      type: "text",
+      icon: <UserOutlined className="fg-input-field-vector-icon" />,
+    },
+    {
+      name: "email",
+      label: "Email Address",
+      type: "email",
+      icon: <MailOutlined className="fg-input-field-vector-icon" />,
+    },
+    {
+      name: "phoneNumber",
+      label: "Phone Number",
+      type: "text",
+      icon: <PhoneOutlined className="fg-input-field-vector-icon" />,
+    },
+    {
+      name: "location",
+      label: "Location",
+      type: "text",
+      icon: <EnvironmentOutlined className="fg-input-field-vector-icon" />,
+    },
+  ];
 
   return (
     <div className="fg-profile-settings-view">
@@ -38,20 +154,31 @@ const AgentProfileSettings = () => {
         <p className="fg-profile-sub-title">Update your personal information</p>
       </div>
 
+      {errors.serverError && (
+        <div className="error-message server-error">{errors.serverError}</div>
+      )}
+
       <form onSubmit={handleSubmit}>
-        
         <div className="fg-profile-panel-card">
           <h3 className="fg-panel-inner-heading">Profile Picture</h3>
           <div className="fg-avatar-upload-row">
             <div className="fg-avatar-preview-circle">
-              <span>{formData.fullName.charAt(0).toUpperCase()}</span>
+              <span>
+                {formData.fullName
+                  ? formData.fullName.charAt(0).toUpperCase()
+                  : "U"}
+              </span>
               <div className="fg-avatar-camera-overlay">
                 <CameraOutlined />
               </div>
             </div>
             <div className="fg-upload-instructions-stack">
-              <span className="fg-upload-trigger-text">Change Profile Picture</span>
-              <span className="fg-upload-constraints-label">JPG, PNG or GIF. Max size 2MB</span>
+              <span className="fg-upload-trigger-text">
+                Change Profile Picture
+              </span>
+              <span className="fg-upload-constraints-label">
+                JPG, PNG or GIF. Max size 2MB
+              </span>
             </div>
           </div>
         </div>
@@ -59,67 +186,26 @@ const AgentProfileSettings = () => {
         <div className="fg-profile-panel-card">
           <h3 className="fg-panel-inner-heading">Personal Information</h3>
           <div className="fg-form-two-column-grid">
-            
-            <div className="fg-form-input-group">
-              <label className="fg-form-field-label">Full Name</label>
-              <div className="fg-input-wrapper-inner">
-                <UserOutlined className="fg-input-field-vector-icon" />
-                <input
-                  type="text"
-                  name="fullName"
-                  className="fg-input-native-element"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  required
-                />
+            {formFieldsConfig.map((field) => (
+              <div key={field.name} className="fg-form-input-group">
+                <label className="fg-form-field-label">{field.label}</label>
+                <div
+                  className={`fg-input-wrapper-inner ${errors[field.name] ? "input-error-border" : ""}`}
+                >
+                  {field.icon}
+                  <input
+                    type={field.type}
+                    name={field.name}
+                    className="fg-input-native-element"
+                    value={formData[field.name]}
+                    onChange={handleChange}
+                  />
+                </div>
+                {errors[field.name] && (
+                  <span className="error-text">{errors[field.name]}</span>
+                )}
               </div>
-            </div>
-
-            <div className="fg-form-input-group">
-              <label className="fg-form-field-label">Email Address</label>
-              <div className="fg-input-wrapper-inner">
-                <MailOutlined className="fg-input-field-vector-icon" />
-                <input
-                  type="email"
-                  name="email"
-                  className="fg-input-native-element"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="fg-form-input-group">
-              <label className="fg-form-field-label">Phone Number</label>
-              <div className="fg-input-wrapper-inner">
-                <PhoneOutlined className="fg-input-field-vector-icon" />
-                <input
-                  type="text"
-                  name="phoneNumber"
-                  className="fg-input-native-element"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="fg-form-input-group">
-              <label className="fg-form-field-label">Location</label>
-              <div className="fg-input-wrapper-inner">
-                <EnvironmentOutlined className="fg-input-field-vector-icon" />
-                <input
-                  type="text"
-                  name="location"
-                  className="fg-input-native-element"
-                  value={formData.location}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
+            ))}
           </div>
         </div>
 
@@ -127,33 +213,44 @@ const AgentProfileSettings = () => {
           <h3 className="fg-panel-inner-heading">Farm Information</h3>
           <div className="fg-form-input-group">
             <label className="fg-form-field-label">Farm Size</label>
-            <select
-              name="farmSize"
-              className="fg-select-native-element"
-              value={formData.farmSize}
-              onChange={handleChange}
-            >
-              <option value="" disabled hidden>
-                Select farm size
-              </option>
-              <option value="small">Small Scale (1-5 Hectares)</option>
-              <option value="medium">Medium Scale (5-20 Hectares)</option>
-              <option value="large">Large Scale (20+ Hectares)</option>
-            </select>
+            <div className={errors.farmSize ? "input-error-border" : ""}>
+              <select
+                name="farmSize"
+                className="fg-select-native-element"
+                value={formData.farmSize}
+                onChange={handleChange}
+              >
+                <option value="" disabled hidden>
+                  Select farm size
+                </option>
+                <option value="small">Small Scale (1-5 Hectares)</option>
+                <option value="medium">Medium Scale (5-20 Hectares)</option>
+                <option value="large">Large Scale (20+ Hectares)</option>
+              </select>
+            </div>
+            {errors.farmSize && (
+              <span className="error-text">{errors.farmSize}</span>
+            )}
           </div>
         </div>
 
         <div className="fg-form-actions-footer-row">
-             <button type="submit" className="fg-btn-submit-save-solid">
+          <button
+            type="submit"
+            className="fg-btn-submit-save-solid"
+            disabled={loading}
+          >
             <SaveOutlined />
-            <span>Save Changes</span>
+            <span>{loading ? "Saving..." : "Save Changes"}</span>
           </button>
-          <button type="button" className="fg-btn-cancel-action-outline">
+          <button
+            type="button"
+            className="fg-btn-cancel-action-outline"
+            disabled={loading}
+          >
             Cancel
           </button>
-         
         </div>
-
       </form>
     </div>
   );
