@@ -221,6 +221,12 @@
   display: none;
 }
 
+.market-tips-section {
+  flex: 1;
+  width: 100%;
+  background-color: #ffffff;
+}
+
 /* ── RESPONSIVE COMPONENT LAYOUT BREAKS ── */
 @media screen and (max-width: 900px) {
   .fg-dashboard-container {
@@ -313,7 +319,7 @@
   /* ── ADJUST CORE VIEWPORTS FOR TOP/BOTTOM NAV BARS ── */
   .fg-dashboard-main-content {
     width: 100%;
-    padding-top: 64px;    /* Space for top sticky header */
+    padding-top: 64px; /* Space for top sticky header */
     padding-bottom: 76px; /* Space for bottom sticky tab bar */
   }
 

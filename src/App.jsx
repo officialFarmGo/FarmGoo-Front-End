@@ -48,7 +48,7 @@ function App() {
         <Route path="/dashboard" element={<DashboardRedirect />} />
         <Route path="/farmer_kyc/:farmid" element={<FarmerProfile />} />
         <Route path="/forgot-password" element={<ForgetPassword />} />
-        <Route path="request" element={<RequestTransport />} />
+        <Route path="/request" element={<RequestTransport />} />
         <Route path="/driver_kyc/:driverid" element={<DriverKycVerification />} />
         <Route path="driverpending" element={<VerificationPending />} />
         <Route path="/approved" element={<ApprovedDoc />} />
