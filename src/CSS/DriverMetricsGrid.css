@@ -2,11 +2,12 @@
   width: 100%;
   margin: 24px auto 0 auto;
   box-sizing: border-box;
+  
 }
 
 .fg-metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   width: 100%;
   box-sizing: border-box;
@@ -19,7 +20,7 @@
   padding: 16px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   box-sizing: border-box;
 }
 
