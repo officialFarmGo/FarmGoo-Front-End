@@ -39,7 +39,12 @@ const SuccessFullVerification = () => {
 
   return (
     <div className="fg-success-container">
-      <Flex vertical align="center" justify="center" className="fg-success-wrapper">
+      <Flex
+        vertical
+        align="center"
+        justify="center"
+        className="fg-success-wrapper"
+      >
         <div className="fg-success-icon-box">
           <img src={successCheckIcon} alt="Verification Successful" className="fg-success-img" />
         </div>
