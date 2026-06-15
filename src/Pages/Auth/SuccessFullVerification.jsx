@@ -10,7 +10,8 @@ const SuccessFullVerification = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const finalRole = location.state?.role || "farmer";
+  const finalRole = location.state?.role;
+  console.log(finalRole);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,11 +32,16 @@ const SuccessFullVerification = () => {
 
   return (
     <div className="fg-success-container">
-      <Flex vertical align="center" justify="center" className="fg-success-wrapper">
+      <Flex
+        vertical
+        align="center"
+        justify="center"
+        className="fg-success-wrapper"
+      >
         <div className="fg-success-icon-box">
-          <img 
-            src={successCheckIcon} 
-            alt="Verification Successful" 
+          <img
+            src={successCheckIcon}
+            alt="Verification Successful"
             className="fg-success-img"
           />
         </div>

@@ -37,7 +37,7 @@ const LandingPageComponents = () => {
         refs={{ homeRef, aboutRef, howItWorksRef, featuresRef, contactRef }}
       />
       
-      <div ref={homeRef} style={{ }}>
+      <div ref={homeRef} style={{marginTop:'30px' }}>
         <HeroSection />
       </div>
 
