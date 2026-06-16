@@ -20,7 +20,7 @@ const BuiltForEveryOne = () => {
           <div className="image-wrapper">
             <span className="card-badge">For Farmers</span>
             <img 
-              src="/src/assets/farmer.jpg" 
+              src="https://res.cloudinary.com/dnjexdaop/image/upload/v1780660363/photo_5_2026-06-05_12-51-52_a84flh.jpg" 
               alt="Farmers working on the field" 
               className="card-image"
             />
@@ -49,7 +49,7 @@ const BuiltForEveryOne = () => {
           <div className="image-wrapper">
             <span className="card-badge">For Drivers</span>
             <img 
-              src="/src/assets/drivers.jpg" 
+              src="https://res.cloudinary.com/dnjexdaop/image/upload/v1780660364/photo_3_2026-06-05_12-51-52_vw7qzq.jpg" 
               alt="Truck driver hauling produce" 
               className="card-image"
             />
@@ -86,7 +86,7 @@ const BuiltForEveryOne = () => {
           <div className="image-wrapper">
             <span className="card-badge">For Agent</span>
             <img 
-              src="/src/assets/agent.jpg" 
+              src="https://res.cloudinary.com/dnjexdaop/image/upload/v1780660362/photo_2_2026-06-05_12-51-52_mxihfn.jpg" 
               alt="Agents managing logistics on mobile devices" 
               className="card-image"
             />

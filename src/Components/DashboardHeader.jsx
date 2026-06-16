@@ -6,10 +6,9 @@ import { LuPlus } from "react-icons/lu";
 
 const DashboardHeader = ({ data }) => {
   const nav = useNavigate();
-  const authState = useSelector((state) => state.auth);
-  const user = authState?.profile || authState?.user || authState;
+  const authState = useSelector((state) => state.auth.user);
 
-  const userName = user?.fullName || user?.name || "Jola Ogeremu";
+  const userName = authState?.firstName || "Farmer";
 
   return (
     <div className="dashboard-header">
@@ -112,8 +111,8 @@ const DashboardHeader = ({ data }) => {
           </div>
           <span className="stat-value">
             {data?.totalSpentThisMonth
-              ? `₦${Number(data.totalSpentThisMonth).toLocaleString()}`
-              : "₦285k"}
+              ? `₦${data.totalSpentThisMonth}`
+              : "₦0"}
           </span>
           <span className="stat-sub">This month</span>
         </div>
