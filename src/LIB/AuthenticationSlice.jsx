@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
-  user: null,         
+  user: null,
+  id: null,         
   token: null,         
   isAuthenticated: false,
   isLoading: false,
@@ -27,6 +28,12 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.authError = null;
     },
+    authToken:(state,action)=>{
+      state.token =action.payload;
+    },
+    authUser:(state, action) => {
+      state.user = action.payload;
+    },
     authActionFailure: (state, action) => {
       state.isLoading = false;
       state.isAuthenticated = false;
@@ -47,6 +54,10 @@ const authSlice = createSlice({
 
     selectRole: (state, action) => {
       state.selectedRole = action.payload;
+    },
+
+    getId: (state, action) => {
+      state.id = action.payload;
     }
   },
 });
@@ -54,11 +65,14 @@ const authSlice = createSlice({
 export const { 
   authActionStart, 
   authActionSuccess, 
+  authToken,
+  authUser,
   authActionFailure, 
   executeLogout,
   clearAuthErrors ,
   selectRole,
-  activeMenuItem
+  activeMenuItem,
+  getId
 } = authSlice.actions;
 
 export default authSlice.reducer;
