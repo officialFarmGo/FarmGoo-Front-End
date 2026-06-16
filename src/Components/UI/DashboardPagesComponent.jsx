@@ -4,27 +4,36 @@ import WeatherAlert from "../../Components/WeatherAlert";
 import ActiveDeliveries from "../../Components/ActiveDeliveries";
 import { apiInstance } from "../../Api/Api";
 import MarketSectionHolder from "./MarketSectionHolder";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const DashboardPagesComponent = () => {
   const [apiResponse, setApiResponse] = useState(null);
   const [loading, setLoading] = useState(true);
+  const token = useSelector((state) => state.auth.token);
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
 
-  const FetchDashboardData = async () => {
+
+  // const user = useSelector((state) => state.auth.user);
+
+    useEffect(() => {
     try {
-      setLoading(true);
-      const response = await apiInstance.get("/farmerDash/farmDash");
-      setApiResponse(response.data.data);
-      console.log(response);
+      const fetchData = async () => {
+        const response = await axios.get(`${BaseUrl}/farmerDash/farmDash`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("response", response);
+        setApiResponse(response.data.data);
+        setLoading(false);
+      };
+      fetchData();
     } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
+      console.error("Error fetching data:", error);
     }
-  };
-
-  useEffect(() => {
-    FetchDashboardData();
   }, []);
+
 
   if (loading) {
     return (

@@ -4,7 +4,7 @@
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
-  height: 100vh;
+  height: 105vh;
   position: relative;
 }
 
@@ -13,11 +13,11 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100;
+  height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
-
 
 .hero-content-wrapper {
   width: 100%;
@@ -25,7 +25,6 @@
   margin: 0 auto;
   padding: 0 40px;
   box-sizing: border-box;
-  margin-top: 5rem;
 }
 
 .hero-text {
@@ -50,7 +49,6 @@
   margin-bottom: 20px;
   font-weight: 600;
   line-height: 1.15;
-  
 }
 
 .session-text {
@@ -84,7 +82,7 @@
   border: var(--lighter-green) 1px solid;
   padding: 12px 24px;
   cursor: pointer;
-   border-radius: 20rem
+  border-radius: 20rem;
 }
 
 .input-text-two {
@@ -122,6 +120,7 @@
     height: auto;
     min-height: 100vh;
     padding: 80px 0 40px 0;
+    align-items: center;
   }
 
   .hero-content-wrapper {
@@ -160,7 +159,7 @@
     margin-bottom: 4rem;
   }
 
-  .hero-buttons, 
+  .hero-buttons,
   .hero-button-two {
     width: 100%;
     padding: 16px;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import {
   FaBox,
@@ -9,20 +9,21 @@ import {
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import "../../CSS/FarmerProfile.css";
-import { useLocation, useNavigate } from "react-router-dom";
-import {useParams} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { authToken } from "../../LIB/AuthenticationSlice";
+import { useDispatch } from "react-redux";
 
 const FarmerProfile = () => {
   const nav = useNavigate();
   const location = useLocation();
+  const { farmId } = useParams();
   const auth = useSelector((state) => state.auth || {});
   const user = auth.user || {};
   const profileData = location.state || user;
-  const {farmid } =  useParams();
-
-  const { token = "" } = auth;
+  const dispatch = useDispatch();
 
   const [selectedProduce, setSelectedProduce] = useState([]);
+  const [produceOptions, setProduceOptions] = useState([]);
 
   const [formData, setFormData] = useState({
     state: "",
@@ -31,62 +32,55 @@ const FarmerProfile = () => {
     farmSize: "",
   });
 
-  const produceOptions = [
-    "Tomatoes",
-    "Peppers",
-    "Onions",
-    "Cassava",
-    "Yam",
-    "Rice",
-    "Maize",
-    "Plantain",
-    "Vegetables",
-    "Fruits",
-    "Grains",
-    "Other",
-  ];
+  const fetchProduceOptions = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_BaseUrl}/crop/getAllCrops`);
+      const crops = response.data?.data;
+      setProduceOptions(Array.isArray(crops) ? crops.filter(Boolean) : []);
+    } catch (error) {
+      console.error("Error fetching produce options:", error);
+      setProduceOptions([]);
+    }
+  };
 
-  const toggleProduce = (item) => {
+  useEffect(() => {
+    fetchProduceOptions();
+  }, []);
+
+  const toggleProduce = (itemId) => {
     setSelectedProduce((prev) =>
-      prev.includes(item)
-        ? prev.filter((produce) => produce !== item)
-        : [...prev, item],
+      prev.includes(itemId)
+        ? prev.filter((produceId) => produceId !== itemId)
+        : [...prev, itemId],
     );
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const BACKEND_URL = import.meta.env.VITE_BaseUrl;
-  // const farmerID = JSON.parse(localStorage.getItem("farmerID"));
-  console.log("Backend URL:", BACKEND_URL);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {
       state: formData.state,
       specificLocationOrLandmark: formData.specificLocationOrLandmark,
-      whatDoYouFarm: selectedProduce.join(", "),
+      whatDoYouFarm: selectedProduce,
       preferredMarketDestination: formData.preferredMarketDestination,
       farmSize: formData.farmSize,
     };
 
-    console.log("Payload:", profileData.firstName);
+    console.log("farmId:", farmId);
+    console.log("Submitting payload:", payload);
 
     try {
       const response = await axios.post(
-        `${BACKEND_URL}/farmKyc/create/${farmid}`,
+        `${import.meta.env.VITE_BaseUrl}/farmKyc/create/${farmId}`,
         payload,
-        nav('/farmer/dashboard')
       );
-
-      console.log(response.data);
+      dispatch(authToken(response.data?.token));
+      nav("/farmer/dashboard");
     } catch (error) {
       console.error(error.response?.data || error.message);
     }
@@ -95,7 +89,6 @@ const FarmerProfile = () => {
   return (
     <div className="profile-container">
       <div className="profile-wrapper">
-        {/* Header */}
         <div className="profile-header">
           <div className="logo-placeholder">
             <img
@@ -112,9 +105,7 @@ const FarmerProfile = () => {
           </p>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit}>
-          {/* Farmer Details */}
           <div className="form-section">
             <div className="section-header">
               <div className="icon-box green">
@@ -170,7 +161,6 @@ const FarmerProfile = () => {
             </div>
           </div>
 
-          {/* Farm Location */}
           <div className="form-section">
             <div className="section-header">
               <div className="icon-box green">
@@ -186,7 +176,6 @@ const FarmerProfile = () => {
             <div className="grid-2" style={{ marginBottom: "1rem" }}>
               <div className="input-group">
                 <label className="input-label">State</label>
-
                 <input
                   type="text"
                   name="state"
@@ -198,7 +187,6 @@ const FarmerProfile = () => {
 
               <div className="input-group">
                 <label className="input-label">LGA / Town</label>
-
                 <input
                   type="text"
                   placeholder="e.g. Ikorodu, Ikeja"
@@ -208,10 +196,7 @@ const FarmerProfile = () => {
             </div>
 
             <div className="input-group">
-              <label className="input-label">
-                Specific Location / Landmark
-              </label>
-
+              <label className="input-label">Specific Location / Landmark</label>
               <input
                 type="text"
                 name="specificLocationOrLandmark"
@@ -223,7 +208,6 @@ const FarmerProfile = () => {
             </div>
           </div>
 
-          {/* Produce Selection */}
           <div className="form-section">
             <div className="section-header">
               <div className="icon-box amber">
@@ -232,32 +216,31 @@ const FarmerProfile = () => {
 
               <div>
                 <h3 className="section-title">What Do You Farm?</h3>
-
-                <p className="section-subtitle">
-                  Select all produce types you grow
-                </p>
+                <p className="section-subtitle">Select all produce types you grow</p>
               </div>
             </div>
 
             <div className="produce-grid">
-              {produceOptions.map((item) => {
-                const isSelected = selectedProduce.includes(item);
+              {produceOptions?.map((item) => {
+  if (!item) return null;
 
-                return (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => toggleProduce(item)}
-                    className={`produce-btn ${isSelected ? "selected" : ""}`}
-                  >
-                    {item}
-                  </button>
-                );
-              })}
+  const isSelected =
+    selectedProduce.includes(item._id);
+
+  return (
+    <button
+      key={item._id}
+      type="button"
+      onClick={() => toggleProduce(item._id)}
+      className={`produce-btn ${isSelected ? "selected" : ""}`}
+    >
+      {item.cropsName}
+    </button>
+  );
+})}
             </div>
           </div>
 
-          {/* Preferred Market */}
           <div className="form-section">
             <div className="section-header">
               <div className="icon-box blue">
@@ -266,10 +249,7 @@ const FarmerProfile = () => {
 
               <div>
                 <h3 className="section-title">Preferred Market Destination</h3>
-
-                <p className="section-subtitle">
-                  Where do you usually sell your produce?
-                </p>
+                <p className="section-subtitle">Where do you usually sell your produce?</p>
               </div>
             </div>
 
@@ -285,14 +265,9 @@ const FarmerProfile = () => {
             </div>
           </div>
 
-          {/* Farm Size */}
           <div
             className="form-section"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.5rem",
-            }}
+            style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
           >
             <label className="section-title" style={{ fontSize: "0.875rem" }}>
               Farm Size
@@ -306,11 +281,8 @@ const FarmerProfile = () => {
                 className="form-select"
               >
                 <option value="">Select farm size</option>
-
                 <option value="Small">Small (Less than 1 hectare)</option>
-
                 <option value="Medium">Medium (1 - 5 hectares)</option>
-
                 <option value="Large">Large (More than 5 hectares)</option>
               </select>
 
@@ -320,7 +292,6 @@ const FarmerProfile = () => {
             </div>
           </div>
 
-          {/* Submit */}
           <div>
             <button type="submit" className="submit-btn">
               Complete Profile

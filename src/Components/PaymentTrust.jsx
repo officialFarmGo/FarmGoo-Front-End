@@ -34,7 +34,7 @@ const PaymentTrust = () => {
         <div className="payment-visual-side">
           <div className="image-frame">
             <img 
-              src="/src/assets/enscrow.png" 
+              src="https://res.cloudinary.com/dnjexdaop/image/upload/v1780660363/photo_4_2026-06-05_12-51-52_wsav4w.jpg" 
               alt="Nigerian farmers confirming transaction on smartphone" 
               className="showcase-img"
             />

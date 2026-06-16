@@ -35,7 +35,7 @@ const VerificationOtp = () => {
         setErrorMessage("");
         navigate("/success",{ state: {
           ...location.state,
-          driverId: data.data?._id || data.user?._id || data._id || null,
+          Id: data.data?._id || data.user?._id || data._id || null,
         },
       });
       } else {

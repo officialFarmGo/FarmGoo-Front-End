@@ -11,23 +11,22 @@ const SuccessFullVerification = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const reduxDriverId = useSelector((state) => state.auth?.user?._id);
-  console.log("reduxDriverId", reduxDriverId);
+  const reduxDriverId = useSelector((state) => state.auth?.id);
+  // console.log("reduxDriverId", reduxDriverId);
 
   const finalRole = location.state?.role || "farmer";
-  const dynamicDriverId =
-    reduxDriverId || location.state?.userId || location.state?.driverId;
+  const dynamicId = reduxDriverId 
 
   useEffect(() => {
     const timer = setTimeout(() => {
       if (finalRole === "farmer") {
-        navigate(`/farmer_kyc/${dynamicDriverId}`,{ state: {
+        navigate(`/farmer_kyc/${dynamicId}`,{ state: {
           ...location.state,
         },
       });
       } else if (finalRole === "driver") {
-        if (dynamicDriverId) {
-          navigate(`/driver_kyc/${dynamicDriverId}`);
+        if (dynamicId) {
+          navigate(`/driver_kyc/${dynamicId}`);
         } else {
           alert("Session expired. Please log in again.");
           navigate("/login");
@@ -40,7 +39,7 @@ const SuccessFullVerification = () => {
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [navigate, finalRole, dynamicDriverId]);
+  }, [navigate, finalRole, dynamicId]);
 
   return (
     <div className="fg-success-container">

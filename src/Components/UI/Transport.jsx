@@ -8,7 +8,7 @@ import Totaljobs from "../../Components/TotalJobs";
 const Transport = () => {
   return (
     <div className="transport-container">
-      <TransportJob />
+      {/* <TransportJob /> */}
       <Totaljobs/>
     </div>
   );

@@ -4,6 +4,9 @@ import { LuMoveLeft } from "react-icons/lu";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import {getId} from "../../LIB/AuthenticationSlice"
+import { useDispatch } from "react-redux";
+
 
 const SignPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,6 +14,8 @@ const SignPage = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   const Endpoint = selectRole === "farmer" ? "/farm/signUp" : selectRole === "driver" ? "/driver/signupDriver" : "/agent/signUp";
 
@@ -119,6 +124,7 @@ const SignPage = () => {
       const data = await response.json();
       
       if (response.ok) {
+        dispatch(getId(data.data.id));
         navigate("/otp", { 
           state: { 
             email: formData.email, 
