@@ -1,66 +1,37 @@
 import React from "react";
 import { CheckCircle2, ArrowDownCircle, Clock, Download } from "lucide-react";
-import '../CSS/Transactions.css'
+import '../CSS/Transactions.css';
 
-const Transactions = () => {
-  const transactionData = [
-    {
-      id: 1,
-      type: "credit",
-      title: "Payment for Delivery #DEL098",
-      date: "Today, 9:45 AM",
-      status: "Completed",
-      statusClass: "tx-status-completed",
-      amount: "+₦65,000",
-      icon: <CheckCircle2 size={18} />,
-    },
-    {
-      id: 2,
-      type: "credit",
-      title: "Payment for Delivery #DEL097",
-      date: "Yesterday, 4:30 PM",
-      status: "Completed",
-      statusClass: "tx-status-completed",
-      amount: "+₦78,000",
-      icon: <CheckCircle2 size={18} />,
-    },
-    {
-      id: 3,
-      type: "debit",
-      title: "Withdrawal to GTBank",
-      date: "May 20, 2026",
-      status: "Completed",
-      statusClass: "tx-status-completed",
-      amount: "₦150,000",
-      icon: <ArrowDownCircle size={18} />,
-    },
-    {
-      id: 4,
-      type: "escrow",
-      title: "Escrow for Delivery #DEL001",
-      date: "Today, 8:00 AM",
-      status: "Pending Release",
-      statusClass: "tx-status-pending",
-      amount: "+₦85,000",
-      icon: <Clock size={18} />,
-    },
-    {
-      id: 5,
-      type: "credit",
-      title: "Payment for Delivery #DEL095",
-      date: "May 19, 2026",
-      status: "Completed",
-      statusClass: "tx-status-completed",
-      amount: "+₦45,000",
-      icon: <CheckCircle2 size={18} />,
-    },
-  ];
+const iconMap = {
+  credit: <CheckCircle2 size={18} />,
+  debit: <ArrowDownCircle size={18} />,
+  escrow: <Clock size={18} />,
+};
 
+const formatAmount = (type, amount) => {
+  const formatted = `₦${Number(amount).toLocaleString()}`;
+  return type === "debit" ? formatted : `+${formatted}`;
+};
+
+const formatDate = (iso) => {
+  const date = new Date(iso);
+  const now = new Date();
+  const diff = now - date;
+  const oneDay = 86400000;
+
+  if (diff < oneDay && now.getDate() === date.getDate()) {
+    return `Today, ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+  }
+  if (diff < oneDay * 2) {
+    return `Yesterday, ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+  }
+  return date.toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" });
+};
+
+const Transactions = ({ transactions = [] }) => {
   return (
     <div className="transactions-container">
-      {/* Transaction Wrapper Card Box */}
       <div className="transactions-card-wrapper">
-        {/* Header Strip Inside the Card */}
         <div className="tx-header-row">
           <h2 className="tx-section-title">Transaction History</h2>
           <button className="tx-download-btn" type="button">
@@ -69,30 +40,31 @@ const Transactions = () => {
           </button>
         </div>
 
-        {/* Dynamic List Container Stack */}
         <div className="tx-list-stack">
-          {transactionData.map((tx) => (
-            <div key={tx.id} className="tx-row-item">
-              {/* Profile Details Block */}
+          {transactions.length === 0 && (
+            <p className="tx-empty-text">No transactions yet.</p>
+          )}
+
+          {transactions.map((tx) => (
+            <div key={tx._id || tx.id} className="tx-row-item">
               <div className="tx-left-block">
                 <div className={`tx-icon-wrapper tx-icon-${tx.type}`}>
-                  {tx.icon}
+                  {iconMap[tx.type] ?? <CheckCircle2 size={18} />}
                 </div>
                 <div className="tx-details-column">
-                  <h4 className="tx-item-title">{tx.title}</h4>
+                  <h4 className="tx-item-title">{tx.title || tx.description}</h4>
                   <div className="tx-meta-line">
-                    <span className="tx-timestamp">{tx.date}</span>
+                    <span className="tx-timestamp">{formatDate(tx.date || tx.createdAt)}</span>
                     <span className="tx-dot-divider">•</span>
-                    <span className={`tx-status-text ${tx.statusClass}`}>
+                    <span className={`tx-status-text ${tx.status === "Pending Release" ? "tx-status-pending" : "tx-status-completed"}`}>
                       {tx.status}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Payout Block Segment */}
               <div className={`tx-amount-value tx-amount-${tx.type}`}>
-                {tx.amount}
+                {formatAmount(tx.type, tx.amount)}
               </div>
             </div>
           ))}

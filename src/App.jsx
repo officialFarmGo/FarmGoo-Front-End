@@ -35,6 +35,9 @@ import RequestTransport from "./Components/RequestTransport";
 import DriverKycVerification from "./Components/DriverKycVerification";
 import VerificationPending from "./Components/VerificationPending";
 import ApprovedDoc from "./Components/ApprovedDoc";
+import DriverActiveDeliveries from "./Components/DriverActiveDeliveries";
+import AvailableJobsAndWidgets from "./Components/AvailableJobsAndWidgets";
+import DriverJobDetails from "./Components/DriverJobDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -49,7 +52,7 @@ function App() {
         <Route path="/farmer_kyc/:farmId" element={<FarmerProfile />} />
         <Route path="/forgot-password" element={<ForgetPassword />} />
         <Route path="/request" element={<RequestTransport />} />
-        <Route path="/driver_kyc/:driverid" element={<DriverKycVerification />} />
+        <Route path="/driver_kyc/:driverId" element={<DriverKycVerification />} />
         <Route path="driverpending" element={<VerificationPending />} />
         <Route path="/approved" element={<ApprovedDoc />} />
 
@@ -79,12 +82,14 @@ function App() {
 
         <Route path="/drivers/dashboard" element={<DriverDashboard />}>
           <Route path="" element={<DriverDashboardView />} />
-          <Route path="activedelivery" element={<DriverActiveDelivery />} />
+          <Route path="activedelivery" element={<DriverActiveDeliveries />} />
           <Route path="wallet" element={<DriverWellet />} />
           <Route path="jobss" element={<Transport />} />
           <Route path="earnings" element={<EarningsDrivers />} />
           <Route path="profile" element={<Profile />} />
         </Route>
+         <Route path="/trackdelivery/:id" element={<DriverActiveDelivery/>}/>
+        <Route path="/job-details" element={<DriverJobDetails/>}/>
       </Routes>
     </BrowserRouter>
   );

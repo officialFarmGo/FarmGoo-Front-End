@@ -1,8 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Search, ChevronDown, MapPin, ArrowRight, Truck, Star, SlidersHorizontal } from "lucide-react";
-import "../CSS/TransportJob.css";
+import {
+  Search,
+  ChevronDown,
+  MapPin,
+  ArrowRight,
+  Truck,
+  Star,
+  SlidersHorizontal,
+} from "lucide-react";
+import "../CSS/TotalJobs.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { FiBell } from "react-icons/fi";
+
+const BASE_URL = import.meta.env.VITE_BaseUrl;
+
 const TransportJob = () => {
+  const nav = useNavigate();
   const [jobs, setJobs] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,19 +25,16 @@ const TransportJob = () => {
   const [sortOrder, setSortOrder] = useState("nearest");
   const [statusFilter, setStatusFilter] = useState("all");
   const token = useSelector((state) => state.auth.token);
+
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        
-        const res = await fetch(
-          "https://farmgoo-backend-1.onrender.com/api/v1/driverDash/getAvailableJobs",
-          {
-            headers: {
-              accept: "*/*",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const res = await fetch(`${BASE_URL}/driverDash/getAvailableJobs`, {
+          headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (!res.ok) throw new Error("Failed to fetch jobs");
         const data = await res.json();
         setJobs(data.data.jobs);
@@ -47,17 +58,19 @@ const TransportJob = () => {
         (j) =>
           j.productType.toLowerCase().includes(q) ||
           j.pickup.address.toLowerCase().includes(q) ||
-          j.destination.toLowerCase().includes(q)
+          j.destination.toLowerCase().includes(q),
       );
     }
 
     if (sortOrder === "nearest") {
       result = result.sort(
-        (a, b) => parseFloat(a.estimatedDuration) - parseFloat(b.estimatedDuration)
+        (a, b) =>
+          parseFloat(a.estimatedDuration) - parseFloat(b.estimatedDuration),
       );
     } else {
       result = result.sort(
-        (a, b) => parseFloat(b.estimatedDuration) - parseFloat(a.estimatedDuration)
+        (a, b) =>
+          parseFloat(b.estimatedDuration) - parseFloat(a.estimatedDuration),
       );
     }
 
@@ -82,15 +95,21 @@ const TransportJob = () => {
 
   return (
     <div className="transport-job-container">
-      {/* Header */}
+      <div className="fg-deliv-header-row">
+        <h1 className="fg-deliv-main-title">Available Jobs</h1>
+        <div className="fg-deliv-notif-box">
+          <div className="fg-deliv-notif-dot"></div>
+          <FiBell size={24} />
+        </div>
+      </div>
+
       <div className="tj-header-group">
         <h1 className="tj-main-title">Available Transport Jobs</h1>
         <p className="tj-sub-text">
-          Browse and accept transport requests from verified farmers
+          Browse and accept transport requests from verified farmers and agents
         </p>
       </div>
 
-      {/* Filter Bar */}
       <div className="tj-filter-card">
         <div className="tj-search-wrapper">
           <Search className="tj-search-icon" size={18} />
@@ -129,11 +148,11 @@ const TransportJob = () => {
         </div>
       </div>
 
-      {/* Meta Bar */}
       {!loading && !error && (
         <div className="tj-meta-bar">
           <span className="tj-count-text">
-            <strong className="tj-count-number">{filtered.length}</strong> jobs available
+            <strong className="tj-count-number">{filtered.length}</strong> Jobs
+            available
           </span>
           <button className="tj-filter-btn">
             <SlidersHorizontal size={16} />
@@ -142,7 +161,6 @@ const TransportJob = () => {
         </div>
       )}
 
-      {/* States */}
       {loading && (
         <div className="tj-state-box">
           <div className="tj-spinner" />
@@ -163,12 +181,10 @@ const TransportJob = () => {
         </div>
       )}
 
-      {/* Cards */}
       {!loading && !error && (
         <div className="tj-cards-list">
           {filtered.map((job) => (
-            <div key={job.deliveryId} className="tj-job-card">
-              {/* Left Block */}
+            <div key={job._id || job.deliveryId} className="tj-job-card">
               <div className="tj-card-left">
                 <div className="tj-card-header">
                   <div className="tj-title-row">
@@ -184,7 +200,6 @@ const TransportJob = () => {
                   </p>
                 </div>
 
-                {/* Route */}
                 <div className="tj-route-display">
                   <div className="tj-route-point">
                     <MapPin className="tj-pin-icon src" size={16} />
@@ -197,7 +212,6 @@ const TransportJob = () => {
                   </div>
                 </div>
 
-                {/* Metrics */}
                 <div className="tj-metrics-grid">
                   <div className="tj-metric-item">
                     <span className="tj-metric-label">Landmark</span>
@@ -209,7 +223,9 @@ const TransportJob = () => {
                     <span className="tj-metric-label">Vehicle Type</span>
                     <span className="tj-metric-value">
                       <Truck size={14} className="tj-inline-icon" />{" "}
-                      {job.vehicleRequired !== "N/A" ? job.vehicleRequired : "Any"}
+                      {job.vehicleRequired !== "N/A"
+                        ? job.vehicleRequired
+                        : "Any"}
                     </span>
                   </div>
                   <div className="tj-metric-item">
@@ -220,34 +236,43 @@ const TransportJob = () => {
                   </div>
                   <div className="tj-metric-item">
                     <span className="tj-metric-label">Posted</span>
-                    <span className="tj-metric-value">{timeAgo(job.postedAt)}</span>
+                    <span className="tj-metric-value">
+                      {timeAgo(job.postedAt)}
+                    </span>
                   </div>
                 </div>
 
                 <hr className="tj-card-divider" />
 
-                {/* Footer */}
                 <div className="tj-card-footer">
-                  <div className="tj-avatar-circle">{initials(job.farmer.name)}</div>
+                  <div className="tj-avatar-circle">
+                    {initials(job.owner.name)}
+                  </div>
                   <div className="tj-author-info">
-                    <span className="tj-farm-name">{job.farmer.name}</span>
+                    <span className="tj-farm-name">{job.owner.name}</span>
                     <span className="tj-rating-tag">
                       <Star size={12} fill="#EAB308" stroke="#EAB308" />
-                      <strong>Verified Farmer</strong> • {job.farmer.phone}
+                      <p>Verified {job.owner.type}</p>
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Right Block */}
               <div className="tj-card-right">
                 <div className="tj-payout-box">
                   <span className="tj-payout-label">Estimated Payout</span>
-                  <span className="tj-payout-amount">{job.estimatedPayout}</span>
+                  <span className="tj-payout-amount">
+                    {job.estimatedPayout}
+                  </span>
                 </div>
                 <div className="tj-action-buttons">
-                  <button className="tj-btn-primary">Accept Job</button>
-                  <button className="tj-btn-secondary">View Details</button>
+                  <button
+                    className="tj-btn-primary"
+                    onClick={() => nav("/job-details", { state: { job } })}
+                  >
+                    View Details
+                  </button>
+                  <button className="tj-btn-secondary">Save For Later</button>
                 </div>
               </div>
             </div>

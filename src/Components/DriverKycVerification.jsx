@@ -1,14 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import '../CSS/DriverKycVerification.css';
-import { FiUploadCloud, FiChevronDown, FiFileText, FiCamera, FiAlertTriangle } from 'react-icons/fi';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import "../CSS/DriverKycVerification.css";
+import {
+  FiUploadCloud,
+  FiChevronDown,
+  FiFileText,
+  FiCamera,
+  FiAlertTriangle,
+} from "react-icons/fi";
+import { useSelector, useDispatch } from "react-redux";
+import { authToken } from "../LIB/AuthenticationSlice";
+import axios from "axios";
 
 const DriverKycVerification = () => {
   const navigate = useNavigate();
-  const { driverid } = useParams();
-  const [vehicleType, setVehicleType] = useState('');
+  const { driverId } = useParams();
+  const auth = useSelector((state) => state.auth || {});
+  const dispatch = useDispatch();
+
+  const [vehicleType, setVehicleType] = useState("");
   const [vehicleOptions, setVehicleOptions] = useState([]);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState({
     driversLicense: null,
     vehiclePhoto: null,
@@ -18,13 +31,12 @@ const DriverKycVerification = () => {
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BaseUrl}/vehicle/allVehic`);
-        if (response.ok) {
-          const resData = await response.json();
-          setVehicleOptions(resData.data || []);
-        }
+        const response = await axios.get(
+          `${import.meta.env.VITE_BaseUrl}/vehicle/allVehic`
+        );
+        setVehicleOptions(response.data?.data || []);
       } catch (error) {
-        console.error('Failed to load vehicle types:', error);
+        console.error("Failed to load vehicle types:", error);
       }
     };
 
@@ -57,25 +69,36 @@ const DriverKycVerification = () => {
     }
 
     const formData = new FormData();
-    formData.append('driversLicense', files.driversLicense);
-    formData.append('vehiclePhoto', files.vehiclePhoto);
-    formData.append('VehiclePapers', files.vehiclePapers);
-    formData.append('vehicleType', vehicleType);
+    formData.append("driversLicense", files.driversLicense);
+    formData.append("vehiclePhoto", files.vehiclePhoto);
+    formData.append("VehiclePapers", files.vehiclePapers);
+    formData.append("vehicleType", vehicleType);
+
+    setLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_BaseUrl}/driverKyc/createKyc/${driverid}`, {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_BaseUrl}/driverKyc/createKyc/${driverId}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
-      if (response.ok) {
-        navigate('/driverpending');
-      } else {
-        const errorData = await response.json().catch(() => ({}));
-        alert(`Server Error processing Form: ${errorData.message || response.statusText || response.status}`);
-      }
+      dispatch(authToken(response.data.token));
+      navigate("/driverpending");
     } catch (error) {
-      alert('Network transmission breakdown. Check network and save options.');
+      if (error.response) {
+        // Server replied with an error status
+        alert(`Server Error: ${error.response.data?.message || error.response.statusText}`);
+      } else if (error.request) {
+        // Request sent but no response received
+        alert("No response from server. Check your internet connection and try again.");
+      } else {
+        alert(`Error: ${error.message}`);
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,12 +106,24 @@ const DriverKycVerification = () => {
     <div className="fg-kyc-page-wrapper">
       <div className="fg-kyc-header-block">
         <div className="fg-kyc-logo-box">
-          <svg className="fg-kyc-logo-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M14 12a2 2 0 11-4 0 2 2 0 014 0z" />
+          <svg
+            className="fg-kyc-logo-svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M14 12a2 2 0 11-4 0 2 2 0 014 0z"
+            />
           </svg>
         </div>
         <h1 className="fg-kyc-main-title">Driver Verification</h1>
-        <p className="fg-kyc-subtitle">Upload your documents to get verified and start earning</p>
+        <p className="fg-kyc-subtitle">
+          Upload your documents to get verified and start earning
+        </p>
       </div>
 
       <div className="fg-kyc-form-container">
@@ -98,7 +133,10 @@ const DriverKycVerification = () => {
             <span>{currentProgress}% Complete</span>
           </div>
           <div className="fg-kyc-progress-track">
-            <div className="fg-kyc-progress-fill" style={{ width: `${currentProgress}%` }}></div>
+            <div
+              className="fg-kyc-progress-fill"
+              style={{ width: `${currentProgress}%` }}
+            ></div>
           </div>
         </div>
 
@@ -109,11 +147,22 @@ const DriverKycVerification = () => {
             </div>
             <div className="fg-kyc-doc-info">
               <h3 className="fg-kyc-doc-title">Driver's License</h3>
-              <p className="fg-kyc-doc-desc">Upload a clear photo of your valid driver's license</p>
+              <p className="fg-kyc-doc-desc">
+                Upload a clear photo of your valid driver's license
+              </p>
               <label className="fg-kyc-upload-trigger">
                 <FiUploadCloud className="fg-kyc-upload-icon" />
-                <span>{files.driversLicense ? files.driversLicense.name : 'Choose File'}</span>
-                <input type="file" accept="image/*" className="fg-kyc-hidden-input" onChange={(e) => handleFileChange('driversLicense', e)} />
+                <span>
+                  {files.driversLicense
+                    ? files.driversLicense.name
+                    : "Choose File"}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="fg-kyc-hidden-input"
+                  onChange={(e) => handleFileChange("driversLicense", e)}
+                />
               </label>
             </div>
           </div>
@@ -124,11 +173,20 @@ const DriverKycVerification = () => {
             </div>
             <div className="fg-kyc-doc-info">
               <h3 className="fg-kyc-doc-title">Vehicle Photo</h3>
-              <p className="fg-kyc-doc-desc">Clear photo of your vehicle showing the license plate</p>
+              <p className="fg-kyc-doc-desc">
+                Clear photo of your vehicle showing the license plate
+              </p>
               <label className="fg-kyc-upload-trigger">
                 <FiUploadCloud className="fg-kyc-upload-icon" />
-                <span>{files.vehiclePhoto ? files.vehiclePhoto.name : 'Choose File'}</span>
-                <input type="file" accept="image/*" className="fg-kyc-hidden-input" onChange={(e) => handleFileChange('vehiclePhoto', e)} />
+                <span>
+                  {files.vehiclePhoto ? files.vehiclePhoto.name : "Choose File"}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="fg-kyc-hidden-input"
+                  onChange={(e) => handleFileChange("vehiclePhoto", e)}
+                />
               </label>
             </div>
           </div>
@@ -139,11 +197,22 @@ const DriverKycVerification = () => {
             </div>
             <div className="fg-kyc-doc-info">
               <h3 className="fg-kyc-doc-title">Vehicle Papers</h3>
-              <p className="fg-kyc-doc-desc">Vehicle registration, insurance, or roadworthiness certificate</p>
+              <p className="fg-kyc-doc-desc">
+                Vehicle registration, insurance, or roadworthiness certificate
+              </p>
               <label className="fg-kyc-upload-trigger">
                 <FiUploadCloud className="fg-kyc-upload-icon" />
-                <span>{files.vehiclePapers ? files.vehiclePapers.name : 'Choose File'}</span>
-                <input type="file" accept="image/*" className="fg-kyc-hidden-input" onChange={(e) => handleFileChange('vehiclePapers', e)} />
+                <span>
+                  {files.vehiclePapers
+                    ? files.vehiclePapers.name
+                    : "Choose File"}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="fg-kyc-hidden-input"
+                  onChange={(e) => handleFileChange("vehiclePapers", e)}
+                />
               </label>
             </div>
           </div>
@@ -156,7 +225,9 @@ const DriverKycVerification = () => {
                 onChange={(e) => setVehicleType(e.target.value)}
                 className="fg-kyc-native-select"
               >
-                <option value="" disabled>Select vehicle type</option>
+                <option value="" disabled>
+                  Select vehicle type
+                </option>
                 {vehicleOptions.map((option) => (
                   <option key={option._id} value={option._id}>
                     {option.vehicleType}
@@ -170,8 +241,16 @@ const DriverKycVerification = () => {
           </div>
 
           <div className="fg-kyc-action-block">
-            <button type="submit" className="fg-kyc-submit-btn">
-              Submit for Verification
+            <button
+              type="submit"
+              className="fg-kyc-submit-btn"
+              disabled={loading}
+              style={{
+                cursor: loading ? "not-allowed" : "pointer",
+                opacity: loading ? 0.7 : 1,
+              }}
+            >
+              {loading ? "Submitting Verification..." : "Submit for Verification"}
             </button>
           </div>
         </form>
@@ -185,9 +264,13 @@ const DriverKycVerification = () => {
             </div>
             <h2 className="fg-modal-title">Incomplete Verification</h2>
             <p className="fg-modal-text">
-              Please ensure all requested files are correctly selected and your vehicle configuration type is set before proceeding.
+              Please ensure all requested files are correctly selected and your
+              vehicle configuration type is set before proceeding.
             </p>
-            <button className="fg-modal-close-btn" onClick={() => setShowErrorModal(false)}>
+            <button
+              className="fg-modal-close-btn"
+              onClick={() => setShowErrorModal(false)}
+            >
               Return to Form
             </button>
           </div>

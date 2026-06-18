@@ -1,0 +1,447 @@
+.fg-job-page-wrapper {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.fg-job-top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.fg-job-nav-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.fg-job-notif-box {
+  position: relative;
+  cursor: pointer;
+  color: #334155;
+  display: flex;
+  align-items: center;
+}
+
+.fg-job-notif-dot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 6px;
+  height: 6px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.fg-job-back-row {
+  margin-bottom: 32px;
+}
+
+.fg-job-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.fg-job-main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.fg-job-heading-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.fg-job-main-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.fg-job-escrow-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #dcfce7;
+  color: #16a34a;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.fg-job-badge-icon {
+  font-size: 14px;
+}
+
+.fg-job-sub-meta {
+  font-size: 15px;
+  color: #64748b;
+  margin: 8px 0 0 0;
+}
+
+.fg-job-payout-box {
+  background-color: #f1f5f9;
+  padding: 16px 24px;
+  border-radius: 12px;
+  text-align: right;
+  min-width: 180px;
+}
+
+.fg-job-payout-label {
+  display: block;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.fg-job-payout-amount {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: #064e3b;
+}
+
+.fg-job-content-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.fg-job-left-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fg-job-right-column {
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fg-job-section-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.fg-job-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 24px 0;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 12px;
+}
+
+.fg-job-route-timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.fg-job-timeline-item {
+  display: flex;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.fg-job-icon-pin {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.pickup-bg { background-color: #eff6ff; color: #1e3a8a; }
+.delivery-bg { background-color: #fef2f2; color: #991b1b; }
+
+.fg-job-timeline-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.fg-job-timeline-label {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.fg-job-location-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.fg-job-location-sub {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.fg-job-timeline-line {
+  position: absolute;
+  left: 20px;
+  top: 40px;
+  bottom: 40px;
+  width: 2px;
+  background-color: #e2e8f0;
+  z-index: 1;
+}
+
+.fg-job-route-meta-grid {
+  display: flex;
+  gap: 24px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 20px;
+}
+
+.fg-job-meta-item {
+  flex: 1;
+}
+
+.fg-job-meta-label {
+  display: block;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.fg-job-meta-val {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.fg-job-details-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.fg-job-info-block {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.fg-job-info-icon {
+  font-size: 20px;
+  color: #064e3b;
+  margin-top: 2px;
+}
+
+.fg-job-info-texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.fg-job-info-label {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.fg-job-info-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.fg-job-info-subval {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.low-risk {
+  color: #16a34a;
+}
+
+.fg-job-escrow-banner-card {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+}
+
+.fg-job-banner-icon-box {
+  font-size: 24px;
+  color: #16a34a;
+  margin-top: 2px;
+}
+
+.fg-job-banner-content h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #14532d;
+  margin: 0 0 8px 0;
+}
+
+.fg-job-banner-content p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #166534;
+  margin: 0 0 16px 0;
+}
+
+.fg-job-banner-guarantee {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+.fg-job-farmer-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.fg-job-farmer-avatar {
+  width: 48px;
+  height: 48px;
+  background-color: #064e3b;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.fg-job-farmer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.fg-job-farmer-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.fg-job-farmer-rating {
+  font-size: 14px;
+  color: #d97706;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.fg-job-farmer-stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 16px;
+}
+
+.fg-job-farmer-stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.fg-job-fstat-label {
+  color: #64748b;
+}
+
+.fg-job-fstat-val {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.fg-job-farmer-verified-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+.fg-job-actions-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fg-job-accept-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #064e3b;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fg-job-decline-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #ffffff;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fg-job-quick-stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fg-job-qstat-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}

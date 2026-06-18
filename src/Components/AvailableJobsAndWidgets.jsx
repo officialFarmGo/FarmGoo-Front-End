@@ -1,83 +1,143 @@
-import React from "react";
-import { 
-  ArrowRightOutlined, 
-  StarFilled, 
-  CheckCircleOutlined, 
-  DollarOutlined, 
-  CarOutlined 
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import {
+  ArrowRightOutlined,
+  StarFilled,
+  CheckCircleOutlined,
+  DollarOutlined,
+  CarOutlined
 } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import "../CSS/AvailableJobsAndWidgets.css";
 
 const AvailableJobsAndWidgets = () => {
+  const token = useSelector((state) => state.auth.token);
+  const nav = useNavigate();
+
+  const [jobs, setJobs] = useState([]);
+  const [jobsLoading, setJobsLoading] = useState(true);
+
+  const [wallet, setWallet] = useState(null);
+  const [deliveryStats, setDeliveryStats] = useState(null);
+  const [driver, setDriver] = useState(null);
+
+  const BASE_URL = import.meta.env.VITE_BaseUrl;
+
+  useEffect(() => {
+    if (!token) return;
+
+    const fetchJobs = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/driverDash/getAllAvailableJobs`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (res.ok) setJobs((data.data.jobs ?? []).slice(0, 2));
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setJobsLoading(false);
+      }
+    };
+
+    const fetchWallet = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/driverDash/driverWallet`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (res.ok) setWallet(data.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const fetchDeliveries = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/driverDash/driverDeliveries`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (res.ok) setDeliveryStats(data.data.stats);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const fetchDriver = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/driverDash/getOneDriver`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (res.ok) setDriver(data.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchJobs();
+    fetchWallet();
+    fetchDeliveries();
+    fetchDriver();
+  }, [token]);
+
   return (
     <div className="fg-bottom-layout-container">
-      
-      {/* SECTION A: AVAILABLE JOBS NEAR YOU */}
+
       <div className="fg-jobs-panel-card">
         <div className="fg-jobs-panel-header">
           <div className="fg-jobs-header-title">
             <h2 className="fg-jobs-main-heading">Available Jobs Near You</h2>
             <span className="fg-jobs-sub-heading">New transport requests from farmers</span>
           </div>
-          <button className="fg-browse-all-btn">
+          <button className="fg-browse-all-btn" onClick={() => nav("/driver/jobs")}>
             Browse All Jobs <ArrowRightOutlined style={{ fontSize: "12px", marginLeft: "6px" }} />
           </button>
         </div>
 
         <div className="fg-jobs-list-stack">
+          {jobsLoading && <p>Loading jobs...</p>}
 
-          {/* Job Item 1: Yam Tubers */}
-          <div className="fg-job-row-item">
-            <div className="fg-job-item-left">
-              <h3 className="fg-job-item-title">Yam Tubers</h3>
-              <span className="fg-job-item-specs">1,200kg • 12km from you</span>
-              <div className="fg-job-route-row">
-                <span className="fg-job-route-point">Badagry</span>
-                <ArrowRightOutlined style={{ fontSize: "12px", color: "#6b7280" }} />
-                <span className="fg-job-route-point">Oshodi Market, Lagos</span>
-              </div>
-              <div className="fg-job-rating-row">
-                <StarFilled style={{ color: "#eab308", fontSize: "14px" }} />
-                <span className="fg-job-rating-text"><strong>4.8</strong> Farmer Rating</span>
-              </div>
-            </div>
-            <div className="fg-job-item-right">
-              <span className="fg-job-payout-text">₦42,000</span>
-              <button className="fg-job-details-btn">View Details</button>
-            </div>
-          </div>
+          {!jobsLoading && jobs.length === 0 && (
+            <p>No available jobs at the moment.</p>
+          )}
 
-          {/* Job Item 2: Palm Oil */}
-          <div className="fg-job-row-item">
-            <div className="fg-job-item-left">
-              <div className="fg-job-title-with-badge">
-                <h3 className="fg-job-item-title">Palm Oil</h3>
-                <span className="fg-job-badge-urgent">Urgent</span>
+          {!jobsLoading && jobs.map((job) => (
+            <div key={job._id || job.deliveryId} className="fg-job-row-item">
+              <div className="fg-job-item-left">
+                <h3 className="fg-job-item-title">{job.productType}</h3>
+                <span className="fg-job-item-specs">
+                  {job.quantity} {job.weight} • {job.estimatedDuration}
+                </span>
+                <div className="fg-job-route-row">
+                  <span className="fg-job-route-point">{job.pickup.address}</span>
+                  <ArrowRightOutlined style={{ fontSize: "12px", color: "#6b7280" }} />
+                  <span className="fg-job-route-point">{job.destination}</span>
+                </div>
+                <div className="fg-job-rating-row">
+                  <StarFilled style={{ color: "#eab308", fontSize: "14px" }} />
+                  <span className="fg-job-rating-text">
+                    <strong>Verified</strong> {job.owner?.type || "Owner"}
+                  </span>
+                </div>
               </div>
-              <span className="fg-job-item-specs">200L • 8km from you</span>
-              <div className="fg-job-route-row">
-                <span className="fg-job-route-point">Ogun state</span>
-                <ArrowRightOutlined style={{ fontSize: "12px", color: "#6b7280" }} />
-                <span className="fg-job-route-point">Trade Fair, Lagos</span>
-              </div>
-              <div className="fg-job-rating-row">
-                <StarFilled style={{ color: "#eab308", fontSize: "14px" }} />
-                <span className="fg-job-rating-text"><strong>4.9</strong> Farmer Rating</span>
+              <div className="fg-job-item-right">
+                <span className="fg-job-payout-text">{job.estimatedPayout}</span>
+                <button
+                  className="fg-job-details-btn"
+                  onClick={() => nav("/job-details", { state: { job } })}
+                >
+                  View Details
+                </button>
               </div>
             </div>
-            <div className="fg-job-item-right">
-              <span className="fg-job-payout-text">₦65,000</span>
-              <button className="fg-job-details-btn">View Details</button>
-            </div>
-          </div>
-
+          ))}
         </div>
       </div>
 
-      {/* SECTION B: 3 BOTTOM FOOTER WIDGETS */}
       <div className="fg-footer-widgets-grid">
-        
-        {/* Widget 1: Completed This Week */}
+
         <div className="fg-footer-widget-card">
           <div className="fg-widget-top-row">
             <div className="fg-widget-icon-box bg-green-light">
@@ -85,13 +145,16 @@ const AvailableJobsAndWidgets = () => {
             </div>
             <div className="fg-widget-title-block">
               <span className="fg-widget-label">Completed This Week</span>
-              <span className="fg-widget-main-value">24</span>
+              <span className="fg-widget-main-value">
+                {deliveryStats ? deliveryStats.completed : "--"}
+              </span>
             </div>
           </div>
-          <span className="fg-widget-growth-indicator">+12% from last week</span>
+          <span className="fg-widget-growth-indicator">
+            {deliveryStats ? `${deliveryStats.active} active • Avg ETA ${deliveryStats.avgETA}` : "Loading..."}
+          </span>
         </div>
 
-        {/* Widget 2: Wallet Balance */}
         <div className="fg-footer-widget-card justify-widget-content">
           <div className="fg-widget-top-row">
             <div className="fg-widget-icon-box bg-gray-light">
@@ -99,13 +162,16 @@ const AvailableJobsAndWidgets = () => {
             </div>
             <div className="fg-widget-title-block">
               <span className="fg-widget-label">Wallet Balance</span>
-              <span className="fg-widget-main-value">₦285,000</span>
+              <span className="fg-widget-main-value">
+                {wallet ? `₦${Number(wallet.availableBalance).toLocaleString()}` : "--"}
+              </span>
             </div>
           </div>
-          <button className="fg-widget-action-btn">Manage Wallet</button>
+          <button className="fg-widget-action-btn" onClick={() => nav("/driver/wallet")}>
+            Manage Wallet
+          </button>
         </div>
 
-        {/* Widget 3: Vehicle Status */}
         <div className="fg-footer-widget-card">
           <div className="fg-widget-top-row">
             <div className="fg-widget-icon-box bg-blue-light">
@@ -113,10 +179,14 @@ const AvailableJobsAndWidgets = () => {
             </div>
             <div className="fg-widget-title-block">
               <span className="fg-widget-label">Vehicle Status</span>
-              <span className="fg-widget-status-active">Active & Ready</span>
+              <span className={driver?.isAvailable ? "fg-widget-status-active" : "fg-widget-status-inactive"}>
+                {driver ? (driver.isAvailable ? "Active & Ready" : "Unavailable") : "--"}
+              </span>
             </div>
           </div>
-          <span className="fg-widget-footer-meta">Toyota Hilux • ABC-123XY</span>
+          <span className="fg-widget-footer-meta">
+            {driver ? `${driver.townOrVillage} • ${driver.firstName} ${driver.lastName}` : "Loading..."}
+          </span>
         </div>
 
       </div>
