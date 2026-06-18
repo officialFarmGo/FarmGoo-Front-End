@@ -1,23 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "../CSS/Overviwe.css";
 
 const Overviwe = () => {
-  // Array of data representing each day's bar percentage fill and display label
-  const dailyData = [
-    { day: "Mon", amount: "₦45,000", fill: "80%" },
-    { day: "Tue", amount: "₦38,000", fill: "68%" },
-    { day: "Wed", amount: "₦52,000", fill: "100%" },
-    { day: "Thu", amount: "₦41,000", fill: "73%" },
-    { day: "Fri", amount: "₦48,000", fill: "86%" },
-    { day: "Sat", amount: "₦21,000", fill: "38%" },
-    { day: "Sun", amount: "₦0", fill: "1%" }, // Small placeholder bump fill for view visibility
-  ];
+  const token = useSelector((state) => state.auth.token);
+  const [overview, setOverview] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEarnings = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BaseUrl}/driverDash/getDriverEarnings`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (res.ok) setOverview(data.data.earningsOverview);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (token) fetchEarnings();
+  }, [token]);
+
+  const barChart = overview?.barChart ?? [];
+  const summary = overview?.summary ?? {};
+
+  const maxAmount = Math.max(...barChart.map((d) => d.amount), 1);
+
+  const getWidth = (amount) => {
+    if (maxAmount === 0) return "1%";
+    const pct = (amount / maxAmount) * 100;
+    return pct < 1 ? "1%" : `${pct.toFixed(0)}%`;
+  };
 
   return (
     <div className="overviwe-container">
-      {/* Chart Card Wrapper */}
       <div className="overview-card">
-        {/* Header Section */}
         <div className="overview-header">
           <h3>Earnings Overview</h3>
           <div className="dropdown-container">
@@ -29,37 +50,41 @@ const Overviwe = () => {
           </div>
         </div>
 
-        {/* Chart Rows */}
         <div className="chart-wrapper">
-          {dailyData.map((item, index) => (
-            <div className="chart-row" key={index}>
-              <div className="day-label">{item.day}</div>
-              <div className="bar-bg">
-                <div className="bar-fill" style={{ width: item.fill }}>
-                  {item.amount !== "₦0" && (
-                    <span className="bar-amount">{item.amount}</span>
-                  )}
+          {loading ? (
+            <p>Loading chart...</p>
+          ) : (
+            barChart.map((item, index) => (
+              <div className="chart-row" key={index}>
+                <div className="day-label">{item.day}</div>
+                <div className="bar-bg">
+                  <div className="bar-fill" style={{ width: getWidth(item.amount) }}>
+                    {item.amount > 0 && (
+                      <span className="bar-amount">₦{Number(item.amount).toLocaleString()}</span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
 
         <hr className="divider-line" />
 
-        {/* Bottom Metrics Section */}
         <div className="metrics-row">
           <div className="metric-item">
             <span className="metric-label">Total This Week</span>
-            <h4 className="metric-value">₦245,000</h4>
+            <h4 className="metric-value">{loading ? "--" : summary.totalThisWeek ?? "₦0"}</h4>
           </div>
           <div className="metric-item">
             <span className="metric-label">Average per Day</span>
-            <h4 className="metric-value">₦35,000</h4>
+            <h4 className="metric-value">{loading ? "--" : summary.averagePerDay ?? "₦0"}</h4>
           </div>
           <div className="metric-item">
             <span className="metric-label">Best Day</span>
-            <h4 className="metric-value">₦52,000</h4>
+            <h4 className="metric-value">
+              {loading ? "--" : `${summary.bestDay ?? "₦0"} (${summary.bestDayLabel ?? ""})`}
+            </h4>
           </div>
         </div>
       </div>

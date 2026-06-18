@@ -8,6 +8,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import "../CSS/MainWellet.css";
+import { FiBell } from "react-icons/fi";
 
 const MainWellet = () => {
   const [showBalance, setShowBalance] = useState(true);
@@ -57,6 +58,14 @@ const MainWellet = () => {
   if (loading) {
     return (
       <div className="main-wellet-container">
+
+         <div className="fg-deliv-header-row">
+        <h1 className="fg-deliv-main-title">Wallet</h1>
+        <div className="fg-deliv-notif-box">
+          <div className="fg-deliv-notif-dot"></div>
+          <FiBell size={24} />
+        </div>
+      </div>
         <div className="mw-title-wrapper">
           <h1 className="mw-main-title">Wallet</h1>
           <p className="mw-sub-title">Manage your funds and view transaction history</p>
@@ -149,7 +158,7 @@ const MainWellet = () => {
             <span>Withdraw</span>
           </button>
         </div>
-
+{/* 
         <div className="mw-stat-capsule-card">
           <div className="mw-capsule-header yellow-text">
             <Clock size={16} />
@@ -159,7 +168,7 @@ const MainWellet = () => {
           <div className="mw-capsule-footer-text">
             From {activeDeliveriesCount} active deliveries
           </div>
-        </div>
+        </div> */}
 
         <div className="mw-stat-capsule-card">
           <div className="mw-capsule-header green-text">

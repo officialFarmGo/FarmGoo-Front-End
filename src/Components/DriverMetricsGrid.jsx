@@ -5,28 +5,30 @@ import {
   DollarCircleOutlined,
 } from "@ant-design/icons";
 import "../CSS/DriverMetricsGrid.css";
+import { useSelector } from "react-redux";
 
 const DriverMetricsGrid = () => {
   const [metrics, setMetrics] = useState(null);
   const [loading, setLoading] = useState(true);
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
     const fetchMetrics = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await fetch(`${import.meta.env.VITE_BaseUrl}/driverDash/driverDashBoard`, {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json",
+        const response = await fetch(
+          `${import.meta.env.VITE_BaseUrl}/driverDash/driverDashBoard`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
         const data = await response.json();
-        console.log("DASHBOARD METRICS:", data);
 
         if (response.ok) {
-          setMetrics(data.data || data);
+          setMetrics(data.data.stats);
         }
       } catch (error) {
         console.error("Failed to fetch dashboard metrics:", error);
@@ -46,7 +48,7 @@ const DriverMetricsGrid = () => {
             <div key={i} className="fg-metric-card" style={{ opacity: 0.5 }}>
               <div className="fg-metric-left">
                 <span className="fg-metric-label">Loading...</span>
-                <span className="fg-metric-value">--</span>
+                <span className="fg-metric-value">0</span>
                 <span className="fg-metric-subtext">Please wait</span>
               </div>
             </div>
@@ -59,11 +61,12 @@ const DriverMetricsGrid = () => {
   return (
     <div className="fg-metrics-container">
       <div className="fg-metrics-grid">
-
         <div className="fg-metric-card">
           <div className="fg-metric-left">
             <span className="fg-metric-label">Available Jobs</span>
-            <span className="fg-metric-value">{metrics?.availableJobs ?? "--"}</span>
+            <span className="fg-metric-value">
+              {metrics?.availableJobs ?? "0"}
+            </span>
             <span className="fg-metric-subtext">Near you</span>
           </div>
           <div className="fg-metric-icon-box bg-light-blue">
@@ -74,7 +77,9 @@ const DriverMetricsGrid = () => {
         <div className="fg-metric-card">
           <div className="fg-metric-left">
             <span className="fg-metric-label">Active Deliveries</span>
-            <span className="fg-metric-value">{metrics?.activeDeliveries ?? "--"}</span>
+            <span className="fg-metric-value">
+              {metrics?.activeDeliveries ?? "0"}
+            </span>
             <span className="fg-metric-subtext">In progress</span>
           </div>
           <div className="fg-metric-icon-box bg-light-green">
@@ -86,7 +91,9 @@ const DriverMetricsGrid = () => {
           <div className="fg-metric-left">
             <span className="fg-metric-label">Today's Earnings</span>
             <span className="fg-metric-value">
-              {metrics?.todaysEarnings != null ? `₦${Number(metrics.todaysEarnings).toLocaleString()}` : "--"}
+              {metrics?.todaysEarnings != null
+                ? `₦${Number(metrics.todaysEarnings).toLocaleString()}`
+                : "₦0"}
             </span>
             <span className="fg-metric-subtext highlight-green">
               {metrics?.earningsChange ?? ""}
@@ -96,7 +103,6 @@ const DriverMetricsGrid = () => {
             <DollarCircleOutlined style={{ fontSize: "20px", color: "#00c951" }} />
           </div>
         </div>
-
       </div>
     </div>
   );

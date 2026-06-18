@@ -1,5 +1,7 @@
 .fg-delivery-details-view {
-  width: 100%;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 2rem;
   background-color: #fcfdfd;
   box-sizing: border-box;
 }
