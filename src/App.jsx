@@ -35,6 +35,7 @@ import RequestTransport from "./Components/RequestTransport";
 import DriverKycVerification from "./Components/DriverKycVerification";
 import VerificationPending from "./Components/VerificationPending";
 import ApprovedDoc from "./Components/ApprovedDoc";
+import ChangePassword from "./Components/ChangePassword";
 function App() {
   return (
     <BrowserRouter>
@@ -52,7 +53,7 @@ function App() {
         <Route path="/driver_kyc/:driverid" element={<DriverKycVerification />} />
         <Route path="driverpending" element={<VerificationPending />} />
         <Route path="/approved" element={<ApprovedDoc />} />
-
+        <Route path='/changepass' element={<ChangePassword/>}/>
         <Route path="/farmer/dashboard" element={<FarmersDahboard />}>
           <Route path="" element={<DashboardPagesComponent />} />
           <Route path="wallet" element={<Wallet />} />

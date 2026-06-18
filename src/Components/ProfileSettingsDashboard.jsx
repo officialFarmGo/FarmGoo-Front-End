@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "../CSS/ProfileSettingsDashboard.css";
 import { FiBell, FiLock, FiGlobe, FiLogOut, FiChevronRight, FiChevronDown } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const ProfileSettingsDashboard = () => {
+  const nav = useNavigate()
   const [preferences, setPreferences] = useState({
     email: true,
     sms: true,
@@ -81,7 +83,7 @@ const ProfileSettingsDashboard = () => {
           </div>
           <div className="fg-dashboard-action-row-item">
             <span className="fg-dashboard-item-label">Change Password</span>
-            <FiChevronRight className="fg-dashboard-arrow-icon" />
+            <FiChevronRight className="fg-dashboard-arrow-icon" onClick={()=>nav ('/changepass')} />
           </div>
         </div>
 

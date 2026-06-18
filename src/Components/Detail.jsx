@@ -7,6 +7,7 @@ const Detail = () => {
       <div className="sommy">
         <section className="detail-second-conmtainer">
           <p>SERVING FARMERS IN</p>
+          
           <p>Lagos State</p>
           <p>Ogun</p>
           <p>Ibadan</p>

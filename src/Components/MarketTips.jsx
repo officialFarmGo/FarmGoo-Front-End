@@ -39,13 +39,13 @@ const MarketTips = ({ tips, recentDeliveries }) => {
             <div className="delivery-card" key={delivery.id || index}>
               <div>
                 <h4>
-                  {delivery.produce} - {delivery.weight}
+                  {delivery.quantity} - {delivery.weight}
                 </h4>
                 <p>{delivery.date}</p>
               </div>
 
               <div className="delivery-info">
-                <h4>₦{Number(delivery.price).toLocaleString()}</h4>
+                <h4>₦{Number(delivery.amount).toLocaleString()}</h4>
                 <span
                   className={`status-${delivery.status?.toLowerCase().replace(/\s+/g, "-")}`}
                 >

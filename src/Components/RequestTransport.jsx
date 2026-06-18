@@ -30,7 +30,6 @@ const RequestTransport = () => {
     vehicleType: "",
   });
 
-  // Fetch vehicles on component mount
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
@@ -44,8 +43,6 @@ const RequestTransport = () => {
     fetchVehicles();
   }, []);
 
-  // --- AUTOMATIC PRICE ESTIMATION TRIGGER ---
-  // Runs automatically whenever pickup, destination, or vehicle type finishes filling out
   useEffect(() => {
     const { AddressOrpickUpLocation, Destination, vehicleType } = formData;
 
@@ -85,7 +82,7 @@ const RequestTransport = () => {
       setPriceData(response.data.data);
     } catch (error) {
       console.error("Automatic calculation error:", error);
-      // Suppressed direct alerts here so it doesn't break the active typing flow of the user
+
     } finally {
       setEstimating(false);
     }
@@ -110,7 +107,6 @@ const RequestTransport = () => {
 
       setLoading(true);
 
-      // FIXING THE WEIGHT ERROR: Automatically ensure unit format is appended to pass backend strict check
       const cleanWeight = formData.weight.trim().toLowerCase();
       const formattedWeight =
         cleanWeight.endsWith("kg") ||
@@ -122,7 +118,7 @@ const RequestTransport = () => {
       const payload = {
         productType: formData.productType,
         quantity: formData.quantity,
-        weight: formattedWeight, // Now passes backend validation perfectly
+        weight: formattedWeight,
         AddressOrpickUpLocation: formData.AddressOrpickUpLocation,
         landMarkToAddressForPickup: formData.landMarkToAddressForPickup,
         Destination: formData.Destination,
@@ -158,7 +154,6 @@ const RequestTransport = () => {
         </p>
 
         <form onSubmit={handleSubmit}>
-          {/* Produce Details */}
           <div className="card">
             <div className="card-header">
               <span className="icon green">
@@ -227,7 +222,6 @@ const RequestTransport = () => {
             </div>
           </div>
 
-          {/* Pickup Location */}
           <div className="card">
             <div className="card-header">
               <span className="icon blue">
@@ -272,7 +266,6 @@ const RequestTransport = () => {
             </div>
           </div>
 
-          {/* Destination */}
           <div className="card">
             <div className="card-header">
               <span className="icon purple">
@@ -307,7 +300,6 @@ const RequestTransport = () => {
             </div>
           </div>
 
-          {/* Customer's Details */}
           <div className="card">
             <div className="card-header">
               <span className="icon pink">
@@ -364,7 +356,6 @@ const RequestTransport = () => {
             </div>
           </div>
 
-          {/* Vehicle Type */}
           <div className="card">
             <div className="card-header">
               <span className="icon yellow">
@@ -437,7 +428,6 @@ const RequestTransport = () => {
             )}
           </div>
 
-          {/* Estimated Price Display */}
           <div className="card price-card">
             <div className="price-row">
               <span>Delivery Fare</span>
@@ -473,7 +463,6 @@ const RequestTransport = () => {
         </form>
       </div>
 
-      {/* Success Modal */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">
