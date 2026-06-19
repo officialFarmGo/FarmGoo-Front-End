@@ -2,6 +2,7 @@ import React from "react";
 import "../CSS/DriverWelcomeBanner.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { FiBell } from "react-icons/fi";
 
 const DriverWelcomeBanner = () => {
   const user = useSelector((state) => state.auth.user);
@@ -16,7 +17,18 @@ const DriverWelcomeBanner = () => {
   const firstName = user?.firstName || "Driver";
 
   return (
+      <>
+
+     <div className="fg-deliv-header-row">
+            <h1 className="fg-deliv-main-title">DashBoard</h1>
+            <div className="fg-deliv-notif-box">
+              <div className="fg-deliv-notif-dot"></div>
+              <FiBell size={24} />
+            </div>
+          </div>
     <div className="fg-welcome-container">
+
+      
       <div className="fg-welcome-content">
         <h1 className="fg-welcome-heading">{getGreeting()}, {firstName}! 👋</h1>
         <div className="fg-welcome-actions">
@@ -25,6 +37,7 @@ const DriverWelcomeBanner = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

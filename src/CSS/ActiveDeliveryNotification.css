@@ -4,8 +4,8 @@
   border-radius: 12px;
   padding: 24px;
   width: 100%;
- margin-top:2rem;
- 
+  margin-top: 2rem;
+
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
 }
@@ -155,6 +155,52 @@
 
 .track-btn:hover {
   background-color: #043e2f;
+}
+
+/* ==========================================================================
+   Empty State Component Styling
+   ========================================================================== */
+
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+  background-color: #ffffff;
+  border: 2px dashed #e2e8f0;
+  border-radius: 12px;
+  width: 100%;
+  height: 350px;
+  margin: 24px auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.empty-state-icon-wrapper {
+  background-color: #f0fdf4; /* Soft green accent */
+  color: #16a34a; /* Delivery green matching your themes */
+  padding: 16px;
+  border-radius: 50%;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state-title {
+  color: #1e293b;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.empty-state-description {
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 340px;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
