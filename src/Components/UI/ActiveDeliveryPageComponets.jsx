@@ -3,10 +3,22 @@ import ActiveDeliveryNotification from "../ActiveDeliveryNotification";
 import ActiveDeliveryHeader from "../ActiveDeliveryHeader";
 import ActiveDeliveries from "../ActiveDeliveries";
 import { apiInstance } from "../../Api/Api";
+import TrackDeliveryTwo from "../TrackDeliveryTwo";
 
 const ActiveDeliveryPageComponets = () => {
   const [serverResponse, setServerResponse] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const [trackingId, setTrackingId] = useState(null);
+
+  if (trackingId) {
+    return (
+      <TrackDeliveryTwo
+        deliveryId={trackingId}
+        onBack={() => setTrackingId(null)}
+      />
+    );
+  }
 
   console.log(serverResponse);
   const FetchActiveDeliveries = async () => {
@@ -60,7 +72,8 @@ const ActiveDeliveryPageComponets = () => {
     <div>
       {/* <ActiveDeliveries /> */}
       <ActiveDeliveryHeader data={serverResponse?.status} />
-      <ActiveDeliveryNotification data={serverResponse?.activeDeliveries} />
+      <ActiveDeliveryNotification data={serverResponse?.activeDeliveries} onTrack={(id) => setTrackingId(id)}/>
+     
     </div>
   );
 };
