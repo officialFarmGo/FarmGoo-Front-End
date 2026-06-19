@@ -1,27 +1,45 @@
 import React from "react";
 import "../CSS/NotFound.css";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const NotFound = () => {
+  const nav = useNavigate();
+  const role = useSelector((state) => state.auth.role);
+
+  const DASHBOARD_ROUTES = {
+    farmer: "/farmer/dashboard",
+    agent: "/agent/dashboard",
+    driver: "/drivers/dashboard",
+  };
+
+  const handleGoHome = () => {
+    if (role && DASHBOARD_ROUTES[role]) {
+      nav(DASHBOARD_ROUTES[role]);
+    } else {
+      nav("/");
+    }
+  };
+
+  const homeLabel = role && DASHBOARD_ROUTES[role] ? "Back to Dashboard" : "Back to Home";
+
   return (
     <div className="farmgoo-404-container">
-      {/* Top Navigation Row */}
       <header className="fg-404-header">
         <div className="fg-404-logo">
           <img src="https://res.cloudinary.com/dnjexdaop/image/upload/v1780660364/photo_7_2026-06-05_12-51-52_qck2fd.jpg" alt="FarmGoo" />
           <span>FarmGoo</span>
         </div>
-        <button type="button" className="fg-404-ghost-btn">
-          Go home
+        <button type="button" className="fg-404-ghost-btn" onClick={handleGoHome}>
+          {homeLabel}
         </button>
       </header>
 
-      {/* Main Content Center */}
       <main className="fg-404-content">
         <h1 className="fg-404-title">404</h1>
 
         <div className="fg-404-card">
-          {/* Custom leaf/dots indicator icons placeholder */}
           <div className="fg-404-card-icons">
             <span className="fg-leaf-dot"></span>
             <span className="fg-leaf-dot"></span>
@@ -35,17 +53,16 @@ const NotFound = () => {
           </p>
 
           <div className="fg-404-actions">
-            <button type="button" className="fg-404-primary-btn">
-              <HiOutlineArrowLeft /> Back to home
+            <button type="button" className="fg-404-primary-btn" onClick={handleGoHome}>
+              <HiOutlineArrowLeft /> {homeLabel}
             </button>
-            <button type="button" className="fg-404-outline-btn">
-              Explore farmgoo
+            <button type="button" className="fg-404-outline-btn" onClick={() => nav("/")}>
+              Explore FarmGoo
             </button>
           </div>
         </div>
       </main>
 
-      {/* Footer Text */}
       <footer className="fg-404-footer">
         <p>© 2026 FarmGoo · Growing together</p>
       </footer>
