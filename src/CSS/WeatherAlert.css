@@ -1,6 +1,7 @@
 .weather-alert-container {
   width: 95%;
  margin-top:2rem;
+ margin: 0 auto;
   box-sizing: border-box;
 }
 
