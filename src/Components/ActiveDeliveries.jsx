@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import "../CSS/ActiveDeliveries.css";
 import { LuArrowRight, LuMapPin, LuPackageOpen } from "react-icons/lu";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ActiveDeliveries = ({ onTrack }) => {
+  const nav =useNavigate();
   const token = useSelector((state) => state.auth.token);
   const [data, setData] = useState([]);
   const [status, setStatus] = useState(null);
@@ -47,7 +49,7 @@ const ActiveDeliveries = ({ onTrack }) => {
               </div>
             )}
             {!hasNoDeliveries && (
-              <a href="#view-all" className="view-all-link">
+              <a href="#view-all" className="view-all-link" onClick={() =>nav('activedelivery')}>
                 View All Active Deliveries <LuArrowRight />
               </a>
             )}
@@ -72,7 +74,7 @@ const ActiveDeliveries = ({ onTrack }) => {
                   <span className="item-name">{delivery.produce}</span>
                   <span className="status-badge">{delivery.status}</span>
                 </div>
-                <span className="item-weight">{delivery.weight}</span>
+                <span className="item-weight">{delivery.quantity}Kg</span>
               </div>
 
               <div className="delivery-id">
@@ -84,7 +86,8 @@ const ActiveDeliveries = ({ onTrack }) => {
                   <LuMapPin className="location-icon" />
                   <div className="point-text">
                     <span className="point-label">From</span>
-                    <span className="point-location">{delivery.pickup}</span>
+                    <span className="point-location">{delivery.AddressOrpickUpLocation
+}</span>
                   </div>
                 </div>
 
@@ -92,7 +95,7 @@ const ActiveDeliveries = ({ onTrack }) => {
                   <LuMapPin className="location-icon" />
                   <div className="point-text">
                     <span className="point-label">To</span>
-                    <span className="point-location">{delivery.destination}</span>
+                    <span className="point-location">{delivery.Destination}</span>
                   </div>
                 </div>
               </div>
@@ -101,7 +104,7 @@ const ActiveDeliveries = ({ onTrack }) => {
                 <span className="driver-info">
                   Driver: <strong>{delivery.driverName || "Assigning..."}</strong>
                 </span>
-                <button className="track-link" onClick={() => onTrack(delivery._id)}>
+                <button className="track-btn" onClick={() => onTrack(delivery._id)}>
                   Track Delivery <LuArrowRight />
                 </button>
               </div>
