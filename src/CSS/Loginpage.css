@@ -166,6 +166,7 @@
 .fg-role-option-card {
   flex: 1;
   height: 96px;
+  min-width: 30%;
   background: #ffffff;
   border: 1px solid #d7d8d8;
   border-radius: 12px;
@@ -176,6 +177,14 @@
   cursor: pointer;
   padding: 16px;
   box-sizing: border-box;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.fg-role-option-card:hover {
+  border-color: #00b67a;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 182, 122, 0.1);
 }
 
 .fg-role-option-card.is-active {

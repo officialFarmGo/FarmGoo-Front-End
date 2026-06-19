@@ -75,6 +75,11 @@
   text-align: center;
   box-shadow: 0 1px 3px rgba(16, 24, 40, 0.05);
 }
+.stat-card:hover {
+  border-color: #00b67a;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 182, 122, 0.1);
+}
 
 .stat-value {
   font-size: 42px;

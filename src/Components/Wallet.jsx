@@ -18,6 +18,9 @@ const Wallet = () => {
     const BASE_URL = import.meta.env.VITE_BaseUrl;
     const token = localStorage.getItem("token");
 
+    // Snapshot current state data to fall back on if the network request fails
+    const backupDashboardData = { ...dashboardData };
+
     try {
       const response = await axios.get(
         `${BASE_URL}/agentDashboard/agentWallet`,
@@ -30,9 +33,17 @@ const Wallet = () => {
 
       if (response.data && response.data.data) {
         setDashboardData(response.data.data);
+      } else if (response.data?.balance !== undefined) {
+        // Alternative mapping if balance is at the root layer
+        setDashboardData(prev => ({
+          ...prev,
+          availableBalance: response.data.balance
+        }));
       }
     } catch (error) {
       console.error("Error fetching delivery dashboard data:", error);
+      // Guarantee the layout balance values do not reset or drop to 0 unexpectedly
+      setDashboardData(backupDashboardData);
     }
   };
 
@@ -88,11 +99,14 @@ const Wallet = () => {
           <div className="balance-action-row">
             <button
               className="action-card-btn withdraw-btn"
-              onClick={()=> nav("/withDrawFunds")}
+              onClick={() => nav("/agent/dashboard/withDrawFunds")}
             >
               <span className="action-arrow">↗</span> Withdraw
             </button>
-            <button className="action-card-btn add-money-btn">
+            <button
+              className="action-card-btn add-money-btn"
+              onClick={() => nav("/agent/dashboard/FundWellet")}
+            >
               <span className="action-plus">+</span> Add Money
             </button>
           </div>

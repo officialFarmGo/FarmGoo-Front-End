@@ -16,15 +16,22 @@ const AddFarm = () => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  // Modal tracking states
+  const [showModal, setShowModal] = useState(false);
+  const [createdFarmerData, setCreatedFarmerData] = useState(null);
+
+  // Track which button triggered the submission flow to control loading text
+  const [redirectOnSuccess, setRedirectOnSuccess] = useState(false);
+
   const nav = useNavigate();
 
-  const userToken = useSelector((state) => state);
   const BASE_URL = import.meta.env.VITE_BaseUrl;
   const token = localStorage.getItem("token");
 
   const validateForm = () => {
     let tempErrors = {};
-    const phoneRegex = /^(?:\+234|0)[789][01]\d{8}$/;
+    const phoneRegex = /^[0-9]{11,14}$/;
 
     if (!formData.farmerFullName.trim()) {
       tempErrors.farmerFullName = "Farmer full name is required";
@@ -34,9 +41,9 @@ const AddFarm = () => {
 
     if (!formData.phoneNumber.trim()) {
       tempErrors.phoneNumber = "Phone number is required";
-    } else if (!phoneRegex.test(formData.phoneNumber.replace(/\s+/g, ""))) {
+    } else if (!phoneRegex.test(formData.phoneNumber)) {
       tempErrors.phoneNumber =
-        "Enter a valid Nigerian phone number (e.g. 08034567890)";
+        "Enter a valid phone number (only numbers allowed)";
     }
 
     if (!formData.farmLocation.trim()) {
@@ -53,11 +60,22 @@ const AddFarm = () => {
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
 
+    // Strict non-numeric keystroke filter block
+    if (id === "phoneNumber") {
+      const onlyNumbers = value.replace(/\D/g, "");
+      setFormData((prev) => ({
+        ...prev,
+        [id]: onlyNumbers,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [id]: value,
+      }));
+    }
+
+    // Clear dynamic field error borders instantly on user typing entry
     if (errors[id]) {
       setErrors((prev) => ({
         ...prev,
@@ -66,8 +84,9 @@ const AddFarm = () => {
     }
   };
 
-  const handleSubmit = async (e, redirectToRequest = false) => {
+  const executeSubmitFlow = async (e, shouldRedirect) => {
     e.preventDefault();
+    setRedirectOnSuccess(shouldRedirect);
 
     if (!validateForm()) return;
 
@@ -83,30 +102,51 @@ const AddFarm = () => {
         },
       );
 
-      if (response.data) {
-        if (redirectToRequest) {
-          // Pointed to your actual route definition name matching your dashboard setup
+      if (response.data && response.data.data) {
+        setCreatedFarmerData(response.data.data);
+
+        if (shouldRedirect) {
+          // Navigates directly to the correct Transport Request subroute view
           nav("/agent/dashboard/TransportRequest", {
             state: { farmer: response.data.data },
           });
         } else {
-          nav(-1);
+          // If clicked "Save Farmer", reveal completion status modal overlay view
+          setShowModal(true);
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error creating farmer:", error);
       if (error.response?.data?.message) {
         setErrors({ serverError: error.response.data.message });
+      } else {
+        setErrors({
+          serverError: "An unexpected error occurred. Please try again.",
+        });
       }
     } finally {
       setLoading(false);
     }
   };
 
+  const handleCreateTransportRequest = () => {
+    setShowModal(false);
+    // Navigates precisely to the targeted transport request page route path
+    nav("/agent/dashboard/TransportRequest", {
+      state: { farmer: createdFarmerData },
+    });
+  };
+
+  const handleGoToDashboard = () => {
+    setShowModal(false);
+    // Navigates straight back to the principal agent dashboard overview
+    nav("/agent/dashboard");
+  };
+
   return (
     <div className="add-farm-container">
       <div className="add-farm-header">
-        <button className="back-btn" onClick={() => nav(-1)}>
+        <button className="back-btn" onClick={() => nav("/agent/dashboard")}>
           <span className="arrow">←</span> Back to Dashboard
         </button>
         <h1 className="header-title">Add New Farmer</h1>
@@ -146,6 +186,7 @@ const AddFarm = () => {
               <MdPhone className="input-icon" />
               <input
                 type="text"
+                inputMode="numeric"
                 id="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleInputChange}
@@ -184,7 +225,7 @@ const AddFarm = () => {
               <GiTomato className="input-icon" />
               <input
                 type="text"
-                id="mainProduceType" // Updated ID matching state payload key
+                id="mainProduceType"
                 value={formData.mainProduceType}
                 onChange={handleInputChange}
                 placeholder="e.g., Tomatoes, Yam, Cassava"
@@ -195,26 +236,79 @@ const AddFarm = () => {
             )}
           </div>
 
+          {/* Dual Action Buttons Row Layout */}
           <div className="form-actions">
             <button
               type="button"
               className="btn-save-farmer"
               disabled={loading}
-              onClick={(e) => handleSubmit(e, false)}
+              onClick={(e) => executeSubmitFlow(e, false)}
             >
-              {loading ? "Saving..." : "Save Farmer"}
+              {loading && !redirectOnSuccess ? "Saving..." : "Save Farmer"}
             </button>
             <button
               type="button"
               className="btn-save-request"
               disabled={loading}
-              onClick={(e) => handleSubmit(e, true)}
+              onClick={(e) => executeSubmitFlow(e, true)}
             >
-              {loading ? "Saving..." : "Save & Create Request"}
+              {loading && redirectOnSuccess
+                ? "Saving..."
+                : "Save & Create Request"}
             </button>
           </div>
         </form>
       </div>
+
+      {/* --- SUCCESS MODAL OVERLAY --- */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="success-modal-card">
+            <div className="modal-icon-circle">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#00ca72"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+
+            <h2>Farmer Added Successfully!</h2>
+
+            <p>
+              <span className="farmer-id-highlight">
+                {createdFarmerData?.farmerId ||
+                  createdFarmerData?.farmerFullName ||
+                  "New Farmer"}
+              </span>{" "}
+              has been added to your farmers list
+            </p>
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="btn-modal-secondary"
+                onClick={handleCreateTransportRequest}
+              >
+                Create Transport Request
+              </button>
+              <button
+                type="button"
+                className="btn-modal-primary"
+                onClick={handleGoToDashboard}
+              >
+                Go to Dashboard
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

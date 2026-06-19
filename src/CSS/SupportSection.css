@@ -1,18 +1,18 @@
 .fg-support-container {
   width: 100%;
   background-color: #fcfcfc;
-  padding: 40px 0;
-  /* padding-left: 260px; Keeps the sidebar space */
+  padding: 40px 16px;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .fg-support-inner {
-  max-width: 1000px; /* Matches the width of your tracking card */
-  margin: 0 auto 0 0; /* Aligns it left relative to its container space */
+  max-width: 1000px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
   box-sizing: border-box;
 }
 
@@ -26,7 +26,7 @@
 
 .fg-support-cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 280px);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   width: 100%;
 }
@@ -41,7 +41,9 @@
   align-items: center;
   text-align: center;
   box-sizing: border-box;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .fg-support-action-card:hover {
@@ -113,14 +115,181 @@
   color: #111827;
 }
 
+/* Panel Sections Design for FAQs & Form Elements */
+.fg-support-section-panel {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+}
+
+.panel-container-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0c1a30;
+  margin: 0 0 24px 0;
+}
+
+/* FAQ Accordion Stack Styles */
+.faq-accordion-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item-row {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.faq-item-row:hover {
+  border-color: #cbd5e1;
+}
+
+.faq-question-header {
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 15px;
+  cursor: pointer;
+  background-color: #ffffff;
+  user-select: none;
+}
+
+.faq-chevron-icon {
+  font-size: 18px;
+  color: #64748b;
+}
+
+.faq-answer-body {
+  padding: 0 20px 18px 20px;
+  background-color: #ffffff;
+  border-top: 1px solid #f1f5f9;
+}
+
+.faq-answer-body p {
+  margin: 12px 0 0 0;
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Issue Reporting Form Component Designs */
+.report-issue-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-input-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.select-dropdown-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.form-custom-select-element {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #1e293b;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  transition: border-color 0.15s ease;
+}
+
+.form-custom-select-element:focus,
+.form-custom-textarea-element:focus {
+  border-color: #004d40;
+}
+
+.form-custom-textarea-element {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #1e293b;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  outline: none;
+  resize: vertical;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.form-submit-action-btn {
+  width: fit-content;
+  min-width: 140px;
+  background-color: #004d40;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.form-submit-action-btn:hover:not(:disabled) {
+  background-color: #00332a;
+}
+
+.form-submit-action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* System Messages Feedback Alert Boxes */
+.form-feedback-alert-box {
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.alert-success {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.alert-danger {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+/* Media Breakpoint Rules for Responsive Form Layouts */
 @media screen and (max-width: 768px) {
   .fg-support-container {
-    padding-left: 0;
-  }
-
-  .fg-support-inner {
-    width: 95%;
-    padding: 0 10px;
+    padding: 24px 12px;
   }
 
   .fg-support-main-title {
@@ -132,12 +301,11 @@
     gap: 16px;
   }
 
-  .fg-support-action-card {
-    padding: 28px 20px;
+  .fg-support-section-panel {
+    padding: 20px 16px;
   }
 
-  .fg-support-action-trigger-btn {
+  .form-submit-action-btn {
     width: 100%;
-    border-radius: 0px !important;
   }
 }

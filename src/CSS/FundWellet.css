@@ -1,0 +1,289 @@
+.fund-wallet-wrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.back-navigation {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #475569;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.back-icon {
+  font-size: 20px;
+}
+
+.balance-card-banner {
+  background-color: #007947;
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.balance-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.balance-label-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wallet-mini-icon {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.shield-mini-icon {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.balance-label-text {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.balance-amount-display {
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.balance-footer-text {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.fund-wallet-container {
+  width: 100%;
+}
+
+.fund-wallet-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.fund-wallet-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+}
+
+.fund-wallet-subtitle {
+  font-size: 15px;
+  color: #64748b;
+  margin: 0 0 28px 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.amount-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.amount-input-wrapper input {
+  width: 100%;
+  padding: 16px 16px 16px 36px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.amount-input-wrapper input:focus {
+  border-color: #004d40;
+}
+
+.input-error-border {
+  border-color: #ef4444 !important;
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.quick-amounts-section {
+  margin-bottom: 28px;
+}
+
+.quick-amounts-label {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0 0 12px 0;
+}
+
+.quick-amounts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.quick-amount-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 14px 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.quick-amount-btn:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.info-note-box {
+  background-color: #eff6ff;
+  border-left: 4px solid #2563eb;
+  padding: 14px 16px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 32px;
+}
+
+.note-text {
+  font-size: 14px;
+  color: #1e40af;
+  line-height: 1.5;
+}
+
+.btn-continue {
+  width: 100%;
+  background-color: #004d40;
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-continue:hover:not(:disabled) {
+  background-color: #00332a;
+}
+
+.btn-continue:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .fund-wallet-card {
+    padding: 24px;
+  }
+
+  .quick-amounts-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fund-wallet-wrapper {
+    padding: 12px;
+  }
+
+  .balance-amount-display {
+    font-size: 30px;
+  }
+
+  .fund-wallet-card {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .fund-wallet-title {
+    font-size: 20px;
+  }
+
+  .fund-wallet-subtitle {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .amount-input-wrapper input {
+    padding: 14px 14px 14px 32px;
+    font-size: 16px;
+  }
+
+  .currency-symbol {
+    left: 14px;
+    font-size: 16px;
+  }
+
+  .quick-amount-btn {
+    padding: 12px 6px;
+    font-size: 14px;
+  }
+
+  .info-note-box {
+    padding: 12px;
+    margin-bottom: 24px;
+  }
+
+  .note-text {
+    font-size: 13px;
+  }
+
+  .btn-continue {
+    padding: 14px;
+    font-size: 15px;
+  }
+}

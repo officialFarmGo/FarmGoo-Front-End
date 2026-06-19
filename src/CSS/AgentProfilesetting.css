@@ -1,34 +1,39 @@
 .fg-profile-settings-view {
   width: 100%;
-  background-color: #fcfdfd;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #fafbfc;
   box-sizing: border-box;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .fg-profile-header-stack {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-bottom: 24px;
+  gap: 6px;
+  margin-bottom: 32px;
 }
 
 .fg-profile-main-title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
-  color: #111827;
+  color: #0b192c;
   margin: 0;
 }
 
 .fg-profile-sub-title {
-  font-size: 14px;
-  color: #6b7280;
+  font-size: 15px;
+  color: #636e72;
   margin: 0;
 }
 
 .fg-profile-panel-card {
   background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 32px;
   margin-bottom: 24px;
   box-sizing: border-box;
   width: 100%;
@@ -37,46 +42,60 @@
 .fg-panel-inner-heading {
   font-size: 18px;
   font-weight: 700;
-  color: #111827;
-  margin: 0 0 20px 0;
+  color: #0b192c;
+  margin: 0 0 24px 0;
 }
 
 .fg-avatar-upload-row {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
+}
+
+.fg-avatar-container-wrapper {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  cursor: pointer;
 }
 
 .fg-avatar-preview-circle {
-  width: 80px;
-  height: 80px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  background-color: #044335;
+  background-color: #004d40;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
-  position: relative;
-  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+}
+
+.fg-avatar-preview-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .fg-avatar-camera-overlay {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  color: #4b5563;
-  width: 24px;
-  height: 24px;
+  bottom: 2px;
+  right: 2px;
+  background-color: #004d40;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 3;
 }
 
 .fg-upload-instructions-stack {
@@ -86,21 +105,26 @@
 }
 
 .fg-upload-trigger-text {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  color: #111827;
+  color: #0b192c;
   cursor: pointer;
 }
 
+.fg-upload-trigger-text:hover {
+  text-decoration: underline;
+}
+
 .fg-upload-constraints-label {
-  font-size: 13px;
-  color: #9ca3af;
+  font-size: 14px;
+  color: #7f8c8d;
 }
 
 .fg-form-two-column-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  column-gap: 32px;
+  row-gap: 24px;
   width: 100%;
 }
 
@@ -113,28 +137,34 @@
 .fg-form-field-label {
   font-size: 14px;
   font-weight: 500;
-  color: #374151;
+  color: #34495e;
 }
 
 .fg-input-wrapper-inner {
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 14px 16px;
   background-color: #ffffff;
   box-sizing: border-box;
-  transition: border-color 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 
 .fg-input-wrapper-inner:focus-within {
-  border-color: #044335;
+  border-color: #004d40;
+  box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.08);
+}
+
+.fg-input-disabled {
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
 }
 
 .fg-input-field-vector-icon {
-  color: #9ca3af;
-  font-size: 16px;
+  color: #94a3b8;
+  font-size: 18px;
   flex-shrink: 0;
 }
 
@@ -142,60 +172,297 @@
   border: none;
   outline: none;
   width: 100%;
-  font-size: 14px;
-  color: #111827;
+  font-size: 15px;
+  color: #1e293b;
   background: transparent;
 }
 
-.fg-select-native-element {
-  width: 100%;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: 14px;
-  color: #111827;
-  background-color: #ffffff;
-  outline: none;
+.fg-input-native-element::placeholder {
+  color: #94a3b8;
+}
+
+.fg-input-note-label {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.fg-link-embedded {
+  color: #004d40;
+  text-decoration: underline;
+  font-weight: 600;
   cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 16px;
+}
+
+.input-error-border {
+  border-color: #ef4444 !important;
+}
+
+.error-text {
+  font-size: 13px;
+  color: #ef4444;
+}
+
+.error-message.server-error {
+  background-color: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+  padding: 14px 20px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 14px;
 }
 
 .fg-form-actions-footer-row {
-  display: flex;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
   align-items: center;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 16px;
+  margin-top: 32px;
   width: 100%;
 }
 
 .fg-btn-submit-save-solid {
   display: flex;
-  flex: 1;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  background-color: #044335;
+  gap: 10px;
+  background-color: #004d40;
   color: #ffffff;
   border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 14px;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.fg-btn-submit-save-solid:hover:not(:disabled) {
+  background-color: #00332c;
+}
+
+.fg-btn-submit-save-solid:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
 }
 
 .fg-btn-cancel-action-outline {
-  background-color: #ffffff;
-  color: #4b5563;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 500;
+  background-color: #f8fafc;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fg-btn-cancel-action-outline:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+/* ===========================
+   LARGE TABLETS
+=========================== */
+@media (max-width: 992px) {
+  .fg-profile-settings-view {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .fg-profile-panel-card {
+    padding: 24px;
+  }
+
+  .fg-form-two-column-grid {
+    column-gap: 20px;
+  }
+}
+
+/* ===========================
+   TABLETS
+=========================== */
+@media (max-width: 768px) {
+  .fg-profile-settings-view {
+    padding: 18px;
+  }
+
+  .fg-profile-main-title {
+    font-size: 28px;
+  }
+
+  .fg-profile-sub-title {
+    font-size: 14px;
+  }
+
+  .fg-profile-panel-card {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .fg-panel-inner-heading {
+    font-size: 17px;
+  }
+
+  .fg-form-two-column-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .fg-avatar-upload-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+  }
+
+  .fg-upload-instructions-stack {
+    align-items: center;
+  }
+
+  .fg-form-actions-footer-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .fg-btn-submit-save-solid,
+  .fg-btn-cancel-action-outline {
+    width: 100%;
+  }
+}
+
+/* ===========================
+   MOBILE DEVICES
+=========================== */
+@media (max-width: 576px) {
+  .fg-profile-settings-view {
+    padding: 14px;
+  }
+
+  .fg-profile-main-title {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .fg-profile-sub-title {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .fg-profile-panel-card {
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 18px;
+  }
+
+  .fg-panel-inner-heading {
+    font-size: 16px;
+    margin-bottom: 18px;
+  }
+
+  .fg-avatar-container-wrapper {
+    width: 76px;
+    height: 76px;
+  }
+
+  .fg-avatar-preview-circle {
+    font-size: 28px;
+  }
+
+  .fg-avatar-camera-overlay {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  .fg-upload-trigger-text {
+    font-size: 15px;
+  }
+
+  .fg-upload-constraints-label {
+    font-size: 12px;
+  }
+
+  .fg-form-input-group {
+    gap: 6px;
+  }
+
+  .fg-form-field-label {
+    font-size: 13px;
+  }
+
+  .fg-input-wrapper-inner {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .fg-input-field-vector-icon {
+    font-size: 17px;
+  }
+
+  .fg-input-native-element {
+    font-size: 14px;
+  }
+
+  .fg-input-note-label {
+    font-size: 11px;
+  }
+
+  .fg-btn-submit-save-solid,
+  .fg-btn-cancel-action-outline {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .error-text {
+    font-size: 12px;
+  }
+
+  .error-message.server-error {
+    font-size: 13px;
+    padding: 12px 14px;
+  }
+}
+
+/* ===========================
+   SMALL PHONES
+=========================== */
+@media (max-width: 400px) {
+  .fg-profile-settings-view {
+    padding: 12px;
+  }
+
+  .fg-profile-main-title {
+    font-size: 22px;
+  }
+
+  .fg-profile-panel-card {
+    padding: 15px;
+  }
+
+  .fg-avatar-container-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+
+  .fg-avatar-preview-circle {
+    font-size: 24px;
+  }
+
+  .fg-input-wrapper-inner {
+    padding: 10px 12px;
+  }
+
+  .fg-input-native-element {
+    font-size: 13px;
+  }
+
+  .fg-btn-submit-save-solid,
+  .fg-btn-cancel-action-outline {
+    font-size: 14px;
+    padding: 13px;
+  }
 }

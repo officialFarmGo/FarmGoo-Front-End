@@ -13,39 +13,72 @@ const ActiveDeliveryHeader = () => {
     delivered: 0,
   });
 
-  const userToken = useSelector((state) => state);
-
-  const getAllDeliveries = async () => {
-    const BASE_URL = import.meta.env.VITE_BaseUrl;
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await axios.get(
-        `${BASE_URL}/agentDashboard/getAlldeliveries`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      if (response.data && response.data.data) {
-        setData(response.data.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // Target the auth slice specifically rather than the entire global state store
+  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
+    const getAllDeliveries = async () => {
+      const BASE_URL = import.meta.env.VITE_BaseUrl;
+      const token = localStorage.getItem("token") || auth?.token;
+
+      if (!BASE_URL) {
+        console.error("API Base URL is missing. Check your .env file.");
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          `${BASE_URL}/agentDashboard/getAlldeliveries`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+
+        const fetchedData = response.data?.data || response.data;
+
+        if (fetchedData) {
+          // If the backend directly sends delivery status totals inside an object or stats object
+          const statsSource = fetchedData.stats || fetchedData;
+
+          // Fallback parsing if backend returns raw deliveries array instead of metrics mapping
+          if (Array.isArray(fetchedData.deliveries)) {
+            const list = fetchedData.deliveries;
+            setData({
+              total: list.length,
+              pending: list.filter((d) => d.status === "pending" || d.isDraft)
+                .length,
+              accepted: list.filter((d) => d.status === "accepted").length,
+              inTransit: list.filter(
+                (d) => d.status === "inTransit" || d.status === "in-transit",
+              ).length,
+              delivered: list.filter((d) => d.status === "delivered").length,
+            });
+          } else {
+            // Mapping direct property matches from stats pipeline payload response
+            setData({
+              total: statsSource.total ?? statsSource.inProgress ?? 0,
+              pending: statsSource.pending ?? 0,
+              accepted: statsSource.accepted ?? 0,
+              inTransit: statsSource.inTransit ?? 0,
+              delivered: statsSource.delivered ?? 0,
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching active delivery metrics details:", error);
+      }
+    };
+
     getAllDeliveries();
-  }, []);
+  }, [auth?.token]); // Hook triggers cleanly when token context updates
 
   const tabsConfig = [
     {
       id: "total",
       label: "Total",
-      value: data?.total || 0,
+      value: data.total,
       cardClass: "border-grey",
       labelClass: "text-grey",
       valueClass: "text-black",
@@ -53,7 +86,7 @@ const ActiveDeliveryHeader = () => {
     {
       id: "pending",
       label: "Pending",
-      value: data?.pending || 0,
+      value: data.pending,
       cardClass: "bg-amber border-amber",
       labelClass: "text-amber",
       valueClass: "text-amber",
@@ -61,7 +94,7 @@ const ActiveDeliveryHeader = () => {
     {
       id: "accepted",
       label: "Accepted",
-      value: data?.accepted || 0,
+      value: data.accepted,
       cardClass: "bg-blue border-blue",
       labelClass: "text-blue",
       valueClass: "text-blue",
@@ -69,7 +102,7 @@ const ActiveDeliveryHeader = () => {
     {
       id: "inTransit",
       label: "In Transit",
-      value: data?.inTransit || 0,
+      value: data.inTransit,
       cardClass: "bg-purple border-purple",
       labelClass: "text-purple",
       valueClass: "text-purple",
@@ -77,7 +110,7 @@ const ActiveDeliveryHeader = () => {
     {
       id: "delivered",
       label: "Delivered",
-      value: data?.delivered || 0,
+      value: data.delivered,
       cardClass: "bg-green border-green",
       labelClass: "text-green",
       valueClass: "text-green",

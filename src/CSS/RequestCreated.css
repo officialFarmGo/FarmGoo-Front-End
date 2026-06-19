@@ -1,0 +1,110 @@
+/* Container centered wrapper */
+.fg-request-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8fafc; /* Adjust background if displaying as an overlay */
+  min-height: 350px;
+}
+
+/* Card layout matching Screenshot 2026-06-13 215414.png */
+.fg-request-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+/* Success Icon Circle styling */
+.fg-success-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 72px;
+  background-color: #dcfce7; /* Light pastel green tint */
+  border-radius: 50%;
+  margin-bottom: 28px;
+}
+
+.fg-success-icon {
+  width: 32px;
+  height: 32px;
+  color: #00b050; /* Vibrant success green stroke */
+}
+
+/* Text elements */
+.fg-request-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 16px 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.fg-request-subtitle {
+  font-size: 15px;
+  color: #4b5563; /* Subdued gray text */
+  margin: 0 0 32px 0;
+  line-height: 1.5;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  padding: 0 10px;
+}
+
+/* Flexbox Row Container for actions */
+.fg-request-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+/* Button UI Definitions */
+.fg-request-actions button {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+/* Outlined 'Create Another' Button */
+.fg-btn-secondary {
+  background-color: #ffffff;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+
+.fg-btn-secondary:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+/* Filled Forest Green 'View Deliveries' Button */
+.fg-btn-primary {
+  background-color: #004d40; /* Forest Green shade matching the image */
+  color: #ffffff;
+  border: none;
+}
+
+.fg-btn-primary:hover {
+  background-color: #00332a; /* Slightly deeper tint for interaction states */
+}

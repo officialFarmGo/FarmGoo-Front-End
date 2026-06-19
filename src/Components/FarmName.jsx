@@ -1,6 +1,6 @@
 import React from "react";
 import { MdPhone, MdLocationOn, MdPeople } from "react-icons/md";
-import { GiTomato } from "react-icons/gi";
+import { PiPlantThin } from "react-icons/pi";
 import "../CSS/FarmName.css";
 import { Link } from "react-router-dom";
 
@@ -54,7 +54,7 @@ const FarmName = ({ dashboardData }) => {
                   </span>
                 </div>
                 <div className="detail-item">
-                  <GiTomato className="react-icon" />
+                  <PiPlantThin className="react-icon" />
                   <span className="text">
                     {farm.produceType || farm.produce || "Not Specified"}
                   </span>

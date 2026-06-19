@@ -6,11 +6,9 @@ import AgentQuickActions from "../AgentQuickActions";
 import AgentRecentActivity from "../AgentRecentActivity";
 
 const AgentDashBoard = () => {
-  // 1. Initialize state to hold your backend data safely
   const [dashboardData, setDashboardData] = useState({
     summary: {},
     recentActivities: [],
-    // You can add default values here depending on your exact API response shape
   });
 
   const BASE_URL = import.meta.env.VITE_BaseUrl;
@@ -20,7 +18,7 @@ const AgentDashBoard = () => {
   const getDashboardData = async () => {
     try {
       const response = await axios.get(
-        `${BASE_URL}/agentDashboard/getAlldeliveries`, // Replace with your exact dashboard endpoint if different
+        `${BASE_URL}/agentDashboard/getAlldeliveries`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -42,7 +40,6 @@ const AgentDashBoard = () => {
 
   return (
     <div>
-      {/* 3. Pass the newly defined dashboardData down as a prop */}
       <AgentDashBoardHeader dashboardData={dashboardData} />
       <AgentQuickActions />
       <AgentRecentActivity dashboardData={dashboardData} />

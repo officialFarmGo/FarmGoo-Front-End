@@ -4,7 +4,8 @@
   background-color: #f8fafc;
   padding: 40px 24px;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   display: flex;
   justify-content: center;
 }
@@ -21,6 +22,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+  gap: 16px;
 }
 
 .notification-page-title {
@@ -33,12 +35,13 @@
 .mark-all-btn {
   background: transparent;
   border: none;
-  color: #0c4a34; 
+  color: #0c4a34;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   padding: 4px 0;
   transition: opacity 0.2s ease;
+  white-space: nowrap;
 }
 
 .mark-all-btn:hover {
@@ -62,6 +65,7 @@
   border-bottom: 1px solid #edf2f7;
   background-color: #ffffff;
   position: relative;
+  gap: 16px;
 }
 
 .notification-item:last-child {
@@ -76,6 +80,7 @@
   display: flex;
   align-items: flex-start;
   gap: 16px;
+  flex: 1;
 }
 
 .notif-badge {
@@ -118,6 +123,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1;
 }
 
 .notif-title {
@@ -132,6 +138,7 @@
   color: #475569;
   margin: 0;
   line-height: 1.4;
+  word-break: break-word;
 }
 
 .notif-timestamp {
@@ -146,15 +153,56 @@
   background-color: #2563eb;
   border-radius: 50%;
   flex-shrink: 0;
-  margin-right: 8px;
+}
+
+.notification-state-msg {
+  padding: 40px 24px;
+  text-align: center;
+  font-size: 14.5px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.notification-state-msg.error-msg {
+  color: #dc2626;
 }
 
 @media (max-width: 600px) {
   .notification-section {
-    padding: 20px 14px;
+    padding: 24px 16px;
   }
-  
+
+  .notification-header {
+    margin-bottom: 20px;
+  }
+
+  .notification-page-title {
+    font-size: 22px;
+  }
+
   .notification-item {
     padding: 16px;
+    align-items: flex-start;
+  }
+
+  .notif-left-block {
+    gap: 12px;
+  }
+
+  .notif-badge {
+    width: 36px;
+    height: 36px;
+  }
+
+  .notif-title {
+    font-size: 14px;
+  }
+
+  .notif-message {
+    font-size: 13px;
+  }
+
+  .unread-dot {
+    margin-top: 6px;
   }
 }

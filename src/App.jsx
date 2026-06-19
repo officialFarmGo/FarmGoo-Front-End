@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 
 import AgentDashBoard from "./Components/UI/AgentDashBoard";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LandingPageComponents from "./Components/UI/LandingPageComponents";
 import LoginPage from "./Pages/Auth/LoginPage";
 import SignupPage from "./Pages/Auth/SignPage";
@@ -38,7 +38,8 @@ import AddFarm from "./Components/AddFarm";
 import TransportRequest from "./Components/TransportRequest";
 import NewFarm from "./Components/NewFarm";
 import DeliveryTrack from "./Components/DeliveryTrack";
-// import WithDrawFunds from "./Components/WithDrawFunds";
+import WithDrawFunds from "./Components/WithDrawFunds";
+import FundWellet from "./Components/FundWellet";
 
 function App() {
   return (
@@ -69,8 +70,9 @@ function App() {
 
         <Route path="/agent/dashboard" element={<AgentDashboard />}>
           <Route path="" element={<AgentDashBoard />} />
-          {/* <Route path="wallet" element={<Wallet />} /> */}
+          <Route path="wallet" element={<Wallet />} />
           <Route path="withDrawFunds" element={<WithDrawFunds />} />
+          <Route path="FundWellet" element={<FundWellet />} />
           <Route path="notification" element={<Notification />} />
           <Route path="settings" element={<AgentProfileSettings />} />
           <Route
@@ -81,13 +83,20 @@ function App() {
           <Route path="MyFarmersNum" element={<MyFarmersNum />} />
           <Route path="farmName" element={<FarmName />} />
           <Route path="deliverytrack" element={<DeliveryTrack />} />
-          <Route path="/agent/dashboard/AddFarm" element={<AddFarm />} />
-          <Route
-            path="/agent/dashboard/TransportRequest"
-            element={<TransportRequest />}
-          />
-          <Route path="/agent/dashboard/NewFarm" element={<NewFarm />} />
+          <Route path="AddFarm" element={<AddFarm />} />
+          <Route path="TransportRequest" element={<TransportRequest />} />
+          <Route path="NewFarm" element={<NewFarm />} />
         </Route>
+
+        <Route
+          path="/withDrawFunds"
+          element={<Navigate to="/agent/dashboard/withDrawFunds" replace />}
+        />
+        <Route
+          path="/withdraw-funds"
+          element={<Navigate to="/agent/dashboard/withDrawFunds" replace />}
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
 
         <Route path="/drivers/dashboard" element={<DriverDashboard />}>
           <Route path="" element={<DriverDashboardView />} />
