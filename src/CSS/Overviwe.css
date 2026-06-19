@@ -72,10 +72,9 @@
   font-weight: 500;
 }
 
-/* Track background matching light grey bar shape */
 .bar-bg {
   flex: 1;
-  background-color: #f1f5fslate;
+  background-color: #f1f5f9;
   background: #f4f4f6;
   height: 32px;
   border-radius: 100px;

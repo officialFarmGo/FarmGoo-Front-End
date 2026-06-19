@@ -23,6 +23,12 @@
   margin-bottom: 24px;
 }
 
+.notif-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .notification-page-title {
   font-size: 28px;
   font-weight: 700;
@@ -30,20 +36,34 @@
   margin: 0;
 }
 
+.unread-count-badge {
+  background: #006432;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 2px 8px;
+  line-height: 1.6;
+}
+
 .mark-all-btn {
   background: transparent;
   border: none;
-  color: #0c4a34; 
+  color: #0c4a34;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   padding: 4px 0;
   transition: opacity 0.2s ease;
 }
-
 .mark-all-btn:hover {
   text-decoration: underline;
   opacity: 0.9;
+}
+.mark-all-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  text-decoration: none;
 }
 
 .notification-list-card {
@@ -62,14 +82,19 @@
   border-bottom: 1px solid #edf2f7;
   background-color: #ffffff;
   position: relative;
+  transition: background 0.15s;
 }
-
 .notification-item:last-child {
   border-bottom: none;
 }
-
 .notification-item.unread-item {
   background-color: #f0f6fa;
+}
+.notification-item:hover {
+  background-color: #f8fafb;
+}
+.notification-item.unread-item:hover {
+  background-color: #e8f2f8;
 }
 
 .notif-left-block {
@@ -94,24 +119,20 @@
   color: #1aa659;
 }
 
-.badge-job {
-  background-color: #edf5ff;
-  color: #3b82f6;
-}
-
-.badge-weather {
-  background-color: #fffbeb;
-  color: #d97706;
-}
-
 .badge-delivery {
   background-color: #e6fdf2;
   color: #10b981;
 }
 
-.currency-badge-symbol {
-  font-size: 16px;
-  font-weight: 700;
+.badge-job {
+  background-color: #edf5ff;
+  color: #3b82f6;
+}
+
+.badge-weather,
+.badge-alert {
+  background-color: #fffbeb;
+  color: #d97706;
 }
 
 .notif-text-stack {
@@ -147,13 +168,44 @@
   border-radius: 50%;
   flex-shrink: 0;
   margin-right: 8px;
+  align-self: center;
+}
+
+/* Loading */
+.notif-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.notif-spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid #e0ece5;
+  border-top-color: #006432;
+  border-radius: 50%;
+  animation: nspin 0.8s linear infinite;
+}
+@keyframes nspin { to { transform: rotate(360deg); } }
+
+/* Empty */
+.notif-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 48px 0;
+}
+.notif-empty p {
+  font-size: 14px;
+  color: #aaa;
+  margin: 0;
 }
 
 @media (max-width: 600px) {
   .notification-section {
     padding: 20px 14px;
   }
-  
   .notification-item {
     padding: 16px;
   }
