@@ -28,7 +28,7 @@ const AvailableJobsAndWidgets = () => {
 
     const fetchJobs = async () => {
       try {
-        const res = await fetch(`${BASE_URL}/driverDash/getAllAvailableJobs`, {
+        const res = await fetch(`${BASE_URL}/driverDash/getAvailableJobs`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
