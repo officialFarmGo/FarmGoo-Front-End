@@ -22,7 +22,7 @@ export const desktopMenuItems = [
     icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
   },
   {
-    path: "activedelivery",
+    path: "activedelivery/:id",
     label: "Active Deliveries",
     icon: <EnvironmentOutlined style={{ fontSize: "20px" }} />,
   },

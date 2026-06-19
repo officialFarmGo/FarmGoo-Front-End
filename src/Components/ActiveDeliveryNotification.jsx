@@ -2,7 +2,7 @@ import React from "react";
 import { LuMapPin, LuClock, LuTruck } from "react-icons/lu";
 import "../CSS/ActiveDeliveryNotification.css";
 
-const ActiveDeliveryNotification = ({ data }) => {
+const ActiveDeliveryNotification = ({ data,onTrack }) => {
   console.log(data);
 
   // 1. DIRECT EMPTY STATE INTERFACE
@@ -45,7 +45,7 @@ const ActiveDeliveryNotification = ({ data }) => {
             </div>
             <div className="header-right">
               <span className="price">
-                ₦{Number(delivery.price).toLocaleString()}
+                ₦{Number(delivery.totalFare).toLocaleString()}
               </span>
             </div>
           </div>
@@ -88,7 +88,7 @@ const ActiveDeliveryNotification = ({ data }) => {
                 <p>{delivery.driverPhone}</p>
               </div>
             </div>
-            <button className="track-btn">Track Delivery</button>
+            <button className="track-btn"onClick={() => onTrack(delivery._id)}>Track Delivery</button>
           </div>
         </div>
       ))}
