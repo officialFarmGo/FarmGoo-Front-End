@@ -161,12 +161,14 @@ const VerificationOtp = () => {
                 Didn't receive the code?{" "}
                 <span
                   className="fg-otp-action-link"
-                  onClick={() => {
-                    if (!loading) {
-                      setOtpValue("");
-                      setErrorMessage("");
-                    }
-                  }}
+                  // onClick={() => {
+                  //   if (!loading) {
+                  //     setOtpValue("");
+                  //     setErrorMessage("");
+                  //   }
+                  // }}
+
+                  onClick={() =>navigate('/forgot-password')}
                 >
                   Resend code
                 </span>
