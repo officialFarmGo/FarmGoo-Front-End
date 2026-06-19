@@ -67,7 +67,7 @@ function App() {
           <Route path="wallet" element={<Wallet />} />
           <Route path="notification" element={<Notification />} />
           <Route path="settings" element={<ProfileSettingsDashboard />} />
-          <Route path="activedelivery/:id" element={<ActiveDeliveryPageComponets />} />
+          <Route path="activedelivery" element={<ActiveDeliveryPageComponets />} />
           <Route path="help&support" element={<FarmerHelpAndSupport />} />
         </Route>
 
