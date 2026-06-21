@@ -1,79 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import ActiveDeliveryNotification from "../ActiveDeliveryNotification";
 import ActiveDeliveryHeader from "../ActiveDeliveryHeader";
-import ActiveDeliveries from "../ActiveDeliveries";
-import { apiInstance } from "../../Api/Api";
-import TrackDeliveryTwo from "../TrackDeliveryTwo";
 
 const ActiveDeliveryPageComponets = () => {
-  const [serverResponse, setServerResponse] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [dashboardData, setDashboardData] = useState({
+    total: 0,
+    pending: 0,
+    accepted: 0,
+    inTransit: 0,
+    delivered: 0,
+  });
 
-  const [trackingId, setTrackingId] = useState(null);
+  const getAllDeliveries = async () => {
+    const BASE_URL = import.meta.env.VITE_BaseUrl;
+    const token = localStorage.getItem("token");
 
-  if (trackingId) {
-    return (
-      <TrackDeliveryTwo
-        deliveryId={trackingId}
-        onBack={() => setTrackingId(null)}
-      />
-    );
-  }
-
-  console.log(serverResponse);
-  const FetchActiveDeliveries = async () => {
-    setLoading(true);
     try {
-      const response = await apiInstance.get("/farmerDash/activeDeliveries");
-      // console.log(response);
-      setServerResponse(response.data.data);
+      const response = await axios.get(
+        `${BASE_URL}/agentDashboard/getAlldeliveries`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (response.data && response.data.data) {
+        setDashboardData(response.data.data);
+      }
     } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
+      console.error("Error fetching delivery dashboard data:", error);
     }
   };
 
   useEffect(() => {
-    FetchActiveDeliveries();
+    getAllDeliveries();
   }, []);
-
-  if (loading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <div
-          style={{
-            width: "40px",
-            height: "40px",
-            border: "4px solid #f3f3f3",
-            borderTop: "4px solid #006432",
-            borderRadius: "50%",
-            animation: "spin 1s linear infinite",
-          }}
-        ></div>
-        <style>{`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
-    );
-  }
 
   return (
     <div>
-      {/* <ActiveDeliveries /> */}
-      <ActiveDeliveryHeader data={serverResponse?.status} />
-      <ActiveDeliveryNotification data={serverResponse?.activeDeliveries} onTrack={(id) => setTrackingId(id)}/>
-     
+      {/* Passing the state data cleanly down as props */}
+      <ActiveDeliveryHeader dashboardData={dashboardData} />
+      <ActiveDeliveryNotification dashboardData={dashboardData} />
     </div>
   );
 };

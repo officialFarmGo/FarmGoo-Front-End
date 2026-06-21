@@ -1,0 +1,235 @@
+.withdraw-page-wrapper {
+  width: 100%;
+  padding: 24px 16px 60px;
+  min-height: 100vh;
+  background: #f5f7f5;
+  box-sizing: border-box;
+}
+
+.withdraw-inner-container {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.withdraw-page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 4px;
+}
+
+/* ── Balance Card Styling ── */
+.balance-card {
+  background: linear-gradient(135deg, #006432 0%, #004d26 100%);
+  border-radius: 20px;
+  padding: 24px;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.balance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.balance-label-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.9;
+}
+
+.wallet-icon-svg {
+  width: 18px;
+  height: 18px;
+}
+
+.balance-label {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.toggle-visibility-btn {
+  background: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px;
+  cursor: pointer;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.toggle-visibility-btn:hover {
+  background: #f5f5f5;
+}
+
+.balance-amount-display {
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  line-height: 1.1;
+}
+
+.balance-action-row {
+  display: flex;
+  gap: 12px;
+}
+
+.action-card-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 0;
+  border-radius: 12px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.withdraw-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+}
+
+.withdraw-btn.active {
+  background: #fff !important;
+  color: #006432 !important;
+}
+
+.add-money-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+}
+
+.add-money-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Form Card Functional Layout ── */
+.withdraw-card {
+  background: #ffffff;
+  border: 1px solid #e8ede9;
+  border-radius: 16px;
+  padding: 28px;
+  box-sizing: border-box;
+}
+
+.withdraw-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 20px 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+.withdraw-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #334155;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.withdraw-input:focus {
+  border-color: #006432;
+}
+
+.input-error-border {
+  border-color: #ef4444 !important;
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.server-error {
+  background-color: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.withdraw-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-withdraw {
+  flex: 1;
+  background-color: #004d3d;
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-withdraw:hover:not(:disabled) {
+  background-color: #00382c;
+}
+
+.btn-cancel {
+  flex: 1;
+  background-color: #ffffff;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background-color: #f8fafc;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

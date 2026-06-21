@@ -21,7 +21,8 @@
 
 .fg-action-card {
   background-color: #ffffff;
-  border: 1px solid #d1d5db;
+  border: 0.1px solid #d1d5db;
+  box-shadow: rgba(164, 168, 172, 0.2) 0px 8px 24px;
   border-radius: 16px;
   padding: 24px;
   display: flex;
@@ -35,8 +36,9 @@
 }
 
 .fg-action-card:hover {
-  background-color: #f9fafb;
-  border-color: #9ca3af;
+  border-color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 182, 122, 0.1);
 }
 
 .fg-action-icon-box {

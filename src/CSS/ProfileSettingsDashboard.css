@@ -50,7 +50,9 @@
   padding: 6px 0;
   transition: color 0.2s;
 }
-.ep-back-btn:hover { color: #0b1a16; }
+.ep-back-btn:hover {
+  color: #0b1a16;
+}
 
 /* Card */
 .ep-card {
@@ -161,9 +163,14 @@
   background: #fff;
   transition: border-color 0.2s;
 }
-.ep-input-wrap:focus-within { border-color: #0c4a34; }
+.ep-input-wrap:focus-within {
+  border-color: #0c4a34;
+}
 
-.ep-input-wrap svg { color: #94a3b8; flex-shrink: 0; }
+.ep-input-wrap svg {
+  color: #94a3b8;
+  flex-shrink: 0;
+}
 
 .ep-input-wrap input {
   border: none;
@@ -173,7 +180,9 @@
   background: transparent;
   width: 100%;
 }
-.ep-input-wrap input::placeholder { color: #cbd5e1; }
+.ep-input-wrap input::placeholder {
+  color: #cbd5e1;
+}
 
 .ep-input-disabled {
   background: #f8fafc;
@@ -200,7 +209,9 @@
   text-decoration: none;
   transition: text-decoration 0.15s;
 }
-.ep-change-phone-btn:hover { text-decoration: underline; }
+.ep-change-phone-btn:hover {
+  text-decoration: underline;
+}
 
 /* Select */
 .ep-select-wrap {
@@ -220,7 +231,9 @@
   cursor: pointer;
   transition: border-color 0.2s;
 }
-.ep-select-wrap select:focus { border-color: #0c4a34; }
+.ep-select-wrap select:focus {
+  border-color: #0c4a34;
+}
 
 .ep-select-chevron {
   position: absolute;
@@ -270,10 +283,17 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, opacity 0.2s;
+  transition:
+    background 0.2s,
+    opacity 0.2s;
 }
-.ep-save-btn:hover:not(:disabled) { background: #093d2a; }
-.ep-save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.ep-save-btn:hover:not(:disabled) {
+  background: #093d2a;
+}
+.ep-save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
 .ep-cancel-btn {
   padding: 14px 28px;
@@ -284,12 +304,24 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
-.ep-cancel-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
+.ep-cancel-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
 
 @media (max-width: 600px) {
-  .ep-page { padding: 20px 14px 60px; }
-  .ep-form-grid { grid-template-columns: 1fr; }
-  .ep-page-header { flex-direction: column; gap: 12px; }
+  .ep-page {
+    padding: 20px 14px 60px;
+  }
+  .ep-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .ep-page-header {
+    flex-direction: column;
+    gap: 12px;
+  }
 }

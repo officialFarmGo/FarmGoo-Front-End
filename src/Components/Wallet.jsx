@@ -1,111 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import "../CSS/Wallet.css";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Wallet = () => {
-  const token = useSelector((state) => state.auth.token);
-  const BaseUrl = import.meta.env.VITE_BaseUrl;
-
-  const [walletData, setWalletData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [balanceVisible, setBalanceVisible] = useState(true);
-  const [activePanel, setActivePanel] = useState(null);
-
-  const [withdrawForm, setWithdrawForm] = useState({
-    amount: "", bankCode: "", accountNumber: "", bankName: "",
+  const nav = useNavigate();
+  const [dashboardData, setDashboardData] = useState({
+    availableBalance: 0,
+    escrowBalance: 0,
+    linkedAccounts: [],
+    transactions: [],
   });
-  const [withdrawLoading, setWithdrawLoading] = useState(false);
-  const [withdrawStatus, setWithdrawStatus] = useState(null);
+  const [isVisible, setIsVisible] = useState(true);
 
-  const [addAmount, setAddAmount] = useState("");
-  const [addLoading, setAddLoading] = useState(false);
-  const [addStatus, setAddStatus] = useState(null);
+  const getAllDeliveries = async () => {
+    const BASE_URL = import.meta.env.VITE_BaseUrl;
+    const token = localStorage.getItem("token");
+
+    // Snapshot current state data to fall back on if the network request fails
+    const backupDashboardData = { ...dashboardData };
+
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/agentDashboard/agentWallet`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (response.data && response.data.data) {
+        setDashboardData(response.data.data);
+      } else if (response.data?.balance !== undefined) {
+        // Alternative mapping if balance is at the root layer
+        setDashboardData((prev) => ({
+          ...prev,
+          availableBalance: response.data.balance,
+          escrowBalance: response.data.escrowBalance || 0,
+        }));
+      }
+    } catch (error) {
+      console.error("Error fetching delivery dashboard data:", error);
+      // Guarantee the layout balance values do not reset or drop to 0 unexpectedly
+      setDashboardData(backupDashboardData);
+    }
+  };
 
   useEffect(() => {
-    if (!token) return;
-    const fetchWallet = async () => {
-      try {
-        const res = await fetch(`${BaseUrl}/farmerDash/farmerWallet`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        if (res.ok) setWalletData(data.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchWallet();
-  }, [token]);
+    getAllDeliveries();
+  }, []);
 
-  const togglePanel = (panel) => {
-    setActivePanel((prev) => (prev === panel ? null : panel));
-    setWithdrawStatus(null);
-    setAddStatus(null);
+  const formatCurrency = (value) => {
+    return `₦${Number(value || 0).toLocaleString()}`;
   };
-
-  const handleWithdraw = async () => {
-    setWithdrawLoading(true);
-    setWithdrawStatus(null);
-    try {
-      const res = await fetch(`${BaseUrl}/payment/withdraw`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: Number(withdrawForm.amount),
-          bankCode: withdrawForm.bankCode,
-          accountNumber: withdrawForm.accountNumber,
-          bankName: withdrawForm.bankName,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Withdrawal failed");
-      setWithdrawStatus({ type: "success", msg: data.message || "Withdrawal initiated!" });
-      setWithdrawForm({ amount: "", bankCode: "", accountNumber: "", bankName: "" });
-    } catch (err) {
-      setWithdrawStatus({ type: "error", msg: err.message });
-    } finally {
-      setWithdrawLoading(false);
-    }
-  };
-
-  const handleAddMoney = async () => {
-    setAddLoading(true);
-    setAddStatus(null);
-    try {
-      const res = await fetch(`${BaseUrl}/payment/make-Payment`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: Number(addAmount) }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Payment failed");
-
-      if (data.data?.checkout_url) {
-        window.location.href = data.data.checkout_url;
-        return;
-      }
-
-      setAddStatus({ type: "success", msg: data.message || "Payment initiated!" });
-      setAddAmount("");
-    } catch (err) {
-      setAddStatus({ type: "error", msg: err.message });
-    } finally {
-      setAddLoading(false);
-    }
-  };
-
-  const formatDate = (iso) =>
-    new Date(iso).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" });
-
-  if (loading) {
-    return (
-      <div className="wallet-loading">
-        <div className="wallet-spinner" />
-      </div>
-    );
-  }
 
   return (
     <section className="wallet-section">
@@ -115,132 +64,57 @@ const Wallet = () => {
         <div className="balance-card">
           <div className="balance-header">
             <div className="balance-label-group">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v2"/>
-                <path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/>
-                <path d="M18 12a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4v-6z"/>
+              <svg
+                className="wallet-icon-svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v2" />
+                <path d="M4 6v12a2 2 0 0 0 2 2h14v-4" />
+                <path d="M18 12a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4v-6z" />
               </svg>
               <span className="balance-label">Available Balance</span>
             </div>
-            <button className="toggle-visibility-btn" onClick={() => setBalanceVisible(v => !v)}>
-              {balanceVisible ? (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-                  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-                  <line x1="1" y1="1" x2="23" y2="23"/>
-                </svg>
+
+            <button
+              className="toggle-visibility-btn"
+              aria-label="Toggle balance visibility"
+              onClick={() => setIsVisible(!isVisible)}
+            >
+              {isVisible ? (
+                <AiOutlineEye className="eye-icon-svg" size={24} />
               ) : (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
+                <AiOutlineEyeInvisible className="eye-icon-svg" size={24} />
               )}
             </button>
           </div>
 
           <div className="balance-amount-display">
-            {balanceVisible
-              ? `₦${Number(walletData?.availableBalance ?? 0).toLocaleString()}`
-              : "₦ ••••••"}
+            {isVisible
+              ? formatCurrency(dashboardData.availableBalance)
+              : "******"}
           </div>
 
-          {(walletData?.escrowBalance ?? 0) > 0 && (
+          {(dashboardData?.escrowBalance ?? 0) > 0 && (
             <div className="escrow-note">
-              ₦{Number(walletData.escrowBalance).toLocaleString()} in escrow
+              ₦{Number(dashboardData.escrowBalance).toLocaleString()} in escrow
             </div>
           )}
 
           <div className="balance-action-row">
             <button
-              className={`action-card-btn withdraw-btn${activePanel === "withdraw" ? " active" : ""}`}
-              onClick={() => togglePanel("withdraw")}
+              className="action-card-btn withdraw-btn"
+              onClick={() => nav("/agent/dashboard/withDrawFunds")}
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-              </svg>
-              Withdraw
+              <span className="action-arrow">↗</span> Withdraw
             </button>
             <button
-              className={`action-card-btn add-money-btn${activePanel === "add" ? " active" : ""}`}
-              onClick={() => togglePanel("add")}
+              className="action-card-btn add-money-btn"
+              onClick={() => nav("/agent/dashboard/FundWellet")}
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-              </svg>
-              Add Money
-            </button>
-          </div>
-        </div>
-
-        <div className={`action-dropdown${activePanel === "withdraw" ? " open" : ""}`}>
-          <div className="dropdown-inner">
-            <h3 className="dropdown-title">Withdraw Funds</h3>
-            <div className="form-row-split">
-              <div className="form-field">
-                <label>Amount (₦)</label>
-                <input
-                  type="number"
-                  placeholder="e.g. 10000"
-                  value={withdrawForm.amount}
-                  onChange={e => setWithdrawForm(p => ({ ...p, amount: e.target.value }))}
-                />
-              </div>
-              <div className="form-field">
-                <label>Bank Code</label>
-                <input
-                  type="text"
-                  placeholder="e.g. 044"
-                  value={withdrawForm.bankCode}
-                  onChange={e => setWithdrawForm(p => ({ ...p, bankCode: e.target.value }))}
-                />
-              </div>
-            </div>
-            <div className="form-row-split">
-              <div className="form-field">
-                <label>Account Number</label>
-                <input
-                  type="text"
-                  placeholder="e.g. 0123456789"
-                  value={withdrawForm.accountNumber}
-                  onChange={e => setWithdrawForm(p => ({ ...p, accountNumber: e.target.value }))}
-                />
-              </div>
-              <div className="form-field">
-                <label>Bank Name</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Access Bank"
-                  value={withdrawForm.bankName}
-                  onChange={e => setWithdrawForm(p => ({ ...p, bankName: e.target.value }))}
-                />
-              </div>
-            </div>
-            {withdrawStatus && (
-              <div className={`status-msg ${withdrawStatus.type}`}>{withdrawStatus.msg}</div>
-            )}
-            <button className="dropdown-submit-btn withdraw-submit" onClick={handleWithdraw} disabled={withdrawLoading}>
-              {withdrawLoading ? "Processing..." : "Withdraw"}
-            </button>
-          </div>
-        </div>
-
-        <div className={`action-dropdown${activePanel === "add" ? " open" : ""}`}>
-          <div className="dropdown-inner">
-            <h3 className="dropdown-title">Add Money</h3>
-            <div className="form-field">
-              <label>Amount (₦)</label>
-              <input
-                type="number"
-                placeholder="e.g. 50000"
-                value={addAmount}
-                onChange={e => setAddAmount(e.target.value)}
-              />
-            </div>
-            {addStatus && (
-              <div className={`status-msg ${addStatus.type}`}>{addStatus.msg}</div>
-            )}
-            <button className="dropdown-submit-btn add-submit" onClick={handleAddMoney} disabled={addLoading}>
-              {addLoading ? "Redirecting to payment..." : "Add Money"}
+              <span className="action-plus">+</span> Add Money
             </button>
           </div>
         </div>
@@ -248,35 +122,49 @@ const Wallet = () => {
         <div className="wallet-dashboard-panel">
           <div className="panel-header-row">
             <h3 className="panel-section-title">Linked Accounts</h3>
-            <button className="panel-header-action-btn">+ Add Account</button>
+            <button
+              className="panel-header-action-btn"
+              onClick={() => nav("/agent/dashboard/withDrawFunds")}
+            >
+              + Add Account
+            </button>
           </div>
-          {walletData?.linkedAccounts?.length > 0 ? (
-            walletData.linkedAccounts.map((acc, i) => (
-              <div className="linked-account-row-item" key={i}>
+
+          {!dashboardData.linkedAccounts ||
+          dashboardData.linkedAccounts.length === 0 ? (
+            <div className="empty-state-message">No linked accounts found</div>
+          ) : (
+            dashboardData.linkedAccounts.map((account, index) => (
+              <div
+                key={account.id || account._id || index}
+                className="linked-account-row-item"
+              >
                 <div className="bank-meta-group">
                   <div className="bank-card-icon-box">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="5" width="20" height="14" rx="2"/>
-                      <line x1="2" y1="10" x2="22" y2="10"/>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <line x1="2" y1="10" x2="22" y2="10" />
                     </svg>
                   </div>
                   <div className="bank-name-stack">
-                    <span className="bank-title-text">{acc.bankName}</span>
-                    <span className="bank-number-obscured">****{acc.accountNumber?.slice(-4)}</span>
+                    <span className="bank-title-text">{account.bankName}</span>
+                    <span className="bank-number-obscured">
+                      ****{account.accountNumber?.slice(-4) || "0000"}
+                    </span>
                   </div>
                 </div>
-                {i === 0 && <span className="badge-primary">Primary</span>}
+                {account.isPrimary && (
+                  <span className="badge-primary">Primary</span>
+                )}
               </div>
             ))
-          ) : (
-            <div className="empty-accounts">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="5" width="20" height="14" rx="2"/>
-                <line x1="2" y1="10" x2="22" y2="10"/>
-              </svg>
-              <p>No linked accounts yet</p>
-              <span>Add a bank account to enable withdrawals</span>
-            </div>
           )}
         </div>
 
@@ -285,37 +173,48 @@ const Wallet = () => {
             <h3 className="panel-section-title">Transaction History</h3>
           </div>
           <div className="transaction-list-stack">
-            {walletData?.transactions?.length > 0 ? (
-              walletData.transactions.map((trn) => (
-                <div className="transaction-list-row-item" key={trn._id}>
-                  <div className="trn-meta-group">
-                    <div className={`trn-badge ${trn.type === "Credit" ? "trn-credit" : "trn-debit"}`}>
-                      {trn.type === "Credit" ? (
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
-                        </svg>
-                      ) : (
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
-                        </svg>
-                      )}
-                    </div>
-                    <div className="trn-text-stack">
-                      <span className="trn-title">{trn.description}</span>
-                      <span className="trn-date">{formatDate(trn.createdAt)}</span>
-                    </div>
-                  </div>
-                  <span className={`trn-amount ${trn.type === "Credit" ? "trn-credit-amount" : "trn-debit-amount"}`}>
-                    {trn.type === "Credit" ? "+" : "-"}₦{Number(trn.amount).toLocaleString()}
-                  </span>
-                </div>
-              ))
+            {!dashboardData.transactions ||
+            dashboardData.transactions.length === 0 ? (
+              <div className="empty-state-message">
+                No transactions recorded yet
+              </div>
             ) : (
-              <div className="empty-transactions">No transactions yet</div>
+              dashboardData.transactions.map((trn, index) => {
+                const isCredit = trn.type?.toLowerCase() === "credit";
+                return (
+                  <div
+                    key={trn.id || trn._id || index}
+                    className="transaction-list-row-item"
+                  >
+                    <div className="trn-meta-group">
+                      <div
+                        className={`trn-badge ${isCredit ? "trn-credit" : "trn-debit"}`}
+                      >
+                        <span className="trn-arrow-symbol">
+                          {isCredit ? "↓" : "↑"}
+                        </span>
+                      </div>
+                      <div className="trn-text-stack">
+                        <span className="trn-title">
+                          {trn.title || trn.description}
+                        </span>
+                        <span className="trn-date">
+                          {trn.date || trn.createdAt}
+                        </span>
+                      </div>
+                    </div>
+                    <span
+                      className={`trn-amount ${isCredit ? "trn-credit-amount" : "trn-debit-amount"}`}
+                    >
+                      {isCredit ? "+" : "-"}
+                      {formatCurrency(trn.amount)}
+                    </span>
+                  </div>
+                );
+              })
             )}
           </div>
         </div>
-
       </div>
     </section>
   );

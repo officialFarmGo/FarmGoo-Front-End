@@ -16,6 +16,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
+  console.log(BaseUrl)
 
   const [formData, setFormData] = useState({
     identifier: "",

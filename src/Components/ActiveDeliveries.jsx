@@ -1,84 +1,111 @@
-import React, { useEffect, useState } from "react";
-import "../CSS/ActiveDeliveries.css";
-import { LuArrowRight, LuMapPin, LuPackageOpen } from "react-icons/lu";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { LuArrowRight, LuMapPin } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
+import "../CSS/ActiveDeliveries.css";
 
-const ActiveDeliveries = ({ onTrack }) => {
-  const nav =useNavigate();
-  const token = useSelector((state) => state.auth.token);
-  const [data, setData] = useState([]);
-  const [status, setStatus] = useState(null);
+const ActiveDeliveries = () => {
+  const navigate = useNavigate();
+  const [deliveries, setDeliveries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const auth = useSelector((state) => state.auth);
+  const BASE_URL = import.meta.env.VITE_BaseUrl;
+  const token = localStorage.getItem("token") || auth?.token;
 
   useEffect(() => {
-    const fetchDeliveries = async () => {
+    const fetchActiveDeliveries = async () => {
+      if (!BASE_URL) {
+        console.error("API Base URL missing.");
+        return;
+      }
+
       try {
-        const res = await fetch(`${import.meta.env.VITE_BaseUrl}/farmerDash/activeDeliveries`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const json = await res.json();
-        if (res.ok) {
-          setData(json.data.activeDeliveries ?? []);
-          setStatus(json.data.status ?? null);
+        setLoading(true);
+        const response = await axios.get(
+          `${BASE_URL}/agentDashboard/trackdelivery`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+
+        const fetchedData = response.data?.data || response.data;
+
+        if (Array.isArray(fetchedData)) {
+          setDeliveries(fetchedData);
+        } else if (fetchedData && typeof fetchedData === "object") {
+          setDeliveries([fetchedData]);
         }
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching active deliveries:", err);
+        setError("Failed to load active deliveries.");
       } finally {
         setLoading(false);
       }
     };
 
-    if (token) fetchDeliveries();
-  }, [token]);
+    if (token) {
+      fetchActiveDeliveries();
+    }
+  }, [BASE_URL, token]);
 
-  const hasNoDeliveries = data.length === 0;
+  if (loading) {
+    return (
+      <div className="active-deliveries-container">
+        <p>Loading active deliveries...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="active-deliveries-container">
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="activedeliveries-body">
-      <div className="active-deliveries-container">
-        <div className="deliveries-card-wrapper">
-          <div className="deliveries-header-row">
-            <h2>Active Deliveries</h2>
-            {status && (
-              <div className="deliveries-status-pills">
-                <span>Total: {status.total}</span>
-                <span>Pending: {status.pending}</span>
-                <span>Accepted: {status.Accepted}</span>
-                <span>Delivered: {status.Delivered}</span>
-              </div>
-            )}
-            {!hasNoDeliveries && (
-              <a href="#view-all" className="view-all-link" onClick={() =>nav('activedelivery')}>
-                View All Active Deliveries <LuArrowRight />
-              </a>
-            )}
-          </div>
+    <div className="active-deliveries-container">
+      <div className="deliveries-card-wrapper">
+        <div className="deliveries-header-row">
+          <h2>Active Deliveries</h2>
+          <span
+            className="view-all-link"
+            onClick={() => navigate("/agent/deliveries")}
+          >
+            View All Active Deliveries <LuArrowRight />
+          </span>
+        </div>
 
-          {loading && <p>Loading deliveries...</p>}
-
-          {!loading && hasNoDeliveries && (
-            <div className="deliveries-empty-state">
-              <div className="empty-icon-circle">
-                <LuPackageOpen className="empty-package-icon" />
-              </div>
-              <h3>No active deliveries</h3>
-              <p>You don't have any transport requests running at the moment.</p>
-            </div>
-          )}
-
-          {!loading && !hasNoDeliveries && data.map((delivery, index) => (
-            <div className="delivery-info-box" key={delivery._id || index}>
+        {deliveries.length === 0 ? (
+          <p>No active deliveries currently in progress.</p>
+        ) : (
+          deliveries.map((delivery, index) => (
+            <div
+              key={delivery?.trackingId || delivery?._id || index}
+              className="delivery-info-box"
+            >
               <div className="delivery-top-details">
                 <div className="item-badge-group">
-                  <span className="item-name">{delivery.produce}</span>
-                  <span className="status-badge">{delivery.status}</span>
+                  <span className="item-name">
+                    {delivery?.deliveryDetails?.produce || "Produce"}
+                  </span>
+                  <span className="status-badge">
+                    {delivery?.status || "In Transit"}
+                  </span>
                 </div>
-                <span className="item-weight">{delivery.quantity}Kg</span>
+                <span className="item-weight">
+                  {delivery?.deliveryDetails?.quantity || "0kg"}
+                </span>
               </div>
 
               <div className="delivery-id">
-                ID: {delivery.trackingId || delivery._id}
+                ID: {delivery?.trackingId || "TRN-001"}
               </div>
 
               <div className="route-section">
@@ -86,8 +113,10 @@ const ActiveDeliveries = ({ onTrack }) => {
                   <LuMapPin className="location-icon" />
                   <div className="point-text">
                     <span className="point-label">From</span>
-                    <span className="point-location">{delivery.AddressOrpickUpLocation
-}</span>
+                    <span className="point-location">
+                      {delivery?.deliveryDetails?.pickupLocation ||
+                        "Pickup Location"}
+                    </span>
                   </div>
                 </div>
 
@@ -95,22 +124,34 @@ const ActiveDeliveries = ({ onTrack }) => {
                   <LuMapPin className="location-icon" />
                   <div className="point-text">
                     <span className="point-label">To</span>
-                    <span className="point-location">{delivery.Destination}</span>
+                    <span className="point-location">
+                      {delivery?.deliveryDetails?.destination || "Destination"}
+                    </span>
                   </div>
                 </div>
               </div>
 
               <div className="delivery-footer-row">
                 <span className="driver-info">
-                  Driver: <strong>{delivery.driverName || "Assigning..."}</strong>
+                  Driver:{" "}
+                  <strong>
+                    {delivery?.driver?.name || "Assigning Driver..."}
+                  </strong>
                 </span>
-                <button className="track-btn" onClick={() => onTrack(delivery._id)}>
+                <span
+                  className="track-link"
+                  onClick={() =>
+                    navigate(
+                      `/agent/track/${delivery?.trackingId || delivery?._id}`,
+                    )
+                  }
+                >
                   Track Delivery <LuArrowRight />
-                </button>
+                </span>
               </div>
             </div>
-          ))}
-        </div>
+          ))
+        )}
       </div>
     </div>
   );

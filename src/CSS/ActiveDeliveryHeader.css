@@ -2,7 +2,8 @@
   width: 100%;
   /* padding: 32px 40px 32px ; */
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   display: flex;
   flex-direction: column;
 }
@@ -46,6 +47,10 @@
   gap: 8px;
   box-sizing: border-box;
 }
+.status-tab-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 182, 122, 0.1);
+}
 
 .status-tab-label {
   font-size: 13px;
@@ -57,25 +62,56 @@
   font-weight: 800;
 }
 
-.border-grey { border: 1px solid #e5e7eb; background-color: #ffffff; }
-.text-grey { color: #6b7280; }
-.text-black { color: #111827; }
+.border-grey {
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+.text-grey {
+  color: #6b7280;
+}
+.text-black {
+  color: #111827;
+}
 
-.bg-amber { background-color: #fffbeb; }
-.border-amber { border: 1px solid #fef3c7; }
-.text-amber { color: #b45309; }
+.bg-amber {
+  background-color: #fffbeb;
+}
+.border-amber {
+  border: 1px solid #fef3c7;
+}
+.text-amber {
+  color: #b45309;
+}
 
-.bg-blue { background-color: #eff6ff; }
-.border-blue { border: 1px solid #dbeafe; }
-.text-blue { color: #1d4ed8; }
+.bg-blue {
+  background-color: #eff6ff;
+}
+.border-blue {
+  border: 1px solid #dbeafe;
+}
+.text-blue {
+  color: #1d4ed8;
+}
 
-.bg-purple { background-color: #f5f3ff; }
-.border-purple { border: 1px solid #edd4ff; }
-.text-purple { color: #6b21a8; }
+.bg-purple {
+  background-color: #f5f3ff;
+}
+.border-purple {
+  border: 1px solid #edd4ff;
+}
+.text-purple {
+  color: #6b21a8;
+}
 
-.bg-green { background-color: #f0fdf4; }
-.border-green { border: 1px solid #dcfce7; }
-.text-green { color: #15803d; }
+.bg-green {
+  background-color: #f0fdf4;
+}
+.border-green {
+  border: 1px solid #dcfce7;
+}
+.text-green {
+  color: #15803d;
+}
 
 .search-filter-wrapper {
   width: 100%;
@@ -201,9 +237,9 @@
   .filter-action-btn {
     grid-column: 2;
     justify-self: start;
-    width: 100px; 
+    width: 100px;
     height: 38px;
-    font-size: 0;      
+    font-size: 0;
     padding: 0;
   }
 }
