@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "../CSS/RequestTransport.css";
 import { useSelector } from "react-redux";
-import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, LoadingOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 const RequestTransport = ({ onClose }) => {
   const token = useSelector((state) => state.auth.token);
@@ -11,8 +11,11 @@ const RequestTransport = ({ onClose }) => {
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [errorToast, setErrorToast] = useState(null);
   const [errors, setErrors] = useState({});
+
+  const [estimate, setEstimate] = useState(null);
+  const [estimating, setEstimating] = useState(false);
 
   const [form, setForm] = useState({
     productType: "",
@@ -27,6 +30,11 @@ const RequestTransport = ({ onClose }) => {
     vehicleType: "",
   });
 
+  const showError = (msg) => {
+    setErrorToast(msg);
+    setTimeout(() => setErrorToast(null), 4000);
+  };
+
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
@@ -40,14 +48,49 @@ const RequestTransport = ({ onClose }) => {
     fetchVehicles();
   }, []);
 
+  const fetchEstimate = useCallback(async (pickup, destination, vehicleId) => {
+    if (!pickup.trim() || !destination.trim() || !vehicleId) return;
+    setEstimating(true);
+    setEstimate(null);
+    try {
+      const res = await fetch(`${BaseUrl}/delivery/estimateDeliveryPrice`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          AddressOrpickUpLocation: pickup,
+          Destination: destination,
+          vehhicleId: vehicleId,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.data) {
+        setEstimate(data.data);
+      }
+    } catch (err) {
+      console.error("Estimate fetch failed:", err);
+    } finally {
+      setEstimating(false);
+    }
+  }, [BaseUrl]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const updated = { ...form, [name]: value };
+    setForm(updated);
     setErrors((prev) => ({ ...prev, [name]: "" }));
 
     if (name === "vehicleType") {
       const found = vehicles.find((v) => v._id === value);
       setSelectedVehicle(found ?? null);
+      if (updated.AddressOrpickUpLocation && updated.Destination && value) {
+        fetchEstimate(updated.AddressOrpickUpLocation, updated.Destination, value);
+      }
+    }
+
+    if (name === "AddressOrpickUpLocation" || name === "Destination") {
+      if (updated.AddressOrpickUpLocation && updated.Destination && updated.vehicleType) {
+        fetchEstimate(updated.AddressOrpickUpLocation, updated.Destination, updated.vehicleType);
+      }
     }
   };
 
@@ -68,10 +111,10 @@ const RequestTransport = ({ onClose }) => {
   };
 
   const handleSubmit = async () => {
-    setErrorMsg(null);
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      showError("Please fill all required fields correctly.");
       return;
     }
 
@@ -92,7 +135,7 @@ const RequestTransport = ({ onClose }) => {
           Destination: form.Destination,
           customersName: form.customersName,
           customersPhoneNumber: form.customersPhoneNumber,
-          CustomersOtherNumber: form.CustomersOtherNumber || undefined, // omit if empty
+          CustomersOtherNumber: form.CustomersOtherNumber || undefined,
         }),
       });
       const data = await res.json();
@@ -103,7 +146,7 @@ const RequestTransport = ({ onClose }) => {
         onClose();
       }, 3000);
     } catch (err) {
-      setErrorMsg(err.message);
+      showError(err.message);
     } finally {
       setSubmitting(false);
     }
@@ -111,6 +154,17 @@ const RequestTransport = ({ onClose }) => {
 
   return (
     <>
+      {/* Error Toast Popup */}
+      {errorToast && (
+        <div className="rt-error-toast">
+          <CloseCircleOutlined className="rt-error-toast-icon" />
+          <span>{errorToast}</span>
+          <button type="button" className="rt-error-toast-close" onClick={() => setErrorToast(null)}>
+            &times;
+          </button>
+        </div>
+      )}
+
       {showSuccess && (
         <div className="rt-success-popup-overlay">
           <div className="rt-success-popup">
@@ -139,12 +193,6 @@ const RequestTransport = ({ onClose }) => {
           </header>
 
           <div className="rt-form-scrollable">
-
-            {errorMsg && (
-              <div className="rt-api-error-banner">
-                ⚠️ {errorMsg}
-              </div>
-            )}
 
             {/* Produce Details */}
             <div className="rt-card">
@@ -302,7 +350,7 @@ const RequestTransport = ({ onClose }) => {
                   {errors.customersPhoneNumber && <span className="rt-field-error">{errors.customersPhoneNumber}</span>}
                 </div>
                 <div className="rt-form-group">
-                  <label>Other Number <span style={{ color: "var(--color-text-tertiary)", fontSize: "12px" }}></span></label>
+                  <label>Other Number</label>
                   <input
                     type="tel"
                     name="CustomersOtherNumber"
@@ -344,27 +392,55 @@ const RequestTransport = ({ onClose }) => {
 
             {/* Price Summary */}
             <div className="rt-card rt-price-card">
-              <div className="rt-price-row">
-                <span>Base Fare</span>
-                <p className="rt-price-value">
-                  {selectedVehicle ? `₦${Number(selectedVehicle.baseFare).toLocaleString()}` : "—"}
-                </p>
+              <div className="rt-card-header">
+                <h2>Price Estimate</h2>
+                {estimating && <LoadingOutlined spin style={{ color: "#16A34A", fontSize: 16 }} />}
               </div>
-              <div className="rt-price-row">
-                <span>Rate Per Km</span>
-                <p className="rt-price-value">
-                  {selectedVehicle ? `₦${selectedVehicle.ratePerKm}/km` : "—"}
-                </p>
-              </div>
-              <hr />
-              <div className="rt-price-row rt-total-row">
-                <strong>Vehicle Type</strong>
-                <p className="rt-price-value rt-total">
-                  {selectedVehicle ? selectedVehicle.vehicleType : "—"}
-                </p>
-              </div>
+
+              {estimate ? (
+                <>
+                  <div className="rt-price-row">
+                    <span>Delivery Fare</span>
+                    <p className="rt-price-value">₦{Number(estimate.deliveryFare).toLocaleString()}</p>
+                  </div>
+                  <div className="rt-price-row">
+                    <span>Service Fee</span>
+                    <p className="rt-price-value">₦{Number(estimate.serviceFee).toLocaleString()}</p>
+                  </div>
+                  <hr />
+                  <div className="rt-price-row rt-total-row">
+                    <strong>Total</strong>
+                    <p className="rt-price-value rt-total">₦{Number(estimate.total).toLocaleString()}</p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="rt-price-row">
+                    <span>Base Fare</span>
+                    <p className="rt-price-value">
+                      {selectedVehicle ? `₦${Number(selectedVehicle.baseFare).toLocaleString()}` : "—"}
+                    </p>
+                  </div>
+                  <div className="rt-price-row">
+                    <span>Rate Per Km</span>
+                    <p className="rt-price-value">
+                      {selectedVehicle ? `₦${selectedVehicle.ratePerKm}/km` : "—"}
+                    </p>
+                  </div>
+                  <hr />
+                  <div className="rt-price-row rt-total-row">
+                    <strong>Vehicle Type</strong>
+                    <p className="rt-price-value rt-total">
+                      {selectedVehicle ? selectedVehicle.vehicleType : "—"}
+                    </p>
+                  </div>
+                </>
+              )}
+
               <p className="rt-price-note">
-                Final price may vary based on driver bids and market conditions
+                {estimate
+                  ? "This estimate is based on current route and vehicle selection."
+                  : "Fill pickup, destination and vehicle to see live price estimate."}
               </p>
             </div>
 

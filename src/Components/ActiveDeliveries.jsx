@@ -42,10 +42,10 @@ const ActiveDeliveries = ({ onTrack }) => {
             <h2>Active Deliveries</h2>
             {status && (
               <div className="deliveries-status-pills">
-                <span>Total: {status.total}</span>
+                {/* <span>Total: {status.total}</span>
                 <span>Pending: {status.pending}</span>
                 <span>Accepted: {status.Accepted}</span>
-                <span>Delivered: {status.Delivered}</span>
+                <span>Delivered: {status.Delivered}</span> */}
               </div>
             )}
             {!hasNoDeliveries && (
