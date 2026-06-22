@@ -405,7 +405,12 @@ const Wallet = () => {
         <div className="wallet-dashboard-panel">
           <div className="panel-header-row">
             <h3 className="panel-section-title">Linked Accounts</h3>
-            <button className="panel-header-action-btn">+ Add Account</button>
+            <button
+              className={`panel-header-action-btn${activePanel === "add" ? " active" : ""}`}
+              onClick={() => togglePanel("add")}
+            >
+              + Add Account
+            </button>
           </div>
           {walletData?.linkedAccounts?.length > 0 ? (
             walletData.linkedAccounts.map((acc, i) => (
