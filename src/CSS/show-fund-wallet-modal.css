@@ -1,0 +1,108 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.fund-wallet-modal-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 36px 24px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.08),
+    0 10px 10px -5px rgba(0, 0, 0, 0.03);
+  animation: popupScale 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-sizing: border-box;
+}
+
+.wallet-icon-circle {
+  width: 56px;
+  height: 56px;
+  background: #edf7f1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px auto;
+}
+
+.fund-wallet-modal-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 12px 0;
+}
+
+.fund-wallet-modal-card p {
+  font-size: 14px;
+  color: #555555;
+  line-height: 1.5;
+  margin: 0 0 28px 0;
+}
+
+/* ── Button Group Stack ── */
+.modal-action-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.modal-primary-btn {
+  width: 100%;
+  background: #006432;
+  color: #ffffff;
+  border: none;
+  border-radius: 11px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modal-primary-btn:hover {
+  background: #004d26;
+}
+
+.modal-secondary-btn {
+  width: 100%;
+  background: transparent;
+  color: #666666;
+  border: none;
+  border-radius: 11px;
+  padding: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+}
+
+.modal-secondary-btn:hover {
+  color: #111111;
+  background-color: #f5f7f5;
+}
+
+@keyframes popupScale {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

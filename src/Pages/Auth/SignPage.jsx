@@ -19,8 +19,8 @@ const SignPage = () => {
     selectRole === "farmer"
       ? "/farm/signUp"
       : selectRole === "driver"
-      ? "/driver/signupDriver"
-      : "/agent/signUp";
+        ? "/driver/signupDriver"
+        : "/agent/signUp";
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -34,11 +34,31 @@ const SignPage = () => {
   const [errors, setErrors] = useState({});
 
   const passwordRules = [
-    { id: "minLength", label: "At least 8 characters", test: (p) => p.length >= 8 },
-    { id: "uppercase", label: "At least one uppercase letter", test: (p) => /[A-Z]/.test(p) },
-    { id: "lowercase", label: "At least one lowercase letter", test: (p) => /[a-z]/.test(p) },
-    { id: "number", label: "At least one number", test: (p) => /[0-9]/.test(p) },
-    { id: "special", label: "At least one special character (!@#$%^&*)", test: (p) => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(p) },
+    {
+      id: "minLength",
+      label: "At least 8 characters",
+      test: (p) => p.length >= 8,
+    },
+    {
+      id: "uppercase",
+      label: "At least one uppercase letter",
+      test: (p) => /[A-Z]/.test(p),
+    },
+    {
+      id: "lowercase",
+      label: "At least one lowercase letter",
+      test: (p) => /[a-z]/.test(p),
+    },
+    {
+      id: "number",
+      label: "At least one number",
+      test: (p) => /[0-9]/.test(p),
+    },
+    {
+      id: "special",
+      label: "At least one special character (!@#$%^&*)",
+      test: (p) => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(p),
+    },
   ];
 
   const getPasswordMeta = (password) =>
@@ -48,11 +68,13 @@ const SignPage = () => {
     switch (name) {
       case "firstName":
         if (!value.trim()) return "First name is required.";
-        if (value.trim().length < 2) return "First name must be at least 2 characters.";
+        if (value.trim().length < 2)
+          return "First name must be at least 2 characters.";
         return "";
       case "lastName":
         if (!value.trim()) return "Last name is required.";
-        if (value.trim().length < 2) return "Last name must be at least 2 characters.";
+        if (value.trim().length < 2)
+          return "Last name must be at least 2 characters.";
         return "";
       case "phoneNumber": {
         const phoneRegex = /^(\+234|0)[789][01]\d{8}$/;
@@ -69,7 +91,8 @@ const SignPage = () => {
         return "";
       case "townOrVillage":
         if (!value.trim()) return "Town or village is required.";
-        if (value.trim().length < 3) return "Please enter a valid town or village name.";
+        if (value.trim().length < 3)
+          return "Please enter a valid town or village name.";
         return "";
       case "password":
         if (!value) return "Password is required.";
@@ -126,13 +149,16 @@ const SignPage = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
-        }
+        },
       );
 
       const data = await response.json();
 
       if (response.ok) {
         dispatch(getId(data.data.id));
+        if (selectRole === "farmer") {
+          localStorage.setItem("showFundWalletModal", "true");
+        }
         navigate("/otp", {
           state: {
             email: formData.email,
@@ -173,7 +199,7 @@ const SignPage = () => {
             <div className="fg-action-row">
               <button
                 className="fg-back-circle-btn"
-                onClick={() => navigate('/chooseDash')}
+                onClick={() => navigate("/chooseDash")}
                 aria-label="Go back"
                 disabled={loading}
               >
@@ -189,7 +215,9 @@ const SignPage = () => {
                 connect with farmers and drivers across Nigeria.
               </p>
             </div>
-            <span className="fg-footer-copyright">Powered by FarmGoo © 2026</span>
+            <span className="fg-footer-copyright">
+              Powered by FarmGoo © 2026
+            </span>
           </div>
         </aside>
 
@@ -258,7 +286,9 @@ const SignPage = () => {
                     className={`fg-native-text-input ${errors.firstName ? "fg-input-error" : ""}`}
                   />
                   {errors.firstName && (
-                    <span className="fg-field-error-msg">{errors.firstName}</span>
+                    <span className="fg-field-error-msg">
+                      {errors.firstName}
+                    </span>
                   )}
                 </div>
 
@@ -277,7 +307,9 @@ const SignPage = () => {
                     className={`fg-native-text-input ${errors.lastName ? "fg-input-error" : ""}`}
                   />
                   {errors.lastName && (
-                    <span className="fg-field-error-msg">{errors.lastName}</span>
+                    <span className="fg-field-error-msg">
+                      {errors.lastName}
+                    </span>
                   )}
                 </div>
 
@@ -296,7 +328,9 @@ const SignPage = () => {
                     className={`fg-native-text-input ${errors.phoneNumber ? "fg-input-error" : ""}`}
                   />
                   {errors.phoneNumber && (
-                    <span className="fg-field-error-msg">{errors.phoneNumber}</span>
+                    <span className="fg-field-error-msg">
+                      {errors.phoneNumber}
+                    </span>
                   )}
                 </div>
 
@@ -332,7 +366,9 @@ const SignPage = () => {
                     className={`fg-native-text-input ${errors.townOrVillage ? "fg-input-error" : ""}`}
                   />
                   {errors.townOrVillage && (
-                    <span className="fg-field-error-msg">{errors.townOrVillage}</span>
+                    <span className="fg-field-error-msg">
+                      {errors.townOrVillage}
+                    </span>
                   )}
                 </div>
 
@@ -356,10 +392,16 @@ const SignPage = () => {
                       type="button"
                       className="fg-native-input-eye-trigger"
                       onClick={() => setShowPassword(!showPassword)}
-                      aria-label={showPassword ? "Hide password" : "Show password"}
+                      aria-label={
+                        showPassword ? "Hide password" : "Show password"
+                      }
                       disabled={loading}
                     >
-                      {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                      {showPassword ? (
+                        <AiOutlineEyeInvisible />
+                      ) : (
+                        <AiOutlineEye />
+                      )}
                     </button>
                   </div>
 
@@ -379,7 +421,9 @@ const SignPage = () => {
                     </ul>
                   )}
                   {errors.password && (
-                    <span className="fg-field-error-msg">{errors.password}</span>
+                    <span className="fg-field-error-msg">
+                      {errors.password}
+                    </span>
                   )}
                 </div>
 

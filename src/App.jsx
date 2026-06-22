@@ -67,7 +67,7 @@ function App() {
         />
         <Route path="driverpending" element={<VerificationPending />} />
         <Route path="/approved" element={<ApprovedDoc />} />
-        <Route path="/payment-verifiJcation" element={<PaymentVerification />} />
+        <Route path="/payment-verification" element={<PaymentVerification />} />
         <Route path="/withdrawal-success" element={<WithdrawalSuccess />} />
 
         <Route
