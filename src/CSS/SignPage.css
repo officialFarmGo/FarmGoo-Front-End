@@ -2,8 +2,7 @@
   width: 100%;
   min-height: 100vh;
   background-color: #fcfcfc;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   box-sizing: border-box;
 }
 
@@ -12,8 +11,9 @@
   display: flex;
 }
 
+/* ── SIDEBAR ── */
 .fg-login-sidebar {
-  width: 32%;
+  width: 33%;
   height: 100vh;
   position: fixed;
   left: 0;
@@ -25,9 +25,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 .fg-sidebar-overlay {
@@ -43,7 +45,7 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 54px 44px;
+  padding: 44px 36px;
 }
 
 .fg-action-row {
@@ -53,14 +55,13 @@
 .fg-back-circle-btn {
   background: transparent;
   border: none;
-  font-size: 24px;
+  font-size: 22px;
   color: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
   padding: 0;
   opacity: 0.9;
-  transition: opacity 0.2s ease;
 }
 
 .fg-back-circle-btn:hover {
@@ -72,68 +73,71 @@
   margin-bottom: auto;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .fg-main-hero-heading {
   color: #ffffff;
-  font-size: 38px;
+  font-size: 36px;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
   margin: 0;
 }
 
 .fg-main-hero-subtitle {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 15px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
   line-height: 1.6;
   margin: 0;
 }
 
 .fg-footer-copyright {
   color: rgba(255, 255, 255, 0.5);
-  font-size: 13px;
-  margin-top: 14px;
+  font-size: 12px;
   display: block;
 }
 
+/* ── FORM PANEL ── */
 .fg-login-form-panel {
-  width: 68%;
-  margin-left: 32%;
+  width: 67%;
+  margin-left: 33%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 60px 40px;
+  align-items: flex-start;
+  padding: 48px 40px;
   box-sizing: border-box;
   background-color: #fcfcfc;
 }
 
 .fg-login-form-core-box {
   width: 100%;
-  max-width: 580px;
+  max-width: 560px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
+  padding-top: 16px;
 }
 
+/* ── BRAND HEADER ── */
 .fg-brand-identity-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  gap: 8px;
 }
 
 .fg-brand-logo-container {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   background-color: #044335;
-  border-radius: 14px;
+  border-radius: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .fg-brand-logo-img {
@@ -143,10 +147,10 @@
 }
 
 .fg-brand-welcome-title {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   color: #042920;
-  margin: 0 0 6px 0;
+  margin: 0;
 }
 
 .fg-brand-welcome-subtitle {
@@ -155,29 +159,26 @@
   margin: 0;
 }
 
-/* Form Container Card matching exact design border specification */
+/* ── FORM CARD ── */
 .fg-login-form-card {
   width: 100%;
   background-color: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.02),
-    0 1px 2px rgba(0, 0, 0, 0.04);
-  padding: 32px;
+  border-radius: 14px;
+  padding: 28px 32px 32px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 0;
 }
 
+/* ── ROLE BADGE ROW ── */
 .fg-signup-role-badge-row {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;
-  margin-bottom: 4px;
+  margin-bottom: 20px;
 }
 
 .fg-signup-role-badge-text {
@@ -205,18 +206,19 @@
   text-decoration: underline;
 }
 
+/* ── FORM FIELDS ── */
 .fg-credentials-form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .fg-input-group-field {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 }
 
 .fg-input-label-tag {
@@ -233,16 +235,16 @@
 
 .fg-native-text-input {
   width: 100%;
-  height: 46px;
+  height: 48px;
   padding: 0 14px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
   font-size: 14px;
   color: #111827;
   outline: none;
   box-sizing: border-box;
   background-color: #ffffff;
-  transition: border-color 0.15s ease-in-out;
+  transition: border-color 0.15s;
 }
 
 .fg-native-text-input:focus {
@@ -259,7 +261,7 @@
 }
 
 .fg-password-padding {
-  padding-right: 44px;
+  padding-right: 46px;
 }
 
 .fg-native-input-eye-trigger {
@@ -277,33 +279,86 @@
   padding: 0;
 }
 
+/* ── PASSWORD CHECKLIST ── */
+.fg-password-checklist {
+  list-style: none;
+  padding: 6px 0 2px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fg-password-rule {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.fg-rule-icon {
+  font-size: 0.85rem;
+  font-weight: 700;
+  width: 16px;
+  text-align: center;
+}
+
+.fg-rule-failed {
+  color: #e53e3e;
+}
+
+.fg-rule-passed {
+  color: #38a169;
+}
+
+/* ── ERRORS ── */
+.fg-input-error {
+  border-color: #e53e3e !important;
+  background-color: #fff5f5;
+}
+
+.fg-field-error-msg {
+  display: block;
+  margin-top: 3px;
+  font-size: 0.75rem;
+  color: #e53e3e;
+}
+
+/* ── SUBMIT ── */
 .fg-form-actions-submission-block {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  margin-top: 12px;
+  gap: 14px;
+  margin-top: 8px;
 }
 
 .fg-primary-submit-action-btn {
   width: 100%;
-  height: 46px;
+  height: 50px;
   background: #044335;
   color: #ffffff;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background 0.2s ease;
+  transition: background 0.15s;
 }
 
-.fg-primary-submit-action-btn:hover {
-  background: #032e25;
+.fg-primary-submit-action-btn:hover:not(:disabled) {
+  background: #033328;
+}
+
+.fg-primary-submit-action-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .fg-form-bottom-toggle-text {
@@ -317,54 +372,19 @@
   font-weight: 600;
   cursor: pointer;
 }
-.fg-password-checklist {
-  list-style: none;
-  padding: 8px 0 4px;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+
+.fg-toggle-link-span:hover {
+  text-decoration: underline;
 }
 
-.fg-password-rule {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 0.78rem;
-  font-weight: 500;
-  transition: color 0.25s ease;
-}
-
-.fg-rule-icon {
-  font-size: 0.85rem;
-  font-weight: 700;
-  width: 16px;
-  text-align: center;
-}
-.fg-rule-failed {
-  color: #e53e3e;
-}
-
-.fg-rule-passed {
-  color: #38a169;
-}
-.fg-otp-input-error .ant-input {
-  border: 1px solid #ff4d4f !important;
-  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.15);
-}
-
-.fg-otp-input-success .ant-input {
-  border: 1px solid #52c41a !important;
-  box-shadow: 0 0 0 2px rgba(82, 196, 26, 0.15);
-}
-
+/* ── RESPONSIVE ── */
 @media screen and (max-width: 1024px) {
   .fg-login-sidebar {
-    width: 35%;
+    width: 36%;
   }
   .fg-login-form-panel {
-    width: 65%;
-    margin-left: 35%;
+    width: 64%;
+    margin-left: 36%;
   }
 }
 
@@ -372,35 +392,25 @@
   .fg-login-split-content {
     flex-direction: column;
   }
-
   .fg-login-sidebar {
     display: none;
   }
-
   .fg-login-form-panel {
     width: 100%;
     margin-left: 0;
-    padding: 40px 0px;
+    padding: 32px 20px;
+    align-items: flex-start;
   }
-
   .fg-login-form-core-box {
     max-width: 100%;
-    width: 95%;
-    padding: 0 10px;
+    padding-top: 0;
   }
-
   .fg-login-form-card {
     border: none;
-    box-shadow: none;
-    padding: 10px;
-    background-color: transparent;
+    padding: 20px 0;
+    background: transparent;
   }
-
   .fg-primary-submit-action-btn {
-    border-radius: 0px !important;
-  }
-
-  .fg-native-text-input {
-    border-radius: 6px;
+    border-radius: 10px;
   }
 }
