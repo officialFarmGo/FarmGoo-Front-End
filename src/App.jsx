@@ -43,12 +43,14 @@ import NotFound from "./Components/NotFound";
 import CompleteAgentProfile from "./Components/CompleteAgentProfile";
 import AgentDeliveries from "./Components/AgentDeliveries";
 import AgentDashboardContent from "./Components/UI/AgentDashboardContent";
+import WithdrawalSuccess from "./Components/WithdrawalSuccess";
+import PaymentVerification from "./Components/PaymentVerification";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='*' element={<NotFound />}/>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<LandingPageComponents />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
@@ -57,27 +59,43 @@ function App() {
         <Route path="/success" element={<SuccessFullVerification />} />
         <Route path="/dashboard" element={<DashboardRedirect />} />
         <Route path="/farmer_kyc/:farmId" element={<FarmerProfile />} />
-        <Route path='/agent_kyc/:agentId' element={<CompleteAgentProfile/>}/>
+        <Route path="/agent_kyc/:agentId" element={<CompleteAgentProfile />} />
         <Route path="/forgot-password" element={<ForgetPassword />} />
-        <Route path="/driver_kyc/:driverId" element={<DriverKycVerification />} />
+        <Route
+          path="/driver_kyc/:driverId"
+          element={<DriverKycVerification />}
+        />
         <Route path="driverpending" element={<VerificationPending />} />
         <Route path="/approved" element={<ApprovedDoc />} />
+        <Route path="/payment-verifiJcation" element={<PaymentVerification />} />
+        <Route path="/withdrawal-success" element={<WithdrawalSuccess />} />
 
         <Route
           path="/farmer/dashboard"
-          element={<PrivateRoute><FarmersDahboard /></PrivateRoute>}
+          element={
+            <PrivateRoute>
+              <FarmersDahboard />
+            </PrivateRoute>
+          }
         >
           <Route path="" element={<DashboardPagesComponent />} />
           <Route path="wallet" element={<Wallet />} />
           <Route path="notification" element={<Notification />} />
           <Route path="settings" element={<ProfileSettingsDashboard />} />
-          <Route path="activedelivery" element={<ActiveDeliveryPageComponets />} />
+          <Route
+            path="activedelivery"
+            element={<ActiveDeliveryPageComponets />}
+          />
           <Route path="help&support" element={<FarmerHelpAndSupport />} />
         </Route>
 
         <Route
           path="/agent/dashboard"
-          element={<PrivateRoute><AgentDashboard /></PrivateRoute>}
+          element={
+            <PrivateRoute>
+              <AgentDashboard />
+            </PrivateRoute>
+          }
         >
           <Route path="" element={<AgentDashBoard />} />
           <Route path="wallet" element={<Wallet />} />
@@ -89,7 +107,11 @@ function App() {
 
         <Route
           path="/drivers/dashboard"
-          element={<PrivateRoute><DriverDashboard /></PrivateRoute>}
+          element={
+            <PrivateRoute>
+              <DriverDashboard />
+            </PrivateRoute>
+          }
         >
           <Route path="" element={<DriverDashboardView />} />
           <Route path="activedelivery" element={<DriverActiveDeliveries />} />
@@ -101,11 +123,19 @@ function App() {
 
         <Route
           path="/trackdelivery/:id"
-          element={<PrivateRoute><DriverActiveDelivery /></PrivateRoute>}
+          element={
+            <PrivateRoute>
+              <DriverActiveDelivery />
+            </PrivateRoute>
+          }
         />
         <Route
           path="/job-details"
-          element={<PrivateRoute><DriverJobDetails /></PrivateRoute>}
+          element={
+            <PrivateRoute>
+              <DriverJobDetails />
+            </PrivateRoute>
+          }
         />
       </Routes>
     </BrowserRouter>
