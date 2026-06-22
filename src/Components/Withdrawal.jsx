@@ -10,7 +10,7 @@ const Withdrawal = () => {
   useEffect(() => {
     const fetchEarnings = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_BaseUrl}/driverDash/getDriverEarnings`, {
+        const res = await fetch(`${import.meta.env.VITE_BaseUrl}/driverDash/getDriverEarnings`,{
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -28,7 +28,7 @@ const Withdrawal = () => {
   const formatDate = (iso) => {
     if (!iso) return "";
     return new Date(iso).toLocaleDateString("en-NG", {
-      day: "numeric",
+      day:"numeric",
       month: "short",
       year: "numeric",
     });
