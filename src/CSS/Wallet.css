@@ -6,7 +6,6 @@
 }
 
 .wallet-container {
-  /* max-width: 640px; */
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -20,7 +19,6 @@
   margin: 0 0 4px;
 }
 
-/* Loading */
 .wallet-loading {
   display: flex;
   justify-content: center;
@@ -35,9 +33,12 @@
   border-radius: 50%;
   animation: wspin 0.8s linear infinite;
 }
-@keyframes wspin { to { transform: rotate(360deg); } }
+@keyframes wspin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
-/* ── Balance Card ── */
 .balance-card {
   background: linear-gradient(135deg, #006432 0%, #004d26 100%);
   border-radius: 20px;
@@ -65,7 +66,7 @@
 }
 
 .toggle-visibility-btn {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   border: none;
   border-radius: 8px;
   padding: 7px 9px;
@@ -75,7 +76,9 @@
   align-items: center;
   transition: background 0.2s;
 }
-.toggle-visibility-btn:hover { background: rgba(255,255,255,0.25); }
+.toggle-visibility-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
 
 .balance-amount-display {
   font-size: 38px;
@@ -112,13 +115,13 @@
 }
 
 .withdraw-btn {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
-  border: 1.5px solid rgba(255,255,255,0.3);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
 }
 .withdraw-btn:hover,
 .withdraw-btn.active {
-  background: rgba(255,255,255,0.27);
+  background: rgba(255, 255, 255, 0.27);
 }
 
 .add-money-btn {
@@ -130,7 +133,6 @@
   background: #e6f4ed;
 }
 
-/* ── Dropdowns ── */
 .action-dropdown {
   max-height: 0;
   overflow: hidden;
@@ -184,7 +186,9 @@
   color: #111;
   background: #f9faf9;
   outline: none;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
   width: 100%;
   box-sizing: border-box;
 }
@@ -217,7 +221,9 @@
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, opacity 0.2s;
+  transition:
+    background 0.2s,
+    opacity 0.2s;
   width: 100%;
 }
 .dropdown-submit-btn:disabled {
@@ -228,15 +234,18 @@
   background: #006432;
   color: #fff;
 }
-.withdraw-submit:hover:not(:disabled) { background: #004d26; }
+.withdraw-submit:hover:not(:disabled) {
+  background: #004d26;
+}
 
 .add-submit {
   background: #006432;
   color: #fff;
 }
-.add-submit:hover:not(:disabled) { background: #004d26; }
+.add-submit:hover:not(:disabled) {
+  background: #004d26;
+}
 
-/* ── Panels ── */
 .wallet-dashboard-panel {
   background: #fff;
   border-radius: 16px;
@@ -269,9 +278,10 @@
   cursor: pointer;
   transition: background 0.2s;
 }
-.panel-header-action-btn:hover { background: #d6f0e2; }
+.panel-header-action-btn:hover {
+  background: #d6f0e2;
+}
 
-/* Linked Accounts */
 .linked-account-row-item {
   display: flex;
   align-items: center;
@@ -279,9 +289,16 @@
   padding: 12px 0;
   border-bottom: 1px solid #f0f4f1;
 }
-.linked-account-row-item:last-child { border-bottom: none; padding-bottom: 0; }
+.linked-account-row-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
 
-.bank-meta-group { display: flex; align-items: center; gap: 12px; }
+.bank-meta-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
 .bank-card-icon-box {
   width: 40px;
@@ -294,9 +311,20 @@
   color: #006432;
 }
 
-.bank-name-stack { display: flex; flex-direction: column; gap: 2px; }
-.bank-title-text { font-size: 14px; font-weight: 600; color: #111; }
-.bank-number-obscured { font-size: 12px; color: #999; }
+.bank-name-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bank-title-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+}
+.bank-number-obscured {
+  font-size: 12px;
+  color: #999;
+}
 
 .badge-primary {
   font-size: 11px;
@@ -315,11 +343,22 @@
   gap: 6px;
   padding: 20px 0 8px;
 }
-.empty-accounts p { font-size: 14px; font-weight: 600; color: #555; margin: 4px 0 0; }
-.empty-accounts span { font-size: 12px; color: #aaa; text-align: center; }
+.empty-accounts p {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  margin: 4px 0 0;
+}
+.empty-accounts span {
+  font-size: 12px;
+  color: #aaa;
+  text-align: center;
+}
 
-/* Transactions */
-.transaction-list-stack { display: flex; flex-direction: column; }
+.transaction-list-stack {
+  display: flex;
+  flex-direction: column;
+}
 
 .transaction-list-row-item {
   display: flex;
@@ -328,9 +367,16 @@
   padding: 12px 0;
   border-bottom: 1px solid #f0f4f1;
 }
-.transaction-list-row-item:last-child { border-bottom: none; padding-bottom: 0; }
+.transaction-list-row-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
 
-.trn-meta-group { display: flex; align-items: center; gap: 12px; }
+.trn-meta-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
 .trn-badge {
   width: 36px;
@@ -341,10 +387,20 @@
   justify-content: center;
   flex-shrink: 0;
 }
-.trn-credit { background: #edf7f1; color: #006432; }
-.trn-debit  { background: #fff4f4; color: #c0392b; }
+.trn-credit {
+  background: #edf7f1;
+  color: #006432;
+}
+.trn-debit {
+  background: #fff4f4;
+  color: #c0392b;
+}
 
-.trn-text-stack { display: flex; flex-direction: column; gap: 2px; }
+.trn-text-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 .trn-title {
   font-size: 13px;
   font-weight: 500;
@@ -354,15 +410,144 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.trn-date { font-size: 11px; color: #bbb; }
+.trn-date {
+  font-size: 11px;
+  color: #bbb;
+}
 
-.trn-amount { font-size: 14px; font-weight: 700; flex-shrink: 0; }
-.trn-credit-amount { color: #006432; }
-.trn-debit-amount  { color: #c0392b; }
+.trn-amount {
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.trn-credit-amount {
+  color: #006432;
+}
+.trn-debit-amount {
+  color: #c0392b;
+}
 
 .empty-transactions {
   text-align: center;
   color: #bbb;
   font-size: 13px;
   padding: 24px 0;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.error-popup-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation: popupScale 0.25s ease-out;
+}
+
+.error-icon-circle {
+  width: 56px;
+  height: 56px;
+  background: #fff0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+}
+
+.error-popup-card h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 10px 0;
+}
+
+.error-popup-card p {
+  font-size: 14px;
+  color: #666666;
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+.popup-close-btn {
+  width: 100%;
+  background: #006432;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.popup-close-btn:hover {
+  background: #004d26;
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Dim the dashboard view */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Ensure it stays on top of everything */
+}
+
+.error-popup-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+@keyframes popupScale {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* dims background elements */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999 !important; /* ensures it sits on top of everything else */
 }
