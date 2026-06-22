@@ -142,7 +142,7 @@ const LoginPage = () => {
       <div className="fg-login-split-content">
         <aside className="fg-login-sidebar">
           <img
-            src="/src/assets/Container (2).png"
+            src="https://res.cloudinary.com/dnjexdaop/image/upload/v1780660368/photo_11_2026-06-05_12-51-52_xutmkl.jpg"
             alt="Farm background"
             className="fg-sidebar-bg"
           />
@@ -150,7 +150,7 @@ const LoginPage = () => {
             <div className="fg-action-row">
               <button
                 className="fg-back-circle-btn"
-                onClick={() => navigate(-1)}
+                onClick={() => navigate('/')}
                 aria-label="Go back"
                 disabled={loading}
               >
@@ -164,7 +164,7 @@ const LoginPage = () => {
               </h1>
               <p className="fg-main-hero-subtitle">
                 Access your dashboard to manage deliveries,
-                <br /> track shipments, and connect with farmers <br />
+                track shipments, and connect with farmers
                 and drivers across Nigeria.
               </p>
             </div>
@@ -227,96 +227,98 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <form
-              className="fg-credentials-form"
-              onSubmit={handleSubmit}
-              noValidate
-            >
-              {errors.form && (
-                <div className="fg-field-error-msg" style={{ marginBottom: "16px", textAlign: "center" }}>
-                  {errors.form}
-                </div>
-              )}
-
-              <div className="fg-input-group-field">
-                <label className="fg-input-label-tag">Email or phone</label>
-                <input
-                  type="text"
-                  name="identifier"
-                  value={formData.identifier}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  disabled={loading}
-                  placeholder="Enter your email or phone number"
-                  className={`fg-native-text-input ${errors.identifier ? "fg-input-error" : ""}`}
-                />
-                {errors.identifier && (
-                  <span className="fg-field-error-msg">
-                    {errors.identifier}
-                  </span>
+            <div className="fg-credentials-form-card">
+              <form
+                className="fg-credentials-form"
+                onSubmit={handleSubmit}
+                noValidate
+              >
+                {errors.form && (
+                  <div className="fg-field-error-msg" style={{ marginBottom: "16px", textAlign: "center" }}>
+                    {errors.form}
+                  </div>
                 )}
-              </div>
 
-              <div className="fg-input-group-field">
-                <label className="fg-input-label-tag">Password</label>
-                <div className="fg-native-input-password-wrapper">
+                <div className="fg-input-group-field">
+                  <label className="fg-input-label-tag">Email or phone</label>
                   <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={formData.password}
+                    type="text"
+                    name="identifier"
+                    value={formData.identifier}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     disabled={loading}
-                    placeholder="Enter your password"
-                    className={`fg-native-text-input fg-password-padding ${errors.password ? "fg-input-error" : ""}`}
+                    placeholder="Enter your email or phone number"
+                    className={`fg-native-text-input ${errors.identifier ? "fg-input-error" : ""}`}
                   />
+                  {errors.identifier && (
+                    <span className="fg-field-error-msg">
+                      {errors.identifier}
+                    </span>
+                  )}
+                </div>
+
+                <div className="fg-input-group-field">
+                  <label className="fg-input-label-tag">Password</label>
+                  <div className="fg-native-input-password-wrapper">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      disabled={loading}
+                      placeholder="Enter your password"
+                      className={`fg-native-text-input fg-password-padding ${errors.password ? "fg-input-error" : ""}`}
+                    />
+                    <button
+                      type="button"
+                      className="fg-native-input-eye-trigger"
+                      onClick={() => setShowPassword(!showPassword)}
+                      disabled={loading}
+                      aria-label={showPassword ? "Hide password" : "Show password"}
+                    >
+                      {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                    </button>
+                  </div>
+                  {errors.password && (
+                    <span className="fg-field-error-msg">{errors.password}</span>
+                  )}
+                </div>
+
+                <div className="fg-form-options-alignment-row">
+                  <label className="fg-checkbox-interactive-label">
+                    <input type="checkbox" className="fg-checkbox-element" disabled={loading} />
+                    <span className="fg-checkbox-custom-text">Remember me</span>
+                  </label>
                   <button
                     type="button"
-                    className="fg-native-input-eye-trigger"
-                    onClick={() => setShowPassword(!showPassword)}
+                    className="fg-forgot-trigger-btn"
                     disabled={loading}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    onClick={() => navigate("/forgot-password")}
                   >
-                    {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                    Forgot password?
                   </button>
                 </div>
-                {errors.password && (
-                  <span className="fg-field-error-msg">{errors.password}</span>
-                )}
-              </div>
 
-              <div className="fg-form-options-alignment-row">
-                <label className="fg-checkbox-interactive-label">
-                  <input type="checkbox" className="fg-checkbox-element" disabled={loading} />
-                  <span className="fg-checkbox-custom-text">Remember me</span>
-                </label>
-                <button
-                  type="button"
-                  className="fg-forgot-trigger-btn"
-                  disabled={loading}
-                  onClick={() => navigate("/forgot-password")}
-                >
-                  Forgot password?
-                </button>
-              </div>
-
-              <div className="fg-form-actions-submission-block">
-                <button type="submit" className="fg-primary-submit-action-btn" disabled={loading}>
-                  {loading ? "Logging in..." : "Log in"}
-                </button>
-                <p className="fg-alternative-routing-text">
-                  Don't have an account?
-                  <button
-                    type="button"
-                    className="fg-inline-routing-trigger"
-                    disabled={loading}
-                    onClick={() => navigate("/signup")}
-                  >
-                    Sign up
+                <div className="fg-form-actions-submission-block">
+                  <button type="submit" className="fg-primary-submit-action-btn" disabled={loading}>
+                    {loading ? "Logging in..." : "Log in"}
                   </button>
-                </p>
-              </div>
-            </form>
+                  <p className="fg-alternative-routing-text">
+                    Don't have an account?
+                    <button
+                      type="button"
+                      className="fg-inline-routing-trigger"
+                      disabled={loading}
+                      onClick={() => navigate("/signup")}
+                    >
+                      Sign up
+                    </button>
+                  </p>
+                </div>
+              </form>
+            </div>
           </div>
         </main>
       </div>
