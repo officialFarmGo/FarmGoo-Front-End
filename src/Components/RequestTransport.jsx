@@ -302,7 +302,7 @@ const RequestTransport = ({ onClose }) => {
                   {errors.customersPhoneNumber && <span className="rt-field-error">{errors.customersPhoneNumber}</span>}
                 </div>
                 <div className="rt-form-group">
-                  <label>Other Number <span style={{ color: "var(--color-text-tertiary)", fontSize: "12px" }}>(optional)</span></label>
+                  <label>Other Number <span style={{ color: "var(--color-text-tertiary)", fontSize: "12px" }}></span></label>
                   <input
                     type="tel"
                     name="CustomersOtherNumber"
