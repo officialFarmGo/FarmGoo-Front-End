@@ -4,9 +4,8 @@ import { LuMoveLeft } from "react-icons/lu";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {getId} from "../../LIB/AuthenticationSlice"
+import { getId } from "../../LIB/AuthenticationSlice";
 import { useDispatch } from "react-redux";
-
 
 const SignPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,8 +15,12 @@ const SignPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-  const Endpoint = selectRole === "farmer" ? "/farm/signUp" : selectRole === "driver" ? "/driver/signupDriver" : "/agent/signUp";
+  const Endpoint =
+    selectRole === "farmer"
+      ? "/farm/signUp"
+      : selectRole === "driver"
+      ? "/driver/signupDriver"
+      : "/agent/signUp";
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -38,7 +41,8 @@ const SignPage = () => {
     { id: "special", label: "At least one special character (!@#$%^&*)", test: (p) => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(p) },
   ];
 
-  const getPasswordMeta = (password) => passwordRules.map((rule) => ({ ...rule, passed: rule.test(password) }));
+  const getPasswordMeta = (password) =>
+    passwordRules.map((rule) => ({ ...rule, passed: rule.test(password) }));
 
   const validateField = (name, value) => {
     switch (name) {
@@ -53,7 +57,8 @@ const SignPage = () => {
       case "phoneNumber": {
         const phoneRegex = /^(\+234|0)[789][01]\d{8}$/;
         if (!value.trim()) return "Phone number is required.";
-        if (!phoneRegex.test(value.replace(/\s/g, ""))) return "Enter a valid Nigerian phone number (e.g. 08012345678).";
+        if (!phoneRegex.test(value.replace(/\s/g, "")))
+          return "Enter a valid Nigerian phone number (e.g. 08012345678).";
         return "";
       }
       case "email":
@@ -68,7 +73,8 @@ const SignPage = () => {
         return "";
       case "password":
         if (!value) return "Password is required.";
-        if (!passwordRules.every((r) => r.test(value))) return "Please meet all password requirements below.";
+        if (!passwordRules.every((r) => r.test(value)))
+          return "Please meet all password requirements below.";
         return "";
       default:
         return "";
@@ -100,7 +106,7 @@ const SignPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
-    
+
     const validationErrors = validateAll();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -114,31 +120,39 @@ const SignPage = () => {
     setLoading(true);
 
     try {
-      // Replaced string interpolation with direct import.meta.env call
-      const response = await fetch(`${import.meta.env.VITE_BaseUrl}${Endpoint}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      
+      const response = await fetch(
+        `${import.meta.env.VITE_BaseUrl}${Endpoint}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+
       const data = await response.json();
-      
+
       if (response.ok) {
         dispatch(getId(data.data.id));
-        navigate("/otp", { 
-          state: { 
-            email: formData.email, 
+        navigate("/otp", {
+          state: {
+            email: formData.email,
             phoneNumber: formData.phoneNumber,
             role: selectRole,
             firstName: formData.firstName,
-            lastName: formData.lastName
-          } 
+            lastName: formData.lastName,
+          },
         });
       } else {
-        setErrors((prev) => ({ ...prev, form: data.message || "Signup failed" }));
+        setErrors((prev) => ({
+          ...prev,
+          form: data.message || "Signup failed",
+        }));
       }
     } catch (err) {
-      setErrors((prev) => ({ ...prev, form: "Network error, please try again." }));
+      setErrors((prev) => ({
+        ...prev,
+        form: "Network error, please try again.",
+      }));
     } finally {
       setLoading(false);
     }
@@ -150,17 +164,29 @@ const SignPage = () => {
     <div className="fg-login-wrapper">
       <div className="fg-login-split-content">
         <aside className="fg-login-sidebar">
-          <img src="/src/assets/Container (2).png" alt="Farm background" className="fg-sidebar-bg" />
+          <img
+            src="https://res.cloudinary.com/dnjexdaop/image/upload/v1780660368/photo_11_2026-06-05_12-51-52_xutmkl.jpg"
+            alt="Farm background"
+            className="fg-sidebar-bg"
+          />
           <div className="fg-sidebar-overlay">
             <div className="fg-action-row">
-              <button className="fg-back-circle-btn" onClick={() => navigate(-1)} aria-label="Go back" disabled={loading}>
+              <button
+                className="fg-back-circle-btn"
+                onClick={() => navigate('/chooseDash')}
+                aria-label="Go back"
+                disabled={loading}
+              >
                 <LuMoveLeft />
               </button>
             </div>
             <div className="fg-sidebar-center-content">
-              <h1 className="fg-main-hero-heading">Welcome back to the harvest network.</h1>
+              <h1 className="fg-main-hero-heading">
+                Welcome back to the harvest network.
+              </h1>
               <p className="fg-main-hero-subtitle">
-                Access your dashboard to manage deliveries, track shipments, and connect with farmers and drivers across Nigeria.
+                Access your dashboard to manage deliveries, track shipments, and
+                connect with farmers and drivers across Nigeria.
               </p>
             </div>
             <span className="fg-footer-copyright">Powered by FarmGoo © 2026</span>
@@ -171,57 +197,94 @@ const SignPage = () => {
           <div className="fg-login-form-core-box">
             <div className="fg-brand-identity-header">
               <div className="fg-brand-logo-container">
-                <img className="fg-brand-logo-img" src="/src/assets/logo.png" alt="FarmGoo Logo" />
+                <img
+                  className="fg-brand-logo-img"
+                  src="/src/assets/logo.png"
+                  alt="FarmGoo Logo"
+                />
               </div>
-              <h2 className="fg-brand-welcome-title">Welcome back</h2>
-              <p className="fg-brand-welcome-subtitle">Sign in to your FarmGoo account</p>
+              <h2 className="fg-brand-welcome-title">Create your account</h2>
+              <p className="fg-brand-welcome-subtitle">
+                Free to join. Choose what describes you best.
+              </p>
             </div>
 
             <div className="fg-login-form-card">
               <div className="fg-signup-role-badge-row">
                 <p className="fg-signup-role-badge-text">
-                  Signing up as <span className="fg-signup-role-highlight">{selectRole ? selectRole.charAt(0).toUpperCase() + selectRole.slice(1) : "N/A"}</span>
+                  Signing up as{" "}
+                  <span className="fg-signup-role-highlight">
+                    {selectRole
+                      ? selectRole.charAt(0).toUpperCase() + selectRole.slice(1)
+                      : "N/A"}
+                  </span>
                 </p>
-                <button type="button" className="fg-signup-role-change-trigger" onClick={() => navigate("/chooseDash")} disabled={loading}>
+                <button
+                  type="button"
+                  className="fg-signup-role-change-trigger"
+                  onClick={() => navigate("/chooseDash")}
+                  disabled={loading}
+                >
                   Change
                 </button>
               </div>
 
-              <form className="fg-credentials-form" onSubmit={handleSubmit} noValidate>
-                {errors.form && <div className="fg-field-error-msg" style={{ marginBottom: "12px", textAlign: "center" }}>{errors.form}</div>}
+              <form
+                className="fg-credentials-form"
+                onSubmit={handleSubmit}
+                noValidate
+              >
+                {errors.form && (
+                  <div
+                    className="fg-field-error-msg"
+                    style={{ marginBottom: "12px", textAlign: "center" }}
+                  >
+                    {errors.form}
+                  </div>
+                )}
 
                 <div className="fg-input-group-field">
-                  <label className="fg-input-label-tag">First Name <span className="fg-required-star">*</span></label>
+                  <label className="fg-input-label-tag">
+                    First Name <span className="fg-required-star">*</span>
+                  </label>
                   <input
                     type="text"
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                     placeholder="John"
+                    placeholder="John"
                     disabled={loading}
                     className={`fg-native-text-input ${errors.firstName ? "fg-input-error" : ""}`}
                   />
-                  {errors.firstName && <span className="fg-field-error-msg">{errors.firstName}</span>}
+                  {errors.firstName && (
+                    <span className="fg-field-error-msg">{errors.firstName}</span>
+                  )}
                 </div>
 
                 <div className="fg-input-group-field">
-                  <label className="fg-input-label-tag">Last Name <span className="fg-required-star">*</span></label>
+                  <label className="fg-input-label-tag">
+                    Last Name <span className="fg-required-star">*</span>
+                  </label>
                   <input
                     type="text"
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                     placeholder="Doe"
+                    placeholder="Doe"
                     disabled={loading}
                     className={`fg-native-text-input ${errors.lastName ? "fg-input-error" : ""}`}
                   />
-                  {errors.lastName && <span className="fg-field-error-msg">{errors.lastName}</span>}
+                  {errors.lastName && (
+                    <span className="fg-field-error-msg">{errors.lastName}</span>
+                  )}
                 </div>
 
                 <div className="fg-input-group-field">
-                  <label className="fg-input-label-tag">Phone number <span className="fg-required-star">*</span></label>
+                  <label className="fg-input-label-tag">
+                    Phone number <span className="fg-required-star">*</span>
+                  </label>
                   <input
                     type="text"
                     name="phoneNumber"
@@ -232,11 +295,13 @@ const SignPage = () => {
                     placeholder="0801 234 5678"
                     className={`fg-native-text-input ${errors.phoneNumber ? "fg-input-error" : ""}`}
                   />
-                  {errors.phoneNumber && <span className="fg-field-error-msg">{errors.phoneNumber}</span>}
+                  {errors.phoneNumber && (
+                    <span className="fg-field-error-msg">{errors.phoneNumber}</span>
+                  )}
                 </div>
 
                 <div className="fg-input-group-field">
-                  <label className="fg-input-label-tag">Email </label>
+                  <label className="fg-input-label-tag">Email</label>
                   <input
                     type="email"
                     name="email"
@@ -247,11 +312,15 @@ const SignPage = () => {
                     placeholder="liaoreg@gmail.com"
                     className={`fg-native-text-input ${errors.email ? "fg-input-error" : ""}`}
                   />
-                  {errors.email && <span className="fg-field-error-msg">{errors.email}</span>}
+                  {errors.email && (
+                    <span className="fg-field-error-msg">{errors.email}</span>
+                  )}
                 </div>
 
                 <div className="fg-input-group-field">
-                  <label className="fg-input-label-tag">Town / Village <span className="fg-required-star">*</span></label>
+                  <label className="fg-input-label-tag">
+                    Town / Village <span className="fg-required-star">*</span>
+                  </label>
                   <input
                     type="text"
                     name="townOrVillage"
@@ -262,11 +331,16 @@ const SignPage = () => {
                     placeholder="e.g. Ikorodu, Lagos"
                     className={`fg-native-text-input ${errors.townOrVillage ? "fg-input-error" : ""}`}
                   />
-                  {errors.townOrVillage && <span className="fg-field-error-msg">{errors.townOrVillage}</span>}
+                  {errors.townOrVillage && (
+                    <span className="fg-field-error-msg">{errors.townOrVillage}</span>
+                  )}
                 </div>
 
                 <div className="fg-input-group-field">
-                  <label className="fg-input-label-tag">Password <span className="fg-required-star">*</span></label>
+                  <label className="fg-input-label-tag">
+                    Password (8+ characters){" "}
+                    <span className="fg-required-star">*</span>
+                  </label>
                   <div className="fg-native-input-password-wrapper">
                     <input
                       type={showPassword ? "text" : "password"}
@@ -292,29 +366,35 @@ const SignPage = () => {
                   {formData.password.length > 0 && (
                     <ul className="fg-password-checklist">
                       {passwordMeta.map((rule) => (
-                        <li key={rule.id} className={`fg-password-rule ${rule.passed ? "fg-rule-passed" : "fg-rule-failed"}`}>
-                          <span className="fg-rule-icon">{rule.passed ? "✓" : "✗"}</span>
+                        <li
+                          key={rule.id}
+                          className={`fg-password-rule ${rule.passed ? "fg-rule-passed" : "fg-rule-failed"}`}
+                        >
+                          <span className="fg-rule-icon">
+                            {rule.passed ? "✓" : "✗"}
+                          </span>
                           {rule.label}
                         </li>
                       ))}
                     </ul>
                   )}
-                  {errors.password && <span className="fg-field-error-msg">{errors.password}</span>}
+                  {errors.password && (
+                    <span className="fg-field-error-msg">{errors.password}</span>
+                  )}
                 </div>
 
                 <div className="fg-form-actions-submission-block">
-                  <button 
-                    type="submit" 
-                    className="fg-primary-submit-action-btn" 
+                  <button
+                    type="submit"
+                    className="fg-primary-submit-action-btn"
                     disabled={loading}
-                    style={{ cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1 }}
                   >
                     {loading ? "Creating Account..." : "Create Account"}
                   </button>
                   <p className="fg-form-bottom-toggle-text">
                     Already have an account?{" "}
-                    <span 
-                      className="fg-toggle-link-span" 
+                    <span
+                      className="fg-toggle-link-span"
                       onClick={() => !loading && navigate("/login")}
                       style={{ cursor: loading ? "not-allowed" : "pointer" }}
                     >

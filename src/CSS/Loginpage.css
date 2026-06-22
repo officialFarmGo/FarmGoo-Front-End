@@ -10,8 +10,9 @@
   display: flex;
 }
 
+/* ── SIDEBAR ── */
 .fg-login-sidebar {
-  width: 30%;
+  width: 33%;
   height: 100vh;
   position: fixed;
   left: 0;
@@ -23,6 +24,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   position: absolute;
   top: 0;
   left: 0;
@@ -36,14 +38,14 @@
   z-index: 2;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.2) 0%,
-    rgba(4, 43, 34, 0.92) 100__
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(4, 43, 34, 0.88) 100%
   );
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 40px 35px;
+  padding: 36px 32px;
 }
 
 .fg-action-row {
@@ -53,7 +55,7 @@
 .fg-back-circle-btn {
   background: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 22px;
   color: #ffffff;
   cursor: pointer;
   display: flex;
@@ -64,27 +66,24 @@
 .fg-sidebar-core-text {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   text-align: left;
-  margin-top: auto;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .fg-main-hero-heading {
   color: #ffffff;
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
   margin: 0;
-  text-align: left;
 }
 
 .fg-main-hero-subtitle {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.78);
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0;
-  text-align: left;
 }
 
 .fg-sidebar-footer-row {
@@ -92,48 +91,50 @@
 }
 
 .fg-footer-copyright {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.55);
   font-size: 12px;
-  margin: 0;
 }
 
+/* ── FORM PANEL ── */
 .fg-login-form-panel {
-  width: 70%;
-  margin-left: 30%;
+  width: 67%;
+  margin-left: 33%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  padding: 48px 40px;
   box-sizing: border-box;
   background-color: #ffffff;
 }
 
 .fg-login-form-core-box {
   width: 100%;
-  max-width: 520px;
+  max-width: 540px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 28px;
 }
 
+/* ── BRAND HEADER ── */
 .fg-brand-identity-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  gap: 10px;
 }
 
 .fg-brand-logo-container {
-  width: 60px;
-  height: 60px;
+  width: 68px;
+  height: 68px;
   background-color: #044335;
-  border-radius: 16px;
+  border-radius: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 6px;
 }
 
 .fg-brand-logo-img {
@@ -143,10 +144,10 @@
 }
 
 .fg-brand-welcome-title {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
   color: #042920;
-  margin: 0 0 6px 0;
+  margin: 0;
 }
 
 .fg-brand-welcome-subtitle {
@@ -155,27 +156,33 @@
   margin: 0;
 }
 
+/* ── ROLE CARDS ── */
 .fg-role-selection-grid {
   width: 100%;
   display: flex;
-  gap: 16px;
+  gap: 14px;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
 }
 
 .fg-role-option-card {
   flex: 1;
-  height: 96px;
+  min-height: 100px;
   background: #ffffff;
-  border: 1px solid #d7d8d8;
-  border-radius: 12px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   cursor: pointer;
-  padding: 16px;
+  padding: 18px 16px;
   box-sizing: border-box;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.fg-role-option-card:hover {
+  border-color: #00b67a;
 }
 
 .fg-role-option-card.is-active {
@@ -183,10 +190,15 @@
   background: #f0fdf8;
 }
 
+.fg-role-option-card.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .fg-role-circle-icon {
-  font-size: 18px;
+  font-size: 20px;
   color: #00b67a;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
 }
@@ -195,13 +207,22 @@
   font-size: 14px;
   font-weight: 600;
   color: #111827;
-  margin: 0;
 }
 
 .fg-role-card-desc {
-  margin: 2px 0 0 0;
+  margin: 3px 0 0 0;
   font-size: 11px;
   color: #6b7280;
+}
+
+/* ── FORM CARD ── */
+.fg-credentials-form-card {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px;
+  box-sizing: border-box;
+  background: #ffffff;
 }
 
 .fg-credentials-form {
@@ -209,10 +230,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border: 1px solid #f3f4f6;
-  border-radius: 16px;
-  padding: 32px;
-  box-sizing: border-box;
 }
 
 .fg-input-group-field {
@@ -231,9 +248,9 @@
 
 .fg-native-text-input {
   width: 100%;
-  height: 48px;
+  height: 50px;
   padding: 0 16px;
-  border: 1px solid #e5e7eb;
+  border: 1.5px solid #e5e7eb;
   border-radius: 10px;
   font-size: 14px;
   color: #111827;
@@ -250,6 +267,31 @@
   color: #9ca3af;
 }
 
+.fg-native-input-password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.fg-password-padding {
+  padding-right: 48px;
+}
+
+.fg-native-input-eye-trigger {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+/* ── FORM OPTIONS ROW ── */
 .fg-form-options-alignment-row {
   width: 100%;
   display: flex;
@@ -283,18 +325,19 @@
   padding: 0;
 }
 
+/* ── SUBMIT ── */
 .fg-form-actions-submission-block {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .fg-primary-submit-action-btn {
   width: 100%;
-  height: 48px;
+  height: 50px;
   background: #044335;
   color: #ffffff;
   border: none;
@@ -305,6 +348,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background 0.15s;
+}
+
+.fg-primary-submit-action-btn:hover:not(:disabled) {
+  background: #033328;
+}
+
+.fg-primary-submit-action-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .fg-alternative-routing-text {
@@ -323,6 +376,8 @@
   padding: 0;
   margin-left: 4px;
 }
+
+/* ── ERRORS ── */
 .fg-input-error {
   border-color: #e53e3e !important;
   background-color: #fff5f5;
@@ -335,13 +390,14 @@
   color: #e53e3e;
 }
 
+/* ── RESPONSIVE ── */
 @media screen and (max-width: 1024px) {
   .fg-login-sidebar {
-    width: 35%;
+    width: 38%;
   }
   .fg-login-form-panel {
-    width: 65%;
-    margin-left: 35%;
+    width: 62%;
+    margin-left: 38%;
   }
 }
 
@@ -355,9 +411,9 @@
   .fg-login-form-panel {
     width: 100%;
     margin-left: 0;
-    padding: 24px 16px;
+    padding: 32px 20px;
   }
-  .fg-credentials-form {
-    padding: 20px 16px;
+  .fg-credentials-form-card {
+    padding: 24px 18px;
   }
 }

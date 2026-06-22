@@ -47,9 +47,9 @@ const HowItWorks = () => {
       <div className="how-it-works-right">
         <div className="images-top-row">
           <img className="img-top-left" src='https://res.cloudinary.com/dnjexdaop/image/upload/v1780660366/photo_9_2026-06-05_12-51-52_ehhiy2.jpg' alt="Farmer at FARMGO PIN confirmation stand" />
-          <img className="img-top-right" src='/src/assets/howitworks2.jpg' alt="FARMGO agent at rural branch station" />
+          <img className="img-top-right" src='https://res.cloudinary.com/dnjexdaop/image/upload/v1782003001/photo_2_2026-06-21_01-49-28_ddgmv5.jpg' alt="FARMGO agent at rural branch station" />
         </div>
-        <img className="img-bottom" src='/src/assets/howitworks3.jpg' alt="Farmer handing produce to driver at sunset" />
+        <img className="img-bottom" src='https://res.cloudinary.com/dnjexdaop/image/upload/v1782003001/photo_1_2026-06-21_01-49-28_ft10gy.jpg' alt="Farmer handing produce to driver at sunset" />
       </div>
     </div>
   )
