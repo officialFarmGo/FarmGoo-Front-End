@@ -1,17 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: null,
-  id: null,         
-  token: null,         
+  id: null,
+  token: null,
   isAuthenticated: false,
   isLoading: false,
   authError: null,
-  selectedRole:null,
+  selectedRole: null,
   activeMenuItem: null,
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     activeMenuItem: (state, action) => {
@@ -28,10 +28,10 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.authError = null;
     },
-    authToken:(state,action)=>{
-      state.token =action.payload;
+    authToken: (state, action) => {
+      state.token = action.payload;
     },
-    authUser:(state, action) => {
+    authUser: (state, action) => {
       state.user = action.payload;
     },
     authActionFailure: (state, action) => {
@@ -58,21 +58,21 @@ const authSlice = createSlice({
 
     getId: (state, action) => {
       state.id = action.payload;
-    }
+    },
   },
 });
 
-export const { 
-  authActionStart, 
-  authActionSuccess, 
+export const {
+  authActionStart,
+  authActionSuccess,
   authToken,
   authUser,
-  authActionFailure, 
+  authActionFailure,
   executeLogout,
-  clearAuthErrors ,
+  clearAuthErrors,
   selectRole,
   activeMenuItem,
-  getId
+  getId,
 } = authSlice.actions;
 
 export default authSlice.reducer;

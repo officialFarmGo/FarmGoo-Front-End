@@ -75,6 +75,11 @@
   border-radius: 20rem;
 }
 
+.hero-button-two:hover{
+  color: #007A55;
+  background-color: #e0e0e0;
+}
+
 .hero-button-two {
   background-color: transparent;
   color: aliceblue;

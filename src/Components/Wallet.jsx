@@ -3,7 +3,10 @@ import "../CSS/Wallet.css";
 import { useSelector } from "react-redux";
 
 const Wallet = () => {
+  // Grab the global auth token and user role from Redux state
   const token = useSelector((state) => state.auth.token);
+  // Safely fallback to decoding token if your redux slice doesn't explicitly save the role key
+  const reduxRole = useSelector((state) => state.auth.user?.role || state.auth.role); 
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const [walletData, setWalletData] = useState(null);
@@ -21,23 +24,62 @@ const Wallet = () => {
   const [addLoading, setAddLoading] = useState(false);
   const [addStatus, setAddStatus] = useState(null);
 
+  // Helper function to decode user role directly from JWT payload safely
+  const getUserRole = () => {
+    if (reduxRole) return reduxRole.toLowerCase();
+    if (!token) return "farmer";
+    try {
+      // Decode JWT base64 payload segment locally without extra heavy libraries
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        window.atob(base64)
+          .split('')
+          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      return JSON.parse(jsonPayload).role?.toLowerCase() || "farmer";
+    } catch (e) {
+      console.error("Failed parsing authentication context payload token:", e);
+      return "farmer";
+    }
+  };
+
   useEffect(() => {
     if (!token) return;
+    
     const fetchWallet = async () => {
+      const role = getUserRole();
+      
+      // Dynamically alternate endpoint URL based on role matching your official verified paths
+      const targetEndpoint = 
+        role === "agent" 
+          ? `${BaseUrl}/agentDashboard/agentWallet` 
+          : `${BaseUrl}/farmerDash/farmerWallet`;
+
       try {
-        const res = await fetch(`${BaseUrl}/farmerDash/farmerWallet`, {
-          headers: { Authorization: `Bearer ${token}` },
+        setLoading(true);
+        const res = await fetch(targetEndpoint, {
+          headers: { 
+            accept: "*/*",
+            Authorization: `Bearer ${token}` 
+          },
         });
         const data = await res.json();
-        if (res.ok) setWalletData(data.data);
+        if (res.ok) {
+          setWalletData(data.data);
+        } else {
+          console.error("Wallet lookup error message returned from server:", data.message);
+        }
       } catch (err) {
-        console.error(err);
+        console.error("Network interface connection failure executing wallet sync:", err);
       } finally {
         setLoading(false);
       }
     };
+
     fetchWallet();
-  }, [token]);
+  }, [token, reduxRole, BaseUrl]);
 
   const togglePanel = (panel) => {
     setActivePanel((prev) => (prev === panel ? null : panel));
@@ -110,7 +152,9 @@ const Wallet = () => {
   return (
     <section className="wallet-section">
       <div className="wallet-container">
-        <h1 className="wallet-page-title">Wallet</h1>
+        <h1 className="wallet-page-title">
+          {getUserRole() === "agent" ? "Agent Wallet" : "Farmer Wallet"}
+        </h1>
 
         <div className="balance-card">
           <div className="balance-header">
@@ -172,6 +216,7 @@ const Wallet = () => {
           </div>
         </div>
 
+        {/* Withdrawal Form Section */}
         <div className={`action-dropdown${activePanel === "withdraw" ? " open" : ""}`}>
           <div className="dropdown-inner">
             <h3 className="dropdown-title">Withdraw Funds</h3>
@@ -224,6 +269,7 @@ const Wallet = () => {
           </div>
         </div>
 
+        {/* Top-Up / Deposit Section */}
         <div className={`action-dropdown${activePanel === "add" ? " open" : ""}`}>
           <div className="dropdown-inner">
             <h3 className="dropdown-title">Add Money</h3>
@@ -245,6 +291,7 @@ const Wallet = () => {
           </div>
         </div>
 
+        {/* Bank Account List Display Section */}
         <div className="wallet-dashboard-panel">
           <div className="panel-header-row">
             <h3 className="panel-section-title">Linked Accounts</h3>
@@ -280,6 +327,7 @@ const Wallet = () => {
           )}
         </div>
 
+        {/* Dynamic Transaction Log History Grid */}
         <div className="wallet-dashboard-panel">
           <div className="panel-header-row">
             <h3 className="panel-section-title">Transaction History</h3>

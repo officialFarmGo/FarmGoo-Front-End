@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
-import { LuChevronDown } from 'react-icons/lu'
-import "../CSS/ReportIssue.css"
+import React, { useState } from 'react';
+import { LuChevronDown } from 'react-icons/lu';
+import { useSelector } from 'react-redux';
+import "../CSS/ReportIssue.css";
 
 const ReportIssue = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedType, setSelectedType] = useState('Payment Issue')
-  const [description, setDescription] = useState('')
+  const token = useSelector((state) => state.auth.token);
+  const BaseUrl = import.meta.env.VITE_BaseUrl;
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedType, setSelectedType] = useState('Payment Issue');
+  const [description, setDescription] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState(null);
 
   const issueTypes = [
     'Payment Issue',
@@ -13,16 +19,55 @@ const ReportIssue = () => {
     'Driver Complaint',
     'Technical Issue',
     'Other'
-  ]
+  ];
 
   const handleSelect = (type) => {
-    setSelectedType(type)
-    setIsOpen(false)
-  }
+    setSelectedType(type);
+    setIsOpen(false);
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!description.trim()) {
+      setStatusMessage({ type: "error", text: "Please enter a description before submitting." });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatusMessage(null);
+
+    // Matching your exact API request body structure
+    const payload = {
+      issueType: selectedType,
+      description: description.trim()
+    };
+
+    try {
+      const res = await fetch(`${BaseUrl}/support/createReport`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+          "accept": "*/*"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatusMessage({ type: "success", text: data.message || "Report submitted successfully" });
+        setDescription(''); // Clear textarea input on success
+      } else {
+        throw new Error(data.message || "Failed to submit report. Please try again.");
+      }
+    } catch (err) {
+      console.error("Report Issue Error:", err);
+      setStatusMessage({ type: "error", text: err.message });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="fg-issue-container">
@@ -37,6 +82,7 @@ const ReportIssue = () => {
                 type="button"
                 className="fg-dropdown-trigger"
                 onClick={() => setIsOpen(!isOpen)}
+                disabled={isSubmitting}
               >
                 <span>{selectedType}</span>
                 <LuChevronDown className="fg-dropdown-arrow" />
@@ -62,19 +108,38 @@ const ReportIssue = () => {
             <label className="fg-input-label">Description</label>
             <textarea
               className="fg-textarea"
-              placeholder="Describe the issue..."
+              placeholder="Describe the issue in detail..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              disabled={isSubmitting}
+              required
             />
           </div>
 
-          <button type="submit" className="fg-submit-btn">
-            Submit Report
+          {statusMessage && (
+            <div className={`fg-status-message ${statusMessage.type}`}>
+              {statusMessage.text}
+            </div>
+          )}
+
+          <button 
+            type="submit" 
+            className="fg-submit-btn" 
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <div className="fg-submit-spinner-container">
+                <div className="fg-submit-spinner"></div>
+                <span>Submitting...</span>
+              </div>
+            ) : (
+              "Submit Report"
+            )}
           </button>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ReportIssue
+export default ReportIssue;

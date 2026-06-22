@@ -198,6 +198,7 @@ const SignPage = () => {
                     value={formData.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                     placeholder="John"
                     disabled={loading}
                     className={`fg-native-text-input ${errors.firstName ? "fg-input-error" : ""}`}
                   />
@@ -212,6 +213,7 @@ const SignPage = () => {
                     value={formData.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                     placeholder="Doe"
                     disabled={loading}
                     className={`fg-native-text-input ${errors.lastName ? "fg-input-error" : ""}`}
                   />
@@ -234,7 +236,7 @@ const SignPage = () => {
                 </div>
 
                 <div className="fg-input-group-field">
-                  <label className="fg-input-label-tag">Email (optional)</label>
+                  <label className="fg-input-label-tag">Email </label>
                   <input
                     type="email"
                     name="email"
