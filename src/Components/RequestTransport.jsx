@@ -382,7 +382,7 @@ const RequestTransport = ({ onClose }) => {
                   <option value="">Select vehicle type</option>
                   {vehicles.map((v) => (
                     <option key={v._id} value={v._id}>
-                      {v.vehicleType} — Base: ₦{Number(v.baseFare).toLocaleString()} • ₦{v.ratePerKm}/km
+                      {v.vehicleType}
                     </option>
                   ))}
                 </select>
@@ -393,15 +393,16 @@ const RequestTransport = ({ onClose }) => {
             {/* Price Summary */}
             <div className="rt-card rt-price-card">
               <div className="rt-card-header">
-                <h2>Price Estimate</h2>
-                {estimating && <LoadingOutlined spin style={{ color: "#16A34A", fontSize: 16 }} />}
+                <h2>Estimated Price</h2>
+                {/* {estimating && <LoadingOutlined spin style={{ color: "#16A34A", fontSize: 16 }} />} */}
+                <p className="rt-price-value">₦{Number(estimate.deliveryFare).toLocaleString()}</p>
               </div>
 
               {estimate ? (
                 <>
                   <div className="rt-price-row">
                     <span>Delivery Fare</span>
-                    <p className="rt-price-value">₦{Number(estimate.deliveryFare).toLocaleString()}</p>
+                    
                   </div>
                   <div className="rt-price-row">
                     <span>Service Fee</span>

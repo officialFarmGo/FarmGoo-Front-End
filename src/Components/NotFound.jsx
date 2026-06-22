@@ -18,7 +18,7 @@ const NotFound = () => {
     if (role && DASHBOARD_ROUTES[role]) {
       nav(DASHBOARD_ROUTES[role]);
     } else {
-      nav("/");
+      nav("-1");
     }
   };
 

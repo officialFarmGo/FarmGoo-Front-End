@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../CSS/Loginpage.css";
 import { LuMoveLeft } from "react-icons/lu";
-import { FaSeedling, FaTruck, FaUsers } from "react-icons/fa";
+import { FaSeedling, FaTruck, FaUsers, FaTimesCircle } from "react-icons/fa";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -12,6 +12,10 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Custom Error Modal State
+  const [modalError, setModalError] = useState(null);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -70,6 +74,56 @@ const LoginPage = () => {
     return newErrors;
   };
 
+  // Dedicated validation function to verify KYC status
+  const checkProfileVerification = async (token, role) => {
+    let profileEndpoint = "";
+    if (role === "farmer") profileEndpoint = "/farmerDash/getOneFarmer";
+    else if (role === "driver") profileEndpoint = "/driverDash/getOneDriver";
+    else if (role === "agent") profileEndpoint = "/agentDashboard/getOneAgent";
+
+    const response = await fetch(`${BaseUrl}${profileEndpoint}`, {
+      method: "GET",
+      headers: {
+        accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        "Could not retrieve profile security records. Please try again.",
+      );
+    }
+
+    const result = await response.json();
+    // Dynamically look up data object keys returned by the backend
+    const profile = result.data;
+
+    if (!profile) {
+      throw new Error("Profile record data payload missing.");
+    }
+
+    // 1. Core OTP Account Activation Check
+    if (profile.isVerified === false) {
+      navigate("/otp");
+      return false;
+    }
+
+    // 2. Comprehensive KYC Pipeline Redirection Guards
+    if (profile.kycVerified === false) {
+      if (role === "farmer") {
+        navigate(`/farmer_kyc/${profile._id}`);
+      } else if (role === "driver") {
+        navigate(`/driver_kyc/${profile._id}`);
+      } else if (role === "agent") {
+        navigate(`/agent_kyc/${profile._id}`);
+      }
+      return false;
+    }
+
+    return profile;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
@@ -85,13 +139,14 @@ const LoginPage = () => {
     }
 
     setLoading(true);
+    setModalError(null);
 
     const endpoint =
       activeRole === "farmer"
         ? "/farm/farmLog"
         : activeRole === "driver"
-        ? "/driver/driversLogin"
-        : "/agent/agentLogin";
+          ? "/driver/driversLogin"
+          : "/agent/agentLogin";
 
     const cleanIdentifier = formData.identifier.includes("@")
       ? formData.identifier.trim()
@@ -110,28 +165,39 @@ const LoginPage = () => {
       });
 
       const data = await response.json();
-      console.log("LOGIN RESPONSE:", data);
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
 
-        dispatch(authActionSuccess({
-          user: data.user || data.driver || data.farmer || data.agent || null,
-          token: data.token,
-        }));
+        // Run verification workflow before routing to core dashboards
+        const verifiedProfile = await checkProfileVerification(
+          data.token,
+          activeRole,
+        );
 
-        if (activeRole === "farmer") {
-          navigate("/farmer/dashboard");
-        } else if (activeRole === "driver") {
-          navigate("/drivers/dashboard");
-        } else if (activeRole === "agent") {
-          navigate("/agent/dashboard");
+        if (verifiedProfile) {
+          dispatch(
+            authActionSuccess({
+              user: verifiedProfile,
+              token: data.token,
+            }),
+          );
+
+          if (activeRole === "farmer") {
+            navigate("/farmer/dashboard");
+          } else if (activeRole === "driver") {
+            navigate("/drivers/dashboard");
+          } else if (activeRole === "agent") {
+            navigate("/agent/dashboard");
+          }
         }
       } else {
-        setErrors((prev) => ({ ...prev, form: data.message || "Login failed. Please check your credentials." }));
+        setModalError(
+          data.message || "Login failed. Please check your credentials.",
+        );
       }
     } catch (err) {
-      setErrors((prev) => ({ ...prev, form: "Network error. Please try again later." }));
+      setModalError(err.message || "Network error. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -139,6 +205,80 @@ const LoginPage = () => {
 
   return (
     <div className="fg-login-wrapper">
+      {/* Pop-Up Error Modal Window */}
+      {modalError && (
+        <div
+          className="fg-global-modal-overlay"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            zIndex: 9999,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            className="fg-error-modal-card"
+            style={{
+              backgroundColor: "#ffffff",
+              padding: "24px",
+              borderRadius: "12px",
+              maxWidth: "400px",
+              width: "90%",
+              textAlign: "center",
+              boxShadow: "0 20px 25px -5px rgba(0,0,0,0.1)",
+            }}
+          >
+            <FaTimesCircle
+              style={{
+                color: "#ef4444",
+                fontSize: "48px",
+                marginBottom: "16px",
+              }}
+            />
+            <h3
+              style={{
+                margin: "0 0 8px 0",
+                fontSize: "20px",
+                color: "#111827",
+              }}
+            >
+              Authentication Alert
+            </h3>
+            <p
+              style={{
+                margin: "0 0 20px 0",
+                color: "#4b5563",
+                fontSize: "14px",
+                lineHeight: "1.5",
+              }}
+            >
+              {modalError}
+            </p>
+            <button
+              onClick={() => setModalError(null)}
+              style={{
+                backgroundColor: "#111827",
+                color: "#ffffff",
+                border: "none",
+                padding: "10px 24px",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontWeight: "500",
+                width: "100%",
+              }}
+            >
+              Acknowledge
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="fg-login-split-content">
         <aside className="fg-login-sidebar">
           <img
@@ -150,7 +290,7 @@ const LoginPage = () => {
             <div className="fg-action-row">
               <button
                 className="fg-back-circle-btn"
-                onClick={() => navigate('/')}
+                onClick={() => navigate("/")}
                 aria-label="Go back"
                 disabled={loading}
               >
@@ -163,9 +303,8 @@ const LoginPage = () => {
                 Welcome back to the harvest network.
               </h1>
               <p className="fg-main-hero-subtitle">
-                Access your dashboard to manage deliveries,
-                track shipments, and connect with farmers
-                and drivers across Nigeria.
+                Access your dashboard to manage deliveries, track shipments, and
+                connect with farmers and drivers across Nigeria.
               </p>
             </div>
 
@@ -233,12 +372,6 @@ const LoginPage = () => {
                 onSubmit={handleSubmit}
                 noValidate
               >
-                {errors.form && (
-                  <div className="fg-field-error-msg" style={{ marginBottom: "16px", textAlign: "center" }}>
-                    {errors.form}
-                  </div>
-                )}
-
                 <div className="fg-input-group-field">
                   <label className="fg-input-label-tag">Email or phone</label>
                   <input
@@ -276,19 +409,31 @@ const LoginPage = () => {
                       className="fg-native-input-eye-trigger"
                       onClick={() => setShowPassword(!showPassword)}
                       disabled={loading}
-                      aria-label={showPassword ? "Hide password" : "Show password"}
+                      aria-label={
+                        showPassword ? "Hide password" : "Show password"
+                      }
                     >
-                      {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                      {showPassword ? (
+                        <AiOutlineEyeInvisible />
+                      ) : (
+                        <AiOutlineEye />
+                      )}
                     </button>
                   </div>
                   {errors.password && (
-                    <span className="fg-field-error-msg">{errors.password}</span>
+                    <span className="fg-field-error-msg">
+                      {errors.password}
+                    </span>
                   )}
                 </div>
 
                 <div className="fg-form-options-alignment-row">
                   <label className="fg-checkbox-interactive-label">
-                    <input type="checkbox" className="fg-checkbox-element" disabled={loading} />
+                    <input
+                      type="checkbox"
+                      className="fg-checkbox-element"
+                      disabled={loading}
+                    />
                     <span className="fg-checkbox-custom-text">Remember me</span>
                   </label>
                   <button
@@ -302,7 +447,11 @@ const LoginPage = () => {
                 </div>
 
                 <div className="fg-form-actions-submission-block">
-                  <button type="submit" className="fg-primary-submit-action-btn" disabled={loading}>
+                  <button
+                    type="submit"
+                    className="fg-primary-submit-action-btn"
+                    disabled={loading}
+                  >
                     {loading ? "Logging in..." : "Log in"}
                   </button>
                   <p className="fg-alternative-routing-text">

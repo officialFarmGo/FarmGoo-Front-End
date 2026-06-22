@@ -14,7 +14,7 @@ const TrackDelivery = () => {
         <button className="fg-track-back-btn">Back to Dashboard</button>
       </div>
 
-      <div className="fg-track-status-card">
+      {/* <div className="fg-track-status-card">
         <div className="fg-track-card-top">
           <div className="fg-track-status-info">
             <div className="fg-track-icon-circle">
@@ -34,7 +34,7 @@ const TrackDelivery = () => {
         <div className="fg-progress-bar-container">
           <div className="fg-progress-bar-fill" style={{ width: "60%" }}></div>
         </div>
-      </div>
+      </div> */}
 
     </div>
   );

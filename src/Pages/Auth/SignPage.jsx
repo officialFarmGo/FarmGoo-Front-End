@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import "../../CSS/SignPage.css";
 import { LuMoveLeft } from "react-icons/lu";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { FiXCircle, FiX } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getId } from "../../LIB/AuthenticationSlice";
-import { useDispatch } from "react-redux";
 
 const SignPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const selectRole = useSelector((state) => state.auth.selectedRole);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showPopupError, setShowPopupError] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -126,13 +127,20 @@ const SignPage = () => {
     return newErrors;
   };
 
+  const triggerErrorPopup = (message) => {
+    setErrors((prev) => ({ ...prev, form: message }));
+    setShowPopupError(true);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true);
+    setShowPopupError(false);
 
     const validationErrors = validateAll();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      triggerErrorPopup("Registration failed. Please review the highlighted errors on the form fields.");
       const firstErrorField = document.querySelector(".fg-input-error");
       if (firstErrorField) {
         firstErrorField.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -169,16 +177,10 @@ const SignPage = () => {
           },
         });
       } else {
-        setErrors((prev) => ({
-          ...prev,
-          form: data.message || "Signup failed",
-        }));
+        triggerErrorPopup(data.message || "An account credential mismatch occurred. Please modify your entries.");
       }
     } catch (err) {
-      setErrors((prev) => ({
-        ...prev,
-        form: "Network error, please try again.",
-      }));
+      triggerErrorPopup("Network pipeline error. Unable to link with FarmGoo registry core. Check your connectivity status.");
     } finally {
       setLoading(false);
     }
@@ -188,6 +190,96 @@ const SignPage = () => {
 
   return (
     <div className="fg-login-wrapper">
+      {/* SCOPED INLINE POPUP STYLES */}
+      <style>{`
+        .fg-error-popup-banner {
+          position: fixed;
+          top: 24px;
+          right: 24px;
+          background-color: #ffffff;
+          border-left: 5px solid #ef4444;
+          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+          border-radius: 8px;
+          padding: 16px 20px;
+          z-index: 10000;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          max-width: 420px;
+          width: calc(100% - 48px);
+          animation: fgPopupSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          font-family: sans-serif;
+        }
+        .fg-error-popup-icon {
+          color: #ef4444;
+          font-size: 24px;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+        }
+        .fg-error-popup-body {
+          flex-grow: 1;
+        }
+        .fg-error-popup-title {
+          margin: 0 0 3px 0;
+          font-size: 15px;
+          font-weight: 700;
+          color: #111827;
+        }
+        .fg-error-popup-desc {
+          margin: 0;
+          font-size: 13px;
+          color: #4b5563;
+          line-height: 1.4;
+        }
+        .fg-error-popup-close {
+          background: none;
+          border: none;
+          color: #9ca3af;
+          cursor: pointer;
+          padding: 4px;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          border-radius: 4px;
+          transition: background-color 0.15s ease;
+        }
+        .fg-error-popup-close:hover {
+          background-color: #f3f4f6;
+          color: #4b5563;
+        }
+        @keyframes fgPopupSlideIn {
+          from {
+            transform: translateY(-20px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+      `}</style>
+
+      {/* FLOATING POPUP COMPONENT */}
+      {showPopupError && (
+        <div className="fg-error-popup-banner">
+          <div className="fg-error-popup-icon">
+            <FiXCircle />
+          </div>
+          <div className="fg-error-popup-body">
+            <h4 className="fg-error-popup-title">Submission Issue</h4>
+            <p className="fg-error-popup-desc">{errors.form}</p>
+          </div>
+          <button 
+            type="button" 
+            className="fg-error-popup-close"
+            onClick={() => setShowPopupError(false)}
+          >
+            <FiX size={16} />
+          </button>
+        </div>
+      )}
+
       <div className="fg-login-split-content">
         <aside className="fg-login-sidebar">
           <img
@@ -262,15 +354,6 @@ const SignPage = () => {
                 onSubmit={handleSubmit}
                 noValidate
               >
-                {errors.form && (
-                  <div
-                    className="fg-field-error-msg"
-                    style={{ marginBottom: "12px", textAlign: "center" }}
-                  >
-                    {errors.form}
-                  </div>
-                )}
-
                 <div className="fg-input-group-field">
                   <label className="fg-input-label-tag">
                     First Name <span className="fg-required-star">*</span>
