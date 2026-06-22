@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../CSS/Notification.css";
 import { useSelector } from "react-redux";
 
+// Helper function to return icons based on notification type
 const getIconByType = (type) => {
   if (type === "payment") {
     return (
@@ -30,6 +31,7 @@ const getIconByType = (type) => {
   );
 };
 
+// Helper function to format timestamp relative text
 const timeAgo = (iso) => {
   const diff = Math.floor((Date.now() - new Date(iso)) / 1000);
   if (diff < 60) return "just now";
@@ -40,6 +42,7 @@ const timeAgo = (iso) => {
 
 const Notification = () => {
   const token = useSelector((state) => state.auth.token);
+  const reduxRole = useSelector((state) => state.auth.user?.role || state.auth.role);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const [notifications, setNotifications] = useState([]);
@@ -47,19 +50,40 @@ const Notification = () => {
   const [loading, setLoading] = useState(true);
   const [markingAll, setMarkingAll] = useState(false);
 
-  const fetchNotifications = async () => {
+  const getUserRole = () => {
+    if (reduxRole) return reduxRole.toLowerCase();
+    if (!token) return "farmer";
     try {
-      const res = await fetch(`${BaseUrl}/notifications/farmerNotification`, {
-        headers: { Authorization: `Bearer ${token}` },
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        window.atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+      );
+      return JSON.parse(jsonPayload).role?.toLowerCase() || "farmer";
+    } catch (e) {
+      return "farmer";
+    }
+  };
+
+  const fetchNotifications = async () => {
+    const role = getUserRole();
+    const targetEndpoint = role === "agent"
+        ? `${BaseUrl}/notifications/agentNotification`
+        : `${BaseUrl}/notifications/farmerNotification`;
+
+    try {
+      setLoading(true);
+      const res = await fetch(targetEndpoint, {
+        headers: { accept: "*/*", Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-      if (res.ok) {
-        setNotifications(data.data.notifications);
-        setUnreadCount(data.data.unreadCount);
+      if (res.ok && data.data) {
+        setNotifications(data.data.notifications || []);
+        setUnreadCount(data.data.unreadCount || 0);
       }
     } catch (err) {
       console.error(err);
-    } finally {
+    } {
       setLoading(false);
     }
   };
@@ -67,23 +91,46 @@ const Notification = () => {
   useEffect(() => {
     if (!token) return;
     fetchNotifications();
-  }, [token]);
+  }, [token, reduxRole, BaseUrl]);
 
   const handleMarkAllRead = async () => {
+    const previousNotifications = [...notifications];
+    const previousUnreadCount = unreadCount;
+
+    // Instant Frontend Update
+    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
+    setUnreadCount(0);
     setMarkingAll(true);
+
     try {
       const res = await fetch(`${BaseUrl}/notifications/markAllRead`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (res.ok) {
-        setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
-        setUnreadCount(0);
-      }
+      
+      if (!res.ok) throw new Error("Server failed to mark all as read");
     } catch (err) {
-      console.error(err);
+      console.error("Backend failed, rolling back frontend state:", err);
+      setNotifications(previousNotifications);
+      setUnreadCount(previousUnreadCount);
     } finally {
       setMarkingAll(false);
+    }
+  };
+
+  const handleSingleMarkRead = async (notificationId, currentlyRead) => {
+    if (currentlyRead) return;
+
+    // Instant Frontend Update for single click
+    setNotifications((prev) =>
+      prev.map((n) => (n._id === notificationId ? { ...n, isRead: true } : n))
+    );
+    setUnreadCount((prev) => Math.max(0, prev - 1));
+
+    try {
+      // Optional: Add backend endpoint link here if your API supports tracking single item read states
+    } catch (err) {
+      console.error("Failed to sync single notification status to database", err);
     }
   };
 
@@ -131,6 +178,8 @@ const Notification = () => {
               <div
                 key={notif._id}
                 className={`notification-item${!notif.isRead ? " unread-item" : ""}`}
+                onClick={() => handleSingleMarkRead(notif._id, notif.isRead)}
+                style={{ cursor: !notif.isRead ? "pointer" : "default" }}
               >
                 <div className="notif-left-block">
                   <div className={`notif-badge badge-${notif.type}`}>

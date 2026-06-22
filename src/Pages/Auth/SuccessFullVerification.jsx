@@ -32,7 +32,7 @@ const SuccessFullVerification = () => {
           navigate("/login");
         }
       } else if (finalRole === "agent") {
-        navigate("/agent/dashboard");
+        navigate(`/agent_kyc/${dynamicId}`);
       } else {
         navigate("/");
       }

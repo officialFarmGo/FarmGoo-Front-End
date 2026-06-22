@@ -1,0 +1,460 @@
+/* ==========================================================================
+   Base Structure & Layout
+   ========================================================================== */
+.fg-track-page-wrapper {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: #fafafa;
+}
+
+/* Header & Breadcrumb Navigation */
+.fg-track-breadcrumb-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.fg-track-title-stack .fg-track-main-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 4px 0;
+}
+
+.fg-track-title-stack .fg-track-order-id {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.fg-track-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fg-track-back-btn:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+/* ==========================================================================
+   Progress & Tracking Section
+   ========================================================================== */
+.fg-track-progress-card {
+  background-color: #edf4ff;
+  border: 1px solid #d0e2ff;
+  border-radius: 12px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 20px;
+}
+
+.fg-track-progress-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.fg-track-status-icon-circle {
+  width: 48px;
+  height: 48px;
+  background-color: #2563eb;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fg-track-eta-stack .fg-track-status-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin: 0 0 4px 0;
+}
+
+.fg-track-eta-stack .fg-track-eta-sub {
+  font-size: 14px;
+  color: #4b5563;
+  margin: 0;
+}
+
+.fg-track-percentage-display-block {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.fg-track-pct-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2563eb;
+  line-height: 1;
+}
+
+.fg-track-pct-lbl {
+  font-size: 12px;
+  color: #4b5563;
+  margin-top: 2px;
+}
+
+/* Progress Rail Fill Details */
+.fg-track-bar-rail {
+  grid-column: span 2;
+  height: 8px;
+  background-color: #d0e2ff;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.fg-track-bar-fill {
+  height: 100%;
+  background-color: #2563eb;
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Weather Update Box Banner
+   ========================================================================== */
+.fg-track-weather-alert-banner {
+  display: flex;
+  gap: 16px;
+  background-color: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  border-top: 1px solid #fef3c7;
+  border-right: 1px solid #fef3c7;
+  border-bottom: 1px solid #fef3c7;
+  border-radius: 4px 8px 8px 4px;
+  padding: 16px;
+}
+
+.fg-track-weather-icon-side {
+  color: #d97706;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+}
+
+.fg-track-weather-text-side h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #78350f;
+  margin: 0 0 4px 0;
+}
+
+.fg-track-weather-text-side p {
+  font-size: 13px;
+  color: #92400e;
+  margin: 0;
+}
+
+/* ==========================================================================
+   3 Column Details Grid Splitter
+   ========================================================================== */
+.fg-track-details-row-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.fg-track-info-panel-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fg-panel-inner-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px 0;
+}
+
+/* User Card Items Rows */
+.fg-track-user-profile-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.fg-track-avatar-initials {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.green-initials {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+
+.blue-initials {
+  background-color: #e8f0fe;
+  color: #1a73e8;
+}
+
+.fg-track-user-meta h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 6px 0;
+}
+
+.fg-track-user-meta .fg-meta-subtext {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* PIN Verification Dashboard Controls */
+.fg-pin-panel {
+  justify-content: space-between;
+}
+
+.fg-pin-instructions-p {
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+
+.fg-pin-boxes-container {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.fg-pin-digit-box {
+  flex: 1;
+  aspect-ratio: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  background-color: #ffffff;
+}
+
+.fg-pin-divider-line {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 0 0 16px 0;
+}
+
+.fg-manual-confirm-prompt {
+  font-size: 12px;
+  color: #6b7280;
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+.fg-manual-confirm-action-btn {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fg-manual-confirm-action-btn:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* ==========================================================================
+   Footer Base Cargo Specifications Card
+   ========================================================================== */
+.fg-track-footer-details-panel {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.fg-track-footer-details-panel .fg-panel-inner-title {
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.fg-footer-data-field {
+  margin-bottom: 16px;
+}
+
+.fg-footer-data-field:last-child {
+  margin-bottom: 0;
+}
+
+.fg-footer-data-field label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9ca3af;
+  margin-bottom: 4px;
+}
+
+.fg-bold-field-data {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.fg-iconic-field-data {
+  font-size: 15px;
+  color: #374151;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fg-iconic-field-data .loc-grn { color: #10b981; }
+.fg-iconic-field-data .loc-red { color: #ef4444; }
+
+.fg-escrow-status-badge {
+  display: inline-block;
+  background-color: #eff6ff;
+  color: #1e40af;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-top: 2px;
+}
+
+/* State Handlers Loading states styling */
+.fg-track-loading, .fg-track-error {
+  padding: 60px 24px;
+  text-align: center;
+  font-size: 16px;
+  color: #6b7280;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  margin: 24px;
+}
+.fg-track-error { color: #dc2626; }
+
+
+/* ==========================================================================
+   MANDATORY RESPONSIVE DESIGN - MEDIA QUERIES
+   ========================================================================== */
+
+/* Tablet & Smaller Desktops Breakdown (Max-width: 1024px) */
+@media (max-width: 1024px) {
+  .fg-track-details-row-grid {
+    grid-template-columns: repeat(2, 1fr); /* Splits into 2 items per row */
+  }
+  
+  .fg-pin-panel {
+    grid-column: span 2; /* Forces the PIN card to take up full baseline row space below */
+  }
+
+  .fg-pin-boxes-container {
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  .fg-pin-digit-box {
+    flex: none;
+    width: 64px;
+  }
+}
+
+/* Mobile Devices Breakpoint Layout (Max-width: 768px) */
+@media (max-width: 768px) {
+  .fg-track-page-wrapper {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .fg-track-breadcrumb-row {
+    flex-direction: column-reverse; /* Places back action layout on top cleanly */
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .fg-track-back-btn {
+    justify-content: center;
+  }
+
+  .fg-track-title-stack .fg-track-main-title {
+    font-size: 24px;
+  }
+
+  .fg-track-progress-card {
+    grid-template-columns: 1fr; /* Drops into single stream stacked block */
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .fg-track-percentage-display-block {
+    text-align: left;
+  }
+
+  .fg-track-bar-rail {
+    grid-column: span 1;
+  }
+
+  .fg-track-details-row-grid {
+    grid-template-columns: 1fr; /* Complete fallback list cascade stack */
+    gap: 16px;
+  }
+
+  .fg-pin-panel {
+    grid-column: span 1;
+  }
+
+  .fg-pin-boxes-container {
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .fg-pin-digit-box {
+    flex: 1;
+    width: auto;
+  }
+  
+  .fg-track-footer-details-panel {
+    padding: 16px;
+  }
+}

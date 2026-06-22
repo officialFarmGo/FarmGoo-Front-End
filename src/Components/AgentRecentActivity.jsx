@@ -1,57 +1,67 @@
 import React from "react";
 import { 
-  CarOutlined, 
-  UsergroupAddOutlined 
+  UserAddOutlined, 
+  FileTextOutlined, 
+  CheckCircleOutlined, 
+  ClockCircleOutlined 
 } from "@ant-design/icons";
 import "../CSS/AgentRecentActivity.css";
 
-const AgentRecentActivity = () => {
-  const activities = [
-    {
-      id: 1,
-      title: "Delivery Completed",
-      subtitle: "Tomatoes - Jos to Lagos",
-      time: "2 hours ago",
-      icon: <CarOutlined style={{ fontSize: "18px", color: "#16a34a" }} />,
-      iconClass: "fg-activity-icon-car"
-    },
-    {
-      id: 2,
-      title: "New Farmer Added",
-      subtitle: "Chukwu Farms",
-      time: "5 hours ago",
-      icon: <UsergroupAddOutlined style={{ fontSize: "18px", color: "#2563eb" }} />,
-      iconClass: "fg-activity-icon-user"
-    },
-    {
-      id: 3,
-      title: "Transport Request Created",
-      subtitle: "Cassava - Ogun to Lagos",
-      time: "1 day ago",
-      icon: <UsergroupAddOutlined style={{ fontSize: "18px", color: "#2563eb" }} />,
-      iconClass: "fg-activity-icon-user"
+const AgentRecentActivity = ({ activities }) => {
+  // Helper function to return the correct icon based on your backend "type"
+  const getActivityIcon = (type) => {
+    switch (type) {
+      case "New Farmer Added":
+        return <UserAddOutlined style={{ color: "#15803d" }} />;
+      case "Transport Request Created":
+        return <FileTextOutlined style={{ color: "#2563eb" }} />;
+      case "Delivery Completed":
+        return <CheckCircleOutlined style={{ color: "#16a34a" }} />;
+      default:
+        return <ClockCircleOutlined style={{ color: "#4b5563" }} />;
     }
-  ];
+  };
+
+  // Helper function to format the ISO timestamp cleanly
+  const formatActivityDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
   return (
     <div className="fg-recent-activity-container">
       <h3 className="fg-recent-activity-heading">Recent Activity</h3>
-      <div className="fg-recent-activity-card">
-        {activities.map((activity, index) => (
-          <div key={activity.id} className="fg-activity-item-wrapper">
-            <div className="fg-activity-item">
-              <div className={`fg-activity-icon-box ${activity.iconClass}`}>
-                {activity.icon}
+      
+      <div className="fg-activity-list">
+        {!activities || activities.length === 0 ? (
+          <p className="fg-empty-activity">No recent activity logs available.</p>
+        ) : (
+          activities.map((activity, index) => (
+            <div key={activity._id || index} className="fg-activity-item">
+              {/* Left Side: Icon circle wrapper */}
+              <div className="fg-activity-icon-wrapper">
+                {getActivityIcon(activity.type)}
               </div>
-              <div className="fg-activity-details">
-                <span className="fg-activity-title">{activity.title}</span>
-                <span className="fg-activity-subtitle">{activity.subtitle}</span>
-                <span className="fg-activity-time">{activity.time}</span>
+
+              {/* Right Side: Content info blocks mapping your exact API keys */}
+              <div className="fg-activity-content">
+                <div className="fg-activity-text-row">
+                  <span className="fg-activity-type">{activity.type} </span>
+                  <span className="fg-activity-title">{activity.title} </span>
+                </div>
+                <span className="fg-activity-time">
+                  {formatActivityDate(activity.date)}
+                </span>
               </div>
             </div>
-            {index < activities.length - 1 && <hr className="fg-activity-divider" />}
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );
