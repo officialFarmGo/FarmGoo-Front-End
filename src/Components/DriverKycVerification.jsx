@@ -7,6 +7,7 @@ import {
   FiFileText,
   FiCamera,
   FiAlertTriangle,
+  FiXCircle,
 } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 import { authToken } from "../LIB/AuthenticationSlice";
@@ -16,11 +17,16 @@ const DriverKycVerification = () => {
   const navigate = useNavigate();
   const { driverId } = useParams();
   const auth = useSelector((state) => state.auth || {});
+  const user = auth.user || {};
   const dispatch = useDispatch();
 
   const [vehicleType, setVehicleType] = useState("");
   const [vehicleOptions, setVehicleOptions] = useState([]);
+  
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [apiError, setApiError] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState(""); // Track upload phase text
+  
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState({
     driversLicense: null,
@@ -60,45 +66,115 @@ const DriverKycVerification = () => {
 
   const currentProgress = calculateProgress();
 
+  // Helper function to compress high-res mobile photos using canvas element before uploading
+  const compressImageFile = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+
+          // Cap max dimension to 1200px to maintain crisp layout detail while lowering weight
+          const MAX_WIDTH = 1200;
+          const MAX_HEIGHT = 1200;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Convert canvas buffer to Blob (0.7 means 70% JPEG quality)
+          ctx.canvas.toBlob((blob) => {
+            const compressedFile = new File([blob], file.name, {
+              type: "image/jpeg",
+              lastModified: Date.now()
+            });
+            resolve(compressedFile);
+          }, "image/jpeg", 0.7);
+        };
+      };
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setApiError(null);
 
     if (currentProgress < 100) {
       setShowErrorModal(true);
       return;
     }
 
-    const formData = new FormData();
-    formData.append("driversLicense", files.driversLicense);
-    formData.append("vehiclePhoto", files.vehiclePhoto);
-    formData.append("VehiclePapers", files.vehiclePapers);
-    formData.append("vehicleType", vehicleType);
+    const activeDriverId = 
+      driverId && driverId !== "undefined" 
+        ? driverId 
+        : (user._id || user.id);
+
+    if (!activeDriverId) {
+      setApiError("Authentication session expired. Could not identify your profile reference. Please log in again.");
+      return;
+    }
 
     setLoading(true);
+    setUploadStatus("Optimizing document files...");
 
     try {
+      // Compress files sequentially in memory to keep payload light
+      const compressedLicense = await compressImageFile(files.driversLicense);
+      const compressedPhoto = await compressImageFile(files.vehiclePhoto);
+      const compressedPapers = await compressImageFile(files.vehiclePapers);
+
+      setUploadStatus("Uploading documents to FarmGoo networks...");
+
+      const formData = new FormData();
+      formData.append("driversLicense", compressedLicense);
+      formData.append("vehiclePhoto", compressedPhoto);
+      formData.append("VehiclePapers", compressedPapers);
+      formData.append("vehicleType", vehicleType);
+
       const response = await axios.post(
-        `${import.meta.env.VITE_BaseUrl}/driverKyc/createKyc/${driverId}`,
+        `${import.meta.env.VITE_BaseUrl}/driverKyc/createKyc/${activeDriverId}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
+          timeout: 120000, // Manually sets Axios request network timeout configuration limit to 2 full minutes
         }
       );
 
       dispatch(authToken(response.data.token));
       navigate("/driverpending");
     } catch (error) {
-      if (error.response) {
-        // Server replied with an error status
-        alert(`Server Error: ${error.response.data?.message || error.response.statusText}`);
+      console.error("KYC Submission error context:", error);
+      
+      if (error.code === "ECONNABORTED" || error.message.includes("timeout")) {
+        setApiError("The upload timed out due to network congestion. Your image sizes were too large or your internet connection slowed down. Please try again.");
+      } else if (error.response) {
+        setApiError(error.response.data?.message || `Server responded with status code: ${error.response.status}`);
       } else if (error.request) {
-        // Request sent but no response received
-        alert("No response from server. Check your internet connection and try again.");
+        setApiError("Network timeout. Unable to establish stable pipeline with the server arrays. Try checking your internet upload speed.");
       } else {
-        alert(`Error: ${error.message}`);
+        setApiError(error.message);
       }
     } finally {
       setLoading(false);
+      setUploadStatus("");
     }
   };
 
@@ -160,6 +236,7 @@ const DriverKycVerification = () => {
                 <input
                   type="file"
                   accept="image/*"
+                  disabled={loading}
                   className="fg-kyc-hidden-input"
                   onChange={(e) => handleFileChange("driversLicense", e)}
                 />
@@ -184,6 +261,7 @@ const DriverKycVerification = () => {
                 <input
                   type="file"
                   accept="image/*"
+                  disabled={loading}
                   className="fg-kyc-hidden-input"
                   onChange={(e) => handleFileChange("vehiclePhoto", e)}
                 />
@@ -210,6 +288,7 @@ const DriverKycVerification = () => {
                 <input
                   type="file"
                   accept="image/*"
+                  disabled={loading}
                   className="fg-kyc-hidden-input"
                   onChange={(e) => handleFileChange("vehiclePapers", e)}
                 />
@@ -222,6 +301,7 @@ const DriverKycVerification = () => {
             <div className="fg-kyc-select-wrapper">
               <select
                 value={vehicleType}
+                disabled={loading}
                 onChange={(e) => setVehicleType(e.target.value)}
                 className="fg-kyc-native-select"
               >
@@ -250,12 +330,13 @@ const DriverKycVerification = () => {
                 opacity: loading ? 0.7 : 1,
               }}
             >
-              {loading ? "Submitting Verification..." : "Submit for Verification"}
+              {loading ? uploadStatus : "Submit for Verification"}
             </button>
           </div>
         </form>
       </div>
 
+      {/* FORM VALIDATION TRACKING ERROR MODAL */}
       {showErrorModal && (
         <div className="fg-modal-overlay">
           <div className="fg-modal-box">
@@ -272,6 +353,58 @@ const DriverKycVerification = () => {
               onClick={() => setShowErrorModal(false)}
             >
               Return to Form
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* API/TIMEOUT ERROR WINDOW MODAL */}
+      {apiError && (
+        <div className="fg-modal-overlay" style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          zIndex: 9999,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          <div className="fg-modal-box" style={{
+            backgroundColor: "#ffffff",
+            padding: "24px",
+            borderRadius: "12px",
+            maxWidth: "400px",
+            width: "90%",
+            textAlign: "center",
+            boxShadow: "0 20px 25px -5px rgba(0,0,0,0.1)"
+          }}>
+            <div style={{ color: "#ef4444", fontSize: "44px", marginBottom: "12px", display: "flex", justifyContent: "center" }}>
+              <FiXCircle />
+            </div>
+            <h2 className="fg-modal-title" style={{ margin: "0 0 8px 0", fontSize: "20px", color: "#111827", fontWeight: "600" }}>
+              Submission Error
+            </h2>
+            <p className="fg-modal-text" style={{ margin: "0 0 20px 0", color: "#4b5563", fontSize: "14px", lineHeight: "1.5" }}>
+              {apiError}
+            </p>
+            <button
+              className="fg-modal-close-btn"
+              onClick={() => setApiError(null)}
+              style={{
+                backgroundColor: "#111827",
+                color: "#ffffff",
+                border: "none",
+                padding: "10px 24px",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontWeight: "500",
+                width: "100%"
+              }}
+            >
+              Dismiss
             </button>
           </div>
         </div>

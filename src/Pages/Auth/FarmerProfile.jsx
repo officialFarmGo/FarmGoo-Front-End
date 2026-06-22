@@ -6,6 +6,7 @@ import {
   FaChevronDown,
   FaMapMarkerAlt,
   FaUser,
+  FaTimesCircle,
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import "../../CSS/FarmerProfile.css";
@@ -24,6 +25,10 @@ const FarmerProfile = () => {
 
   const [selectedProduce, setSelectedProduce] = useState([]);
   const [produceOptions, setProduceOptions] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // Custom Error Modal State
+  const [modalError, setModalError] = useState(null);
 
   const [formData, setFormData] = useState({
     state: "",
@@ -34,7 +39,9 @@ const FarmerProfile = () => {
 
   const fetchProduceOptions = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BaseUrl}/crop/getAllCrops`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_BaseUrl}/crop/getAllCrops`,
+      );
       const crops = response.data?.data;
       setProduceOptions(Array.isArray(crops) ? crops.filter(Boolean) : []);
     } catch (error) {
@@ -63,6 +70,33 @@ const FarmerProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Secure target ID calculation (URL param vs Redux user properties fallback)
+    const activeFarmerId =
+      farmId && farmId !== "undefined"
+        ? farmId
+        : user._id || user.id || profileData._id || profileData.id;
+
+    if (!activeFarmerId) {
+      setModalError(
+        "Unable to identify your profile ID session. Please try logging in again.",
+      );
+      return;
+    }
+
+    if (!formData.state.trim()) {
+      setModalError(
+        "Please specify your current agricultural operating state.",
+      );
+      return;
+    }
+
+    if (selectedProduce.length === 0) {
+      setModalError(
+        "Please select at least one produce crop type from the grid selection.",
+      );
+      return;
+    }
+
     const payload = {
       state: formData.state,
       specificLocationOrLandmark: formData.specificLocationOrLandmark,
@@ -71,23 +105,108 @@ const FarmerProfile = () => {
       farmSize: formData.farmSize,
     };
 
-    console.log("farmId:", farmId);
-    console.log("Submitting payload:", payload);
+    setLoading(true);
+    setModalError(null);
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BaseUrl}/farmKyc/create/${farmId}`,
+        `${import.meta.env.VITE_BaseUrl}/farmKyc/create/${activeFarmerId}`,
         payload,
       );
+
       dispatch(authToken(response.data?.token));
       nav("/farmer/dashboard");
     } catch (error) {
       console.error(error.response?.data || error.message);
+
+      // Extract clean error message values returned by backend server
+      const backendErrorMessage =
+        error.response?.data?.message || error.message;
+      setModalError(backendErrorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="profile-container">
+      {/* Pop-Up Error Modal Window */}
+      {modalError && (
+        <div
+          className="fg-global-modal-overlay"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            zIndex: 9999,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            className="fg-error-modal-card"
+            style={{
+              backgroundColor: "#ffffff",
+              padding: "24px",
+              borderRadius: "12px",
+              maxWidth: "400px",
+              width: "90%",
+              textAlign: "center",
+              boxShadow: "0 20px 25px -5px rgba(0,0,0,0.1)",
+            }}
+          >
+            <FaTimesCircle
+              style={{
+                color: "#ef4444",
+                fontSize: "48px",
+                marginBottom: "16px",
+              }}
+            />
+            <h3
+              style={{
+                margin: "0 0 8px 0",
+                fontSize: "20px",
+                color: "#111827",
+                fontFamily: "sans-serif",
+              }}
+            >
+              Profile Update Alert
+            </h3>
+            <p
+              style={{
+                margin: "0 0 20px 0",
+                color: "#4b5563",
+                fontSize: "14px",
+                lineHeight: "1.5",
+                fontFamily: "sans-serif",
+              }}
+            >
+              {modalError}
+            </p>
+            <button
+              onClick={() => setModalError(null)}
+              style={{
+                backgroundColor: "#111827",
+                color: "#ffffff",
+                border: "none",
+                padding: "10px 24px",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontWeight: "500",
+                width: "100%",
+                fontFamily: "sans-serif",
+              }}
+            >
+              Acknowledge
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="profile-wrapper">
         <div className="profile-header">
           <div className="logo-placeholder">
@@ -181,6 +300,7 @@ const FarmerProfile = () => {
                   name="state"
                   value={formData.state}
                   onChange={handleChange}
+                  disabled={loading}
                   className="form-input"
                 />
               </div>
@@ -190,18 +310,22 @@ const FarmerProfile = () => {
                 <input
                   type="text"
                   placeholder="e.g. Ikorodu, Ikeja"
+                  disabled={loading}
                   className="form-input"
                 />
               </div>
             </div>
 
             <div className="input-group">
-              <label className="input-label">Specific Location / Landmark</label>
+              <label className="input-label">
+                Specific Location / Landmark
+              </label>
               <input
                 type="text"
                 name="specificLocationOrLandmark"
                 value={formData.specificLocationOrLandmark}
                 onChange={handleChange}
+                disabled={loading}
                 placeholder="e.g. Near Ogun River Bridge"
                 className="form-input"
               />
@@ -216,28 +340,30 @@ const FarmerProfile = () => {
 
               <div>
                 <h3 className="section-title">What Do You Farm?</h3>
-                <p className="section-subtitle">Select all produce types you grow</p>
+                <p className="section-subtitle">
+                  Select all produce types you grow
+                </p>
               </div>
             </div>
 
             <div className="produce-grid">
               {produceOptions?.map((item) => {
-  if (!item) return null;
+                if (!item) return null;
 
-  const isSelected =
-    selectedProduce.includes(item._id);
+                const isSelected = selectedProduce.includes(item._id);
 
-  return (
-    <button
-      key={item._id}
-      type="button"
-      onClick={() => toggleProduce(item._id)}
-      className={`produce-btn ${isSelected ? "selected" : ""}`}
-    >
-      {item.cropsName}
-    </button>
-  );
-})}
+                return (
+                  <button
+                    key={item._id}
+                    type="button"
+                    disabled={loading}
+                    onClick={() => toggleProduce(item._id)}
+                    className={`produce-btn ${isSelected ? "selected" : ""}`}
+                  >
+                    {item.cropsName}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -249,7 +375,9 @@ const FarmerProfile = () => {
 
               <div>
                 <h3 className="section-title">Preferred Market Destination</h3>
-                <p className="section-subtitle">Where do you usually sell your produce?</p>
+                <p className="section-subtitle">
+                  Where do you usually sell your produce?
+                </p>
               </div>
             </div>
 
@@ -259,6 +387,7 @@ const FarmerProfile = () => {
                 name="preferredMarketDestination"
                 value={formData.preferredMarketDestination}
                 onChange={handleChange}
+                disabled={loading}
                 placeholder="e.g. Mile 12 Market"
                 className="form-input"
               />
@@ -278,6 +407,7 @@ const FarmerProfile = () => {
                 name="farmSize"
                 value={formData.farmSize}
                 onChange={handleChange}
+                disabled={loading}
                 className="form-select"
               >
                 <option value="">Select farm size</option>
@@ -293,8 +423,8 @@ const FarmerProfile = () => {
           </div>
 
           <div>
-            <button type="submit" className="submit-btn">
-              Complete Profile
+            <button type="submit" className="submit-btn" disabled={loading}>
+              {loading ? "Processing Profile..." : "Complete Profile"}
             </button>
 
             <p className="footer-text">

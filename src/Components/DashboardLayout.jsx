@@ -8,16 +8,22 @@ import {
   LogoutOutlined,
   MenuOutlined,
   CloseOutlined,
+  QuestionCircleOutlined
 } from "@ant-design/icons";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { activeMenuItem } from "../LIB/AuthenticationSlice";
+import { useSelector, useDispatch } from "react-redux";
+// Import your explicit slice reset action
+import { activeMenuItem, authActionSuccess } from "../LIB/AuthenticationSlice";
 
 const DashboardLayout = (props) => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [ActiveMenu, setActiveMenu] = useState(0);
+  
+  // Modal toggle state for logout safety check
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const activeMenuIndex = useSelector((state) => state.auth.activeMenuItem);
 
@@ -29,11 +35,101 @@ const DashboardLayout = (props) => {
     return currentItem ? currentItem.label : "Dashboard";
   };
 
-  const dispatch = useDispatch();
+  // Secure and Complete Session Termination Flow
+  const handleSystemLogout = () => {
+    // 1. Terminate browser cache storage tokens
+    localStorage.removeItem("token");
+
+    // 2. Clear Redux Store state variables to break PrivateRoute authentication conditionals
+    dispatch(
+      authActionSuccess({
+        user: null,
+        token: null,
+      })
+    );
+    
+    // Reset side-navigation highlighted focus tracking back to index zero
+    dispatch(activeMenuItem(0));
+
+    // 3. Clear modal state windows
+    setShowLogoutModal(false);
+    setIsMobileMenuOpen(false);
+
+    // 4. Force browser redirection to public landing screen and replace history tree stack
+    navigate("/login", { replace: true });
+  };
 
   return (
     <div className="fg-dashboard-container">
-      {/* MOBILE TOP NAVIGATION BAR (Matches Screenshot 2026-06-04 014553.png) */}
+      {/* GLOBAL LOGOUT VERIFICATION MODAL POPUP */}
+      {showLogoutModal && (
+        <div className="fg-global-modal-overlay" style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          zIndex: 10000,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          <div className="fg-error-modal-card" style={{
+            backgroundColor: "#ffffff",
+            padding: "24px",
+            borderRadius: "12px",
+            maxWidth: "380px",
+            width: "90%",
+            textAlign: "center",
+            boxShadow: "0 20px 25px -5px rgba(0,0,0,0.1)"
+          }}>
+            <QuestionCircleOutlined style={{ color: "#3b82f6", fontSize: "44px", marginBottom: "16px" }} />
+            <h3 style={{ margin: "0 0 8px 0", fontSize: "19px", color: "#111827", fontFamily: "sans-serif", fontWeight: "600" }}>
+              Confirm Sign Out
+            </h3>
+            <p style={{ margin: "0 0 24px 0", color: "#4b5563", fontSize: "14px", lineHeight: "1.5", fontFamily: "sans-serif" }}>
+              Are you sure you want to end your active session and log out of your dashboard?
+            </p>
+            <div style={{ display: "flex", gap: "12px" }}>
+              <button 
+                onClick={() => setShowLogoutModal(false)}
+                style={{
+                  backgroundColor: "#f3f4f6",
+                  color: "#374151",
+                  border: "none",
+                  padding: "10px 16px",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  fontWeight: "500",
+                  flex: 1,
+                  fontFamily: "sans-serif"
+                }}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleSystemLogout}
+                style={{
+                  backgroundColor: "#ef4444",
+                  color: "#ffffff",
+                  border: "none",
+                  padding: "10px 16px",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                  fontWeight: "500",
+                  flex: 1,
+                  fontFamily: "sans-serif"
+                }}
+              >
+                Yes, Log Out
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MOBILE TOP NAVIGATION BAR */}
       <header className="fg-mobile-top-navbar">
         <button
           className="fg-mobile-menu-trigger"
@@ -64,7 +160,6 @@ const DashboardLayout = (props) => {
               <h1 className="fg-brand-name">FarmGoo</h1>
               <p className="fg-brand-portal">Farm Logistics</p>
             </div>
-            {/* Close icon button visible only when sliding out on mobile (Matches Sidebar (1).png) */}
             <button
               className="fg-sidebar-close-trigger"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -101,7 +196,8 @@ const DashboardLayout = (props) => {
             </div>
           </div>
 
-          <button className="fg-logout-btn" onClick={() => navigate("/")}>
+          {/* Trigger Logout Safety Confirmation Window */}
+          <button className="fg-logout-btn" onClick={() => setShowLogoutModal(true)}>
             <LogoutOutlined style={{ fontSize: "18px" }} />
             <span>Logout</span>
           </button>
