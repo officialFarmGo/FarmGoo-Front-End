@@ -40,6 +40,9 @@ import AvailableJobsAndWidgets from "./Components/AvailableJobsAndWidgets";
 import DriverJobDetails from "./Components/DriverJobDetails";
 import PrivateRoute from "./Props/PrivateRoute";
 import NotFound from "./Components/NotFound";
+import CompleteAgentProfile from "./Components/CompleteAgentProfile";
+import AgentDeliveries from "./Components/AgentDeliveries";
+import AgentDashboardContent from "./Components/UI/AgentDashboardContent";
 
 function App() {
   return (
@@ -54,6 +57,7 @@ function App() {
         <Route path="/success" element={<SuccessFullVerification />} />
         <Route path="/dashboard" element={<DashboardRedirect />} />
         <Route path="/farmer_kyc/:farmId" element={<FarmerProfile />} />
+        <Route path='/agent_kyc/:agentId' element={<CompleteAgentProfile/>}/>
         <Route path="/forgot-password" element={<ForgetPassword />} />
         <Route path="/driver_kyc/:driverId" element={<DriverKycVerification />} />
         <Route path="driverpending" element={<VerificationPending />} />
@@ -79,7 +83,7 @@ function App() {
           <Route path="wallet" element={<Wallet />} />
           <Route path="notification" element={<Notification />} />
           <Route path="settings" element={<AgentProfileSettings />} />
-          <Route path="activedelivery" element={<ActiveDeliveryPageComponets />} />
+          <Route path="activedelivery" element={<AgentDashboardContent />} />
           <Route path="help&support" element={<FarmerHelpAndSupport />} />
         </Route>
 

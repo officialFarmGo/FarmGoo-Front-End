@@ -1,7 +1,17 @@
 import React from 'react';
 import '../CSS/CTASection.css';
+import { selectRole } from '../LIB/AuthenticationSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const CTASection = () => {
+  const navigate = useNavigate();
+    const dispatch = useDispatch();
+  
+    const handleJoint = (role) => {
+      dispatch(selectRole(role));
+      navigate('/signup');
+    };
   return (
     <section className="cta-wrapper">
       <div className="cta-overlay-bg"></div>
@@ -16,8 +26,8 @@ const CTASection = () => {
           </p>
           
           <div className="cta-actions-row">
-            <button className="btn-filled">Start as a farmer</button>
-            <button className="btn-outlined">Drive with us</button>
+            <button className="btn-filled"  onClick={(e) => { e.preventDefault(); handleJoint('farmer'); }}>Start as a farmer</button>
+            <button className="btn-outlined"  onClick={(e) => { e.preventDefault(); handleJoint('driver'); }}>Drive with us</button>
           </div>
         </div>
 

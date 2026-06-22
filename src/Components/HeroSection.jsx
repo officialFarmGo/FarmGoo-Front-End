@@ -2,8 +2,10 @@ import React from 'react'
 import '../CSS/HeroSection.css'
 import Buttons from '../Props/Buttons'
 import TextLogic from '../Data/TextLogic'
+import { useNavigate } from 'react-router-dom'
 
 const HeroSection = () => {
+  const nav = useNavigate()
   return (
     <main className="hero-image-container">
       <div className="overlay">
@@ -18,7 +20,7 @@ const HeroSection = () => {
             </p>
 
             <div className="button-container">
-              <Buttons text="Start For Free" className="hero-buttons" />
+              <Buttons text="Start For Free" className="hero-buttons" onClick={() =>nav ('/chooseDash')}/>
               <Buttons text="See how it works" className="hero-button-two" />
             </div>
 

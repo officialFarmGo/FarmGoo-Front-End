@@ -1,0 +1,248 @@
+.cap-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fcfbfa;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+  padding: 48px 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.cap-container {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cap-top-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.cap-brand-icon {
+  width: 44px;
+  height: 44px;
+  background-color: #044e3a;
+  color: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.cap-brand-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.cap-main-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0c1f19;
+  margin: 0 0 8px 0;
+}
+
+.cap-main-subtitle {
+  font-size: 14px;
+  color: #566a60;
+  margin: 0;
+}
+
+.cap-progress-section {
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.cap-progress-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 500;
+  color: #566a60;
+  margin-bottom: 8px;
+}
+
+.cap-progress-bar-bg {
+  width: 100%;
+  height: 4px;
+  background-color: #e6eae7;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.cap-progress-bar-fill {
+  width: 100%;
+  height: 100%;
+  background-color: #044e3a;
+}
+
+.cap-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cap-card {
+  background-color: #ffffff;
+  border: 1px solid #eef1ef;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 1px 3px rgba(12, 31, 25, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cap-card-header {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+
+.cap-header-icon-box {
+  width: 38px;
+  height: 38px;
+  background-color: #f0f7f4;
+  color: #12b76a;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cap-icon-green {
+  background-color: #ecfdf3;
+  color: #12b76a;
+}
+
+.cap-card-header h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0c1f19;
+  margin: 0 0 2px 0;
+}
+
+.cap-card-header p {
+  font-size: 13px;
+  color: #566a60;
+  margin: 0;
+}
+
+.cap-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.cap-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cap-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #384c43;
+}
+
+.cap-field input {
+  height: 46px;
+  background-color: #ffffff;
+  border: 1px solid #e1e5e2;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #0c1f19;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.cap-field input::placeholder {
+  color: #a3b0a9;
+}
+
+.cap-field input:focus {
+  border-color: #044e3a;
+  box-shadow: 0 0 0 3px rgba(4, 78, 58, 0.06);
+}
+
+.cap-upload-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.cap-upload-btn {
+  background-color: #ffffff;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #344054;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+  transition: background-color 0.2s ease;
+}
+
+.cap-upload-btn:hover {
+  background-color: #f9fafb;
+}
+
+.cap-file-name {
+  font-size: 13px;
+  color: #566a60;
+  word-break: break-all;
+}
+
+.cap-submit-btn {
+  width: 100%;
+  height: 52px;
+  background-color: #044e3a;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 8px;
+  box-shadow: 0 1px 2px rgba(4, 78, 58, 0.05);
+}
+
+.cap-submit-btn:hover {
+  background-color: #033b2c;
+}
+
+.cap-footer-text {
+  text-align: center;
+  font-size: 12px;
+  color: #566a60;
+  margin: 24px 0 0 0;
+}
+
+@media (max-width: 560px) {
+  .cap-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  
+  .cap-card {
+    padding: 20px;
+  }
+}
