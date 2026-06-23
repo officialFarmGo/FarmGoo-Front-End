@@ -1,9 +1,10 @@
-import React from 'react';
-import { FiCheckCircle, FiArrowRight } from 'react-icons/fi';
-import '../CSS/BuiltForEveryOne.css';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { selectRole } from '../LIB/AuthenticationSlice';
+import React from "react";
+import { FiCheckCircle, FiArrowRight } from "react-icons/fi";
+import { IoMdCheckmarkCircle } from "react-icons/io";
+import "../CSS/BuiltForEveryOne.css";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { selectRole } from "../LIB/AuthenticationSlice";
 
 const BuiltForEveryOne = () => {
   const navigate = useNavigate();
@@ -11,13 +12,13 @@ const BuiltForEveryOne = () => {
 
   const handleJoin = (role) => {
     dispatch(selectRole(role));
-    navigate('/signup');
+    navigate("/signup");
   };
 
   return (
     <section className="audience-section">
       <div className="audience-header">
-        <p className='badge green-badge'>Who it is Built for</p>
+        <p className="badge green-badge">Who it is Built for</p>
         <h3>
           Built for everyone <br />
           in the <span className="highlight-text">supply chain.</span>
@@ -25,7 +26,6 @@ const BuiltForEveryOne = () => {
       </div>
 
       <div className="audience-grid">
-
         <div className="audience-card">
           <div className="image-wrapper">
             <span className="card-badge">For Farmers</span>
@@ -39,15 +39,22 @@ const BuiltForEveryOne = () => {
             <h3>Built for farmers</h3>
             <ul className="feature-list">
               <li>
-                <FiCheckCircle className="check-icon" size={18} />
+                <IoMdCheckmarkCircle className="check-icon" size={18} />
                 <span>Post harvests with pickup & destination</span>
               </li>
               <li>
-                <FiCheckCircle className="check-icon" size={18} />
+                <IoMdCheckmarkCircle className="check-icon" size={18} />
                 <span>Get driver alerts before loading</span>
               </li>
             </ul>
-            <a href="#farmers" className="card-link" onClick={(e) => { e.preventDefault(); handleJoin('farmer'); }}>
+            <a
+              href="#farmers"
+              className="card-link"
+              onClick={(e) => {
+                e.preventDefault();
+                handleJoin("farmer");
+              }}
+            >
               <span>Join as a farmer</span>
               <FiArrowRight size={16} />
             </a>
@@ -67,23 +74,30 @@ const BuiltForEveryOne = () => {
             <h3>Built for drivers</h3>
             <ul className="feature-list">
               <li>
-                <FiCheckCircle className="check-icon" size={18} />
+                <IoMdCheckmarkCircle className="check-icon" size={18} />
                 <span>Get matched</span>
               </li>
               <li>
-                <FiCheckCircle className="check-icon" size={18} />
+                <IoMdCheckmarkCircle className="check-icon" size={18} />
                 <span>Accept job</span>
               </li>
               <li>
-                <FiCheckCircle className="check-icon" size={18} />
+                <IoMdCheckmarkCircle className="check-icon" size={18} />
                 <span>Deliver</span>
               </li>
               <li>
-                <FiCheckCircle className="check-icon" size={18} />
+                <IoMdCheckmarkCircle className="check-icon" size={18} />
                 <span>Get paid</span>
               </li>
             </ul>
-            <a href="#drivers" className="card-link" onClick={(e) => { e.preventDefault(); handleJoin('driver'); }}>
+            <a
+              href="#drivers"
+              className="card-link"
+              onClick={(e) => {
+                e.preventDefault();
+                handleJoin("driver");
+              }}
+            >
               <span>Join as a driver</span>
               <FiArrowRight size={16} />
             </a>
@@ -103,21 +117,27 @@ const BuiltForEveryOne = () => {
             <h3>Built for agent</h3>
             <ul className="feature-list">
               <li>
-                <FiCheckCircle className="check-icon" size={18} />
+                <IoMdCheckmarkCircle className="check-icon" size={18} />
                 <span>Onboard farmers without smartphones</span>
               </li>
               <li>
-                <FiCheckCircle className="check-icon" size={18} />
+                <IoMdCheckmarkCircle className="check-icon" size={18} />
                 <span>Manage multiple active bookings</span>
               </li>
             </ul>
-            <a href="#agents" className="card-link" onClick={(e) => { e.preventDefault(); handleJoin('agent'); }}>
+            <a
+              href="#agents"
+              className="card-link"
+              onClick={(e) => {
+                e.preventDefault();
+                handleJoin("agent");
+              }}
+            >
               <span>Become an agent</span>
               <FiArrowRight size={16} />
             </a>
           </div>
         </div>
-
       </div>
     </section>
   );

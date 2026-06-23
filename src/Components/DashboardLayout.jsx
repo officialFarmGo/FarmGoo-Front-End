@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import brandLogo from "../assets/Container (3).png";
@@ -8,7 +8,7 @@ import {
   LogoutOutlined,
   MenuOutlined,
   CloseOutlined,
-  QuestionCircleOutlined
+  QuestionCircleOutlined,
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 // Import your explicit slice reset action
@@ -18,14 +18,36 @@ const DashboardLayout = (props) => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [ActiveMenu, setActiveMenu] = useState(0);
-  
+
   // Modal toggle state for logout safety check
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const activeMenuIndex = useSelector((state) => state.auth.activeMenuItem);
+
+  useEffect(() => {
+    const normalize = (value = "") => value.trim().toLowerCase();
+    const currentSegment = normalize(
+      location.pathname.split("/").filter(Boolean).pop() || "dashboard",
+    );
+
+    const matchedIndex = props.desktopMenuItems.findIndex((item) => {
+      const itemPath = normalize(item.path);
+
+      if (!itemPath) {
+        return currentSegment === "dashboard" || currentSegment === "";
+      }
+
+      return currentSegment === itemPath || currentSegment.includes(itemPath);
+    });
+
+    if (matchedIndex >= 0) {
+      setActiveMenu(matchedIndex);
+      dispatch(activeMenuItem(matchedIndex));
+    }
+  }, [location.pathname, props.desktopMenuItems, dispatch]);
 
   // Helper to grab current route title for mobile header
   const getCurrentRouteTitle = () => {
@@ -45,9 +67,9 @@ const DashboardLayout = (props) => {
       authActionSuccess({
         user: null,
         token: null,
-      })
+      }),
     );
-    
+
     // Reset side-navigation highlighted focus tracking back to index zero
     dispatch(activeMenuItem(0));
 
@@ -63,36 +85,65 @@ const DashboardLayout = (props) => {
     <div className="fg-dashboard-container">
       {/* GLOBAL LOGOUT VERIFICATION MODAL POPUP */}
       {showLogoutModal && (
-        <div className="fg-global-modal-overlay" style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          zIndex: 10000,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        }}>
-          <div className="fg-error-modal-card" style={{
-            backgroundColor: "#ffffff",
-            padding: "24px",
-            borderRadius: "12px",
-            maxWidth: "380px",
-            width: "90%",
-            textAlign: "center",
-            boxShadow: "0 20px 25px -5px rgba(0,0,0,0.1)"
-          }}>
-            <QuestionCircleOutlined style={{ color: "#3b82f6", fontSize: "44px", marginBottom: "16px" }} />
-            <h3 style={{ margin: "0 0 8px 0", fontSize: "19px", color: "#111827", fontFamily: "sans-serif", fontWeight: "600" }}>
+        <div
+          className="fg-global-modal-overlay"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            zIndex: 10000,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            className="fg-error-modal-card"
+            style={{
+              backgroundColor: "#ffffff",
+              padding: "24px",
+              borderRadius: "12px",
+              maxWidth: "380px",
+              width: "90%",
+              textAlign: "center",
+              boxShadow: "0 20px 25px -5px rgba(0,0,0,0.1)",
+            }}
+          >
+            <QuestionCircleOutlined
+              style={{
+                color: "#3b82f6",
+                fontSize: "44px",
+                marginBottom: "16px",
+              }}
+            />
+            <h3
+              style={{
+                margin: "0 0 8px 0",
+                fontSize: "19px",
+                color: "#111827",
+                fontFamily: "sans-serif",
+                fontWeight: "600",
+              }}
+            >
               Confirm Sign Out
             </h3>
-            <p style={{ margin: "0 0 24px 0", color: "#4b5563", fontSize: "14px", lineHeight: "1.5", fontFamily: "sans-serif" }}>
-              Are you sure you want to end your active session and log out of your dashboard?
+            <p
+              style={{
+                margin: "0 0 24px 0",
+                color: "#4b5563",
+                fontSize: "14px",
+                lineHeight: "1.5",
+                fontFamily: "sans-serif",
+              }}
+            >
+              Are you sure you want to end your active session and log out of
+              your dashboard?
             </p>
             <div style={{ display: "flex", gap: "12px" }}>
-              <button 
+              <button
                 onClick={() => setShowLogoutModal(false)}
                 style={{
                   backgroundColor: "#f3f4f6",
@@ -103,12 +154,12 @@ const DashboardLayout = (props) => {
                   cursor: "pointer",
                   fontWeight: "500",
                   flex: 1,
-                  fontFamily: "sans-serif"
+                  fontFamily: "sans-serif",
                 }}
               >
                 Cancel
               </button>
-              <button 
+              <button
                 onClick={handleSystemLogout}
                 style={{
                   backgroundColor: "#ef4444",
@@ -119,7 +170,7 @@ const DashboardLayout = (props) => {
                   cursor: "pointer",
                   fontWeight: "500",
                   flex: 1,
-                  fontFamily: "sans-serif"
+                  fontFamily: "sans-serif",
                 }}
               >
                 Yes, Log Out
@@ -197,7 +248,10 @@ const DashboardLayout = (props) => {
           </div>
 
           {/* Trigger Logout Safety Confirmation Window */}
-          <button className="fg-logout-btn" onClick={() => setShowLogoutModal(true)}>
+          <button
+            className="fg-logout-btn"
+            onClick={() => setShowLogoutModal(true)}
+          >
             <LogoutOutlined style={{ fontSize: "18px" }} />
             <span>Logout</span>
           </button>

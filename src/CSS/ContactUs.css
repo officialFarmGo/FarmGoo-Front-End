@@ -10,16 +10,19 @@
 }
 
 .contact-badge {
-  background-color: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 130px;
+  background-color: #00604566;
+  border: 1px solid #007a5580;
   color: var(--primary-text-color);
-  display: inline-block;
+  display: flex;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.5px;
   padding: 6px 14px;
   border-radius: 20px;
   margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
 }
 
 .contact-header h1 {
@@ -126,7 +129,8 @@
   margin-bottom: 16px;
 }
 
-.phone-text, .hours-text {
+.phone-text,
+.hours-text {
   font-size: 14px;
   color: #4b5563;
   margin-bottom: 4px;
@@ -182,7 +186,8 @@
   color: #374151;
 }
 
-.form-group input, .form-group textarea {
+.form-group input,
+.form-group textarea {
   width: 100%;
   padding: 14px 16px;
   border: 1px solid #e5e7eb;
@@ -211,17 +216,15 @@
   cursor: pointer;
 }
 
-.main-contactus{
-    width: 100%;
-    
+.main-contactus {
+  width: 100%;
+
   padding: 80px 0;
   background-color: var(--Bold-thick-green);
   color: var(--primary-text-color);
 }
 
-
 @media (max-width: 768px) {
-
   .main-contactus {
     padding: 40px 0;
     background-color: #ffffff;

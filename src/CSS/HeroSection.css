@@ -1,10 +1,10 @@
 .hero-image-container {
-  background-image: url('https://res.cloudinary.com/dnjexdaop/image/upload/v1782003001/photo_1_2026-06-21_01-49-18_kme13o.jpg');
+  background-image: url("https://res.cloudinary.com/dnjexdaop/image/upload/v1782124494/photo_2026-06-22_11-34-30_nhjayl.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
-  height: 105vh;
+  height: 90vh;
   position: relative;
 }
 
@@ -15,21 +15,22 @@
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
 .hero-content-wrapper {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 40px;
+  width: 90%;
+  height: 85%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 4rem;
 }
 
 .hero-text {
   width: 100%;
-  max-width: 650px;
+  max-width: 700px;
   color: var(--primary-text-color);
 }
 
@@ -39,29 +40,31 @@
   display: inline-block;
   padding: 8px 16px;
   background-color: #1b5343;
-  border: 1px #007A55 solid;
+  border: 1px #007a55 solid;
   margin-bottom: 20px;
   color: #ffffff;
 }
 
 .hero-first-text {
-  font-size: 46px;
+  font-size: 60px;
   margin-bottom: 20px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.15;
+  width: 100%;
 }
 
 .session-text {
   font-size: 18px;
-  line-height: 1.6;
   color: #e0e0e0;
   margin-bottom: 30px;
+  line-height: 29.25px;
 }
 
 .button-container {
   display: flex;
   align-items: center;
   gap: 16px;
+  height: 60px;
   margin-bottom: 50px;
 }
 
@@ -73,10 +76,15 @@
   padding: 12px 24px;
   cursor: pointer;
   border-radius: 20rem;
+  height: 50px;
+  width: 175px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.hero-button-two:hover{
-  color: #007A55;
+.hero-button-two:hover {
+  color: #007a55;
   background-color: #e0e0e0;
 }
 
@@ -88,12 +96,15 @@
   padding: 12px 24px;
   cursor: pointer;
   border-radius: 20rem;
+  height: 50px;
+  width: 175px;
 }
 
 .input-text-two {
   display: flex;
   gap: 40px;
   align-items: center;
+  margin-top: 5rem;
 }
 
 .text-two {
@@ -116,6 +127,12 @@
 /* MEDIA QUERY FOR MOBILE & TABLETS */
 @media (max-width: 768px) {
   .hero-image-container {
+    background:
+      linear-gradient(#0f3c3339, #175a4c91, #a1bcb735),
+      url("https://res.cloudinary.com/dnjexdaop/image/upload/v1782124494/photo_2026-06-22_11-34-30_nhjayl.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     height: auto;
     min-height: 100vh;
   }
@@ -169,8 +186,15 @@
     width: 100%;
     padding: 16px;
     font-size: 16px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* text-align: center; */
     border-radius: 1px;
+  }
+
+  .hero-button-two {
+    border: 1px solid white;
   }
 
   .input-text-two {

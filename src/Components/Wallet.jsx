@@ -25,6 +25,24 @@ const Wallet = () => {
   const [withdrawLoading, setWithdrawLoading] = useState(false);
   const [withdrawStatus, setWithdrawStatus] = useState(null);
 
+  const bankOptions = [
+    "Access Bank",
+    "Ecobank Nigeria",
+    "Fidelity Bank",
+    "First Bank of Nigeria",
+    "First City Monument Bank",
+    "Guaranty Trust Bank Plc",
+    "Keystone Bank Ltd",
+    "Polaris Bank",
+    "Stanbic IBTC",
+    "Sterling Bank",
+    "Union Bank Nigeria",
+    "United Bank for Africa",
+    "Unity Bank",
+    "WEMA Bank",
+    "Zenith Bank",
+  ];
+
   const [addAmount, setAddAmount] = useState("");
   const [addLoading, setAddLoading] = useState(false);
   const [addStatus, setAddStatus] = useState(null);
@@ -311,13 +329,15 @@ const Wallet = () => {
                 <input
                   type="number"
                   placeholder="e.g. 10000"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   value={withdrawForm.amount}
                   onChange={(e) =>
                     setWithdrawForm((p) => ({ ...p, amount: e.target.value }))
                   }
                 />
               </div>
-              <div className="form-field">
+              {/* <div className="form-field">
                 <label>Bank Code</label>
                 <input
                   type="text"
@@ -327,7 +347,7 @@ const Wallet = () => {
                     setWithdrawForm((p) => ({ ...p, bankCode: e.target.value }))
                   }
                 />
-              </div>
+              </div> */}
             </div>
             <div className="form-row-split">
               <div className="form-field">
@@ -346,14 +366,19 @@ const Wallet = () => {
               </div>
               <div className="form-field">
                 <label>Bank Name</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Access Bank"
+                <select
                   value={withdrawForm.bankName}
                   onChange={(e) =>
                     setWithdrawForm((p) => ({ ...p, bankName: e.target.value }))
                   }
-                />
+                >
+                  <option value="">Select bank</option>
+                  {bankOptions.map((bank) => (
+                    <option key={bank} value={bank}>
+                      {bank}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             {withdrawStatus && (
@@ -382,6 +407,8 @@ const Wallet = () => {
               <input
                 type="number"
                 placeholder="e.g. 50000"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={addAmount}
                 onChange={(e) => setAddAmount(e.target.value)}
               />
