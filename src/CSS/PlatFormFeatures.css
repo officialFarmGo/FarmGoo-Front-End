@@ -41,7 +41,7 @@
 }
 
 .escrow-banner-card {
-  background-color: var(--Bold-thick-green);
+  background-color: #085041;
   border-radius: 20px;
   padding: 40px;
   color: var(--primary-text-color);
@@ -84,7 +84,7 @@
   border: 1px solid #f1f5f9;
   border-radius: 20px;
   padding: 40px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   box-sizing: border-box;
 }
 
@@ -97,7 +97,6 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 24px;
-
 }
 
 .feature-square-card h3 {
@@ -113,10 +112,7 @@
   line-height: 1.6;
 }
 
-
-
 @media (max-width: 768px) {
-
   .features-full-wrapper {
     width: 100%;
     padding: 40px 0;

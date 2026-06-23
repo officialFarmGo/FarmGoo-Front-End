@@ -140,7 +140,9 @@ const SignPage = () => {
     const validationErrors = validateAll();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      triggerErrorPopup("Registration failed. Please review the highlighted errors on the form fields.");
+      triggerErrorPopup(
+        "Registration failed. Please review the highlighted errors on the form fields.",
+      );
       const firstErrorField = document.querySelector(".fg-input-error");
       if (firstErrorField) {
         firstErrorField.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -177,10 +179,15 @@ const SignPage = () => {
           },
         });
       } else {
-        triggerErrorPopup(data.message || "An account credential mismatch occurred. Please modify your entries.");
+        triggerErrorPopup(
+          data.message ||
+            "An account credential mismatch occurred. Please modify your entries.",
+        );
       }
     } catch (err) {
-      triggerErrorPopup("Network pipeline error. Unable to link with FarmGoo registry core. Check your connectivity status.");
+      triggerErrorPopup(
+        "Network pipeline error. Unable to link with FarmGoo registry core. Check your connectivity status.",
+      );
     } finally {
       setLoading(false);
     }
@@ -270,8 +277,8 @@ const SignPage = () => {
             <h4 className="fg-error-popup-title">Submission Issue</h4>
             <p className="fg-error-popup-desc">{errors.form}</p>
           </div>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="fg-error-popup-close"
             onClick={() => setShowPopupError(false)}
           >
@@ -282,12 +289,7 @@ const SignPage = () => {
 
       <div className="fg-login-split-content">
         <aside className="fg-login-sidebar">
-          <img
-            src="https://res.cloudinary.com/dnjexdaop/image/upload/v1780660368/photo_11_2026-06-05_12-51-52_xutmkl.jpg"
-            alt="Farm background"
-            className="fg-sidebar-bg"
-          />
-          <div className="fg-sidebar-overlay">
+          <div className="fg-sidebar-overlayd">
             <div className="fg-action-row">
               <button
                 className="fg-back-circle-btn"

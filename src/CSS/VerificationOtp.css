@@ -123,6 +123,7 @@
   font-weight: 600 !important;
   border-color: #e5e7eb !important;
   border-radius: 8px !important;
+  width: 50px !important;
 }
 
 .fg-otp-input-field-group .ant-input:focus,

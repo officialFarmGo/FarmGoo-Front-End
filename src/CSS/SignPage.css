@@ -2,7 +2,8 @@
   width: 100%;
   min-height: 100vh;
   background-color: #fcfcfc;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   box-sizing: border-box;
 }
 
@@ -13,6 +14,7 @@
 
 /* ── SIDEBAR ── */
 .fg-login-sidebar {
+  background: url("https://res.cloudinary.com/dnjexdaop/image/upload/v1780660368/photo_11_2026-06-05_12-51-52_xutmkl.jpg");
   width: 33%;
   height: 100vh;
   position: fixed;
@@ -32,16 +34,12 @@
   z-index: 1;
 }
 
-.fg-sidebar-overlay {
+.fg-sidebar-overlayd {
   width: 100%;
   height: 100%;
   position: relative;
   z-index: 2;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.15) 0%,
-    rgba(4, 43, 34, 0.88) 100%
-  );
+  background: linear-gradient(#00000088, #085042b6);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

@@ -2,13 +2,13 @@
   width: 100%;
   background-color: #fffdec;
   padding: 100px 0;
-  
-   margin: 0 auto;
+
+  margin: 0 auto;
 }
 
 .testimonials-container {
   width: 90%;
-   margin: 0 auto;
+  margin: 0 auto;
   box-sizing: border-box;
 }
 
@@ -43,7 +43,7 @@
 
 .testimonial-card {
   background-color: #ffffff;
-  border: 1px solid var(--light-yellow);
+  border: 1px solid #f2af2d;
   border-radius: 16px;
   padding: 36px;
   display: flex;
@@ -58,7 +58,7 @@
 }
 
 .star-icon {
-  color: var(--primary-yellow);
+  color: #f2af2d;
 }
 
 .quote-text {
@@ -88,18 +88,18 @@
 }
 
 .green-avatar {
-  background-color: #f0fdf4;
-  color: var(--lighter-green);
+  background-color: #ecfdf5 !important;
+  color: #067a3f !important;
 }
 
 .light-green-avatar {
-  background-color: #f0fdf4;
-  color: var(--green);
+  background-color: #ecfdf5 !important;
+  color: #067a3f !important;
 }
 
 .normal-green-avatar {
-  background-color: #f0fdf4;
-  color: var(--green2);
+  background-color: #ecfdf5 !important;
+  color: #067a3f !important;
 }
 
 .profile-details {
@@ -120,7 +120,6 @@
 }
 
 @media (max-width: 768px) {
-
   .testimonials-wrapper {
     padding: 40px 0;
     background-color: #ffffff;
