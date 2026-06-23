@@ -141,3 +141,72 @@
   text-align: center;
   padding: 32px 0;
 }
+
+
+@media (max-width: 600px) {
+  .fg-market-tips-section-container {
+    padding: 16px;
+  }
+
+  .market-tips-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .market-card {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .market-card-title {
+    font-size: 16px;
+  }
+
+  .tip-card {
+    padding: 14px;
+  }
+
+  .tip-card h4 {
+    font-size: 14px;
+  }
+
+  .tip-card p {
+    font-size: 12px;
+  }
+
+  .delivery-card {
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .delivery-card h4 {
+    font-size: 14px;
+  }
+
+  .delivery-card p {
+    font-size: 11px;
+  }
+
+  .delivery-info h4 {
+    font-size: 14px;
+  }
+
+  .delivery-info span {
+    font-size: 11px;
+  }
+
+  .view-all {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .market-tips-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .market-card {
+    padding: 20px;
+  }
+}

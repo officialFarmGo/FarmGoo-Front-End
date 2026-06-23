@@ -39,6 +39,9 @@ import AgentDashboardContent from "./Components/UI/AgentDashboardContent";
 import WithdrawalSuccess from "./Components/WithdrawalSuccess";
 import PaymentVerification from "./Components/PaymentVerification";
 import PrivateRoute from "./Props/PrivateRoute";
+import WithdrawalPageSuccess from "./Components/WithdrawalPageSucess";
+
+
 
 function App() {
   return (
@@ -55,6 +58,7 @@ function App() {
         <Route element={<PrivateRoute allowedRoles={["farmer"]} />}>
           <Route path="/farmer_kyc/:farmId" element={<FarmerProfile />} />
           <Route path="/farmer/dashboard" element={<FarmersDahboard />}>
+             <Route path='withdrawalpage-success' element={<WithdrawalPageSuccess />} />
             <Route path="" element={<DashboardPagesComponent />} />
             <Route path="wallet" element={<Wallet />} />
             <Route path="notification" element={<Notification />} />
@@ -67,6 +71,7 @@ function App() {
         <Route element={<PrivateRoute allowedRoles={["agent"]} />}>
           <Route path="/agent_kyc/:agentId" element={<CompleteAgentProfile />} />
           <Route path="/agent/dashboard" element={<AgentDashboard />}>
+          <Route path='withdrawalpage-success' element={<WithdrawalPageSuccess />} />
             <Route path="" element={<AgentDashBoard />} />
             <Route path="wallet" element={<Wallet />} />
             <Route path="notification" element={<Notification />} />
@@ -80,7 +85,7 @@ function App() {
           <Route path="/driver_kyc/:driverId" element={<DriverKycVerification />} />
           <Route path="/driverpending" element={<VerificationPending />} />
           <Route path="/payment-verification" element={<PaymentVerification />} />
-          <Route path="/withdrawal-success" element={<WithdrawalSuccess />} />
+          <Route path="withdrawal-success" element={<WithdrawalSuccess />} />
           <Route path="/approved" element={<ApprovedDoc />} />
           <Route path="/drivers/dashboard" element={<DriverDashboard />}>
             <Route path="" element={<DriverDashboardView />} />
