@@ -1,0 +1,190 @@
+.success-page-section {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f7f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 16px;
+  box-sizing: border-box;
+}
+
+.success-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e8ede9;
+  width: 100%;
+  max-width: 540px;
+  padding: 40px 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Success Circle Badge */
+.success-icon-badge {
+  width: 64px;
+  height: 64px;
+  background: #e8fced;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.success-main-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 6px 0;
+  text-align: center;
+}
+
+.success-subtitle {
+  font-size: 13.5px;
+  color: #666666;
+  margin: 0 0 32px 0;
+  text-align: center;
+}
+
+/* ── Receipt Box Layout ── */
+.receipt-box {
+  width: 100%;
+  background: #f9faf9;
+  border-radius: 12px;
+  padding: 24px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.receipt-box-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a2530;
+  text-align: center;
+  margin: 0 0 4px 0;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #edf1ee;
+}
+
+.receipt-row:nth-last-child(2) {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.receipt-label {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.receipt-value {
+  font-size: 13px;
+  color: #1e293b;
+  font-weight: 500;
+  text-align: right;
+}
+
+.value-id {
+  font-size: 12px;
+  color: #475569;
+}
+
+.value-bold {
+  font-weight: 700;
+  color: #111111;
+}
+
+/* Highlighted row details */
+.receipt-box .highlight-balance-row {
+  background: #edf7f1;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 4px;
+}
+
+.label-dark {
+  color: #0d1e15;
+  font-weight: 600;
+}
+
+.value-green {
+  font-size: 15px;
+  font-weight: 700;
+  color: #006432;
+}
+
+/* ── Layout Bottom Action Buttons ── */
+.success-actions-row {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+}
+
+.primary-action-btn {
+  flex: 1.3;
+  background: #006432;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.primary-action-btn:hover {
+  background: #004d26;
+}
+
+.secondary-action-btn {
+  flex: 1;
+  background: #ffffff;
+  color: #334155;
+  border: 1.5px solid #dde6e0;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.secondary-action-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* Responsive Scaling optimization */
+@media (max-width: 480px) {
+  .success-card {
+    padding: 32px 16px;
+  }
+  .success-actions-row {
+    flex-direction: column;
+  }
+  .primary-action-btn,
+  .secondary-action-btn {
+    width: 100%;
+  }
+}

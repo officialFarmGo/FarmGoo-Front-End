@@ -36,6 +36,8 @@ import DriverJobDetails from "./Components/DriverJobDetails";
 import NotFound from "./Components/NotFound";
 import CompleteAgentProfile from "./Components/CompleteAgentProfile";
 import AgentDashboardContent from "./Components/UI/AgentDashboardContent";
+import WithdrawalSuccess from "./Components/WithdrawalSuccess";
+import PaymentVerification from "./Components/PaymentVerification";
 import PrivateRoute from "./Props/PrivateRoute";
 
 function App() {
@@ -77,7 +79,8 @@ function App() {
         <Route element={<PrivateRoute allowedRoles={["driver"]} />}>
           <Route path="/driver_kyc/:driverId" element={<DriverKycVerification />} />
           <Route path="/driverpending" element={<VerificationPending />} />
-          
+          <Route path="/payment-verification" element={<PaymentVerification />} />
+          <Route path="/withdrawal-success" element={<WithdrawalSuccess />} />
           <Route path="/approved" element={<ApprovedDoc />} />
           <Route path="/drivers/dashboard" element={<DriverDashboard />}>
             <Route path="" element={<DriverDashboardView />} />

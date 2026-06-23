@@ -1,0 +1,115 @@
+.success-page-section {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f7f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 16px;
+  box-sizing: border-box;
+}
+
+.success-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e8ede9;
+  width: 100%;
+  max-width: 460px; /* Slimmed down visually since receipt is removed */
+  padding: 48px 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* ── Verification Loader Rules ── */
+.verification-loading-card {
+  padding: 60px 40px;
+  justify-content: center;
+}
+
+.verification-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e0ece5;
+  border-top-color: #006432;
+  border-radius: 50%;
+  animation: vspin 1s linear infinite;
+  margin-bottom: 24px;
+}
+
+@keyframes vspin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success Circle Badge */
+.success-icon-badge {
+  width: 64px;
+  height: 64px;
+  background: #e8fced;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.success-main-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+.success-subtitle {
+  font-size: 14px;
+  color: #666666;
+  line-height: 1.5;
+  margin: 0 0 32px 0;
+  text-align: center;
+  max-width: 380px;
+}
+
+.success-subtitle.confirm-spacing {
+  margin-bottom: 40px; /* Extra breathing room before the main action button */
+}
+
+/* ── Action Button Layout ── */
+.success-actions-row {
+  width: 100%;
+  display: flex;
+}
+
+.success-actions-row.single-layout .primary-action-btn {
+  width: 100%;
+  background: #006432;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.1s;
+  text-align: center;
+}
+
+.success-actions-row.single-layout .primary-action-btn:hover {
+  background: #004d26;
+}
+
+.success-actions-row.single-layout .primary-action-btn:active {
+  transform: scale(0.99);
+}
+
+@media (max-width: 480px) {
+  .success-card {
+    padding: 40px 20px;
+  }
+}
