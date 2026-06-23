@@ -192,9 +192,48 @@
   width: 100%;
   box-sizing: border-box;
 }
-.form-field input:focus {
+.form-field input:focus,
+.form-field select:focus {
   border-color: #006432;
   background: #fff;
+}
+
+.form-field input[type="number"]::-webkit-outer-spin-button,
+.form-field input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-field input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.form-field select {
+  padding: 10px 12px;
+  border-radius: 9px;
+  border: 1.5px solid #dde6e0;
+  font-size: 14px;
+  color: #111;
+  background: #f9faf9;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #006432 50%),
+    linear-gradient(135deg, #006432 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(1em + 2px),
+    calc(100% - 13px) calc(1em + 2px);
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
 }
 
 .status-msg {
