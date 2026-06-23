@@ -114,7 +114,7 @@ const RequestTransport = ({ onClose }) => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-      showError("Please fill all required fields correctly.");
+      showError("Please fill all required fields correctly before submitting.");
       return;
     }
 
@@ -154,7 +154,64 @@ const RequestTransport = ({ onClose }) => {
 
   return (
     <>
-      {/* Error Toast Popup */}
+      {/* LOCAL EMITTED INTERACTION STYLES FOR THE MODAL ERRORS */}
+      <style>{`
+        .rt-error-toast {
+          position: fixed;
+          top: 24px;
+          right: 24px;
+          background-color: #ffffff;
+          border-left: 5px solid #ef4444;
+          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+          border-radius: 8px;
+          padding: 16px 20px;
+          z-index: 11000;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          max-width: 400px;
+          width: calc(100% - 48px);
+          animation: rtToastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          font-family: sans-serif;
+        }
+        .rt-error-toast-icon {
+          color: #ef4444;
+          font-size: 20px;
+          flex-shrink: 0;
+        }
+        .rt-error-toast span {
+          flex-grow: 1;
+          font-size: 14px;
+          color: #374151;
+          font-weight: 500;
+          line-height: 1.4;
+        }
+        .rt-error-toast-close {
+          background: none;
+          border: none;
+          color: #9ca3af;
+          font-size: 22px;
+          cursor: pointer;
+          padding: 0 4px;
+          line-height: 1;
+          transition: color 0.15s ease;
+        }
+        .rt-error-toast-close:hover {
+          color: #4b5563;
+        }
+        @keyframes rtToastSlideIn {
+          from {
+            transform: translateY(-20px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+      `}</style>
+
+      {/* Error Toast Popup Banner */}
       {errorToast && (
         <div className="rt-error-toast">
           <CloseCircleOutlined className="rt-error-toast-icon" />
@@ -394,15 +451,14 @@ const RequestTransport = ({ onClose }) => {
             <div className="rt-card rt-price-card">
               <div className="rt-card-header">
                 <h2>Estimated Price</h2>
-                {/* {estimating && <LoadingOutlined spin style={{ color: "#16A34A", fontSize: 16 }} />} */}
-                <p className="rt-price-value">₦{Number(estimate.deliveryFare).toLocaleString()}</p>
+                {estimating && <LoadingOutlined spin style={{ color: "#16A34A", fontSize: 16 }} />}
               </div>
 
               {estimate ? (
                 <>
                   <div className="rt-price-row">
                     <span>Delivery Fare</span>
-                    
+                    <p className="rt-price-value">₦{Number(estimate.deliveryFare).toLocaleString()}</p>
                   </div>
                   <div className="rt-price-row">
                     <span>Service Fee</span>
