@@ -77,6 +77,7 @@ function App() {
         <Route element={<PrivateRoute allowedRoles={["driver"]} />}>
           <Route path="/driver_kyc/:driverId" element={<DriverKycVerification />} />
           <Route path="/driverpending" element={<VerificationPending />} />
+          
           <Route path="/approved" element={<ApprovedDoc />} />
           <Route path="/drivers/dashboard" element={<DriverDashboard />}>
             <Route path="" element={<DriverDashboardView />} />
