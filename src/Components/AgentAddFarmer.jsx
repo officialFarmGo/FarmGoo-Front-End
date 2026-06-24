@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { 
-  HiOutlineUser, 
-  HiOutlinePhone, 
-  HiOutlineLocationMarker, 
+import {
+  HiOutlineUser,
+  HiOutlinePhone,
+  HiOutlineLocationMarker,
   HiOutlineArrowLeft,
   HiCheckCircle,
-  HiXCircle 
+  HiXCircle,
 } from "react-icons/hi";
 import { BiLeaf } from "react-icons/bi";
 import "../CSS/AgentAddFarmer.css";
@@ -16,19 +16,23 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
   const token = useSelector((state) => state.auth.token);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
-  const [formData, setFormData] = useState({
+  const initialFormState = {
     farmerFullName: "",
     phoneNumber: "",
     farmLocation: "",
-    mainProduceType: ""
-  });
-  
+    mainProduceType: "",
+  };
+
+  const [formData, setFormData] = useState(initialFormState);
   const [loading, setLoading] = useState(false);
-  
+
   // Pop-up Modal Toggles
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Keep track of the submitted name for the modal display before resetting form state
+  const [submittedName, setSubmittedName] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -40,17 +44,20 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
       setLoading(true);
 
       const response = await axios.post(
-        `${BaseUrl}/agentDashboard/addFarmer`, 
+        `${BaseUrl}/agentDashboard/addFarmer`,
         formData,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
 
       if (response.status === 200 || response.status === 201) {
+        setSubmittedName(formData.farmerFullName); // Save name for the success modal text
         setShowSuccessModal(true);
+        setFormData(initialFormState); // Reset the form inputs immediately
       }
     } catch (err) {
       // Catch backend error messages and trigger the error pop-up modal
-      const fallbackError = "Failed to add farmer. Please check your entries and try again.";
+      const fallbackError =
+        "Failed to add farmer. Please check your entries and try again.";
       setErrorMessage(err.response?.data?.message || fallbackError);
       setShowErrorModal(true);
     } finally {
@@ -74,7 +81,9 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
 
       <div className="fg-add-farmer-header">
         <h1 className="fg-add-farmer-title">Add New Farmer</h1>
-        <p className="fg-add-farmer-subtitle">Register a new farmer to your network</p>
+        <p className="fg-add-farmer-subtitle">
+          Register a new farmer to your network
+        </p>
       </div>
 
       <form className="fg-add-farmer-card-form" onSubmit={handleSubmit}>
@@ -82,12 +91,12 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
           <label>Farmer Full Name</label>
           <div className="fg-input-icon-wrapper">
             <HiOutlineUser className="fg-input-icon" />
-            <input 
-              type="text" 
-              name="farmerFullName" 
+            <input
+              type="text"
+              name="farmerFullName"
               value={formData.farmerFullName}
               onChange={handleChange}
-              placeholder="e.g., Chukwu Okafor" 
+              placeholder="e.g., Chukwu Okafor"
               required
             />
           </div>
@@ -97,12 +106,12 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
           <label>Phone Number</label>
           <div className="fg-input-icon-wrapper">
             <HiOutlinePhone className="fg-input-icon" />
-            <input 
-              type="tel" 
-              name="phoneNumber" 
+            <input
+              type="tel"
+              name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
-              placeholder="+234 803 456 7890" 
+              placeholder="+234 803 456 7890"
               required
             />
           </div>
@@ -112,12 +121,12 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
           <label>Farm Location</label>
           <div className="fg-input-icon-wrapper">
             <HiOutlineLocationMarker className="fg-input-icon" />
-            <input 
-              type="text" 
-              name="farmLocation" 
+            <input
+              type="text"
+              name="farmLocation"
               value={formData.farmLocation}
               onChange={handleChange}
-              placeholder="e.g., Badagry, Lagos State" 
+              placeholder="e.g., Badagry, Lagos State"
               required
             />
           </div>
@@ -127,19 +136,23 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
           <label>Main Produce Type</label>
           <div className="fg-input-icon-wrapper">
             <BiLeaf className="fg-input-icon" />
-            <input 
-              type="text" 
-              name="mainProduceType" 
+            <input
+              type="text"
+              name="mainProduceType"
               value={formData.mainProduceType}
               onChange={handleChange}
-              placeholder="e.g., Tomatoes, Yam, Cassava" 
+              placeholder="e.g., Tomatoes, Yam, Cassava"
               required
             />
           </div>
         </div>
 
         <div className="fg-form-actions-row">
-          <button type="submit" className="fg-btn-save-farmer" disabled={loading}>
+          <button
+            type="submit"
+            className="fg-btn-save-farmer"
+            disabled={loading}
+          >
             {loading ? "Saving..." : "Save Farmer"}
           </button>
         </div>
@@ -154,9 +167,14 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
             </div>
             <h2 className="fg-modal-title">Registration Successful!</h2>
             <p className="fg-modal-message">
-              <strong>{formData.farmerFullName || "The farmer"}</strong> has been successfully added to your agent portal network.
+              <strong>{submittedName || "The farmer"}</strong> has been
+              successfully added to your agent portal network.
             </p>
-            <button type="button" className="fg-modal-btn" onClick={handleSuccessModalClose}>
+            <button
+              type="button"
+              className="fg-modal-btn"
+              onClick={handleSuccessModalClose}
+            >
               Continue to Network List
             </button>
           </div>
@@ -170,13 +188,13 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
             <div className="fg-modal-icon-box">
               <HiXCircle size={54} color="#dc2626" />
             </div>
-            <h2 className="fg-modal-title" style={{ color: "#dc2626" }}>Registration Failed</h2>
-            <p className="fg-modal-message">
-              {errorMessage}
-            </p>
-            <button 
-              type="button" 
-              className="fg-modal-btn btn-error-color" 
+            <h2 className="fg-modal-title" style={{ color: "#dc2626" }}>
+              Registration Failed
+            </h2>
+            <p className="fg-modal-message">{errorMessage}</p>
+            <button
+              type="button"
+              className="fg-modal-btn btn-error-color"
               onClick={() => setShowErrorModal(false)}
             >
               Okay, Try Again
