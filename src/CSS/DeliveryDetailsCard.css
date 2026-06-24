@@ -1,0 +1,177 @@
+.delivery-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.delivery-title {
+  font-size: 22px;
+.custom-delivery-card {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: none;
+  padding: 4px;
+}
+
+/* Typography styles matching image look */
+.card-main-title {
+  font-family: system-ui, -apple-system, sans-serif !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-label {
+  font-size: 14px !important;
+  color: #64748b !important;
+}
+
+.info-value {
+  font-size: 16px !important;
+  color: #1e293b !important;
+  font-weight: 500;
+}
+
+.bold-text {
+  font-weight: 700 !important;
+  font-size: 17px !important;
+}
+
+.price-text {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+.location-icon {
+  color: #94a3b8;
+  font-size: 16px;
+}
+
+/* Status Badge Styling matching the clean UI tags in screenshot */
+.status-badge {
+  background-color: #dfedff !important;
+  color: #2563eb !important;
+  border: none !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 4px 12px !important;
+  border-radius: 12px !important;
+  width: fit-content;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .custom-delivery-card {
+    max-width: 100%;
+    border-radius: 12px !important;
+  }
+  
+  .ant-card-body {
+    padding: 16px !important; /* Reduces padding slightly for small viewport optimization */
+  }
+
+  .card-main-title {
+    font-size: 19px !important;
+  }
+
+  .info-value {
+    font-size: 15px !important;
+  }
+
+  .bold-text {
+    font-size: 16px !important;
+  }
+}
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.delivery-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.section-label {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 400;
+}
+
+.section-value {
+  font-size: 16px;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.bold-text {
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.location-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.location-icon {
+  width: 18px;
+  height: 18px;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.price-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.status-badge {
+  background-color: #dfedff;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 12px;
+  width: fit-content;
+}
+
+@media (max-width: 480px) {
+  .delivery-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .delivery-title {
+    font-size: 19px;
+  }
+
+  .section-value {
+    font-size: 15px;
+  }
+
+  .bold-text {
+    font-size: 16px;
+  }
+}

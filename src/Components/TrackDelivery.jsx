@@ -1,9 +1,12 @@
 import React from "react";
 import { CarOutlined } from "@ant-design/icons";
 import "../CSS/TrackDelivery.css";
-import DetailspageAgent from "../Components/DetailspageAgent"
+import DetailspageAgent from "../Components/DetailspageAgent";
+import DeliveryDetailsCard from "../Components/DeliveryDetailsCard";
+import { useNavigate } from "react-router-dom";
 
 const TrackDelivery = () => {
+  const navigate = useNavigate();
   return (
     <div className="fg-track-delivery-container">
       <div className="fg-track-header">
@@ -11,7 +14,13 @@ const TrackDelivery = () => {
           <h2 className="fg-track-heading">Track Delivery</h2>
           <span className="fg-track-order-id">Order ID: TRN-001</span>
         </div>
-        <button className="fg-track-back-btn">Back to Dashboard</button>
+        <button
+          className="fg-track-back-btn"
+          onClick={() => navigate("/agent/dashboard/activedelivery")}
+          style={{ cursor: "pointer" }}
+        >
+          Back to Dashboard
+        </button>
       </div>
 
       {/* Weather Update Banner from image_8889ef.png */}
@@ -39,7 +48,8 @@ const TrackDelivery = () => {
           </p>
         </div>
       </div>
-      < DetailspageAgent />
+      <DetailspageAgent />
+      <DeliveryDetailsCard />
     </div>
   );
 };

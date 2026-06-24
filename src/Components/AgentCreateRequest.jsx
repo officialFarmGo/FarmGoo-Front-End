@@ -14,7 +14,6 @@ import "../CSS/AgentCreateRequest.css";
 import { useNavigate } from "react-router-dom";
 
 const AgentCreateRequest = ({
-  
   onBackClick,
   onViewDeliveriesClick,
   preselectedFarmer,
@@ -445,7 +444,7 @@ const AgentCreateRequest = ({
               <button
                 type="button"
                 className="cr-modal-btn-primary"
-                onClick={onViewDeliveriesClick}
+                onClick={() => navigate("/agent/dashboard/activedelivery")}
               >
                 View Deliveries
               </button>
