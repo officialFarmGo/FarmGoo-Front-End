@@ -4,14 +4,11 @@ import {
   FiArrowLeft,
   FiBell,
   FiMapPin,
-  FiCalendar,
-  FiTruck,
-  FiLayers,
-  FiAlertCircle,
   FiShield,
   FiClock,
   FiEye,
   FiCheckCircle,
+  FiAlertCircle,
 } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import "../CSS/DriverJobDetails.css";
@@ -35,7 +32,6 @@ const DriverJobDetails = () => {
   const [accepted, setAccepted] = useState(false);
 
   // Resolve the correct ID to use for the detail + accept endpoints
-  // The API expects the trackingId / deliveryId string (e.g. "DEL-XXXX"), not the MongoDB _id
   const resolvedId = job?.deliveryId || job?.trackingId || job?._id;
 
   // ── Optionally re-fetch full details if the list didn't include everything ──
@@ -45,7 +41,6 @@ const DriverJobDetails = () => {
       return;
     }
 
-    // Only fetch if we think more fields might be missing (e.g. no pickupDate)
     if (!passedJob.pickupDate && resolvedId) {
       setLoading(true);
       const fetchDetails = async () => {
@@ -64,7 +59,6 @@ const DriverJobDetails = () => {
             const fetched = data.data?.job ?? data.data ?? data;
             setJob((prev) => ({ ...prev, ...fetched }));
           }
-          // If it 404s, we still have the passedJob — no need to crash
         } catch (_) {
           // Silent — passedJob is sufficient fallback
         } finally {
@@ -116,20 +110,6 @@ const DriverJobDetails = () => {
     return `${Math.floor(h / 24)}d ago`;
   };
 
-  const formatDate = (iso) => {
-    if (!iso) return "—";
-    return new Date(iso).toLocaleDateString("en-NG", {
-      day: "numeric", month: "long", year: "numeric",
-    });
-  };
-
-  const formatTime = (iso) => {
-    if (!iso) return "";
-    return new Date(iso).toLocaleTimeString("en-NG", {
-      hour: "2-digit", minute: "2-digit",
-    });
-  };
-
   // ── Render states ────────────────────────────────────────────────────────
   if (error) {
     return (
@@ -167,7 +147,6 @@ const DriverJobDetails = () => {
     );
   }
 
-  // ── Main render ──────────────────────────────────────────────────────────
   return (
     <div className="fg-job-page-wrapper">
       <div className="fg-job-top-nav">
@@ -250,55 +229,6 @@ const DriverJobDetails = () => {
             </div>
           </div>
 
-          <div className="fg-job-section-card">
-            <h3 className="fg-job-card-title">Delivery Details</h3>
-
-            <div className="fg-job-details-info-grid">
-              <div className="fg-job-info-block">
-                <FiCalendar className="fg-job-info-icon" />
-                <div className="fg-job-info-texts">
-                  <span className="fg-job-info-label">Pickup Date & Time</span>
-                  <span className="fg-job-info-val">{formatDate(job?.pickupDate)}</span>
-                  <span className="fg-job-info-subval">{formatTime(job?.pickupDate)}</span>
-                </div>
-              </div>
-
-              <div className="fg-job-info-block">
-                <FiTruck className="fg-job-info-icon" />
-                <div className="fg-job-info-texts">
-                  <span className="fg-job-info-label">Vehicle Type Required</span>
-                  <span className="fg-job-info-val">
-                    {job?.vehicleRequired && job.vehicleRequired !== "N/A"
-                      ? job.vehicleRequired
-                      : "Any"}
-                  </span>
-                </div>
-              </div>
-
-              <div className="fg-job-info-block">
-                <FiLayers className="fg-job-info-icon" />
-                <div className="fg-job-info-texts">
-                  <span className="fg-job-info-label">Cargo Weight</span>
-                  <span className="fg-job-info-val">
-                    {job?.quantity} {job?.weight}
-                  </span>
-                </div>
-              </div>
-
-              {job?.riskLevel && (
-                <div className="fg-job-info-block">
-                  <FiAlertCircle className="fg-job-info-icon" />
-                  <div className="fg-job-info-texts">
-                    <span className="fg-job-info-label">Risk Level</span>
-                    <span className={`fg-job-info-val ${job.riskLevel.toLowerCase()}-risk`}>
-                      {job.riskLevel}
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
           <div className="fg-job-escrow-banner-card">
             <div className="fg-job-banner-icon-box">
               <FiShield />
@@ -323,11 +253,11 @@ const DriverJobDetails = () => {
           <div className="fg-job-section-card">
             <h3 className="fg-job-card-title">Farmer Information</h3>
             <div className="fg-job-farmer-profile">
-              <div className="fg-job-farmer-avatar">{initials(job?.farmer?.name)}</div>
+              <div className="fg-job-farmer-avatar">{initials(job?.owner.name)}</div>
               <div className="fg-job-farmer-info">
-                <span className="fg-job-farmer-name">{job?.farmer?.name}</span>
+                <span className="fg-job-farmer-name">{job?.owner.name}</span>
                 <span className="fg-job-farmer-rating">
-                  {job?.farmer?.rating ? `★ ${job.farmer.rating}` : "★ Verified"}
+                  {job?.owner.rating ? `★ ${job.owner.rating}` : "★ Verified"}
                 </span>
               </div>
             </div>

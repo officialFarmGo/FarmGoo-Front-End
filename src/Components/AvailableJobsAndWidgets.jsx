@@ -91,7 +91,7 @@ const AvailableJobsAndWidgets = () => {
             <h2 className="fg-jobs-main-heading">Available Jobs Near You</h2>
             <span className="fg-jobs-sub-heading">New transport requests from farmers</span>
           </div>
-          <button className="fg-browse-all-btn" onClick={() => nav("/driver/jobs")}>
+          <button className="fg-browse-all-btn" onClick={() => nav("jobss")}>
             Browse All Jobs <ArrowRightOutlined style={{ fontSize: "12px", marginLeft: "6px" }} />
           </button>
         </div>

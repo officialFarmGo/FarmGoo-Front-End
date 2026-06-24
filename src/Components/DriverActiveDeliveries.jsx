@@ -210,20 +210,17 @@ const DriverActiveDeliveries = () => {
                 <div className="fg-deliv-details-grid">
                   <div>
                     <span className="fg-deliv-detail-label">Customer</span>
-                    <span className="fg-deliv-detail-value">{d.customersName ?? '—'}</span>
+                    <span className="fg-deliv-detail-value">{d.ownerName ?? '—'}</span>
                   </div>
                   <div>
                     <span className="fg-deliv-detail-label">Landmark</span>
-                    <span className="fg-deliv-detail-value">{d.landMarkToAddressForPickup ?? '—'}</span>
+                    <span className="fg-deliv-detail-value">{d.Destination ?? '—'}</span>
                   </div>
                   <div>
                     <span className="fg-deliv-detail-label">Est. Duration</span>
                     <span className="fg-deliv-detail-value">{d.estimatedDuration ?? '—'}</span>
                   </div>
-                  <div>
-                    <span className="fg-deliv-detail-label">Last Updated</span>
-                    <span className="fg-deliv-detail-value">{timeAgo(d.updatedAt)}</span>
-                  </div>
+                  {/*  */}
                 </div>
 
                 <div className="fg-deliv-progress-section">

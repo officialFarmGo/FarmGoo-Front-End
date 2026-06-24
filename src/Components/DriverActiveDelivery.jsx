@@ -289,14 +289,14 @@ const DriverActiveDelivery = () => {
                 </>
               )}
 
-              <button className="fg-action-btn-secondary-outline">
+              {/* <button className="fg-action-btn-secondary-outline">
                 <CameraOutlined />
                 <span>Upload Photo</span>
               </button>
               <button className="fg-action-btn-secondary-outline">
                 <WarningOutlined />
                 <span>Report Issue</span>
-              </button>
+              </button> */}
             </div>
           </div>
 

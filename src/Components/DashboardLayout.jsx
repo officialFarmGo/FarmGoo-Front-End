@@ -209,7 +209,10 @@ const DashboardLayout = (props) => {
             <img src={brandLogo} alt="FarmGoo" className="fg-sidebar-logo" />
             <div className="fg-sidebar-brand-text">
               <h1 className="fg-brand-name">FarmGoo</h1>
-              <p className="fg-brand-portal">Farm Logistics</p>
+              <p className="fg-brand-portal">
+                {props.rows.charAt(0).toUpperCase() + props.rows.slice(1)}{" "}
+                Logistics
+              </p>
             </div>
             <button
               className="fg-sidebar-close-trigger"
