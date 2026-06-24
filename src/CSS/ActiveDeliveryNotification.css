@@ -51,7 +51,7 @@
 
 .subtext {
   font-size: 14px;
-  color: #6b7280;
+  /* color: #6b7280; */
   margin: 6px 0 0 0;
 }
 
@@ -66,6 +66,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-bottom: 24px;
+  color:black;
 }
 
 .route-item {
@@ -75,18 +76,19 @@
 }
 
 .route-icon {
-  color: #9ca3af;
+  
   margin-top: 2px;
 }
 
 .route-text {
   display: flex;
   flex-direction: column;
+  color: #090909;
 }
 
 .route-label {
   font-size: 12px;
-  color: #9ca3af;
+   color:black;
   text-transform: capitalize;
   margin-bottom: 2px;
 }
@@ -94,7 +96,7 @@
 .route-value {
   font-size: 15px;
   font-weight: 700;
-  color: #111827;
+  color: black;
 }
 
 .divider {

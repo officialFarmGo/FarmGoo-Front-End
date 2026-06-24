@@ -3,7 +3,7 @@ import { LuMapPin, LuClock, LuTruck } from "react-icons/lu";
 import "../CSS/ActiveDeliveryNotification.css";
 
 const ActiveDeliveryNotification = ({ data,onTrack }) => {
-  console.log(data);
+  
 
   // 1. DIRECT EMPTY STATE INTERFACE
   if (!data || data.length === 0) {
@@ -24,13 +24,13 @@ const ActiveDeliveryNotification = ({ data,onTrack }) => {
   // 2. ACTIVE DATA MAPPING
   return (
     <>
-      {data.map((delivery) => (
+      {data?.map((delivery) => (
         <div className="tracking-card" key={delivery.id || delivery._id}>
           <div className="card-header">
             <div className="header-left">
               <div className="title-row">
                 <h2>
-                  {delivery.item} - {delivery.quantity}
+                  {delivery.productType.charAt(0).toUpperCase() + delivery.productType.slice(1)} - {delivery.quantity}{delivery.weight}
                 </h2>
                 <span
                   className={`badge badge-${delivery.status?.toLowerCase().replace(/\s+/g, "-") || "transit"}`}
@@ -40,7 +40,7 @@ const ActiveDeliveryNotification = ({ data,onTrack }) => {
                 </span>
               </div>
               <p className="subtext">
-                ID: {delivery.id} • Created: {delivery.createdAt}
+                ID: {delivery.trackingId} • Created: {delivery.createdAt}
               </p>
             </div>
             <div className="header-right">
@@ -55,7 +55,7 @@ const ActiveDeliveryNotification = ({ data,onTrack }) => {
               <LuMapPin size={18} className="route-icon" />
               <div className="route-text">
                 <span className="route-label">Pickup</span>
-                <span className="route-value">{delivery.pickup}</span>
+                <span className="route-value">{delivery.AddressOrpickUpLocation}</span>
               </div>
             </div>
 
@@ -63,7 +63,7 @@ const ActiveDeliveryNotification = ({ data,onTrack }) => {
               <LuMapPin size={18} className="route-icon" />
               <div className="route-text">
                 <span className="route-label">Destination</span>
-                <span className="route-value">{delivery.destination}</span>
+                <span className="route-value">{delivery.Destination}</span>
               </div>
             </div>
 
@@ -71,7 +71,7 @@ const ActiveDeliveryNotification = ({ data,onTrack }) => {
               <LuClock size={18} className="route-icon" />
               <div className="route-text">
                 <span className="route-label">ETA</span>
-                <span className="route-value">{delivery.eta}</span>
+                <span className="route-value">{delivery.estimatedDuration}</span>
               </div>
             </div>
           </div>
@@ -81,11 +81,11 @@ const ActiveDeliveryNotification = ({ data,onTrack }) => {
           <div className="card-footer">
             <div className="driver-profile">
               <div className="avatar">
-                {delivery.driverName ? delivery.driverName.charAt(0) : "D"}
+                {delivery.driverId?.firstName ? delivery.driverId.firstName.charAt(0) : "N/A"}
               </div>
               <div className="driver-info">
-                <h3>{delivery.driverName}</h3>
-                <p>{delivery.driverPhone}</p>
+                <h3>{delivery.driverId?.firstName} {delivery.driverId?.lastName}</h3>
+                <p>{delivery.driverId?.phoneNumber}</p>
               </div>
             </div>
             <button className="track-btn"onClick={() => onTrack(delivery._id)}>Track Delivery</button>
