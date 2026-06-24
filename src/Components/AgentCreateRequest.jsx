@@ -14,13 +14,14 @@ import "../CSS/AgentCreateRequest.css";
 import { useNavigate } from "react-router-dom";
 
 const AgentCreateRequest = ({
+
   onBackClick,
   onViewDeliveriesClick,
   preselectedFarmer,
 }) => {
   const token = useSelector((state) => state.auth.token);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
-
+ const nav = useNavigate();
   // Initialize form state using the first ID from your actual vehicle list as default
   const [formData, setFormData] = useState({
     agentFarmerId: preselectedFarmer?._id || preselectedFarmer?.id || "",
@@ -444,7 +445,7 @@ const AgentCreateRequest = ({
               <button
                 type="button"
                 className="cr-modal-btn-primary"
-                onClick={() => navigate("/agent/dashboard/activedelivery")}
+                onClick={() => navigate("activedelivery")}
               >
                 View Deliveries
               </button>

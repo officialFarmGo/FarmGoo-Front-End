@@ -37,13 +37,19 @@ const AgentProfileSettings = () => {
       phoneNumber: user.phoneNumber || "+234 801 234 5678",
       password: "",
     });
-    setPreviewUrl(user.profilePicture || "");
+
+    // Safely extract string URL from Cloudinary image object or alternative fallbacks
+    const initialImage = user.profilePicture && typeof user.profilePicture === "object"
+      ? user.profilePicture.securedUrl
+      : user.profilePicture;
+
+    setPreviewUrl(initialImage || "");
   }, [user]);
 
   // Memory cleanup for local file blob previews
   useEffect(() => {
     return () => {
-      if (previewUrl && previewUrl.startsWith("blob:")) {
+      if (previewUrl && typeof previewUrl === "string" && previewUrl.startsWith("blob:")) {
         URL.revokeObjectURL(previewUrl);
       }
     };
@@ -97,19 +103,37 @@ const AgentProfileSettings = () => {
       const data = await res.json();
 
       if (res.ok) {
+        const updatedUser = data.data || {};
+        
         setStatusMessage({
           type: "success",
-          text: data.message || "Profile updated successfully!",
+          text: data.message || "Successfully updated profile",
         });
-        setFormData((prev) => ({ ...prev, password: "" }));
+
+        alert("🎉 Success! Your profile details have been successfully updated.");
+
+        setFormData((prev) => ({
+          ...prev,
+          firstName: updatedUser.firstName || prev.firstName,
+          lastName: updatedUser.lastName || prev.lastName,
+          email: updatedUser.email || prev.email,
+          phoneNumber: updatedUser.phoneNumber || prev.phoneNumber,
+          password: "",
+        }));
+
+        if (updatedUser.profilePicture?.securedUrl) {
+          setPreviewUrl(updatedUser.profilePicture.securedUrl);
+        }
       } else {
-        throw new Error(
-          data.message || "Something went wrong updating your profile.",
-        );
+        throw new Error(data.message || "Not successful");
       }
     } catch (err) {
       console.error("Profile update patch processing error:", err);
-      setStatusMessage({ type: "error", text: err.message });
+      setStatusMessage({ 
+        type: "error", 
+        text: err.message || "Profile update not successful." 
+      });
+      alert(`❌ Update Not Successful: ${err.message || "Something went wrong."}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -132,7 +156,7 @@ const AgentProfileSettings = () => {
               className="fg-avatar-preview-circle"
               style={{ cursor: "pointer" }}
             >
-              {previewUrl ? (
+              {previewUrl && typeof previewUrl === "string" ? (
                 <img
                   src={previewUrl}
                   alt="Avatar Preview"
