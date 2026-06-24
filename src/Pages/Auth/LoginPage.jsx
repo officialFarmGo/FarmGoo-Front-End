@@ -97,6 +97,8 @@ const LoginPage = () => {
     }
 
     const result = await response.json();
+    console.log("Profile API result:", JSON.stringify(result, null, 2)); // 👈 check this
+
     // Dynamically look up data object keys returned by the backend
     const profile = result.data;
 
