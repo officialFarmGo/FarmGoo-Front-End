@@ -41,8 +41,6 @@ import PaymentVerification from "./Components/PaymentVerification";
 import PrivateRoute from "./Props/PrivateRoute";
 import WithdrawalPageSuccess from "./Components/WithdrawalPageSucess";
 
-
-
 function App() {
   return (
     <BrowserRouter>
@@ -58,20 +56,26 @@ function App() {
         <Route element={<PrivateRoute allowedRoles={["farmer"]} />}>
           <Route path="/farmer_kyc/:farmId" element={<FarmerProfile />} />
           <Route path="/farmer/dashboard" element={<FarmersDahboard />}>
-             <Route path='withdrawalpage-success' element={<WithdrawalPageSuccess />} />
+            <Route path="deposit-success" element={<WithdrawalSuccess />} />
             <Route path="" element={<DashboardPagesComponent />} />
             <Route path="wallet" element={<Wallet />} />
             <Route path="notification" element={<Notification />} />
             <Route path="settings" element={<ProfileSettingsDashboard />} />
-            <Route path="activedelivery" element={<ActiveDeliveryPageComponets />} />
+            <Route
+              path="activedelivery"
+              element={<ActiveDeliveryPageComponets />}
+            />
             <Route path="help&support" element={<FarmerHelpAndSupport />} />
           </Route>
         </Route>
 
         <Route element={<PrivateRoute allowedRoles={["agent"]} />}>
-          <Route path="/agent_kyc/:agentId" element={<CompleteAgentProfile />} />
+          <Route
+            path="/agent_kyc/:agentId"
+            element={<CompleteAgentProfile />}
+          />
           <Route path="/agent/dashboard" element={<AgentDashboard />}>
-          <Route path='withdrawalpage-success' element={<WithdrawalPageSuccess />} />
+            <Route path="deposit-success" element={<WithdrawalPageSuccess />} />
             <Route path="" element={<AgentDashBoard />} />
             <Route path="wallet" element={<Wallet />} />
             <Route path="notification" element={<Notification />} />
@@ -82,10 +86,16 @@ function App() {
         </Route>
 
         <Route element={<PrivateRoute allowedRoles={["driver"]} />}>
-          <Route path="/driver_kyc/:driverId" element={<DriverKycVerification />} />
+          <Route
+            path="/driver_kyc/:driverId"
+            element={<DriverKycVerification />}
+          />
           <Route path="/driverpending" element={<VerificationPending />} />
-          <Route path="/payment-verification" element={<PaymentVerification />} />
-          <Route path="withdrawal-success" element={<WithdrawalSuccess />} />
+          <Route
+            path="/payment-verification"
+            element={<PaymentVerification />}
+          />
+          <Route path="deposit-success" element={<WithdrawalSuccess />} />
           <Route path="/approved" element={<ApprovedDoc />} />
           <Route path="/drivers/dashboard" element={<DriverDashboard />}>
             <Route path="" element={<DriverDashboardView />} />

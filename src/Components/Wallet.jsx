@@ -24,6 +24,8 @@ const Wallet = () => {
   });
   const [withdrawLoading, setWithdrawLoading] = useState(false);
   const [withdrawStatus, setWithdrawStatus] = useState(null);
+  const [showWithdrawSuccess, setShowWithdrawSuccess] = useState(false);
+  const [withdrawSuccessMessage, setWithdrawSuccessMessage] = useState("");
 
   const bankOptions = [
     "Access Bank",
@@ -117,6 +119,10 @@ const Wallet = () => {
     setAddStatus(null);
   };
 
+  const handleCloseWithdrawSuccess = () => {
+    setShowWithdrawSuccess(false);
+  };
+
   const handleWithdraw = async () => {
     setWithdrawLoading(true);
     setWithdrawStatus(null);
@@ -136,10 +142,13 @@ const Wallet = () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Withdrawal failed");
+      const successMsg = data.message || "Withdrawal initiated!";
       setWithdrawStatus({
         type: "success",
-        msg: data.message || "Withdrawal initiated!",
+        msg: successMsg,
       });
+      setWithdrawSuccessMessage(successMsg);
+      setShowWithdrawSuccess(true);
       setWithdrawForm({
         amount: "",
         bankCode: "",
@@ -381,11 +390,11 @@ const Wallet = () => {
                 </select>
               </div>
             </div>
-            {withdrawStatus && (
+            {/* {withdrawStatus && (
               <div className={`status-msg ${withdrawStatus.type}`}>
                 {withdrawStatus.msg}
               </div>
-            )}
+            )} */}
             <button
               className="dropdown-submit-btn withdraw-submit"
               onClick={handleWithdraw}
@@ -428,7 +437,7 @@ const Wallet = () => {
           </div>
         </div>
 
-        {/* Bank Account List Display Section */}
+        {/* Bank Account List Display Section
         <div className="wallet-dashboard-panel">
           <div className="panel-header-row">
             <h3 className="panel-section-title">Linked Accounts</h3>
@@ -487,7 +496,7 @@ const Wallet = () => {
               <span>Add a bank account to enable withdrawals</span>
             </div>
           )}
-        </div>
+        </div> */}
 
         {/* Dynamic Transaction Log History Grid */}
         <div className="wallet-dashboard-panel">
@@ -552,6 +561,35 @@ const Wallet = () => {
             )}
           </div>
         </div>
+        {showWithdrawSuccess && (
+          <div className="fg-modal-overlay">
+            <div className="fg-modal-card animate-popup">
+              <div className="fg-modal-icon-box">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#059669"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+              </div>
+              <h2 className="fg-modal-title">Withdrawal Successful</h2>
+              <p className="fg-modal-message">{withdrawSuccessMessage}</p>
+              <button
+                type="button"
+                className="fg-modal-btn"
+                onClick={handleCloseWithdrawSuccess}
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

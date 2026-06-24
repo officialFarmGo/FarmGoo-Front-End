@@ -177,7 +177,7 @@ const TransportJob = () => {
 
       {!loading && !error && filtered.length === 0 && (
         <div className="tj-state-box">
-          <p>No jobs match your search.</p>
+          <p>Complete delivery details to see available jobs.</p>
         </div>
       )}
 
