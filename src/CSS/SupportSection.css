@@ -1,15 +1,14 @@
 .fg-support-container {
   width: 100%;
-  background-color: #fcfcfc;
-  padding: 40px 0;
-  /* padding-left: 260px; Keeps the sidebar space */
+  background-color: #f8fafc;
+  padding: 40px 24px;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .fg-support-inner {
-  max-width: 1000px; /* Matches the width of your tracking card */
-  margin: 0 auto 0 0; /* Aligns it left relative to its container space */
+  max-width: 900px;
+  margin: 0; 
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -20,20 +19,188 @@
   font-size: 28px;
   font-weight: 700;
   color: #0c1a30;
-  margin: 0;
+  margin: 0 0 8px 0;
   text-align: left;
 }
 
+/* Base White Containers for sections */
+.fg-support-section-card {
+  background-color: #ffffff;
+  border: 1px solid #eef2f6;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.fg-support-section-heading {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0c1a30;
+  margin: 0 0 20px 0;
+}
+
+/* Accordion/FAQ Styles */
+.fg-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fg-faq-item-container {
+  width: 100%;
+}
+
+.fg-faq-trigger {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.fg-faq-trigger:hover {
+  background-color: #f8fafc;
+}
+
+.fg-faq-question {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.fg-faq-chevron {
+  font-size: 18px;
+  color: #64748b;
+  transition: transform 0.2s ease;
+}
+
+.fg-faq-chevron.rotate {
+  transform: rotate(180deg);
+}
+
+.fg-faq-answer {
+  padding: 16px 20px;
+  background-color: #f8fafc;
+  border-left: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-top: -4px; /* Seamless pull up next to trigger border */
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* Form Styles */
+.fg-issue-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fg-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.fg-form-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+}
+
+.fg-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.fg-form-select {
+  width: 100%;
+  height: 48px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0 40px 0 16px;
+  font-size: 15px;
+  color: #334155;
+  appearance: none; /* Removes native browser chevron */
+  outline: none;
+  cursor: pointer;
+}
+
+.fg-select-chevron {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.fg-form-textarea {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 15px;
+  color: #334155;
+  outline: none;
+  resize: vertical;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.fg-form-textarea::placeholder {
+  color: #94a3b8;
+}
+
+.fg-form-select:focus, .fg-form-textarea:focus {
+  border-color: #00b67a; /* Subtle brand highlight on focus */
+}
+
+.fg-form-submit-btn {
+  align-self: flex-start;
+  height: 44px;
+  padding: 0 24px;
+  background-color: #004d3d; /* Dark green tone matching submit button */
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.fg-form-submit-btn:hover {
+  background-color: #00382c;
+}
+
+/* --- Contact Info Grid Panels --- */
 .fg-support-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 280px);
   gap: 20px;
   width: 100%;
+  margin-top: 10px;
 }
 
 .fg-support-action-card {
   background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e2e8f0;
   border-radius: 14px;
   padding: 32px 24px;
   display: flex;
@@ -41,11 +208,6 @@
   align-items: center;
   text-align: center;
   box-sizing: border-box;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.fg-support-action-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .fg-support-icon-circle {
@@ -58,28 +220,14 @@
   margin-bottom: 16px;
 }
 
-.email-bg {
-  background-color: #e6f7ed;
-}
-
-.phone-bg {
-  background-color: #fffbeb;
-}
-
-.fg-support-native-icon {
-  font-size: 22px;
-}
-
-.email-icon-clr {
-  color: #00b67a;
-}
-
-.phone-icon-clr {
-  color: #f59e0b;
-}
+.email-bg { background-color: #e6f7ed; }
+.phone-bg { background-color: #fffbeb; }
+.fg-support-native-icon { font-size: 22px; }
+.email-icon-clr { color: #00b67a; }
+.phone-icon-clr { color: #f59e0b; }
 
 .fg-support-card-label {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color: #0c1a30;
   margin: 0 0 6px 0;
@@ -110,34 +258,24 @@
 .fg-support-action-trigger-btn:hover {
   background-color: #f9fafb;
   border-color: #9ca3af;
-  color: #111827;
 }
 
+/* Responsiveness adjustments */
 @media screen and (max-width: 768px) {
   .fg-support-container {
-    padding-left: 0;
+    padding: 24px 16px;
   }
 
-  .fg-support-inner {
-    width: 95%;
-    padding: 0 10px;
-  }
-
-  .fg-support-main-title {
-    font-size: 24px;
+  .fg-support-section-card {
+    padding: 20px;
   }
 
   .fg-support-cards-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-
-  .fg-support-action-card {
-    padding: 28px 20px;
-  }
-
-  .fg-support-action-trigger-btn {
+  
+  .fg-form-submit-btn {
     width: 100%;
-    border-radius: 0px !important;
   }
 }

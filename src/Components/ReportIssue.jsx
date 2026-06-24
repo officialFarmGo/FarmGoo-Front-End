@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { LuChevronDown } from 'react-icons/lu';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { LuChevronDown } from "react-icons/lu";
+import { useSelector } from "react-redux";
 import "../CSS/ReportIssue.css";
 
 const ReportIssue = () => {
@@ -8,17 +8,17 @@ const ReportIssue = () => {
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState('Payment Issue');
-  const [description, setDescription] = useState('');
+  const [selectedType, setSelectedType] = useState("Payment Issue");
+  const [description, setDescription] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState(null);
 
   const issueTypes = [
-    'Payment Issue',
-    'Delivery Problem',
-    'Driver Complaint',
-    'Technical Issue',
-    'Other'
+    "Payment Issue",
+    "Delivery Problem",
+    "Driver Complaint",
+    "Technical Issue",
+    "Other",
   ];
 
   const handleSelect = (type) => {
@@ -29,7 +29,10 @@ const ReportIssue = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!description.trim()) {
-      setStatusMessage({ type: "error", text: "Please enter a description before submitting." });
+      setStatusMessage({
+        type: "error",
+        text: "Please enter a description before submitting.",
+      });
       return;
     }
 
@@ -39,7 +42,7 @@ const ReportIssue = () => {
     // Matching your exact API request body structure
     const payload = {
       issueType: selectedType,
-      description: description.trim()
+      description: description.trim(),
     };
 
     try {
@@ -47,19 +50,24 @@ const ReportIssue = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-          "accept": "*/*"
+          Authorization: `Bearer ${token}`,
+          accept: "*/*",
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        setStatusMessage({ type: "success", text: data.message || "Report submitted successfully" });
-        setDescription(''); // Clear textarea input on success
+        setStatusMessage({
+          type: "success",
+          text: data.message || "Report submitted successfully",
+        });
+        setDescription(""); // Clear textarea input on success
       } else {
-        throw new Error(data.message || "Failed to submit report. Please try again.");
+        throw new Error(
+          data.message || "Failed to submit report. Please try again.",
+        );
       }
     } catch (err) {
       console.error("Report Issue Error:", err);
@@ -73,7 +81,7 @@ const ReportIssue = () => {
     <div className="fg-issue-container">
       <div className="fg-issue-card">
         <h2 className="fg-issue-title">Report an Issue</h2>
-        
+
         <form onSubmit={handleSubmit} className="fg-issue-form">
           <div className="fg-form-group">
             <label className="fg-input-label">Issue Type</label>
@@ -91,9 +99,9 @@ const ReportIssue = () => {
               {isOpen && (
                 <ul className="fg-dropdown-menu">
                   {issueTypes.map((type, index) => (
-                    <li 
+                    <li
                       key={index}
-                      className={`fg-dropdown-item ${selectedType === type ? 'selected' : ''}`}
+                      className={`fg-dropdown-item ${selectedType === type ? "selected" : ""}`}
                       onClick={() => handleSelect(type)}
                     >
                       {type}
@@ -122,9 +130,9 @@ const ReportIssue = () => {
             </div>
           )}
 
-          <button 
-            type="submit" 
-            className="fg-submit-btn" 
+          <button
+            type="submit"
+            className="fg-submit-btn"
             disabled={isSubmitting}
           >
             {isSubmitting ? (

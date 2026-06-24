@@ -5,30 +5,55 @@ import {
   PhoneOutlined,
   CameraOutlined,
   SaveOutlined,
-  LockOutlined
+  LockOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import "../CSS/AgentProfilesetting.css";
 
 const AgentProfileSettings = () => {
   const token = useSelector((state) => state.auth.token);
-  // Optional: Pull existing user object context from Redux auth state if populated
   const user = useSelector((state) => state.auth.user) || {};
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
-  // Split full name mapping into separate first and last name tracking structures matching the backend
   const [formData, setFormData] = useState({
-    firstName: user.firstName || "Obi",
-    lastName: user.lastName || "Amaka",
-    email: user.email || "amaka@gmail.com",
-    phoneNumber: user.phoneNumber || "+234 801 234 5678",
-    password: "", // Left blank unless updating security context
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(user.profilePicture || "");
+  const [previewUrl, setPreviewUrl] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState(null);
+
+  // Sync state when Redux user profile data loads or changes
+  useEffect(() => {
+    setFormData({
+      firstName: user.firstName || "Obi",
+      lastName: user.lastName || "Amaka",
+      email: user.email || "amaka@gmail.com",
+      phoneNumber: user.phoneNumber || "+234 801 234 5678",
+      password: "",
+    });
+
+    // Safely extract string URL from Cloudinary image object or alternative fallbacks
+    const initialImage = user.profilePicture && typeof user.profilePicture === "object"
+      ? user.profilePicture.securedUrl
+      : user.profilePicture;
+
+    setPreviewUrl(initialImage || "");
+  }, [user]);
+
+  // Memory cleanup for local file blob previews
+  useEffect(() => {
+    return () => {
+      if (previewUrl && typeof previewUrl === "string" && previewUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,12 +63,11 @@ const AgentProfileSettings = () => {
     }));
   };
 
-  // Local device profile picture preview mapping logic 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setPreviewUrl(URL.createObjectURL(file)); // Creates local sandbox URL for temporary image source mapping
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
@@ -52,7 +76,6 @@ const AgentProfileSettings = () => {
     setIsSubmitting(true);
     setStatusMessage(null);
 
-    // CRITICAL: We must construct a FormData instance to map binary parameters correctly
     const uploadFormPayload = new FormData();
     uploadFormPayload.append("firstName", formData.firstName.trim());
     uploadFormPayload.append("lastName", formData.lastName.trim());
@@ -71,10 +94,8 @@ const AgentProfileSettings = () => {
       const res = await fetch(`${BaseUrl}/agentDashboard/updateProfile`, {
         method: "PATCH",
         headers: {
-          "Authorization": `Bearer ${token}`,
-          "accept": "*/*"
-          // Note: DO NOT declare 'Content-Type': 'multipart/form-data' here explicitly. 
-          // Browser auto-generates boundaries dynamically once parsing payload content types.
+          Authorization: `Bearer ${token}`,
+          accept: "*/*",
         },
         body: uploadFormPayload,
       });
@@ -82,14 +103,37 @@ const AgentProfileSettings = () => {
       const data = await res.json();
 
       if (res.ok) {
-        setStatusMessage({ type: "success", text: data.message || "Profile updated successfully!" });
-        setFormData((prev) => ({ ...prev, password: "" })); // Clear out completed password state
+        const updatedUser = data.data || {};
+        
+        setStatusMessage({
+          type: "success",
+          text: data.message || "Successfully updated profile",
+        });
+
+        alert("🎉 Success! Your profile details have been successfully updated.");
+
+        setFormData((prev) => ({
+          ...prev,
+          firstName: updatedUser.firstName || prev.firstName,
+          lastName: updatedUser.lastName || prev.lastName,
+          email: updatedUser.email || prev.email,
+          phoneNumber: updatedUser.phoneNumber || prev.phoneNumber,
+          password: "",
+        }));
+
+        if (updatedUser.profilePicture?.securedUrl) {
+          setPreviewUrl(updatedUser.profilePicture.securedUrl);
+        }
       } else {
-        throw new Error(data.message || "Something went wrong updating your profile.");
+        throw new Error(data.message || "Not successful");
       }
     } catch (err) {
       console.error("Profile update patch processing error:", err);
-      setStatusMessage({ type: "error", text: err.message });
+      setStatusMessage({ 
+        type: "error", 
+        text: err.message || "Profile update not successful." 
+      });
+      alert(`❌ Update Not Successful: ${err.message || "Something went wrong."}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -103,14 +147,21 @@ const AgentProfileSettings = () => {
       </div>
 
       <form onSubmit={handleSubmit}>
-        
         {/* Profile Picture Panel Section */}
         <div className="fg-profile-panel-card">
           <h3 className="fg-panel-inner-heading">Profile Picture</h3>
           <div className="fg-avatar-upload-row">
-            <label htmlFor="avatarFileInput" className="fg-avatar-preview-circle" style={{ cursor: "pointer" }}>
-              {previewUrl ? (
-                <img src={previewUrl} alt="Avatar Preview" className="fg-avatar-image-render" />
+            <label
+              htmlFor="avatarFileInput"
+              className="fg-avatar-preview-circle"
+              style={{ cursor: "pointer" }}
+            >
+              {previewUrl && typeof previewUrl === "string" ? (
+                <img
+                  src={previewUrl}
+                  alt="Avatar Preview"
+                  className="fg-avatar-image-render"
+                />
               ) : (
                 <span>{formData.firstName?.charAt(0).toUpperCase()}</span>
               )}
@@ -118,18 +169,24 @@ const AgentProfileSettings = () => {
                 <CameraOutlined />
               </div>
             </label>
-            <input 
-              type="file" 
-              id="avatarFileInput" 
-              accept="image/*" 
-              onChange={handleFileChange} 
+            <input
+              type="file"
+              id="avatarFileInput"
+              accept="image/*"
+              onChange={handleFileChange}
               style={{ display: "none" }}
             />
             <div className="fg-upload-instructions-stack">
-              <label htmlFor="avatarFileInput" className="fg-upload-trigger-text" style={{ cursor: "pointer" }}>
+              <label
+                htmlFor="avatarFileInput"
+                className="fg-upload-trigger-text"
+                style={{ cursor: "pointer" }}
+              >
                 Change Profile Picture
               </label>
-              <span className="fg-upload-constraints-label">JPG, PNG or GIF. Max size 2MB</span>
+              <span className="fg-upload-constraints-label">
+                JPG, PNG or GIF. Max size 2MB
+              </span>
             </div>
           </div>
         </div>
@@ -138,7 +195,6 @@ const AgentProfileSettings = () => {
         <div className="fg-profile-panel-card">
           <h3 className="fg-panel-inner-heading">Personal Information</h3>
           <div className="fg-form-two-column-grid">
-            
             <div className="fg-form-input-group">
               <label className="fg-form-field-label">First Name</label>
               <div className="fg-input-wrapper-inner">
@@ -200,7 +256,9 @@ const AgentProfileSettings = () => {
             </div>
 
             <div className="fg-form-input-group fg-full-width-column">
-              <label className="fg-form-field-label">New Password (Leave empty if not changing)</label>
+              <label className="fg-form-field-label">
+                New Password (Leave empty if not changing)
+              </label>
               <div className="fg-input-wrapper-inner">
                 <LockOutlined className="fg-input-field-vector-icon" />
                 <input
@@ -213,7 +271,6 @@ const AgentProfileSettings = () => {
                 />
               </div>
             </div>
-
           </div>
         </div>
 
@@ -226,7 +283,11 @@ const AgentProfileSettings = () => {
 
         {/* Form Action Section */}
         <div className="fg-form-actions-footer-row">
-          <button type="submit" className="fg-btn-submit-save-solid" disabled={isSubmitting}>
+          <button
+            type="submit"
+            className="fg-btn-submit-save-solid"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? (
               <div className="fg-profile-loading-spinner" />
             ) : (
@@ -236,11 +297,14 @@ const AgentProfileSettings = () => {
               </>
             )}
           </button>
-          <button type="button" className="fg-btn-cancel-action-outline" disabled={isSubmitting}>
+          <button
+            type="button"
+            className="fg-btn-cancel-action-outline"
+            disabled={isSubmitting}
+          >
             Cancel
           </button>
         </div>
-
       </form>
     </div>
   );
