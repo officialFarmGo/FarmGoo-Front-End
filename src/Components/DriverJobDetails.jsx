@@ -52,7 +52,7 @@ const DriverJobDetails = () => {
                 accept: "*/*",
                 Authorization: `Bearer ${token}`,
               },
-            }
+            },
           );
           if (res.ok) {
             const data = await res.json();
@@ -83,7 +83,7 @@ const DriverJobDetails = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
@@ -99,7 +99,12 @@ const DriverJobDetails = () => {
 
   // ── Helpers ──────────────────────────────────────────────────────────────
   const initials = (name = "") =>
-    name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2);
+    name
+      .split(" ")
+      .map((w) => w[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
 
   const timeAgo = (iso) => {
     if (!iso) return "—";
@@ -109,6 +114,8 @@ const DriverJobDetails = () => {
     if (h < 24) return `${h}h ago`;
     return `${Math.floor(h / 24)}d ago`;
   };
+
+  const closeAcceptPopup = () => setAccepted(false);
 
   // ── Render states ────────────────────────────────────────────────────────
   if (error) {
@@ -125,30 +132,34 @@ const DriverJobDetails = () => {
     );
   }
 
-  if (accepted) {
-    return (
-      <div className="fg-job-page-wrapper">
-        <div className="fg-job-state-box fg-job-success">
-          <FiCheckCircle size={48} />
-          <h2>Job Accepted!</h2>
-          <p>
-            You have successfully accepted the delivery of{" "}
-            <strong>{job?.productType}</strong>. The farmer will be notified.
-          </p>
-          <button
-            onClick={() => navigate(-1)}
-            className="fg-job-accept-btn"
-            style={{ marginTop: "1rem" }}
-          >
-            Back to Jobs
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="fg-job-page-wrapper">
+      {accepted && (
+        <div className="fg-job-popup-overlay">
+          <div className="fg-job-popup-card">
+            <FiCheckCircle size={48} className="fg-job-popup-icon" />
+            <h2>Job Accepted!</h2>
+            <p>
+              You have successfully accepted the delivery of{" "}
+              <strong>{job?.productType}</strong>. The farmer will be notified.
+            </p>
+            <div className="fg-job-popup-actions">
+              <button
+                className="fg-job-popup-close-btn"
+                onClick={closeAcceptPopup}
+              >
+                Continue Browsing
+              </button>
+              <button
+                className="fg-job-popup-back-btn"
+                onClick={() => navigate(-1)}
+              >
+                Back to Jobs
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="fg-job-top-nav">
         <h1 className="fg-job-nav-title">Available Jobs</h1>
         <div className="fg-job-notif-box">
@@ -197,8 +208,12 @@ const DriverJobDetails = () => {
                 </div>
                 <div className="fg-job-timeline-details">
                   <span className="fg-job-timeline-label">Pickup Location</span>
-                  <span className="fg-job-location-name">{job?.pickup?.landmark}</span>
-                  <span className="fg-job-location-sub">{job?.pickup?.address}</span>
+                  <span className="fg-job-location-name">
+                    {job?.pickup?.landmark}
+                  </span>
+                  <span className="fg-job-location-sub">
+                    {job?.pickup?.address}
+                  </span>
                 </div>
               </div>
 
@@ -209,8 +224,12 @@ const DriverJobDetails = () => {
                   <FiMapPin />
                 </div>
                 <div className="fg-job-timeline-details">
-                  <span className="fg-job-timeline-label">Delivery Location</span>
-                  <span className="fg-job-location-name">{job?.destination}</span>
+                  <span className="fg-job-timeline-label">
+                    Delivery Location
+                  </span>
+                  <span className="fg-job-location-name">
+                    {job?.destination}
+                  </span>
                 </div>
               </div>
             </div>
@@ -218,7 +237,9 @@ const DriverJobDetails = () => {
             <div className="fg-job-route-meta-grid">
               <div className="fg-job-meta-item">
                 <span className="fg-job-meta-label">Est. Duration</span>
-                <span className="fg-job-meta-val">{job?.estimatedDuration}</span>
+                <span className="fg-job-meta-val">
+                  {job?.estimatedDuration}
+                </span>
               </div>
               {job?.distance && (
                 <div className="fg-job-meta-item">
@@ -236,9 +257,9 @@ const DriverJobDetails = () => {
             <div className="fg-job-banner-content">
               <h4>Payment Secured via Escrow</h4>
               <p>
-                The farmer has deposited <strong>{job?.estimatedPayout}</strong> into
-                escrow. Payment will be automatically released to your wallet upon
-                successful delivery confirmation.
+                The farmer has deposited <strong>{job?.estimatedPayout}</strong>{" "}
+                into escrow. Payment will be automatically released to your
+                wallet upon successful delivery confirmation.
               </p>
               <div className="fg-job-banner-guarantee">
                 <FiCheckCircle />
@@ -253,7 +274,9 @@ const DriverJobDetails = () => {
           <div className="fg-job-section-card">
             <h3 className="fg-job-card-title">Farmer Information</h3>
             <div className="fg-job-farmer-profile">
-              <div className="fg-job-farmer-avatar">{initials(job?.owner.name)}</div>
+              <div className="fg-job-farmer-avatar">
+                {initials(job?.owner.name)}
+              </div>
               <div className="fg-job-farmer-info">
                 <span className="fg-job-farmer-name">{job?.owner.name}</span>
                 <span className="fg-job-farmer-rating">
@@ -266,7 +289,9 @@ const DriverJobDetails = () => {
               {job?.farmer?.totalDeliveries !== undefined && (
                 <div className="fg-job-farmer-stat-row">
                   <span className="fg-job-fstat-label">Total Deliveries</span>
-                  <span className="fg-job-fstat-val">{job.farmer.totalDeliveries}</span>
+                  <span className="fg-job-fstat-val">
+                    {job.farmer.totalDeliveries}
+                  </span>
                 </div>
               )}
               {job?.farmer?.phone && (
@@ -278,7 +303,9 @@ const DriverJobDetails = () => {
               {job?.farmer?.memberSince && (
                 <div className="fg-job-farmer-stat-row">
                   <span className="fg-job-fstat-label">Member Since</span>
-                  <span className="fg-job-fstat-val">{job.farmer.memberSince}</span>
+                  <span className="fg-job-fstat-val">
+                    {job.farmer.memberSince}
+                  </span>
                 </div>
               )}
             </div>

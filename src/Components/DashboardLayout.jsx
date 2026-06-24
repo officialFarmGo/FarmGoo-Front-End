@@ -206,7 +206,7 @@ const DashboardLayout = (props) => {
       >
         <div className="fg-sidebar-top-group">
           <div className="fg-sidebar-brand-section">
-            <img src={brandLogo} alt="FarmGoo" className="fg-sidebar-logo" />
+            <img src='https://res.cloudinary.com/dnjexdaop/image/upload/v1781838763/Container_3_uwliln.png'alt="FarmGoo" className="fg-sidebar-logo" />
             <div className="fg-sidebar-brand-text">
               <h1 className="fg-brand-name">FarmGoo</h1>
               <p className="fg-brand-portal">

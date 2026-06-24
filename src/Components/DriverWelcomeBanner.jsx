@@ -23,7 +23,7 @@ const DriverWelcomeBanner = () => {
             <h1 className="fg-deliv-main-title">DashBoard</h1>
             <div className="fg-deliv-notif-box">
               <div className="fg-deliv-notif-dot"></div>
-              <FiBell size={24} />
+              <FiBell size={24} onClick={() => nav('notification')} />
             </div>
           </div>
     <div className="fg-welcome-container">
