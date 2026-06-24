@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Flex, Input, Typography, Button } from "antd";
 import { FiArrowLeft } from "react-icons/fi";
 import { FaCheckCircle } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import firstimg001 from "../../assets/firstimg001.png";
 import "../../CSS/VerificationOtp.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import { authActionSuccess, getId } from "../../LIB/AuthenticationSlice";
 
 const { Text } = Typography;
 
 const VerificationOtp = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const [otpValue, setOtpValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -46,11 +49,33 @@ const VerificationOtp = () => {
       const data = await response.json();
 
       if (response.ok) {
+        const resolvedToken =
+          data.token || data.data?.token || data.accessToken || null;
+        const resolvedUser = data.user || data.data?.user || data.data || null;
+
+        if (resolvedToken) {
+          localStorage.setItem("token", resolvedToken);
+        }
+
+        dispatch(
+          authActionSuccess({
+            user: {
+              ...(resolvedUser || {}),
+              role: selectRole,
+              email: location.state?.email,
+              firstName: location.state?.firstName,
+              lastName: location.state?.lastName,
+            },
+            token: resolvedToken,
+          }),
+        );
+
         setErrorMessage("");
         navigate("/success", {
           state: {
             ...location.state,
-            Id: data.data?._id || data.user?._id || data._id || null,
+            token: resolvedToken,
+            user: resolvedUser,
           },
         });
       } else {
@@ -151,6 +176,7 @@ const VerificationOtp = () => {
         );
       }
     } catch (err) {
+      console.error("OTP resend failed:", err);
       setErrorMessage("Network error, please check your internet connection.");
     } finally {
       setLoading(false);

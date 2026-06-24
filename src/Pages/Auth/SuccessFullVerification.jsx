@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Flex, Typography } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -12,34 +12,45 @@ const SuccessFullVerification = () => {
   const location = useLocation();
 
   const reduxDriverId = useSelector((state) => state.auth?.id);
-  // console.log("reduxDriverId", reduxDriverId);
-
+  console.log("object", reduxDriverId);
   const finalRole = location.state?.role || "farmer";
-  const dynamicId = reduxDriverId 
+
+  const dynamicId = reduxDriverId;
+
+  console.log("dynamicId", dynamicId);
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      if (!dynamicId) {
+        navigate("/login");
+        return;
+      }
+
       if (finalRole === "farmer") {
-        navigate(`/farmer_kyc/${dynamicId}`,{ state: {
-          ...location.state,
-        },
-      });
+        navigate(`/farmer_kyc/${dynamicId}`, {
+          state: {
+            ...location.state,
+          },
+        });
       } else if (finalRole === "driver") {
-        if (dynamicId) {
-          navigate(`/driver_kyc/${dynamicId}`);
-        } else {
-          alert("Session expired. Please log in again.");
-          navigate("/login");
-        }
+        navigate(`/driver_kyc/${dynamicId}`, {
+          state: {
+            ...location.state,
+          },
+        });
       } else if (finalRole === "agent") {
-        navigate(`/agent_kyc/${dynamicId}`);
+        navigate(`/agent_kyc/${dynamicId}`, {
+          state: {
+            ...location.state,
+          },
+        });
       } else {
         navigate("/");
       }
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [navigate, finalRole, dynamicId]);
+  }, [navigate, finalRole, dynamicId, location.state]);
 
   return (
     <div className="fg-success-container">

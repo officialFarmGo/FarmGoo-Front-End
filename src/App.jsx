@@ -53,8 +53,8 @@ function App() {
         <Route path="/success" element={<SuccessFullVerification />} />
         <Route path="/forgot-password" element={<ForgetPassword />} />
 
-        <Route element={<PrivateRoute allowedRoles={["farmer"]} />}>
           <Route path="/farmer_kyc/:farmId" element={<FarmerProfile />} />
+        <Route element={<PrivateRoute allowedRoles={["farmer"]} />}>
           <Route path="/farmer/dashboard" element={<FarmersDahboard />}>
             <Route path="deposit-success" element={<WithdrawalSuccess />} />
             <Route path="" element={<DashboardPagesComponent />} />
@@ -69,11 +69,11 @@ function App() {
           </Route>
         </Route>
 
-        <Route element={<PrivateRoute allowedRoles={["agent"]} />}>
           <Route
             path="/agent_kyc/:agentId"
             element={<CompleteAgentProfile />}
           />
+        <Route element={<PrivateRoute allowedRoles={["agent"]} />}>
           <Route path="/agent/dashboard" element={<AgentDashboard />}>
             <Route path="deposit-success" element={<WithdrawalPageSuccess />} />
             <Route path="" element={<AgentDashBoard />} />
@@ -85,11 +85,11 @@ function App() {
           </Route>
         </Route>
 
-        <Route element={<PrivateRoute allowedRoles={["driver"]} />}>
           <Route
             path="/driver_kyc/:driverId"
             element={<DriverKycVerification />}
           />
+        <Route element={<PrivateRoute allowedRoles={["driver"]} />}>
           <Route path="/driverpending" element={<VerificationPending />} />
           <Route
             path="/payment-verification"

@@ -166,6 +166,7 @@ const SignPage = () => {
 
       if (response.ok) {
         dispatch(getId(data.data.id));
+        console.log("object data", data);
         if (selectRole === "farmer") {
           localStorage.setItem("showFundWalletModal", "true");
         }
