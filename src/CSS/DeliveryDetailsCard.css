@@ -1,131 +1,60 @@
 .delivery-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 24px;
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 28px 24px;
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, sans-serif;
-  display: flex;
-  justify-content: flex-start;
+  justify-content: start;
+  align-items: flex-start;
   flex-direction: column;
-  gap: 20px;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  /* Height Fix */
+  height: auto;
+  min-height: 370px;
 }
 
 .delivery-title {
+  margin: 0 0 24px;
   font-size: 22px;
-.custom-delivery-card {
-  width: 100%;
-  max-width: 420px;
-  border-radius: 16px !important;
-  border: 1px solid #e2e8f0 !important;
-  box-shadow: none;
-  padding: 4px;
-}
-
-/* Typography styles matching image look */
-.card-main-title {
-  font-family: system-ui, -apple-system, sans-serif !important;
-  color: #0f172a !important;
-  font-weight: 700 !important;
-}
-
-.info-section {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.info-label {
-  font-size: 14px !important;
-  color: #64748b !important;
-}
-
-.info-value {
-  font-size: 16px !important;
-  color: #1e293b !important;
-  font-weight: 500;
-}
-
-.bold-text {
-  font-weight: 700 !important;
-  font-size: 17px !important;
-}
-
-.price-text {
-  font-size: 18px !important;
-  font-weight: 700 !important;
-  color: #0f172a !important;
-}
-
-.location-icon {
-  color: #94a3b8;
-  font-size: 16px;
-}
-
-/* Status Badge Styling matching the clean UI tags in screenshot */
-.status-badge {
-  background-color: #dfedff !important;
-  color: #2563eb !important;
-  border: none !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
-  padding: 4px 12px !important;
-  border-radius: 12px !important;
-  width: fit-content;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 480px) {
-  .custom-delivery-card {
-    max-width: 100%;
-    border-radius: 12px !important;
-  }
-  
-  .ant-card-body {
-    padding: 16px !important; /* Reduces padding slightly for small viewport optimization */
-  }
-
-  .card-main-title {
-    font-size: 19px !important;
-  }
-
-  .info-value {
-    font-size: 15px !important;
-  }
-
-  .bold-text {
-    font-size: 16px !important;
-  }
-}
   font-weight: 700;
-  color: #0f172a;
-  margin: 0;
-  margin-bottom: 4px;
+  color: #1e293b;
+  line-height: 1.2;
 }
 
 .delivery-section {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.delivery-section:last-child {
+  margin-bottom: 0;
 }
 
 .section-label {
+  display: block;
   font-size: 14px;
-  color: #64748b;
   font-weight: 400;
+  color: #64748b;
+  margin-bottom: 6px;
 }
 
 .section-value {
   font-size: 16px;
-  color: #1e293b;
   font-weight: 500;
+  color: #1e293b;
 }
 
 .bold-text {
-  font-weight: 700;
   font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
 }
 
 .location-wrapper {
@@ -135,28 +64,55 @@
 }
 
 .location-icon {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   color: #94a3b8;
   flex-shrink: 0;
 }
 
 .price-text {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   color: #1e293b;
 }
 
 .status-badge {
-  background-color: #dfedff;
-  color: #2563eb;
-  font-size: 13px;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 4px 12px;
-  border-radius: 12px;
   width: fit-content;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
 }
 
+/* Tablet */
+@media (max-width: 768px) {
+  .delivery-card {
+    max-width: 100%;
+    padding: 20px;
+    min-height: auto;
+  }
+
+  .delivery-title {
+    font-size: 20px;
+  }
+
+  .section-value,
+  .price-text {
+    font-size: 15px;
+  }
+
+  .bold-text {
+    font-size: 16px;
+  }
+}
+
+/* Mobile */
 @media (max-width: 480px) {
   .delivery-card {
     padding: 16px;
@@ -164,14 +120,11 @@
   }
 
   .delivery-title {
-    font-size: 19px;
+    font-size: 18px;
+    margin-bottom: 20px;
   }
 
-  .section-value {
-    font-size: 15px;
-  }
-
-  .bold-text {
-    font-size: 16px;
+  .delivery-section {
+    margin-bottom: 16px;
   }
 }

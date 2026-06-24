@@ -35,12 +35,12 @@ const AgentQuickActions = ({
 
         <div
           className="fg-action-card"
-          onClick={() => navigate("/agent/dashboard/activedelivery")}
+          onClick={() => navigate("/agent/dashboard")}
           style={{ cursor: "pointer" }}
         >
           <div
             className="fg-action-icon-box fg-bg-blue"
-            onClick={() => navigate("/agent/dashboard/activedelivery")}
+            onClick={() => navigate("/agent/dashboard")}
           >
             <FileTextOutlined style={{ fontSize: "20px", color: "#ffffff" }} />
           </div>
