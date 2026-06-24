@@ -1,73 +1,70 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import "../CSS/Withdrawal.css";
+import React from "react";
+import { CheckCircle2, ArrowDownCircle, Clock, Download } from "lucide-react";
+import '../CSS/Transactions.css';
 
-const Transactions = () => {
-  const token = useSelector((state) => state.auth.token);
-  const [withdrawalHistory, setWithdrawalHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
+const iconMap = {
+  credit: <CheckCircle2 size={18} />,
+  debit: <ArrowDownCircle size={18} />,
+  escrow: <Clock size={18} />,
+};
 
-  useEffect(() => {
-    const fetchEarnings = async () => {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_BaseUrl}/driverDash/getDriverEarnings`,{
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        if (res.ok) setWithdrawalHistory(data.data.withdrawalHistory ?? []);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+const formatAmount = (type, amount) => {
+  const formatted = `₦${Number(amount).toLocaleString()}`;
+  return type === "debit" ? formatted : `+${formatted}`;
+};
 
-    if (token) fetchEarnings();
-  }, [token]);
+const formatDate = (iso) => {
+  const date = new Date(iso);
+  const now = new Date();
+  const diff = now - date;
+  const oneDay = 86400000;
 
-  const formatDate = (iso) => {
-    if (!iso) return "";
-    return new Date(iso).toLocaleDateString("en-NG", {
-      day:"numeric",
-      month: "short",
-      year: "numeric",
-    });
-  };
+  if (diff < oneDay && now.getDate() === date.getDate()) {
+    return `Today, ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+  }
+  if (diff < oneDay * 2) {
+    return `Yesterday, ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+  }
+  return date.toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" });
+};
 
+const Transactions = ({ transactions = [] }) => {
   return (
-    <div className="withdrawal-container">
-      <div className="history-card">
-        <div className="history-header">
-          <h3>Transaction History</h3>
+    <div className="transactions-container">
+      <div className="transactions-card-wrapper">
+        <div className="tx-header-row">
+          <h2 className="tx-section-title">Transaction History</h2>
+          <button className="tx-download-btn" type="button">
+            <Download size={16} />
+            <span>Download Statement</span>
+          </button>
         </div>
 
-        <div className="history-stack">
-          {loading && <p>Loading transaction history...</p>}
-
-          {!loading && withdrawalHistory.length === 0 && (
-            <p>No transaction history yet.</p>
+        <div className="tx-list-stack">
+          {transactions.length === 0 && (
+            <p className="tx-empty-text">No transactions yet.</p>
           )}
 
-          {!loading && withdrawalHistory.map((tx, index) => (
-            <div className="history-item" key={tx._id || tx.id || index}>
-              <div className="history-left">
-                <div className="download-icon-bg">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0055ff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <polyline points="19 12 12 19 5 12"></polyline>
-                  </svg>
+          {transactions.map((tx) => (
+            <div key={tx._id || tx.id} className="tx-row-item">
+              <div className="tx-left-block">
+                <div className={`tx-icon-wrapper tx-icon-${tx.type}`}>
+                  {iconMap[tx.type] ?? <CheckCircle2 size={18} />}
                 </div>
-                <div className="tx-details">
-                  <h4>{tx.title || `Withdrawal to ${tx.bankName || "Bank"}`}</h4>
-                  <span className="tx-date">{tx.date ? formatDate(tx.date) : formatDate(tx.createdAt)}</span>
+                <div className="tx-details-column">
+                  <h4 className="tx-item-title">{tx.title || tx.description}</h4>
+                  <div className="tx-meta-line">
+                    <span className="tx-timestamp">{formatDate(tx.date || tx.createdAt)}</span>
+                    <span className="tx-dot-divider">•</span>
+                    <span className={`tx-status-text ${tx.status === "Pending Release" ? "tx-status-pending" : "tx-status-completed"}`}>
+                      {tx.status}
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              <div className="history-right">
-                <span className="tx-amount">
-                  -₦{Number(tx.amount || 0).toLocaleString()}
-                </span>
-                <span className="tx-status">{tx.status ?? "Completed"}</span>
+              <div className={`tx-amount-value tx-amount-${tx.type}`}>
+                {formatAmount(tx.type, tx.amount)}
               </div>
             </div>
           ))}

@@ -98,12 +98,10 @@ function App() {
           <Route path="deposit-success" element={<WithdrawalSuccess />} />
           <Route path="/approved" element={<ApprovedDoc />} />
           <Route path="/drivers/dashboard" element={<DriverDashboard />}>
-            <Route path="notification" element={<Notification />}/>
             <Route path="" element={<DriverDashboardView />} />
             <Route path="activedelivery" element={<DriverActiveDeliveries />} />
             <Route path="wallet" element={<DriverWellet />} />
             <Route path="jobss" element={<Transport />} />
-
             <Route path="earnings" element={<EarningsDrivers />} />
             <Route path="profile" element={<Profile />} />
           </Route>

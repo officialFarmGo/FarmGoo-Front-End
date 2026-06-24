@@ -4,8 +4,7 @@
   margin: 0 auto;
   padding: 24px;
   background-color: #f8fafc;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   box-sizing: border-box;
 }
 
@@ -187,14 +186,8 @@
   flex-shrink: 0;
 }
 
-.pickup-bg {
-  background-color: #eff6ff;
-  color: #1e3a8a;
-}
-.delivery-bg {
-  background-color: #fef2f2;
-  color: #991b1b;
-}
+.pickup-bg { background-color: #eff6ff; color: #1e3a8a; }
+.delivery-bg { background-color: #fef2f2; color: #991b1b; }
 
 .fg-job-timeline-details {
   display: flex;
@@ -438,81 +431,6 @@
   cursor: pointer;
 }
 
-.fg-job-popup-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 50;
-  padding: 20px;
-}
-
-.fg-job-popup-card {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 30px;
-  max-width: 420px;
-  width: 100%;
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
-  text-align: center;
-}
-
-.fg-job-popup-icon {
-  color: #16a34a;
-  margin-bottom: 16px;
-}
-
-.fg-job-popup-card h2 {
-  font-size: 24px;
-  margin-bottom: 12px;
-  color: #0f172a;
-}
-
-.fg-job-popup-card p {
-  font-size: 14px;
-  line-height: 1.7;
-  color: #475569;
-  margin: 0 auto 24px;
-  max-width: 340px;
-}
-
-.fg-job-popup-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.fg-job-popup-close-btn,
-.fg-job-popup-back-btn {
-  width: 100%;
-  padding: 14px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-}
-
-.fg-job-popup-close-btn {
-  background-color: #e5e7eb;
-  color: #0f172a;
-}
-
-.fg-job-popup-back-btn {
-  background-color: #064e3b;
-  color: #ffffff;
-}
-
-.fg-job-popup-back-btn:hover {
-  background-color: #043e29;
-}
-
-.fg-job-popup-close-btn:hover {
-  background-color: #d1d5db;
-}
-
 .fg-job-quick-stats-list {
   display: flex;
   flex-direction: column;
@@ -526,86 +444,4 @@
   font-size: 14px;
   color: #64748b;
   font-weight: 500;
-}
-
-/* ── Tablet (max 1024px) ── */
-@media (max-width: 1024px) {
-  .fg-job-content-layout {
-    flex-direction: column;
-  }
-
-  .fg-job-right-column {
-    width: 100%;
-  }
-
-  .fg-job-main-header {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-  }
-
-  .fg-job-payout-box {
-    text-align: left;
-    width: 100%;
-  }
-}
-
-/* ── Mobile (max 640px) ── */
-@media (max-width: 640px) {
-  .fg-job-page-wrapper {
-    padding: 16px;
-  }
-
-  .fg-job-main-heading {
-    font-size: 22px;
-  }
-
-  .fg-job-payout-amount {
-    font-size: 22px;
-  }
-
-  .fg-job-heading-group {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .fg-job-details-info-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .fg-job-route-meta-grid {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .fg-job-section-card {
-    padding: 16px;
-  }
-
-  .fg-job-escrow-banner-card {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .fg-job-farmer-profile {
-    gap: 12px;
-  }
-
-  .fg-job-popup-card {
-    padding: 24px 16px;
-  }
-
-  .fg-job-popup-card h2 {
-    font-size: 20px;
-  }
-
-  .fg-job-nav-title {
-    font-size: 16px;
-  }
-
-  .fg-job-accept-btn,
-  .fg-job-decline-btn {
-    font-size: 14px;
-    padding: 12px;
-  }
 }

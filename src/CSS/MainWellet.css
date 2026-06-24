@@ -10,7 +10,6 @@
   flex-direction: column;
   gap: 1.5rem;
   padding: 1rem; /* Added padding for mobile screen edges */
-   margin-bottom: 3rem;
 }
 
 @media (min-width: 768px) {

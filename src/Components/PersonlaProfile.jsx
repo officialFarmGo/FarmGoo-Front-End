@@ -6,7 +6,7 @@ const PersonlaProfile = () => {
   return (
     <div className="personal-profile-container">
       {/* Top Tab Navigation Bar */}
-      {/* <div className="settings-tabs">
+      <div className="settings-tabs">
         <button
           className={`tab-btn ${activeTab === "personal" ? "active" : ""}`}
           onClick={() => setActiveTab("personal")}
@@ -24,8 +24,8 @@ const PersonlaProfile = () => {
           onClick={() => setActiveTab("documents")}
         >
           Documents
-        </button> */}
-      {/* </div> */}
+        </button>
+      </div>
 
       {/* Main Form Box Wrapper */}
       <div className="form-card">
