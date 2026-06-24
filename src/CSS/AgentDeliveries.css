@@ -1,24 +1,39 @@
 /* ==========================================================================
-   AgentDeliveries.css - Matches AgentDeliveries.png Perfectly
+   AgentDeliveries.css - Matches image_88ee8c.png & Fully Responsive
    ========================================================================== */
 
+/* Page Container styling */
 .fg-deliv-page-container {
   padding: 24px;
   max-width: 1150px;
   margin: 0 auto;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #fafafa; /* Subtle contrast background from image */
+}
+
+/* Back Link styling */
+.fg-back-dashboard-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #111827;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  cursor: pointer;
 }
 
 .fg-deliv-header-section {
-  margin-top: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .fg-deliv-main-title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   color: #111827;
-  margin: 0 0 6px 0;
+  margin: 0 0 8px 0;
 }
 
 .fg-deliv-subtitle {
@@ -27,78 +42,100 @@
   margin: 0;
 }
 
-/* Summary Grid Columns (4-Card Setup from the image) */
+/* Summary Grid Columns (4-Card Setup) */
 .fg-deliv-summary-grid {
-   
-  display: flex;
-  gap:2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
 }
 
 .fg-deliv-stat-card {
   background: #ffffff;
-  border: 1px solid #cdcfd2;
+  border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-radius: 12px;
   padding: 24px;
   text-align: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .fg-deliv-stat-number {
   display: block;
   font-size: 36px;
   font-weight: 700;
-  color: #111827;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
+  line-height: 1.2;
 }
 
 .fg-deliv-stat-label {
   font-size: 14px;
   color: #6b7280;
-  font-weight: 500;
+  font-weight: 400;
 }
 
-/* Color overrides for summary numerical indicators */
-.fg-text-blue { color: #2563eb; }
-.fg-text-green { color: #22c55e; }
-.fg-text-orange { color: #f97316; }
+/* Color overrides matching stats indicators in image_88ee8c.png */
+.fg-text-black {
+  color: #111827;
+}
+.fg-text-blue {
+  color: #0070f3;
+}
+.fg-text-green {
+  color: #10b981;
+}
+.fg-text-orange {
+  color: #f97316;
+}
 
 /* Delivery Item Row Card Frame */
 .fg-deliv-list-wrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top: 3rem;
+  margin-top: 32px;
 }
 
 .fg-deliv-item-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01);
+  padding: 32px;
 }
 
 .fg-deliv-card-top-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 16px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.fg-deliv-item-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fg-deliv-header-headline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .fg-deliv-produce-name {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   color: #111827;
-  margin: 0 0 6px 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  margin: 0;
 }
 
 .fg-deliv-specs {
-  font-size: 13px;
+  font-size: 14px;
   color: #6b7280;
   margin: 0;
 }
@@ -107,34 +144,46 @@
 .fg-deliv-status-badge {
   font-size: 12px;
   font-weight: 600;
-  padding: 7px 15px;
+  padding: 4px 10px;
   border-radius: 20px;
+  white-space: nowrap;
 }
 
-.fg-badge-transit { background-color: #dbeafe; color: #2563eb; }
-.fg-badge-accepted { background-color: #dcfce7; color: #22c55e; }
-.fg-badge-delivered { background-color: #e2fbf0; color: #15803d; }
-.fg-badge-pending { background-color: #ffedd5; color: #f97316; }
-.fg-badge-default { background-color: #f3f4f6; color: #4b5563; }
+.fg-badge-transit {
+  background-color: #0070f3;
+  color: #ffffff;
+}
+.fg-badge-accepted {
+  background-color: #dcfce7;
+  color: #22c55e;
+}
+.fg-badge-delivered {
+  background-color: #e2fbf0;
+  color: #15803d;
+}
+.fg-badge-pending {
+  background-color: #ffedd5;
+  color: #f97316;
+}
 
 /* Track Button matching FarmGoo Deep Green brand style */
 .fg-deliv-track-btn {
-  background-color: #044335;
+  background-color: #014335;
   color: #ffffff;
   border: none;
-  /* border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 10px 7px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 20px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: background-color 0.2s ease; */
+  transition: background-color 0.2s ease;
 }
 
 .fg-deliv-track-btn:hover {
-  background-color: #033228;
+  background-color: #013227;
 }
 
 /* Handlers Box Grey Center Grid */
@@ -143,7 +192,7 @@
   border-radius: 8px;
   padding: 16px 24px;
   display: flex;
-  gap: 120px;
+  gap: 240px; /* Expands to give wide desktop spacing like the graphic */
   margin-bottom: 20px;
 }
 
@@ -155,86 +204,127 @@
 .fg-handler-lbl {
   font-size: 12px;
   color: #9ca3af;
-  margin-bottom: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  margin-bottom: 6px;
 }
 
 .fg-handler-name {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
   color: #111827;
 }
 
 /* Card Footer Layout Configuration */
 .fg-deliv-card-footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #f3f4f6;
-  padding-top: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 12px;
+  margin-top: 20px;
 }
 
 .fg-deliv-route-info {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-size: 14px;
   font-weight: 500;
-  color: #374151;
-}
-
-.fg-route-text {
-  font-weight: 500;
+  color: #111827;
 }
 
 .fg-route-arrow {
   color: #9ca3af;
-  margin: 0 4px;
   font-weight: 400;
 }
 
 .fg-deliv-meta-stamps {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 16px;
   font-size: 14px;
-  color: #4b5563;
-  font-weight: 500;
+  color: #6b7280;
 }
 
 .fg-meta-stamp-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .fg-deliv-icon {
-  font-size: 18px;
+  font-size: 16px;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+}
+
+.fg-commission-label {
   color: #6b7280;
 }
 
-.fg-text-green-dim { color: #22c55e; }
-.fg-text-red-dim { color: #ef4444; }
-
-.fg-commission-label {
-  color: #9ca3af;
-  font-weight: 400;
-}
-
 .fg-commission-value {
-  font-weight: 700;
+  font-weight: 500;
   color: #111827;
 }
 
+/* ==========================================================================
+   Mobile & Tablet Responsiveness Overrides
+   ========================================================================== */
 
-.fhub-empty-state {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 15px;
-  font-weight: 500;
+/* Tablet & Smaller Desktop Adjustments */
+@media (max-width: 1024px) {
+  .fg-deliv-handlers-box {
+    gap: 120px;
+  }
+}
+
+/* Smartphone & Portrait Mobile Breakpoints */
+@media (max-width: 768px) {
+  .fg-deliv-page-container {
+    padding: 16px;
+  }
+
+  .fg-deliv-main-title {
+    font-size: 26px;
+  }
+
+  /* Summary Grid switches smoothly to a balanced 2x2 grid */
+  .fg-deliv-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .fg-deliv-item-card {
+    padding: 20px;
+  }
+
+  /* Stacks the title area and the action CTA button cleanly */
+  .fg-deliv-card-top-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fg-deliv-track-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Cleans up the huge horizontal gap completely on mobile viewports */
+  .fg-deliv-handlers-box {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ultra-small displays switch statistics cards to stack down vertically */
+  .fg-deliv-summary-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .fg-deliv-meta-stamps {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }

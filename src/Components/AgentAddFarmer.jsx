@@ -13,8 +13,14 @@ import { BiLeaf } from "react-icons/bi";
 import "../CSS/AgentAddFarmer.css";
 
 const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
-  const token = useSelector((state) => state.auth.token);
-  const BaseUrl = import.meta.env.VITE_BaseUrl;
+  // Grab token from Redux state safely
+  const token = useSelector((state) => state.auth?.token);
+
+  // Clean up potential trailing slash from BaseUrl to avoid double slashes (e.g., http://api.com//agentDashboard)
+  const rawBaseUrl = import.meta.env.VITE_BaseUrl || "";
+  const BaseUrl = rawBaseUrl.endsWith("/")
+    ? rawBaseUrl.slice(0, -1)
+    : rawBaseUrl;
 
   const initialFormState = {
     farmerFullName: "",
@@ -35,30 +41,49 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
   const [submittedName, setSubmittedName] = useState("");
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!token) {
+      setErrorMessage(
+        "Authentication error: Log in session expired. Please re-login.",
+      );
+      setShowErrorModal(true);
+      return;
+    }
+
     try {
       setLoading(true);
 
       const response = await axios.post(
-        `${BaseUrl}/agentDashboard/addFarmer`,
+        `${BaseUrl}/agent/createAgentFarmer`,
         formData,
-        { headers: { Authorization: `Bearer ${token}` } },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        },
       );
 
+      // Checking for successful axios response ranges safely
       if (response.status === 200 || response.status === 201) {
         setSubmittedName(formData.farmerFullName); // Save name for the success modal text
         setShowSuccessModal(true);
         setFormData(initialFormState); // Reset the form inputs immediately
       }
     } catch (err) {
-      // Catch backend error messages and trigger the error pop-up modal
+      // Robust error message extraction from server response configurations
       const fallbackError =
         "Failed to add farmer. Please check your entries and try again.";
-      setErrorMessage(err.response?.data?.message || fallbackError);
+      const serverMessage =
+        err.response?.data?.message || err.response?.data?.error || err.message;
+
+      setErrorMessage(serverMessage || fallbackError);
       setShowErrorModal(true);
     } finally {
       setLoading(false);
@@ -88,10 +113,11 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
 
       <form className="fg-add-farmer-card-form" onSubmit={handleSubmit}>
         <div className="fg-form-group">
-          <label>Farmer Full Name</label>
+          <label htmlFor="farmerFullName">Farmer Full Name</label>
           <div className="fg-input-icon-wrapper">
             <HiOutlineUser className="fg-input-icon" />
             <input
+              id="farmerFullName"
               type="text"
               name="farmerFullName"
               value={formData.farmerFullName}
@@ -103,10 +129,11 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
         </div>
 
         <div className="fg-form-group">
-          <label>Phone Number</label>
+          <label htmlFor="phoneNumber">Phone Number</label>
           <div className="fg-input-icon-wrapper">
             <HiOutlinePhone className="fg-input-icon" />
             <input
+              id="phoneNumber"
               type="tel"
               name="phoneNumber"
               value={formData.phoneNumber}
@@ -118,10 +145,11 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
         </div>
 
         <div className="fg-form-group">
-          <label>Farm Location</label>
+          <label htmlFor="farmLocation">Farm Location</label>
           <div className="fg-input-icon-wrapper">
             <HiOutlineLocationMarker className="fg-input-icon" />
             <input
+              id="farmLocation"
               type="text"
               name="farmLocation"
               value={formData.farmLocation}
@@ -133,10 +161,11 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
         </div>
 
         <div className="fg-form-group">
-          <label>Main Produce Type</label>
+          <label htmlFor="mainProduceType">Main Produce Type</label>
           <div className="fg-input-icon-wrapper">
             <BiLeaf className="fg-input-icon" />
             <input
+              id="mainProduceType"
               type="text"
               name="mainProduceType"
               value={formData.mainProduceType}
