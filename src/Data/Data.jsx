@@ -65,11 +65,7 @@ export const mobileMenuItems = [
     label: "Wallet",
     icon: <WalletOutlined style={{ fontSize: "22px" }} />,
   },
-  {
-    path: "",
-    label: "Transport",
-    icon: <CarOutlined style={{ fontSize: "22px" }} />,
-  },
+ 
   {
     path: "settings",
     label: "Profile",
