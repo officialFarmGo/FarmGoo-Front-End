@@ -6,9 +6,10 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authActionSuccess } from "../../LIB/AuthenticationSlice";
+import axios from "axios";
 
 const LoginPage = () => {
-  const [activeRole, setActiveRole] = useState("driver");
+  const [activeRole, setActiveRole] = useState("farmer"); // Default role set to "driver"
   const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -96,6 +97,8 @@ const LoginPage = () => {
     }
 
     const result = await response.json();
+    console.log("Profile API result:", JSON.stringify(result, null, 2)); // 👈 check this
+
     // Dynamically look up data object keys returned by the backend
     const profile = result.data;
 
@@ -103,20 +106,29 @@ const LoginPage = () => {
       throw new Error("Profile record data payload missing.");
     }
 
+    // Prepare common state payload for navigation (OTP / KYC)
+    const navState = {
+      email: profile.email || profile.emailAddress || "",
+      phoneNumber: profile.phoneNumber || profile.phone || profile.mobile || "",
+      firstName: profile.firstName || profile.fname || profile.first_name || "",
+      lastName: profile.lastName || profile.lname || profile.last_name || "",
+      role,
+    };
+
     // 1. Core OTP Account Activation Check
     if (profile.isVerified === false) {
-      navigate("/otp");
+      navigate("/otp", { state: navState });
       return false;
     }
 
     // 2. Comprehensive KYC Pipeline Redirection Guards
     if (profile.kycVerified === false) {
       if (role === "farmer") {
-        navigate(`/farmer_kyc/${profile._id}`);
+        navigate(`/farmer_kyc/${profile._id}`, { state: navState });
       } else if (role === "driver") {
-        navigate(`/driver_kyc/${profile._id}`);
+        navigate(`/driver_kyc/${profile._id}`, { state: navState });
       } else if (role === "agent") {
-        navigate(`/agent_kyc/${profile._id}`);
+        navigate(`/agent_kyc/${profile._id}`, { state: navState });
       }
       return false;
     }
@@ -158,46 +170,42 @@ const LoginPage = () => {
     };
 
     try {
-      const response = await fetch(`${BaseUrl}${endpoint}`, {
-        method: "POST",
+      const response = await axios.post(`${BaseUrl}${endpoint}`, payload, {
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const data = response.data;
 
-      if (response.ok) {
-        localStorage.setItem("token", data.token);
+      // store token and verify profile
+      localStorage.setItem("token", data.token);
 
-        // Run verification workflow before routing to core dashboards
-        const verifiedProfile = await checkProfileVerification(
-          data.token,
-          activeRole,
+      const verifiedProfile = await checkProfileVerification(
+        data.token,
+        activeRole,
+      );
+
+      if (verifiedProfile) {
+        dispatch(
+          authActionSuccess({
+            user: verifiedProfile,
+            token: data.token,
+          }),
         );
 
-        if (verifiedProfile) {
-          dispatch(
-            authActionSuccess({
-              user: verifiedProfile,
-              token: data.token,
-            }),
-          );
-
-          if (activeRole === "farmer") {
-            navigate("/farmer/dashboard");
-          } else if (activeRole === "driver") {
-            navigate("/drivers/dashboard");
-          } else if (activeRole === "agent") {
-            navigate("/agent/dashboard");
-          }
+        if (activeRole === "farmer") {
+          navigate("/farmer/dashboard");
+        } else if (activeRole === "driver") {
+          navigate("/drivers/dashboard");
+        } else if (activeRole === "agent") {
+          navigate("/agent/dashboard");
         }
-      } else {
-        setModalError(
-          data.message || "Login failed. Please check your credentials.",
-        );
       }
     } catch (err) {
-      setModalError(err.message || "Network error. Please try again later.");
+      console.log("Login error:", err);
+      // Prefer backend-provided message when available (axios error shape)
+      const backendMessage =
+        err?.response?.data?.message || err?.response?.data || err?.message;
+      setModalError(backendMessage || "Network error. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -273,7 +281,7 @@ const LoginPage = () => {
                 width: "100%",
               }}
             >
-              Acknowledge
+              Close
             </button>
           </div>
         </div>
@@ -281,12 +289,7 @@ const LoginPage = () => {
 
       <div className="fg-login-split-content">
         <aside className="fg-login-sidebar">
-          <img
-            src="https://res.cloudinary.com/dnjexdaop/image/upload/v1780660368/photo_11_2026-06-05_12-51-52_xutmkl.jpg"
-            alt="Farm background"
-            className="fg-sidebar-bg"
-          />
-          <div className="fg-sidebar-overlay">
+          <div className="fg-sidebar-overlays">
             <div className="fg-action-row">
               <button
                 className="fg-back-circle-btn"
@@ -460,7 +463,7 @@ const LoginPage = () => {
                       type="button"
                       className="fg-inline-routing-trigger"
                       disabled={loading}
-                      onClick={() => navigate("/signup")}
+                      onClick={() => navigate("/chooseDash")}
                     >
                       Sign up
                     </button>

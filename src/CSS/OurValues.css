@@ -1,9 +1,8 @@
 .values-section {
-  width:100% ;
+  width: 100%;
   margin: 0 auto;
-  padding: 100px 40px;
-  
-  background-color: #fcfdfd;
+  /* padding: 100px 40px; */
+  /* background-color: #fcfdfd; */
 }
 
 .values-header {
@@ -58,10 +57,7 @@
   max-width: 340px;
 }
 
-
-
 @media (max-width: 768px) {
-
   .values-section {
     padding: 40px 20px;
   }

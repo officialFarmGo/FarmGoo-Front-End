@@ -26,6 +26,8 @@ const FarmerProfile = () => {
   const [selectedProduce, setSelectedProduce] = useState([]);
   const [produceOptions, setProduceOptions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showOtherInput, setShowOtherInput] = useState(false);
+  const [otherProduceText, setOtherProduceText] = useState("");
 
   // Custom Error Modal State
   const [modalError, setModalError] = useState(null);
@@ -90,9 +92,9 @@ const FarmerProfile = () => {
       return;
     }
 
-    if (selectedProduce.length === 0) {
+    if (selectedProduce.length === 0 && otherProduceText.trim().length === 0) {
       setModalError(
-        "Please select at least one produce crop type from the grid selection.",
+        "Please select at least one produce crop type from the grid selection or enter it under 'Other'.",
       );
       return;
     }
@@ -101,6 +103,7 @@ const FarmerProfile = () => {
       state: formData.state,
       specificLocationOrLandmark: formData.specificLocationOrLandmark,
       whatDoYouFarm: selectedProduce,
+      otherProduce: otherProduceText.trim() || undefined,
       preferredMarketDestination: formData.preferredMarketDestination,
       farmSize: formData.farmSize,
     };
@@ -364,7 +367,32 @@ const FarmerProfile = () => {
                   </button>
                 );
               })}
+              {/* Other option to capture free-text produce types */}
+              {/* <button
+                key="other"
+                type="button"
+                disabled={loading}
+                onClick={() => setShowOtherInput((s) => !s)}
+                className={`produce-btn ${showOtherInput ? "selected" : ""}`}
+              >
+                Other
+              </button> */}
             </div>
+
+            {showOtherInput && (
+              <div className="input-group" style={{ marginTop: "0.75rem" }}>
+                <label className="input-label">Other (please specify)</label>
+                <input
+                  type="text"
+                  name="otherProduce"
+                  value={otherProduceText}
+                  onChange={(e) => setOtherProduceText(e.target.value)}
+                  disabled={loading}
+                  placeholder="e.g. Cashew, Plantain"
+                  className="form-input"
+                />
+              </div>
+            )}
           </div>
 
           <div className="form-section">
