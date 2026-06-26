@@ -1,7 +1,16 @@
 .fg-deliv-page-wrapper {
   width: 100%;
+  max-width: 100%;
   background-color: #f8fafc;
   box-sizing: border-box;
+  padding: 0 16px;
+  overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  .fg-deliv-page-wrapper {
+    padding: 0 24px;
+  }
 }
 
 .fg-deliv-header-row {
@@ -60,6 +69,129 @@
   display: flex;
   gap: 20px;
   margin-bottom: 32px;
+}
+
+@media (max-width: 767px) {
+  .fg-deliv-stats-grid {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .fg-deliv-stat-card {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .fg-deliv-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .fg-deliv-stat-num {
+    font-size: 20px;
+  }
+
+  .fg-deliv-welcome-block h2 {
+    font-size: 22px;
+  }
+
+  .fg-deliv-welcome-block p {
+    font-size: 13px;
+  }
+
+  .fg-deliv-header-row {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+
+  .fg-deliv-filter-bar {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .fg-deliv-filter-btn span {
+    display: none;
+  }
+
+  .fg-deliv-filter-btn {
+    padding: 10px 14px;
+    justify-content: center;
+  }
+
+  .fg-deliv-tabs-row {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .fg-deliv-tabs-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .fg-deliv-tab-btn {
+    white-space: nowrap;
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .fg-deliv-order-card {
+    flex-direction: column;
+  }
+
+  .fg-deliv-card-main {
+    border-right: none;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 16px;
+  }
+
+  .fg-deliv-card-sidebar {
+    width: 100%;
+    border-radius: 0 0 16px 16px;
+    padding: 16px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .fg-deliv-payment-box {
+    flex: 1;
+    padding: 12px;
+  }
+
+  .fg-deliv-pay-amount {
+    font-size: 18px;
+  }
+
+  .fg-deliv-track-btn {
+    width: auto;
+    padding: 10px 16px;
+    white-space: nowrap;
+  }
+
+  .fg-deliv-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .fg-deliv-route-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .fg-deliv-route-arrow {
+    transform: rotate(90deg);
+  }
+
+  .fg-deliv-item-title {
+    font-size: 17px;
+  }
+
+  .fg-deliv-title-badge-row {
+    flex-wrap: wrap;
+  }
 }
 
 .fg-deliv-stat-card {

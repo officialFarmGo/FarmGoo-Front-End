@@ -34,10 +34,7 @@ const Transactions = ({ transactions = [] }) => {
       <div className="transactions-card-wrapper">
         <div className="tx-header-row">
           <h2 className="tx-section-title">Transaction History</h2>
-          <button className="tx-download-btn" type="button">
-            <Download size={16} />
-            <span>Download Statement</span>
-          </button>
+         
         </div>
 
         <div className="tx-list-stack">

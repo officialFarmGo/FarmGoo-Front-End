@@ -48,7 +48,6 @@ const Notification = () => {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [markingAll, setMarkingAll] = useState(false);
 
   const getUserRole = () => {
     if (reduxRole) return reduxRole.toLowerCase();
@@ -83,7 +82,7 @@ const Notification = () => {
       }
     } catch (err) {
       console.error(err);
-    } {
+    } finally {
       setLoading(false);
     }
   };
@@ -93,29 +92,9 @@ const Notification = () => {
     fetchNotifications();
   }, [token, reduxRole, BaseUrl]);
 
-  const handleMarkAllRead = async () => {
-    const previousNotifications = [...notifications];
-    const previousUnreadCount = unreadCount;
-
-    // Instant Frontend Update
+  const handleMarkAllRead = () => {
     setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
     setUnreadCount(0);
-    setMarkingAll(true);
-
-    try {
-      const res = await fetch(`${BaseUrl}/notifications/markAllRead`, {
-        method: "PATCH",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      
-      if (!res.ok) throw new Error("Server failed to mark all as read");
-    } catch (err) {
-      console.error("Backend failed, rolling back frontend state:", err);
-      setNotifications(previousNotifications);
-      setUnreadCount(previousUnreadCount);
-    } finally {
-      setMarkingAll(false);
-    }
   };
 
   const handleSingleMarkRead = async (notificationId, currentlyRead) => {
@@ -157,9 +136,8 @@ const Notification = () => {
             <button
               className="mark-all-btn"
               onClick={handleMarkAllRead}
-              disabled={markingAll}
             >
-              {markingAll ? "Marking..." : "Mark all as read"}
+              Mark all as read
             </button>
           )}
         </div>

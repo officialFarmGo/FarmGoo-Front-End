@@ -2,15 +2,7 @@ import React from "react";
 import "../CSS/withdrawal-success.css";
 
 const WithdrawalSuccess = () => {
-  // Mock data matching the layout of your receipt screenshot
-  const receiptData = {
-    transactionId: "TXN-884937261549",
-    amountWithdrawn: "₦15,000",
-    paymentMethod: "Bank Transfer",
-    previousBalance: "₦58,500",
-    dateTime: "6/22/2026, 4:53:20 PM",
-    newBalance: "₦43,500",
-  };
+ 
 
   return (
     <section className="success-page-section">

@@ -116,15 +116,6 @@ const AgentDeliveries = ({ onBackClick, onTrackClick }) => {
                     {delivery.quantity || delivery.weight || "0 units"} • ID: {delivery._id || "N/A"}
                   </p>
                 </div>
-                {/* WIRED COMPONENT NAVIGATION TRIGGERS HERE */}
-                <button 
-                  type="button" 
-                  className="fg-deliv-track-btn"
-                  onClick={() => onTrackClick(delivery._id)}
-                >
-                  <FiEye size={16} />
-                  Track Delivery
-                </button>
               </div>
 
               <div className="fg-deliv-handlers-box">
@@ -160,6 +151,16 @@ const AgentDeliveries = ({ onBackClick, onTrackClick }) => {
                   </div>
                 </div>
               </div>
+
+              {/* Track Delivery Button at the bottom of card */}
+              <button 
+                type="button" 
+                className="fg-deliv-track-btn"
+                onClick={() => onTrackClick(delivery._id)}
+              >
+                <FiEye size={16} />
+                Track Delivery
+              </button>
             </div>
           ))
         )}

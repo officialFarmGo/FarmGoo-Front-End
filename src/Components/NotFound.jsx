@@ -15,14 +15,10 @@ const NotFound = () => {
   };
 
   const handleGoHome = () => {
-    if (role && DASHBOARD_ROUTES[role]) {
-      nav(DASHBOARD_ROUTES[role]);
-    } else {
-      nav("-1");
-    }
+    nav(-1);
   };
 
-  const homeLabel = role && DASHBOARD_ROUTES[role] ? "Back to Dashboard" : "Back to Home";
+  const homeLabel = "Go Back";
 
   return (
     <div className="farmgoo-404-container">

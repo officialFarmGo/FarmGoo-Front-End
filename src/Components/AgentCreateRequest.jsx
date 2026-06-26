@@ -317,7 +317,7 @@ const AgentCreateRequest = ({ onBackClick, onViewDeliveriesClick, preselectedFar
               ) : (
                 vehicleTypes.map((v) => (
                   <option key={v._id} value={v._id}>
-                    {v.vehicleType} (Base: ₦{v.baseFare.toLocaleString()})
+                    {v.vehicleType} 
                   </option>
                 ))
               )}

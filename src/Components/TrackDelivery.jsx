@@ -1,41 +1,61 @@
 import React from "react";
-import { CarOutlined } from "@ant-design/icons";
 import "../CSS/TrackDelivery.css";
 
-const TrackDelivery = () => {
+import { useNavigate } from "react-router-dom";
+import DetailspageAgent from "./DetailspageAgent";
+import DeliveryDetailsCard from "./DeliveryDetailsCard";
+
+const TrackDelivery = ({ deliveryId, onBackClick }) => {
+  const navigate = useNavigate();
   return (
     <div className="fg-track-delivery-container">
-      
       <div className="fg-track-header">
         <div className="fg-track-title-block">
           <h2 className="fg-track-heading">Track Delivery</h2>
           <span className="fg-track-order-id">Order ID: TRN-001</span>
         </div>
-        <button className="fg-track-back-btn">Back to Dashboard</button>
+        <button
+          className="fg-track-back-btn"
+          onClick={() => {
+            if (onBackClick) {
+              onBackClick();
+            } else {
+              navigate("/agent/dashboard");
+            }
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          Back to Dashboard
+        </button>
       </div>
 
-      {/* <div className="fg-track-status-card">
-        <div className="fg-track-card-top">
-          <div className="fg-track-status-info">
-            <div className="fg-track-icon-circle">
-              <CarOutlined style={{ fontSize: "20px", color: "#ffffff" }} />
-            </div>
-            <div className="fg-track-status-text">
-              <span className="fg-status-title">In Transit</span>
-              <span className="fg-status-eta">ETA: 1 hour 30 minutes</span>
-            </div>
-          </div>
-          <div className="fg-track-percentage-block">
-            <span className="fg-track-percent-num">60%</span>
-            <span className="fg-track-percent-label">Complete</span>
-          </div>
+      {/* Weather Update Banner from image_8889ef.png */}
+      <div className="fg-weather-banner">
+        <div className="fg-weather-icon-wrapper">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#D97706"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+            <line x1="9.22" y1="16" x2="9.22" y2="20" />
+            <line x1="13.13" y1="16" x2="13.13" y2="20" />
+          </svg>
         </div>
-
-        <div className="fg-progress-bar-container">
-          <div className="fg-progress-bar-fill" style={{ width: "60%" }}></div>
+        <div className="fg-weather-content">
+          <h4 className="fg-weather-title">Weather Update</h4>
+          <p className="fg-weather-text">
+            Light rain expected along route. Driver has been notified.
+          </p>
         </div>
-      </div> */}
-
+      </div>
+      <DetailspageAgent deliveryId={deliveryId} onBackClick={onBackClick} />
+      <DeliveryDetailsCard deliveryId={deliveryId} />
     </div>
   );
 };

@@ -8,24 +8,12 @@ import TrackDeliveryTwo from "../TrackDeliveryTwo";
 const ActiveDeliveryPageComponets = () => {
   const [serverResponse, setServerResponse] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const [trackingId, setTrackingId] = useState(null);
 
-  if (trackingId) {
-    return (
-      <TrackDeliveryTwo
-        deliveryId={trackingId}
-        onBack={() => setTrackingId(null)}
-      />
-    );
-  }
-
-  console.log(serverResponse);
   const FetchActiveDeliveries = async () => {
     setLoading(true);
     try {
       const response = await apiInstance.get("/farmerDash/activeDeliveries");
-      // console.log(response);
       setServerResponse(response.data.data);
     } catch (error) {
       console.log(error);
@@ -37,6 +25,15 @@ const ActiveDeliveryPageComponets = () => {
   useEffect(() => {
     FetchActiveDeliveries();
   }, []);
+
+  if (trackingId) {
+    return (
+      <TrackDeliveryTwo
+        deliveryId={trackingId}
+        onBack={() => setTrackingId(null)}
+      />
+    );
+  }
 
   if (loading) {
     return (

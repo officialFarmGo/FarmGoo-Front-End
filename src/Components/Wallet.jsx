@@ -26,6 +26,8 @@ const Wallet = () => {
   const [withdrawStatus, setWithdrawStatus] = useState(null);
   const [showWithdrawSuccess, setShowWithdrawSuccess] = useState(false);
   const [withdrawSuccessMessage, setWithdrawSuccessMessage] = useState("");
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorModalMessage, setErrorModalMessage] = useState("");
 
   const bankOptions = [
     "Access Bank",
@@ -71,45 +73,44 @@ const Wallet = () => {
     }
   };
 
-  useEffect(() => {
+  const fetchWallet = async () => {
     if (!token) return;
+    const role = getUserRole();
 
-    const fetchWallet = async () => {
-      const role = getUserRole();
+    // Dynamically alternate endpoint URL based on role matching your official verified paths
+    const targetEndpoint =
+      role === "agent"
+        ? `${BaseUrl}/agentDashboard/agentWallet`
+        : `${BaseUrl}/farmerDash/farmerWallet`;
 
-      // Dynamically alternate endpoint URL based on role matching your official verified paths
-      const targetEndpoint =
-        role === "agent"
-          ? `${BaseUrl}/agentDashboard/agentWallet`
-          : `${BaseUrl}/farmerDash/farmerWallet`;
-
-      try {
-        setLoading(true);
-        const res = await fetch(targetEndpoint, {
-          headers: {
-            accept: "*/*",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
-        if (res.ok) {
-          setWalletData(data.data);
-        } else {
-          console.error(
-            "Wallet lookup error message returned from server:",
-            data.message,
-          );
-        }
-      } catch (err) {
+    try {
+      setLoading(true);
+      const res = await fetch(targetEndpoint, {
+        headers: {
+          accept: "*/*",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setWalletData(data.data);
+      } else {
         console.error(
-          "Network interface connection failure executing wallet sync:",
-          err,
+          "Wallet lookup error message returned from server:",
+          data.message,
         );
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (err) {
+      console.error(
+        "Network interface connection failure executing wallet sync:",
+        err,
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchWallet();
   }, [token, reduxRole, BaseUrl]);
 
@@ -121,6 +122,10 @@ const Wallet = () => {
 
   const handleCloseWithdrawSuccess = () => {
     setShowWithdrawSuccess(false);
+  };
+
+  const handleCloseErrorModal = () => {
+    setShowErrorModal(false);
   };
 
   const handleWithdraw = async () => {
@@ -157,6 +162,8 @@ const Wallet = () => {
       });
     } catch (err) {
       setWithdrawStatus({ type: "error", msg: err.message });
+      setErrorModalMessage(err.message);
+      setShowErrorModal(true);
     } finally {
       setWithdrawLoading(false);
     }
@@ -189,6 +196,8 @@ const Wallet = () => {
       setAddAmount("");
     } catch (err) {
       setAddStatus({ type: "error", msg: err.message });
+      setErrorModalMessage(err.message);
+      setShowErrorModal(true);
     } finally {
       setAddLoading(false);
     }
@@ -584,6 +593,40 @@ const Wallet = () => {
                 type="button"
                 className="fg-modal-btn"
                 onClick={handleCloseWithdrawSuccess}
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Error Modal Popup */}
+        {showErrorModal && (
+          <div className="fg-modal-overlay" onClick={handleCloseErrorModal}>
+            <div className="fg-modal-card animate-popup" style={{ borderTop: "4px solid #dc2626" }} onClick={(e) => e.stopPropagation()}>
+              <div className="fg-modal-icon-box">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#dc2626"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="15" y1="9" x2="9" y2="15" />
+                  <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+              </div>
+              <h2 className="fg-modal-title" style={{ color: "#dc2626" }}>Error</h2>
+              <p className="fg-modal-message">{errorModalMessage}</p>
+              <button
+                type="button"
+                className="fg-modal-btn"
+                style={{ backgroundColor: "#dc2626" }}
+                onClick={handleCloseErrorModal}
               >
                 OK
               </button>
