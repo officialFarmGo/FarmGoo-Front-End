@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import AgentDashBoardHeader from "../AgentDashBoardHeader";
@@ -9,6 +10,7 @@ import AgentAddFarmer from "../AgentAddFarmer";
 import AgentCreateRequest from "../AgentCreateRequest"; // Import the delivery creation component
 
 const AgentDashBoard = () => {
+  const navigate = useNavigate();
   const token = useSelector((state) => state.auth.token);
   const BaseUrl = import.meta.env.VITE_BaseUrl;
 
@@ -99,6 +101,10 @@ const AgentDashBoard = () => {
     setCurrentView("dashboard");
   };
 
+  const handleViewDeliveriesClick = () => {
+    navigate("/agent/dashboard/activedelivery");
+  };
+
   // Triggers when "Create Delivery" or "Create Request" is clicked on a Farmer profile card/row
   const handleCreateDeliveryClick = (farmerData) => {
     setSelectedFarmer(farmerData); // Stash the selected farmer data into state 
@@ -146,7 +152,7 @@ const AgentDashBoard = () => {
         <AgentCreateRequest 
           preselectedFarmer={selectedFarmer}
           onBackClick={() => setCurrentView("farmers")} // Take them back to list on exit
-          onViewDeliveriesClick={handleDeliveryCreatedSuccess}
+          onViewDeliveriesClick={() => navigate("/agent/dashboard/activedelivery")}
         />
       )}
 
@@ -160,7 +166,8 @@ const AgentDashBoard = () => {
           />
           <AgentQuickActions 
             onAddFarmer={handleAddFarmerClick} 
-            onCreateRequest={() => handleCreateDeliveryClick(null)} // Blank transport setup
+            onCreateDeliveryClick={() => handleCreateDeliveryClick(null)}
+            onViewDeliveries={handleViewDeliveriesClick}
           />
           <AgentRecentActivity activities={dashboardData.recentActivity} />
         </>

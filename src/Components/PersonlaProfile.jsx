@@ -13,18 +13,7 @@ const PersonlaProfile = () => {
         >
           Personal Info
         </button>
-        <button
-          className={`tab-btn ${activeTab === "vehicle" ? "active" : ""}`}
-          onClick={() => setActiveTab("vehicle")}
-        >
-          Vehicle Info
-        </button>
-        <button
-          className={`tab-btn ${activeTab === "documents" ? "active" : ""}`}
-          onClick={() => setActiveTab("documents")}
-        >
-          Documents
-        </button>
+        
       </div>
 
       {/* Main Form Box Wrapper */}

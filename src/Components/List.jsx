@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "../CSS/List.css";
 
 const List = () => {
+  const nav = useNavigate();
   const token = useSelector((state) => state.auth.token);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -32,7 +34,7 @@ const List = () => {
           <h2>Earnings</h2>
           <p>Track your income and payment history</p>
         </div>
-        <button className="withdraw-btn">
+        <button className="withdraw-btn" onClick={() => nav("../wallet")}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
             <polyline points="7 10 12 15 17 10" />

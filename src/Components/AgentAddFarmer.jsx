@@ -40,7 +40,7 @@ const AgentAddFarmer = ({ onBackClick, onFarmerAddedSuccessfully }) => {
       setLoading(true);
 
       const response = await axios.post(
-        `${BaseUrl}/agentDashboard/addFarmer`, 
+        `${BaseUrl}/agent/createAgentFarmer`, 
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -176,11 +176,7 @@ const MainWellet = () => {
       if (response.ok) {
         setWithdrawMessage({ type: "success", text: data.message || "Withdrawal initiated successfully!" });
         setWithdrawForm({ bankName: "", accountNumber: "", amount: "" });
-        setTimeout(() => {
-          setShowWithdrawModal(false);
-          setWithdrawMessage({ type: "", text: "" });
-          fetchWallet();
-        }, 2000);
+        setShowWithdrawModal(false);
       } else {
         setWithdrawMessage({ type: "error", text: data.message || "Withdrawal failed. Try again." });
       }
@@ -360,20 +356,6 @@ const MainWellet = () => {
               color: "#111b27"
             }}>Withdraw Funds</h2>
 
-            {withdrawMessage.text && (
-              <div style={{
-                padding: "12px",
-                borderRadius: "6px",
-                marginBottom: "16px",
-                fontSize: "14px",
-                fontWeight: "500",
-                backgroundColor: withdrawMessage.type === "success" ? "#ecfdf5" : "#fef2f2",
-                color: withdrawMessage.type === "success" ? "#065f46" : "#991b1b",
-                border: `1px solid ${withdrawMessage.type === "success" ? "#a7f3d0" : "#fca5a5"}`
-              }}>
-                {withdrawMessage.text}
-              </div>
-            )}
 
             <form onSubmit={handleWithdrawSubmit}>
               <div style={{ marginBottom: "20px" }}>
@@ -487,6 +469,151 @@ const MainWellet = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Success Pop-up Modal */}
+      {withdrawMessage.type === "success" && (
+        <div className="fg-modal-overlay" style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          zIndex: 10000,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          <div className="fg-modal-card animate-popup" style={{
+            backgroundColor: "#ffffff",
+            borderRadius: "16px",
+            maxWidth: "400px",
+            width: "90%",
+            padding: "36px 32px 28px",
+            textAlign: "center",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)"
+          }}>
+            <div className="fg-modal-icon-box" style={{
+              width: "64px",
+              height: "64px",
+              borderRadius: "50%",
+              backgroundColor: "#ecfdf5",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "0 auto 20px"
+            }}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h2 style={{
+              fontSize: "20px",
+              fontWeight: "700",
+              color: "#065f46",
+              margin: "0 0 8px 0"
+            }}>Withdrawal Successful!</h2>
+            <p style={{
+              fontSize: "14px",
+              color: "#6b7280",
+              margin: "0 0 24px 0",
+              lineHeight: "1.5"
+            }}>{withdrawMessage.text}</p>
+            <button
+              type="button"
+              onClick={() => {
+                setWithdrawMessage({ type: "", text: "" });
+                fetchWallet();
+              }}
+              style={{
+                backgroundColor: "#064e3b",
+                color: "#ffffff",
+                border: "none",
+                padding: "12px 32px",
+                borderRadius: "8px",
+                fontSize: "15px",
+                fontWeight: "600",
+                cursor: "pointer",
+                width: "100%"
+              }}
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Error Pop-up Modal */}
+      {withdrawMessage.type === "error" && (
+        <div className="fg-modal-overlay" style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          zIndex: 10000,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          <div className="fg-modal-card animate-popup" style={{
+            backgroundColor: "#ffffff",
+            borderRadius: "16px",
+            maxWidth: "400px",
+            width: "90%",
+            padding: "36px 32px 28px",
+            textAlign: "center",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)"
+          }}>
+            <div className="fg-modal-icon-box" style={{
+              width: "64px",
+              height: "64px",
+              borderRadius: "50%",
+              backgroundColor: "#fef2f2",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "0 auto 20px"
+            }}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+              </svg>
+            </div>
+            <h2 style={{
+              fontSize: "20px",
+              fontWeight: "700",
+              color: "#991b1b",
+              margin: "0 0 8px 0"
+            }}>Withdrawal Failed</h2>
+            <p style={{
+              fontSize: "14px",
+              color: "#6b7280",
+              margin: "0 0 24px 0",
+              lineHeight: "1.5"
+            }}>{withdrawMessage.text}</p>
+            <button
+              type="button"
+              onClick={() => setWithdrawMessage({ type: "", text: "" })}
+              style={{
+                backgroundColor: "#f3f4f6",
+                color: "#374151",
+                border: "none",
+                padding: "12px 32px",
+                borderRadius: "8px",
+                fontSize: "15px",
+                fontWeight: "600",
+                cursor: "pointer",
+                width: "100%"
+              }}
+            >
+              Try Again
+            </button>
           </div>
         </div>
       )}

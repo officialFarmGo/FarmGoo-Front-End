@@ -40,6 +40,7 @@ import WithdrawalSuccess from "./Components/WithdrawalSuccess";
 import PaymentVerification from "./Components/PaymentVerification";
 import PrivateRoute from "./Props/PrivateRoute";
 import WithdrawalPageSuccess from "./Components/WithdrawalPageSucess";
+import AgentHelp from "./Components/UI/AgentHelp";
 
 function App() {
   return (
@@ -75,13 +76,13 @@ function App() {
           />
         <Route element={<PrivateRoute allowedRoles={["agent"]} />}>
           <Route path="/agent/dashboard" element={<AgentDashboard />}>
-            <Route path="deposit-success" element={<WithdrawalPageSuccess />} />
+           <Route path="deposit-success" element={<WithdrawalSuccess />} />
             <Route path="" element={<AgentDashBoard />} />
             <Route path="wallet" element={<Wallet />} />
             <Route path="notification" element={<Notification />} />
             <Route path="settings" element={<AgentProfileSettings />} />
             <Route path="activedelivery" element={<AgentDashboardContent />} />
-            <Route path="help&support" element={<FarmerHelpAndSupport />} />
+            <Route path="help&support" element={<AgentHelp />} />
           </Route>
         </Route>
 

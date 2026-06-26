@@ -55,7 +55,14 @@ const AgentDashBoardHeader = ({ greeting, stats, onFarmersClick }) => {
           <span className="fg-card-stat-label">In Progress</span>
         </div>
 
-        <div className="fg-agent-stat-card">
+        <div 
+          className="fg-agent-stat-card fg-clickable-card" 
+          onClick={() => nav('/agent/dashboard/activedelivery')}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && nav('/agent/dashboard/activedelivery')}
+          style={{ cursor: "pointer" }}
+        >
           <div className="fg-card-top-header">
             <span className="fg-card-stat-label-top">Completed This Month</span>
             <CheckCircleOutlined style={{ fontSize: "18px", color: "#22c55e" }} />
@@ -66,7 +73,14 @@ const AgentDashBoardHeader = ({ greeting, stats, onFarmersClick }) => {
           </div>
         </div>
 
-        <div className="fg-agent-stat-card">
+        <div 
+          className="fg-agent-stat-card fg-clickable-card" 
+          onClick={() => nav('/agent/dashboard/wallet')}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && nav('/agent/dashboard/wallet')}
+          style={{ cursor: "pointer" }}
+        >
           <div className="fg-card-top-header">
             <span className="fg-card-stat-label-top">Total Spent</span>
             <ArrowUpOutlined style={{ fontSize: "16px", color: "#a855f7", transform: "rotate(45deg)" }} />
