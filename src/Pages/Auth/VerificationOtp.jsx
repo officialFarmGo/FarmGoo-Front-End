@@ -53,10 +53,6 @@ const VerificationOtp = () => {
           data.token || data.data?.token || data.accessToken || null;
         const resolvedUser = data.user || data.data?.user || data.data || null;
 
-        if (resolvedToken) {
-          localStorage.setItem("token", resolvedToken);
-        }
-
         dispatch(
           authActionSuccess({
             user: {

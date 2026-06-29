@@ -7,6 +7,7 @@ import {
   CheckCircle2,
   ArrowUpRight,
 } from "lucide-react";
+import { useSelector } from "react-redux";
 import "../CSS/MainWellet.css";
 import { FiBell } from "react-icons/fi";
 
@@ -24,6 +25,7 @@ const MainWellet = () => {
     amount: "",
   });
   const [withdrawMessage, setWithdrawMessage] = useState({ type: "", text: "" });
+  const token = useSelector((state) => state.auth.token);
 
   const bankCodes = {
     "Access Bank": "44",
@@ -97,7 +99,6 @@ const MainWellet = () => {
   const fetchWallet = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
       const response = await fetch(
         `${import.meta.env.VITE_BaseUrl}/driverDash/driverWallet`,
         {
@@ -154,9 +155,8 @@ const MainWellet = () => {
 
     try {
       setSubmittingWithdrawal(true);
-      const token = localStorage.getItem("token");
       
-      const response = await fetch("https://farmgoo-backend-1.onrender.com/api/v1/payment/withdraw", {
+      const response = await fetch(`${import.meta.env.VITE_BaseUrl}/payment/withdraw`, {
         method: "POST",
         headers: {
           "accept": "*/*",

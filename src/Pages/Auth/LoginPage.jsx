@@ -176,9 +176,6 @@ const LoginPage = () => {
 
       const data = response.data;
 
-      // store token and verify profile
-      localStorage.setItem("token", data.token);
-
       const verifiedProfile = await checkProfileVerification(
         data.token,
         activeRole,
