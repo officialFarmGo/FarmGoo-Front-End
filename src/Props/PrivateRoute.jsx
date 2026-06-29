@@ -6,7 +6,7 @@ const PrivateRoute = ({ allowedRoles }) => {
   const location = useLocation();
   
   const auth = useSelector((state) => state.auth || {});
-  const token = auth.token || localStorage.getItem("token");
+  const token = auth.token;
   const user = auth.user || null;
 
   if (!token) {

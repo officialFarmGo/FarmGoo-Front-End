@@ -59,10 +59,7 @@ const DashboardLayout = (props) => {
 
   // Secure and Complete Session Termination Flow
   const handleSystemLogout = () => {
-    // 1. Terminate browser cache storage tokens
-    localStorage.removeItem("token");
-
-    // 2. Clear Redux Store state variables to break PrivateRoute authentication conditionals
+    // Clear Redux Store state variables to break PrivateRoute authentication conditionals
     dispatch(
       authActionSuccess({
         user: null,
