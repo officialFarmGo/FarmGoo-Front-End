@@ -25,7 +25,7 @@ const SupportSection = () => {
               <FiMail className="fg-support-native-icon email-icon-clr" />
             </div>
             <h3 className="fg-support-card-label">Email Us</h3>
-            <p className="fg-support-card-detail">support@farmgoo.ng</p>
+            <p className="fg-support-card-detail">farmgooofficial@gmail.com</p>
             <button 
               type="button" 
               className="fg-support-action-trigger-btn"
@@ -41,7 +41,7 @@ const SupportSection = () => {
               <FiPhone className="fg-support-native-icon phone-icon-clr" />
             </div>
             <h3 className="fg-support-card-label">Call Us</h3>
-            <p className="fg-support-card-detail">0800-FARMGOO</p>
+            <p className="fg-support-card-detail">09078459013</p>
             <button 
               type="button" 
               className="fg-support-action-trigger-btn"

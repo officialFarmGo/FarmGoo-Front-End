@@ -231,6 +231,27 @@ const DriverActiveDelivery = () => {
             </div>
           </div>
 
+
+
+           <div className="fg-delivery-panel-card" style={{ border: "1px solid #dcfce7", backgroundColor: "#f0fdf4" }}>
+            <h3 className="fg-panel-section-title" style={{ marginBottom: "16px" }}>Payment Status</h3>
+            <div className="fg-escrow-breakdown-table">
+              <div className="fg-escrow-data-row">
+                <span className="fg-escrow-row-label">Escrow Status</span>
+                <span className="fg-escrow-row-value status-secured">Secured</span>
+              </div>
+              <div className="fg-escrow-data-row total-line">
+                <span className="fg-escrow-row-label bold">Amount</span>
+                <span className="fg-escrow-row-value bold-total">
+                  ₦{Number(delivery.totalFare ?? 0).toLocaleString()}
+                </span>
+              </div>
+            </div>
+            <p className="fg-escrow-disclaimer-text">
+              Payment will be released automatically upon successful delivery confirmation
+            </p>
+          </div>
+
         </div>
 
         <div className="fg-delivery-secondary-column">
@@ -301,7 +322,7 @@ const DriverActiveDelivery = () => {
           </div>
 
           <div className="fg-delivery-panel-card">
-            <h3 className="fg-panel-section-title" style={{ marginBottom: "16px" }}>Contact Owner</h3>
+            <h3 className="fg-panel-section-title" style={{ marginBottom: "16px" }}>{delivery.source.toUpperCase().slice(0, 1) + delivery.source.slice(1)}  Details</h3>
             <div className="fg-contact-card-profile-row">
               <div className="fg-contact-avatar-circle">
                 {initials(delivery.ownerName)}
@@ -313,24 +334,27 @@ const DriverActiveDelivery = () => {
             </div>
           </div>
 
-          <div className="fg-delivery-panel-card" style={{ border: "1px solid #dcfce7", backgroundColor: "#f0fdf4" }}>
-            <h3 className="fg-panel-section-title" style={{ marginBottom: "16px" }}>Payment Status</h3>
-            <div className="fg-escrow-breakdown-table">
-              <div className="fg-escrow-data-row">
-                <span className="fg-escrow-row-label">Escrow Status</span>
-                <span className="fg-escrow-row-value status-secured">Secured</span>
+
+
+            <div className="fg-delivery-panel-card">
+            <h3 className="fg-panel-section-title" style={{ marginBottom: "16px" }}>{delivery.source.toUpperCase().slice(0, 1) + delivery.source.slice(1)}  Customer Details</h3>
+            <div className="fg-contact-card-profile-row">
+              <div className="fg-contact-avatar-circle">
+                {initials(delivery.customersName)}
               </div>
-              <div className="fg-escrow-data-row total-line">
-                <span className="fg-escrow-row-label bold">Amount</span>
-                <span className="fg-escrow-row-value bold-total">
-                  ₦{Number(delivery.totalFare ?? 0).toLocaleString()}
-                </span>
+              <div className="fg-contact-meta-info">
+                <h4 className="fg-contact-display-name">{delivery.customersName}</h4>
+                <p className="fg-contact-phone-digits">{delivery.customersPhoneNumber||delivery.customersDetails}</p>
+                  <p className="fg-contact-phone-digits">{delivery.CustomersOtherNumber}</p>
               </div>
             </div>
-            <p className="fg-escrow-disclaimer-text">
-              Payment will be released automatically upon successful delivery confirmation
-            </p>
           </div>
+
+
+
+      
+
+         
 
         </div>
 

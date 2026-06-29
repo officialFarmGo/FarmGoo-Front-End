@@ -50,25 +50,35 @@ const Notification = () => {
   const [loading, setLoading] = useState(true);
 
   const getUserRole = () => {
-    if (reduxRole) return reduxRole.toLowerCase();
-    if (!token) return "farmer";
-    try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(
-        window.atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
-      );
-      return JSON.parse(jsonPayload).role?.toLowerCase() || "farmer";
-    } catch (e) {
-      return "farmer";
+    // Always decode the JWT token first — it's the authoritative source of the user's role
+    if (token) {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(
+          window.atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+        );
+        const jwtRole = JSON.parse(jsonPayload).role?.toLowerCase();
+        if (jwtRole) return jwtRole;
+      } catch (e) {
+        // fall through to reduxRole fallback
+      }
     }
+    // Fallback to Redux state if JWT decoding fails
+    if (reduxRole) return reduxRole.toLowerCase();
+    return "farmer";
   };
 
   const fetchNotifications = async () => {
     const role = getUserRole();
-    const targetEndpoint = role === "agent"
-        ? `${BaseUrl}/notifications/agentNotification`
-        : `${BaseUrl}/notifications/farmerNotification`;
+    let targetEndpoint;
+    if (role === "agent") {
+      targetEndpoint = `${BaseUrl}/notifications/agentNotification`;
+    } else if (role === "driver") {
+      targetEndpoint = `${BaseUrl}/notifications/getDriversNotification`;
+    } else {
+      targetEndpoint = `${BaseUrl}/notifications/farmerNotification`;
+    }
 
     try {
       setLoading(true);

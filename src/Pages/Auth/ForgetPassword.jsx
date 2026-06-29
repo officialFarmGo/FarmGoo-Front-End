@@ -57,8 +57,13 @@ const ForgetPassword = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccessMessage(data.message || "Reset instructions sent successfully!");
-        setIdentifier("");
+        // Navigate to OTP verification page with email and role
+        navigate("/forgot-password-otp", {
+          state: {
+            email: cleanIdentifier,
+            role: activeRole,
+          },
+        });
       } else {
         setError(data.message || "Failed to send reset instructions. Check your credentials.");
       }

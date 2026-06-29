@@ -28,6 +28,7 @@ import EarningsDrivers from "./Components/UI/EarningsDrivers";
 import Profile from "./Components/UI/Profile";
 import AgentProfileSettings from "./Components/AgentProfilesetting";
 import ForgetPassword from "./Pages/Auth/ForgetPassword";
+import ForgetPassworld from "./Pages/Auth/ForgetPassworld";
 import DriverKycVerification from "./Components/DriverKycVerification";
 import VerificationPending from "./Components/VerificationPending";
 import ApprovedDoc from "./Components/ApprovedDoc";
@@ -53,6 +54,8 @@ function App() {
         <Route path="/chooseDash" element={<Info />} />
         <Route path="/success" element={<SuccessFullVerification />} />
         <Route path="/forgot-password" element={<ForgetPassword />} />
+        <Route path="/forgot-password-otp" element={<ForgetPassworld />} />
+       
 
           <Route path="/farmer_kyc/:farmId" element={<FarmerProfile />} />
         <Route element={<PrivateRoute allowedRoles={["farmer"]} />}>
@@ -102,6 +105,7 @@ function App() {
             <Route path="" element={<DriverDashboardView />} />
             <Route path="activedelivery" element={<DriverActiveDeliveries />} />
             <Route path="wallet" element={<DriverWellet />} />
+            <Route path="notification" element={<Notification />} />
             <Route path="jobss" element={<Transport />} />
             <Route path="earnings" element={<EarningsDrivers />} />
             <Route path="profile" element={<Profile />} />

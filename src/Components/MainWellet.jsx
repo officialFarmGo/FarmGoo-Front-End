@@ -8,6 +8,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "../CSS/MainWellet.css";
 import { FiBell } from "react-icons/fi";
 
@@ -26,6 +27,7 @@ const MainWellet = () => {
   });
   const [withdrawMessage, setWithdrawMessage] = useState({ type: "", text: "" });
   const token = useSelector((state) => state.auth.token);
+  const nav = useNavigate();
 
   const bankCodes = {
     "Access Bank": "44",
@@ -195,7 +197,7 @@ const MainWellet = () => {
       <div className="main-wellet-container">
         <div className="fg-deliv-header-row">
           <h1 className="fg-deliv-main-title">Wallet</h1>
-          <div className="fg-deliv-notif-box">
+          <div className="fg-deliv-notif-box" onClick={() => nav("notification")} style={{ cursor: "pointer" }}>
             <div className="fg-deliv-notif-dot"></div>
             <FiBell size={24} />
           </div>

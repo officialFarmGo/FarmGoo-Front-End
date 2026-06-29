@@ -82,7 +82,7 @@ const DriverActiveDeliveries = () => {
     <div className="fg-deliv-page-wrapper">
       <div className="fg-deliv-header-row">
         <h1 className="fg-deliv-main-title">Active Deliveries</h1>
-        <div className="fg-deliv-notif-box">
+        <div className="fg-deliv-notif-box" onClick={() => nav("notification")} style={{ cursor: "pointer" }}>
           <div className="fg-deliv-notif-dot"></div>
           <FiBell size={24} />
         </div>
@@ -114,15 +114,6 @@ const DriverActiveDeliveries = () => {
           </div>
         </div>
 
-        <div className="fg-deliv-stat-card">
-          <div className="fg-deliv-icon-wrapper orange-bg">
-            <FiClock />
-          </div>
-          <div className="fg-deliv-stat-info">
-            <span className="fg-deliv-stat-num">{loading ? '—' : stats.avgETA}</span>
-            <span className="fg-deliv-stat-label">Avg. ETA</span>
-          </div>
-        </div>
       </div>
 
       <div className="fg-deliv-filter-bar">
@@ -223,18 +214,9 @@ const DriverActiveDeliveries = () => {
                   {/*  */}
                 </div>
 
-                <div className="fg-deliv-progress-section">
-                  <div className="fg-deliv-progress-labels">
-                    <span>Delivery Progress</span>
-                    <span>{progressPercent(d.status)}%</span>
-                  </div>
-                  <div className="fg-deliv-progress-bar">
-                    <div
-                      className="fg-deliv-progress-fill"
-                      style={{ width: `${progressPercent(d.status)}%` }}
-                    />
-                  </div>
-                </div>
+
+                
+
 
                 <div className="fg-deliv-escrow-row">
                   <FiShield />

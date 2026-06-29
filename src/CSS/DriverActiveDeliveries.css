@@ -71,6 +71,12 @@
   margin-bottom: 32px;
 }
 
+@media (max-width: 900px) {
+  .fg-deliv-header-row {
+    display: none !important;
+  }
+}
+
 @media (max-width: 767px) {
   .fg-deliv-stats-grid {
     flex-direction: column;

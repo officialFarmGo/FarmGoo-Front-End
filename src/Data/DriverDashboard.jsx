@@ -7,6 +7,7 @@ import {
   DollarOutlined,
   UserOutlined,
   HomeOutlined,
+  BellOutlined,
 } from "@ant-design/icons";
 import DashboardLayout from "../Components/DashboardLayout";
 
@@ -36,6 +37,11 @@ export const driverDesktopMenuItems = [
     label: "Earnings",
     icon: <DollarOutlined style={{ fontSize: "20px" }} />,
   },
+  // {
+  //   path: "notification",
+  //   label: "Notification",
+  //   icon: <BellOutlined style={{ fontSize: "20px" }} />,
+  // },
   {
     path: "profile",
     label: "Profile",
@@ -51,12 +57,12 @@ export const driverMobileMenuItems = [
   },
   {
     path: "jobss",
-    label: " Jobs",
+    label: "Jobs",
     icon: <CarryOutOutlined style={{ fontSize: "22px" }} />,
   },
   {
     path: "activedelivery",
-    label: " Deliveries",
+    label: "Deliveries",
     icon: <EnvironmentOutlined style={{ fontSize: "22px" }} />,
   },
   {
@@ -65,7 +71,7 @@ export const driverMobileMenuItems = [
     icon: <WalletOutlined style={{ fontSize: "22px" }} />,
   },
   {
-    path: "",
+    path: "profile",
     label: "Profile",
     icon: <UserOutlined style={{ fontSize: "22px" }} />,
   },

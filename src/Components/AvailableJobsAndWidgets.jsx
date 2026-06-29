@@ -151,7 +151,7 @@ const AvailableJobsAndWidgets = () => {
             </div>
           </div>
           <span className="fg-widget-growth-indicator">
-            {deliveryStats ? `${deliveryStats.active} active • Avg ETA ${deliveryStats.avgETA}` : "Loading..."}
+            {deliveryStats ? `${deliveryStats.active} active • ` : "Loading..."}
           </span>
         </div>
 
@@ -167,7 +167,7 @@ const AvailableJobsAndWidgets = () => {
               </span>
             </div>
           </div>
-          <button className="fg-widget-action-btn" onClick={() => nav("/driver/wallet")}>
+          <button className="fg-widget-action-btn" onClick={() => nav("wallet")}>
             Manage Wallet
           </button>
         </div>

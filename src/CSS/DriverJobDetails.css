@@ -445,3 +445,150 @@
   color: #64748b;
   font-weight: 500;
 }
+
+/* ── Success Popup Overlay ──────────────────────────────────────────────── */
+.fg-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fgFadeIn 0.25s ease;
+}
+
+.fg-popup-modal {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px 36px 32px;
+  width: 90%;
+  max-width: 420px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  animation: fgSlideUp 0.3s ease;
+}
+
+.fg-popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.fg-popup-close:hover {
+  background: #e2e8f0;
+}
+
+.fg-popup-icon-wrapper {
+  margin-bottom: 20px;
+}
+
+.fg-popup-icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.fg-popup-modal.accepted .fg-popup-icon-circle {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.fg-popup-modal.rejected .fg-popup-icon-circle {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.fg-popup-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 12px 0;
+}
+
+.fg-popup-desc {
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+.fg-popup-details {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fg-popup-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.fg-popup-detail-label {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.fg-popup-detail-value {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.fg-popup-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.fg-popup-modal.accepted .fg-popup-btn {
+  background: #064e3b;
+  color: #ffffff;
+}
+
+.fg-popup-modal.rejected .fg-popup-btn {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.fg-popup-btn:hover {
+  opacity: 0.9;
+}
+
+@keyframes fgFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fgSlideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
