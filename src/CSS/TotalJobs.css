@@ -268,8 +268,10 @@
 
  
 }
- .fg-deliv-header-row{
-  display: none;
+@media (max-width: 900px) {
+  .fg-deliv-header-row {
+    display: none !important;
+  }
 }
 
 .tj-payout-box {

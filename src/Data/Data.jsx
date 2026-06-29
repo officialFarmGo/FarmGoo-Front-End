@@ -27,12 +27,12 @@ export const desktopMenuItems = [
     icon: <EnvironmentOutlined style={{ fontSize: "20px" }} />,
   },
   {
-    path: "wallet ",
+    path: "wallet",
     label: "Wallet",
     icon: <WalletOutlined style={{ fontSize: "20px" }} />,
   },
   {
-    path: "notification ",
+    path: "notification",
     label: "Notification",
     icon: <BellOutlined style={{ fontSize: "20px" }} />,
   },
@@ -51,7 +51,7 @@ export const desktopMenuItems = [
 // Mobile bottom tab navigation items
 export const mobileMenuItems = [
   {
-    path: " ",
+    path: "",
     label: "Home",
     icon: <HomeOutlined style={{ fontSize: "22px" }} />,
   },

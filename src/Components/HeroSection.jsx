@@ -31,7 +31,9 @@ const HeroSection = () => {
                 onClick={() => nav("/chooseDash")}
                 icon={<FaArrowRight />}
               />
-              <Buttons text="See how it works" className="hero-button-two" />
+              <Buttons text="See how it works"
+               onClick={() => nav("/chooseDash")} 
+              className="hero-button-two" />
             </div>
 
             <section className="input-text-two">

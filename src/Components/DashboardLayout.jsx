@@ -51,9 +51,16 @@ const DashboardLayout = (props) => {
 
   // Helper to grab current route title for mobile header
   const getCurrentRouteTitle = () => {
+    const currentSegment = location.pathname.split("/").filter(Boolean).pop() || "";
     const currentItem =
-      props.mobileMenuItems.find((item) => item.path === location.pathname) ||
-      props.desktopMenuItems.find((item) => item.path === location.pathname);
+      props.mobileMenuItems.find((item) => {
+        const itemPath = item.path.replace(/\/+$/, "");
+        return itemPath === currentSegment || (!itemPath && currentSegment === "dashboard");
+      }) ||
+      props.desktopMenuItems.find((item) => {
+        const itemPath = item.path.replace(/\/+$/, "");
+        return itemPath === currentSegment || (!itemPath && currentSegment === "dashboard");
+      });
     return currentItem ? currentItem.label : "Dashboard";
   };
 
@@ -276,7 +283,9 @@ const DashboardLayout = (props) => {
       {/* TAB BAR - MOBILE BOTTOM NAVIGATION */}
       <nav className="fg-mobile-tab-bar">
         {props.mobileMenuItems.map((item) => {
-          const isActive = location.pathname === item.path;
+          const currentSegment = location.pathname.split("/").filter(Boolean).pop() || "";
+          const itemPath = item.path.replace(/\/+$/, "");
+          const isActive = itemPath === currentSegment || (!itemPath && currentSegment === "dashboard");
           return (
             <Link
               key={item.path}

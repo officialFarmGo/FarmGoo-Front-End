@@ -71,7 +71,7 @@ const ActiveDeliveries = ({ onTrack }) => {
             <div className="delivery-info-box" key={delivery._id || index}>
               <div className="delivery-top-details">
                 <div className="item-badge-group">
-                  <span className="item-name">{delivery.produce}</span>
+                  <span className="item-name">{delivery.productType}</span>
                   <span className="status-badge">{delivery.status}</span>
                 </div>
                 <span className="item-weight">{delivery.quantity}Kg</span>

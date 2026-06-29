@@ -1,7 +1,21 @@
 import React, { useState } from "react";
 import "../CSS/PersonlaProfile.css";
-const PersonlaProfile = () => {
+
+const PersonlaProfile = ({ profileData }) => {
   const [activeTab, setActiveTab] = useState("personal");
+
+  if (!profileData) {
+    return (
+      <div className="personal-profile-container">
+        <div className="settings-tabs">
+          <button className="tab-btn active">Personal Info</button>
+        </div>
+        <div className="form-card">
+          <p style={{ color: "#94a3b8" }}>No profile data available</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="personal-profile-container">
@@ -13,7 +27,6 @@ const PersonlaProfile = () => {
         >
           Personal Info
         </button>
-        
       </div>
 
       {/* Main Form Box Wrapper */}
@@ -25,11 +38,19 @@ const PersonlaProfile = () => {
           <div className="form-row text-inputs-split">
             <div className="input-group">
               <label>First Name</label>
-              <input type="text" defaultValue="Adebayo" readOnly />
+              <input
+                type="text"
+                defaultValue={profileData.firstName || ""}
+                readOnly
+              />
             </div>
             <div className="input-group">
               <label>Last Name</label>
-              <input type="text" defaultValue="Balogun" readOnly />
+              <input
+                type="text"
+                defaultValue={profileData.lastName || ""}
+                readOnly
+              />
             </div>
           </div>
 
@@ -39,51 +60,67 @@ const PersonlaProfile = () => {
               <label>Email Address</label>
               <input
                 type="email"
-                defaultValue="adebayo.balogun@email.com"
+                defaultValue={profileData.email || ""}
                 readOnly
               />
             </div>
           </div>
 
           {/* Row 3: Phone Number with Action Button */}
-          <div className="form-row">
+          {/* <div className="form-row">
             <div className="input-group">
               <label>Phone Number</label>
               <div className="phone-input-wrapper">
-                <input type="text" defaultValue="+234 803 456 7890" readOnly />
+                <input
+                  type="text"
+                  defaultValue={profileData.phoneNumber || ""}
+                  readOnly
+                />
                 <button type="button" className="inline-change-btn">
                   Change
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          {/* Row 4: Address */}
+          {/* Row 4: Town/Village */}
           <div className="form-row">
             <div className="input-group">
-              <label>Address</label>
+              <label>Town / Village</label>
               <input
                 type="text"
-                defaultValue="45 Admiralty Way, Lekki, Lagos"
+                defaultValue={profileData.townOrVillage || ""}
                 readOnly
               />
             </div>
           </div>
 
-          {/* Row 5: City */}
+          {/* Row 5: Member Since */}
           <div className="form-row">
             <div className="input-group size-half">
-              <label>City</label>
-              <input type="text" defaultValue="Lagos" readOnly />
+              <label>Member Since</label>
+              <input
+                type="text"
+                defaultValue={
+                  profileData.createdAt
+                    ? new Date(profileData.createdAt).toLocaleDateString("en-US", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      })
+                    : ""
+                }
+                readOnly
+              />
             </div>
           </div>
 
-          {/* Row 6: Submit Button */}
+          {/* Row 6: Submit Button
           <div className="form-action-row">
             <button type="submit" className="save-changes-btn">
               Save Changes
             </button>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>

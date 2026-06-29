@@ -44,15 +44,14 @@ const NotFound = () => {
 
           <h2>Looks like this field is empty</h2>
           <p>
-            The page you were looking for has wandered off — probably somewhere
-            between the furrows. Let's get you back to the harvest.
+            This page  doesn't exist .
           </p>
 
           <div className="fg-404-actions">
             <button type="button" className="fg-404-primary-btn" onClick={handleGoHome}>
               <HiOutlineArrowLeft /> {homeLabel}
             </button>
-            <button type="button" className="fg-404-outline-btn" onClick={() => nav("/")}>
+            <button type="button" className="fg-404-outline-btn" onClick={handleGoHome}>
               Explore FarmGoo
             </button>
           </div>

@@ -53,6 +53,12 @@
   border-radius: 8px;
 }
 
+@media (max-width: 900px) {
+  .fg-deliv-header-row {
+    display: none !important;
+  }
+}
+
 @media (max-width: 640px) {
   .fg-welcome-container {
     padding: 20px;

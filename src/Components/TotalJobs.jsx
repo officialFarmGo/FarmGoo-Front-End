@@ -97,7 +97,7 @@ const TransportJob = () => {
     <div className="transport-job-container">
       <div className="fg-deliv-header-row">
         <h1 className="fg-deliv-main-title">Available Jobs</h1>
-        <div className="fg-deliv-notif-box">
+        <div className="fg-deliv-notif-box" onClick={() => nav("notification")} style={{ cursor: "pointer" }}>
           <div className="fg-deliv-notif-dot"></div>
           <FiBell size={24} />
         </div>
@@ -177,7 +177,7 @@ const TransportJob = () => {
 
       {!loading && !error && filtered.length === 0 && (
         <div className="tj-state-box">
-          <p>Complete delivery details to see available jobs.</p>
+          <p>Complete outstanding delivery to see available jobs.</p>
         </div>
       )}
 
@@ -272,7 +272,7 @@ const TransportJob = () => {
                   >
                     View Details
                   </button>
-                  <button className="tj-btn-secondary">Save For Later</button>
+                 
                 </div>
               </div>
             </div>

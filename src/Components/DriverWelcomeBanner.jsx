@@ -21,7 +21,7 @@ const DriverWelcomeBanner = () => {
 
      <div className="fg-deliv-header-row">
             <h1 className="fg-deliv-main-title">DashBoard</h1>
-            <div className="fg-deliv-notif-box">
+            <div className="fg-deliv-notif-box" onClick={() => nav("notification")} style={{ cursor: "pointer" }}>
               <div className="fg-deliv-notif-dot"></div>
               <FiBell size={24} />
             </div>
@@ -30,7 +30,7 @@ const DriverWelcomeBanner = () => {
 
       
       <div className="fg-welcome-content">
-        <h1 className="fg-welcome-heading">{getGreeting()}, {firstName}! 👋</h1>
+        <h1 className="fg-welcome-heading">{getGreeting()}, {firstName.toUpperCase()}! 👋</h1>
         <div className="fg-welcome-actions">
           <button className="fg-welcome-btn btn-primary" onClick={() =>nav('jobss')}>View Available Jobs</button>
           <button className="fg-welcome-btn btn-secondary" onClick={() =>nav('earnings')}>Withdraw Earnings</button>
