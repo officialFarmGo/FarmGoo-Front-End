@@ -228,12 +228,12 @@ const DriverActiveDeliveries = () => {
                 <div className="fg-deliv-payment-box">
                   <span className="fg-deliv-pay-label">Payment</span>
                   <span className="fg-deliv-pay-amount">
-                    ₦{Number(d.totalFare ?? d.amount ?? 0).toLocaleString()}
+                    ₦{(d.earnedRaw ?? d.totalFare ?? 0).toLocaleString()}
                   </span>
                 </div>
                 <button className="fg-deliv-track-btn">
                   <FiMapPin />
-                  <span onClick={()=>nav(`/trackdelivery/${d._id}`, { state: { delivery: d } })}>Track Delivery</span>
+                  <span onClick={()=>nav(`/trackdelivery/${d._id}`, { state: { delivery: d } })}>Check Details</span>
                 </button>
               </div>
             </div>

@@ -1,9 +1,48 @@
-import React from 'react';
-import { FiMail, FiPhone, FiCompass, FiTwitter, FiLinkedin, FiFacebook } from 'react-icons/fi';
+import React, { useState } from 'react';
+import { FiMail, FiPhone, FiTwitter, FiLinkedin, FiFacebook, FiSend, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import '../CSS/ContactUs.css';
-import { main } from 'framer-motion/client';
+import { apiInstance } from '../Api/Api';
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    message: '',
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      await apiInstance.post('/contact', {
+        name: formData.name,
+        phone: formData.phone,
+        message: formData.message,
+      });
+      setSuccess(true);
+      setFormData({ name: '', phone: '', message: '' });
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+        err.message ||
+        'Failed to send message. Please try again.'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className='main-contactus'>
     <section className="contact-section">
@@ -24,7 +63,7 @@ const ContactUs = () => {
               </div>
               <div className="info-card-text">
                 <span className="info-label">Email Address</span>
-                <span className="info-value">support@farmgoo.ng</span>
+                <span className="info-value">farmgooofficial@gmail.com</span>
               </div>
             </div>
 
@@ -33,7 +72,7 @@ const ContactUs = () => {
                 <FiPhone size={20} color="var(--primary-green)" />
               </div>
               <div className="info-card-text">
-                <span className="info-label">Email Address</span>
+                <span className="info-label">Phone Number</span>
                 <span className="info-value">+2346585787745</span>
               </div>
             </div>
@@ -63,40 +102,71 @@ const ContactUs = () => {
         </div>
 
         <div className="contact-form-column">
-          <form className="message-form" onSubmit={(e) => e.preventDefault()}>
-            <h2>Send us a message</h2>
-            
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input 
-                type="text" 
-                id="name" 
-                defaultValue="Tuarirabu Alee" 
-                required 
-              />
+          {success ? (
+            <div className="contact-success-message">
+              <FiCheckCircle size={48} color="var(--primary-green)" />
+              <h3>Message Sent!</h3>
+              <p>Thank you for reaching out. We will get back to you shortly.</p>
+              <button 
+                className="submit-btn" 
+                onClick={() => setSuccess(false)}
+                style={{ marginTop: '16px' }}
+              >
+                Send another message
+              </button>
             </div>
+          ) : (
+            <form className="message-form" onSubmit={handleSubmit}>
+              <h2>Send us a message</h2>
+              
+              {error && (
+                <div className="contact-form-error">
+                  <FiAlertCircle size={18} />
+                  <span>{error}</span>
+                </div>
+              )}
 
-            <div className="form-group">
-              <label htmlFor="phone">Phone number</label>
-              <input 
-                type="text" 
-                id="phone" 
-                defaultValue="+264 650 000 0000" 
-                required 
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Your name"
+                  required 
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="message">How can we help?</label>
-              <textarea 
-                id="message" 
-                placeholder="Your content needs to be atleast 100 words, this is where you leave and needs."
-                required
-              ></textarea>
-            </div>
+              <div className="form-group">
+                <label htmlFor="phone">Phone number</label>
+                <input 
+                  type="text" 
+                  id="phone" 
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="Your phone number"
+                  required 
+                />
+              </div>
 
-            <button type="submit" className="submit-btn">Send message</button>
-          </form>
+              <div className="form-group">
+                <label htmlFor="message">How can we help?</label>
+                <textarea 
+                  id="message" 
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Your content needs to be atleast 100 words, this is where you leave and needs."
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" className="submit-btn" disabled={loading}>
+                {loading ? 'Sending...' : 'Send message'}
+                {!loading && <FiSend style={{ marginLeft: '8px' }} />}
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </section>
